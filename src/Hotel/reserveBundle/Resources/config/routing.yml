@@ -1,0 +1,18 @@
+hotelreserve_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: HotelreserveBundle:Default:index }
+main:
+    pattern:  /main
+    defaults: { _controller: HotelreserveBundle:Default:main }
+login:
+    pattern:  /login
+    defaults: { _controller: HotelreserveBundle:Default:login }
+admin:
+    resource: "@HotelreserveBundle/Resources/config/admin.yml"
+    prefix:   /
+hoteldar:
+    resource: "@HotelreserveBundle/Resources/config/hoteldar.yml"
+    prefix:   /
+reserve:
+    resource: "@HotelreserveBundle/Resources/config/reserve.yml"
+    prefix:   /

@@ -1,0 +1,15 @@
+information:
+    resource: "@HotelreserveBundle/Resources/config/admin/information.yml"
+    prefix:   /
+admin:
+    pattern:  /admin
+    defaults: { _controller: HotelreserveBundle:Admin:admin }
+home_page:
+    pattern:  /home
+    defaults: { _controller: HotelreserveBundle:Admin:home }
+def_hotel:
+    pattern:  /addhotel
+    defaults: { _controller: HotelreserveBundle:Admin:addhotel }
+def_room:
+    pattern:  /addroom
+    defaults: { _controller: HotelreserveBundle:Admin:addroom }

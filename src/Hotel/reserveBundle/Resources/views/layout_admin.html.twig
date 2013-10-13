@@ -1,0 +1,233 @@
+{% extends 'HotelreserveBundle::main.html.twig' %}
+{% block stylesheet %}
+    <link href="{{ asset('bundles/assets/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"
+          xmlns="http://www.w3.org/1999/html"/>
+    <link href="{{ asset('bundles/assets/css/menu1.css')}}" media="all" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/assets/css/style.css')}}" media="all" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/assets/js/menu1.js')}}" type="text/javascript"></script>
+{% endblock %}
+{% block body %}
+    <div class="container">
+    {% block header %}
+        <div class="container" style=" margin-top: 60px;">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="navbar " >
+                        <div class="">
+                            <ul class = "menu1" style = "margin-bottom : 0px;">
+                                <li><a href = "home">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
+                                <li class = "dropdown"><a href = "#"> &nbsp&nbsp&nbsp&nbspمدیریت تعریف هتل و اتاق&nbsp</a>
+                                    <ul>
+                                        <li><a href = "addhotel"><span>مدیریت تعریف هتل ها</span></a></li>
+                                        <li><a href = "addroom"><span>مدیریت تعریف اتاق ها</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
+                                    <ul>
+                                        <li><a><span style="padding-left: 42px;">وضعیت رزرو اتاق ها</span></a></li>
+                                        <li><a><span>مانیتورینگ وضعیت اتاق ها</span></a></li>
+                                    </ul>
+                                </li>
+
+                                <li class = "dropdown"><a>&nbsp &nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbspمدیریت یوزر پنل ها&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp</a>
+                                    <ul>
+                                        <li style="padding-left: 165px;"><a>ایجاد یوزرها</a></li>
+                                        <li><a>ویرایش رمز عبوروتعیین سطح دسترسی</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
+                                <li class = "dropdown"><a href = "#">&nbsp&nbsp&nbspحسابداری</a>
+                                    <ul>
+                                        <li style="padding-left: 63px;"><a><span>حساب هتلدار</span></a></li>
+                                        <li style="padding-left: 63px;"><a><span>حساب آژانس</span></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
+                                <li class = "login_form"><a href = "#"><img src = "{{ asset('bundles/assets/img/login_icon.png') }}"></a>
+                                    <form>
+                                        <ul>
+                                            <li>User Login</li>
+                                            <li><input placeholder = "Username"></li>
+                                            <li><input type = "password" placeholder = "Password"></li>
+                                            <li><button>Login</button></li>
+                                        </ul>
+                                    </form>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="container-fluid" style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;" >
+    <div class="row-fluid">
+    <div class="span12">
+        <section class="container"  style="width: 95%; margin-top: 20px;">
+            <div class="span12">
+                <ul class="nav nav-tabs" style="margin-bottom: 0px" >
+                    <li class="" style="float: right; padding-right: 0px;">
+                        <a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> مشاهده لیست هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a>
+                    </li>
+                    <li style="float: right; padding-right: 200px;"><a href="#"><p  class="verysmall coloredbottomhr nobreak"><strong> ایجاد هتل جدید</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
+                    <li style="float: right; padding-right: 181px;"><a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> ویرایش هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
+                </ul>
+                <tr>
+                    <div class="progress" style="height: 5px;">
+                        <div class="bar bar-success" style="width: 44%; float: right;"></div>
+                        <div class="bar bar-warning" style="width: 37%; float: right;"></div>
+                        <div class="bar bar-danger" style="width: 19%; float: right;"></div>
+                    </div>
+                </tr>
+            </div>
+        </section>
+    {% block content %}
+                    <p>a</p>
+        </section>
+        <section><h2 style="text-align: center">Hello Di</h2></section>
+                    <p>a</p>
+    {% endblock %}
+    </div>
+    </div></div>
+    {% block footer %}
+        <footer id="footer" style="border-radius: 9px 9px 0px 0px;">
+            <div class="row credits" style="border-style: none;">
+                <div class="span12">
+                    <div class="row social" >
+                        <div class="span12">
+                            <div class="span8" >
+                                <a href="http://www.facebook.com/pages/Pandr-Web-Design-Development/218895508144583" class="facebook">
+                                    <span class="socialicons ico1"></span>
+                                    <span class="socialicons_h ico1h"></span>
+                                </a>
+                                <a href="http://twitter.com/wearepandr" class="twitter">
+                                    <span class="socialicons ico2"></span>
+                                    <span class="socialicons_h ico2h"></span>
+                                </a>
+                                <a href="http://dribbble.com/PANDR" class="dribbble">
+                                    <span class="socialicons ico3"></span>
+                                    <span class="socialicons_h ico3h"></span>
+                                </a>
+                                <a href="http://www.last.fm/user/pandrmusic" class="last">
+                                    <span class="socialicons ico4"></span>
+                                    <span class="socialicons_h ico4h"></span>
+                                </a>
+                                <a href="http://gowalla.com/users/PANDRWebDesignAndDevelopment" class="gowalla">
+                                    <span class="socialicons ico5"></span>
+                                    <span class="socialicons_h ico5h"></span>
+                                </a>
+                                <a href="http://instagr.am/p/WAjJnHhEg_/" class="instagr">
+                                    <span class="socialicons ico6"></span>
+                                    <span class="socialicons_h ico6h"></span>
+                                </a>
+                                <a href="http://zootool.com/user/pandr/" class="zootool">
+                                    <span class="socialicons ico7"></span>
+                                    <span class="socialicons_h ico7h"></span>
+                                </a>
+                                <a href="http://www.amazon.co.uk/" class="amazon">
+                                    <span class="socialicons ico8"></span>
+                                    <span class="socialicons_h ico8h"></span>
+                                </a>
+                                <div class="row copyright">
+                                    <div class="span8" style="color: #fff; font-family: BTraffic ;">
+                                        این سایت توسط تیم برنامه نویسی شرکت پارس فناوران انیاک طراحی شده است.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span4 contact pull-right" style="margin: 0px;" >
+
+                                <form action="" style="margin: -15px 10px 0px;">
+                                    <input style="font-family: yekan;" type="text" placeholder="نام شما" />
+                                    <input  style="font-family: yekan;" type="text" placeholder="ایمیل شما" />
+                                    <textarea  style="font-family: yekan;" rows="3" placeholder="پیام یا نظر"></textarea>
+                                    <br/><input  style="font-family: yekan;" type="submit" value="فرستادن" />
+                                </form>
+                            </div>
+                        </div></div>
+                    <div class="span8" style="text-align: center;">
+                         Call: +98 0913 970 9553&nbsp&nbsp<i class="icon-envelope"></i>
+                       &nbsp Email: engineer.soft69@yahoo.com
+                         &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i class="icon-user"></i>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        </footer>
+    {% endblock %}
+    {% block javascript %}
+        <script type = "text/javascript">
+            var col = 0;
+
+            function ChangeCol(){
+                if(col == 1){
+                    colors = new Array('#4D3D98', '#0C8B44', '#88288F', '#D24827', '#00A0B1');
+                    body_Color = "#1C1651";
+                    hover_Color = "#352869";
+
+                    search_color = "#1C1651";
+                    search_hover = "#5F4A9E";
+
+                }else if(col == 2){
+                    colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
+                    body_Color = "#1D1D1D";
+                    hover_Color = "#323232";
+
+                    search_color = "#1D1D1D";
+                    search_hover = "#515151";
+                }else if(col == 3){
+                    colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
+                    body_Color = "#522661";
+                    hover_Color = "#5F376C";
+
+                    search_color = "#522661";
+                    search_hover = "#B321F7";
+                }
+
+
+                $("ul.menu1").css("background-color", body_Color);
+                $("ul.menu1>li.login_form form").css("background-color", body_Color);
+                $("ul.menu1>li.dropdown>ul").css("background-color", body_Color);
+
+                jQuery("ul.menu1>li").not("ul.menu1>li.search").each(function(){
+                    L = colors.length;
+                    X = $(this).index();
+                    for(i = 0, j = 0; i <= X; i++, j++)
+                    {
+                        if(j == L)
+                            j = 0;
+                        if(i == X)
+                            $(this).css("background-color", colors[j]);
+                    }
+                })
+                $("ul.menu1>li.search:has(img)").css("background-color", search_color);
+
+
+
+
+                $("ul.menu").css("background-color", body_Color);
+                $("ul.menu>li.login_form form").css("background-color", body_Color);
+                $("ul.menu>li.dropdown>ul").css("background-color", body_Color);
+
+                jQuery("ul.menu>li").not("ul.menu>li.search").each(function(){
+                    L = colors.length;
+                    X = $(this).index();
+                    for(i = 0, j = 0; i <= X; i++, j++)
+                    {
+                        if(j == L)
+                            j = 0;
+                        if(i == X)
+                            $(this).css("background-color", colors[j]);
+                    }
+                })
+                $("ul.menu>li.search:has(img)").css("background-color", search_color);
+            }
+
+        </script>
+    {% endblock %}
+    </div>
+{% endblock %}
