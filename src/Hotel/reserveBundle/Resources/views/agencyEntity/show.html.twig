@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>agencyEntity</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Account_stock</th>
+                <td>{{ entity.accountstock }}</td>
+            </tr>
+            <tr>
+                <th>Account_changevalue</th>
+                <td>{{ entity.accountchangeValue }}</td>
+            </tr>
+            <tr>
+                <th>Account_status</th>
+                <td>{{ entity.accountstatus }}</td>
+            </tr>
+            <tr>
+                <th>Account_requestdate</th>
+                <td>{{ entity.accountrequestDate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('agency') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('agency_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

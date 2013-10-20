@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>customerEntity</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Cust_name</th>
+                <td>{{ entity.custname }}</td>
+            </tr>
+            <tr>
+                <th>Cust_family</th>
+                <td>{{ entity.custfamily }}</td>
+            </tr>
+            <tr>
+                <th>Cust_email</th>
+                <td>{{ entity.custemail }}</td>
+            </tr>
+            <tr>
+                <th>Cust_phone</th>
+                <td>{{ entity.custphone }}</td>
+            </tr>
+            <tr>
+                <th>Cust_mobile</th>
+                <td>{{ entity.custmobile }}</td>
+            </tr>
+            <tr>
+                <th>Cust_roomcode</th>
+                <td>{{ entity.custroomCode }}</td>
+            </tr>
+            <tr>
+                <th>Cust_hotelcode</th>
+                <td>{{ entity.custhotelCode }}</td>
+            </tr>
+            <tr>
+                <th>Cust_voucher</th>
+                <td>{{ entity.custvoucher }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('customer') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('customer_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

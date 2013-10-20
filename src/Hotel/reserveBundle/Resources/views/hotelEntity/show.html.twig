@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>hotelEntity</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_name</th>
+                <td>{{ entity.hotelname }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_managename</th>
+                <td>{{ entity.hotelmanageName }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_grade</th>
+                <td>{{ entity.hotelgrade }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_city</th>
+                <td>{{ entity.hotelcity }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_zipcode</th>
+                <td>{{ entity.hotelzipcode }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_email</th>
+                <td>{{ entity.hotelemail }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_phone</th>
+                <td>{{ entity.hotelphone }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_mobile</th>
+                <td>{{ entity.hotelmobile }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_addroomttariff</th>
+                <td>{{ entity.hoteladdRoomTtariff }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('hotel') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('hotel_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

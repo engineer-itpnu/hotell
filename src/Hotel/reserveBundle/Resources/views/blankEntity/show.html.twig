@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>blankEntity</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Datein</th>
+                <td>{{ entity.dateIN|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Countnight</th>
+                <td>{{ entity.countNight }}</td>
+            </tr>
+            <tr>
+                <th>Tariff</th>
+                <td>{{ entity.Tariff }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('blank') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('blank_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

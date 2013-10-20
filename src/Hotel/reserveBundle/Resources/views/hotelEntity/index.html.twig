@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>hotelEntity list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Hotel_name</th>
+                <th>Hotel_managename</th>
+                <th>Hotel_grade</th>
+                <th>Hotel_city</th>
+                <th>Hotel_zipcode</th>
+                <th>Hotel_email</th>
+                <th>Hotel_phone</th>
+                <th>Hotel_mobile</th>
+                <th>Hotel_addroomttariff</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('hotel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.hotelname }}</td>
+                <td>{{ entity.hotelmanageName }}</td>
+                <td>{{ entity.hotelgrade }}</td>
+                <td>{{ entity.hotelcity }}</td>
+                <td>{{ entity.hotelzipcode }}</td>
+                <td>{{ entity.hotelemail }}</td>
+                <td>{{ entity.hotelphone }}</td>
+                <td>{{ entity.hotelmobile }}</td>
+                <td>{{ entity.hoteladdRoomTtariff }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('hotel_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('hotel_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('hotel_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

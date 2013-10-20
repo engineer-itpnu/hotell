@@ -1,6 +1,0 @@
-addhotel:
-    pattern:  /newhotel
-    defaults: { _controller: HotelreserveBundle:Default:addhotel }
-addroom:
-    pattern:  /newroom
-    defaults: { _controller: HotelreserveBundle:Default:addroom }

@@ -1,0 +1,6 @@
+home_hotel:
+    pattern:  /home
+    defaults: { _controller: HotelreserveBundle:Hotel:home }
+admin_hotel:
+    pattern:  /admin
+    defaults: { _controller: HotelreserveBundle:Hotel:admin }

@@ -1,0 +1,3 @@
+home_agency:
+    pattern:  /home
+    defaults: { _controller: HotelreserveBundle:Agency:admin }

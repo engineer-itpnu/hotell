@@ -4,15 +4,36 @@ hotelreserve_homepage:
 main:
     pattern:  /main
     defaults: { _controller: HotelreserveBundle:Default:main }
-login:
-    pattern:  /login
-    defaults: { _controller: HotelreserveBundle:Default:login }
 admin:
     resource: "@HotelreserveBundle/Resources/config/admin.yml"
-    prefix:   /
+    prefix:   /admin
 hoteldar:
     resource: "@HotelreserveBundle/Resources/config/hoteldar.yml"
-    prefix:   /
+    prefix:   /hotel
 reserve:
-    resource: "@HotelreserveBundle/Resources/config/reserve.yml"
-    prefix:   /
+    resource: "@HotelreserveBundle/Resources/config/agency.yml"
+    prefix:   /agency
+HotelreserveBundle_agency:
+    resource: "@HotelreserveBundle/Resources/config/routing/agencyentity.yml"
+    prefix:   /agency
+HotelreserveBundle_blank:
+    resource: "@HotelreserveBundle/Resources/config/routing/blankentity.yml"
+    prefix:   /blank
+HotelreserveBundle_customer:
+    resource: "@HotelreserveBundle/Resources/config/routing/customerentity.yml"
+    prefix:   /customer
+HotelreserveBundle_hotel:
+    resource: "@HotelreserveBundle/Resources/config/routing/hotelentity.yml"
+    prefix:   /hotell
+HotelreserveBundle_master:
+    resource: "@HotelreserveBundle/Resources/config/routing/masterentity.yml"
+    prefix:   /master
+HotelreserveBundle_reserve:
+    resource: "@HotelreserveBundle/Resources/config/routing/reserveentity.yml"
+    prefix:   /reserve
+HotelreserveBundle_roomm:
+    resource: "@HotelreserveBundle/Resources/config/routing/roomentity.yml"
+    prefix:   /room
+HotelreserveBundle_user:
+    resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
+    prefix:   /user

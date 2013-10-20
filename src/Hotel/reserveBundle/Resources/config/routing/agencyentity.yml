@@ -1,0 +1,30 @@
+agency:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:index" }
+
+agency_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:show" }
+
+agency_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:new" }
+
+agency_create:
+    pattern:  /create
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:create" }
+    requirements: { _method: post }
+
+agency_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:edit" }
+
+agency_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:update" }
+    requirements: { _method: post|put }
+
+agency_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "HotelreserveBundle:agencyEntity:delete" }
+    requirements: { _method: post|delete }

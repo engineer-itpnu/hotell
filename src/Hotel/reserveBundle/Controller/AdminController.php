@@ -22,4 +22,8 @@ class AdminController extends Controller
     {
         return $this->render('HotelreserveBundle:admin:definition_room_admin.html.twig');
     }
+    public function adduserAction()
+    {
+        return $this->render('HotelreserveBundle:admin:definition_room_admin.html.twig');
+    }
 }

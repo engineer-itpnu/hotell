@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>masterEntity list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Accountstock</th>
+                <th>Accountchangevalue</th>
+                <th>Accountstatus</th>
+                <th>Accountreqestdata</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('master_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.accountStock }}</td>
+                <td>{{ entity.accountChangeValue }}</td>
+                <td>{{ entity.accountStatus }}</td>
+                <td>{{ entity.accountReqestData }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('master_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('master_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('master_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

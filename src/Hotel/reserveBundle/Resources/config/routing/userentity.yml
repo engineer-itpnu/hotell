@@ -1,0 +1,30 @@
+user:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:userEntity:index" }
+
+user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "HotelreserveBundle:userEntity:show" }
+
+user_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:userEntity:new" }
+
+user_create:
+    pattern:  /create
+    defaults: { _controller: "HotelreserveBundle:userEntity:create" }
+    requirements: { _method: post }
+
+user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:userEntity:edit" }
+
+user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "HotelreserveBundle:userEntity:update" }
+    requirements: { _method: post|put }
+
+user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "HotelreserveBundle:userEntity:delete" }
+    requirements: { _method: post|delete }

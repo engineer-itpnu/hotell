@@ -5,3 +5,6 @@ services:
 #    assets.example:
 #        class: %assets.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+     authentication_handler:
+        class: Hotel\reserveBundle\Handler\AuthenticationHandler
+        arguments: [@router, @security.context]
