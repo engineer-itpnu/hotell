@@ -1,30 +1,30 @@
-blank:
+blankentity:
     pattern:  /
     defaults: { _controller: "HotelreserveBundle:blankEntity:index" }
 
-blank_show:
+blankentity_show:
     pattern:  /{id}/show
     defaults: { _controller: "HotelreserveBundle:blankEntity:show" }
 
-blank_new:
+blankentity_new:
     pattern:  /new
     defaults: { _controller: "HotelreserveBundle:blankEntity:new" }
 
-blank_create:
+blankentity_create:
     pattern:  /create
     defaults: { _controller: "HotelreserveBundle:blankEntity:create" }
     requirements: { _method: post }
 
-blank_edit:
+blankentity_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "HotelreserveBundle:blankEntity:edit" }
 
-blank_update:
+blankentity_update:
     pattern:  /{id}/update
     defaults: { _controller: "HotelreserveBundle:blankEntity:update" }
     requirements: { _method: post|put }
 
-blank_delete:
+blankentity_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "HotelreserveBundle:blankEntity:delete" }
     requirements: { _method: post|delete }

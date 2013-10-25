@@ -1,15 +1,13 @@
-admin:
-    pattern:  /admin
-    defaults: { _controller: HotelreserveBundle:Admin:admin }
-home_page:
+a_main:
     pattern:  /home
-    defaults: { _controller: HotelreserveBundle:Admin:home }
+    defaults: { _controller: HotelreserveBundle:Admin:admin }
 def_hotel:
     pattern:  /addhotel
-    defaults: { _controller: HotelreserveBundle:Admin:addhotel }
+    defaults: { _controller: "HotelreserveBundle:hotelEntity:index" }
 def_room:
     pattern:  /addroom
-    defaults: { _controller: HotelreserveBundle:Admin:addroom }
-add_user:
-    pattern:  /adduser
-    defaults: { _controller: HotelreserveBundle:Admin:adduser }
+    defaults: { _controller: "HotelreserveBundle:roomEntity:index" }
+blank_room:
+    pattern:  /blankroom
+    defaults: { _controller: "HotelreserveBundle:blankEntity:index" }
+

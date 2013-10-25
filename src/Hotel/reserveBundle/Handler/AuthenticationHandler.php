@@ -23,15 +23,15 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
     {
         if ($this->security->isGranted('ROLE_ADMIN'))
         {
-            $response = new RedirectResponse($this->router->generate('home_page'));
+            $response = new RedirectResponse($this->router->generate('a_main'));
         }
-        elseif ($this->security->isGranted('ROLE_HOTEL'))
+        elseif ($this->security->isGranted('ROLE_HOTELDAR'))
         {
-            $response = new RedirectResponse($this->router->generate('admin_hotel'));
+            $response = new RedirectResponse($this->router->generate(''));
         }
         elseif ($this->security->isGranted('ROLE_AGENCY'))
         {
-            $response = new RedirectResponse($this->router->generate('home_agency'));
+            $response = new RedirectResponse($this->router->generate(''));
         }
         return $response;
     }

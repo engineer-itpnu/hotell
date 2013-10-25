@@ -1,6 +1,3 @@
-hotelreserve_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: HotelreserveBundle:Default:index }
 main:
     pattern:  /main
     defaults: { _controller: HotelreserveBundle:Default:main }
@@ -9,31 +6,34 @@ admin:
     prefix:   /admin
 hoteldar:
     resource: "@HotelreserveBundle/Resources/config/hoteldar.yml"
-    prefix:   /hotel
+    prefix:   /hoteldar
 reserve:
     resource: "@HotelreserveBundle/Resources/config/agency.yml"
     prefix:   /agency
-HotelreserveBundle_agency:
+HotelreserveBundle_agencyentity:
     resource: "@HotelreserveBundle/Resources/config/routing/agencyentity.yml"
-    prefix:   /agency
-HotelreserveBundle_blank:
+    prefix:   /agencyentity
+HotelreserveBundle_blankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/blankentity.yml"
-    prefix:   /blank
-HotelreserveBundle_customer:
+    prefix:   /blankentity
+HotelreserveBundle_customerentity:
     resource: "@HotelreserveBundle/Resources/config/routing/customerentity.yml"
-    prefix:   /customer
-HotelreserveBundle_hotel:
+    prefix:   /customerentity
+HotelreserveBundle_hotelentity:
     resource: "@HotelreserveBundle/Resources/config/routing/hotelentity.yml"
-    prefix:   /hotell
-HotelreserveBundle_master:
+    prefix:   /admin/addhotel
+HotelreserveBundle_masterentity:
     resource: "@HotelreserveBundle/Resources/config/routing/masterentity.yml"
-    prefix:   /master
-HotelreserveBundle_reserve:
+    prefix:   /masterentity
+HotelreserveBundle_reserveentity:
     resource: "@HotelreserveBundle/Resources/config/routing/reserveentity.yml"
-    prefix:   /reserve
-HotelreserveBundle_roomm:
+    prefix:   /reserveentity
+HotelreserveBundle_roomentity:
     resource: "@HotelreserveBundle/Resources/config/routing/roomentity.yml"
-    prefix:   /room
-HotelreserveBundle_user:
+    prefix:   /roomentity
+HotelreserveBundle_userentity:
     resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
-    prefix:   /user
+    prefix:   /userentity
+hotelreserve_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: HotelreserveBundle:Default:index }

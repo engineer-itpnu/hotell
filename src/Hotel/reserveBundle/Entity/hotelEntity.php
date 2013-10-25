@@ -2,69 +2,69 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class hotelEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
+    /**
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $hotel_name;
 
-    /** 
+    /**
      * @ORM\Column(type="string", length=200, nullable=false)
      */
     private $hotel_manageName;
 
-    /** 
+    /**
      * @ORM\Column(type="string", length=40, nullable=false)
      */
     private $hotel_grade;
 
-    /** 
+    /**
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $hotel_city;
 
-    /** 
+    /**
      * @ORM\Column(type="integer", length=100, nullable=false)
      */
     private $hotel_zipcode;
 
-    /** 
+    /**
      * @ORM\Column(type="string", length=200, nullable=false)
      */
     private $hotel_email;
 
-    /** 
+    /**
      * @ORM\Column(type="integer", length=100, nullable=true)
      */
     private $hotel_phone;
 
-    /** 
+    /**
      * @ORM\Column(type="integer", length=100, nullable=false)
      */
     private $hotel_mobile;
 
-    /** 
+    /**
      * @ORM\Column(type="integer", length=200, nullable=false)
      */
     private $hotel_addRoomTtariff;
 
-    /** 
+    /**
      * @ORM\OneToMany(targetEntity="roomEntity", mappedBy="hotelEntity")
      */
     private $roomEntities;
 
-    /** 
+    /**
      * @ORM\ManyToOne(targetEntity="userEntity", inversedBy="hotelEntities")
      * @ORM\JoinColumn(name="uid", referencedColumnName="id", nullable=false)
      */
@@ -76,11 +76,11 @@ class hotelEntity
     {
         $this->roomEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,14 +96,14 @@ class hotelEntity
     public function setHotelName($hotelName)
     {
         $this->hotel_name = $hotelName;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_name
      *
-     * @return string 
+     * @return string
      */
     public function getHotelName()
     {
@@ -119,14 +119,14 @@ class hotelEntity
     public function setHotelManageName($hotelManageName)
     {
         $this->hotel_manageName = $hotelManageName;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_manageName
      *
-     * @return string 
+     * @return string
      */
     public function getHotelManageName()
     {
@@ -142,14 +142,14 @@ class hotelEntity
     public function setHotelGrade($hotelGrade)
     {
         $this->hotel_grade = $hotelGrade;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_grade
      *
-     * @return string 
+     * @return string
      */
     public function getHotelGrade()
     {
@@ -165,14 +165,14 @@ class hotelEntity
     public function setHotelCity($hotelCity)
     {
         $this->hotel_city = $hotelCity;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_city
      *
-     * @return string 
+     * @return string
      */
     public function getHotelCity()
     {
@@ -188,14 +188,14 @@ class hotelEntity
     public function setHotelZipcode($hotelZipcode)
     {
         $this->hotel_zipcode = $hotelZipcode;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_zipcode
      *
-     * @return integer 
+     * @return integer
      */
     public function getHotelZipcode()
     {
@@ -211,14 +211,14 @@ class hotelEntity
     public function setHotelEmail($hotelEmail)
     {
         $this->hotel_email = $hotelEmail;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_email
      *
-     * @return string 
+     * @return string
      */
     public function getHotelEmail()
     {
@@ -234,14 +234,14 @@ class hotelEntity
     public function setHotelPhone($hotelPhone)
     {
         $this->hotel_phone = $hotelPhone;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_phone
      *
-     * @return integer 
+     * @return integer
      */
     public function getHotelPhone()
     {
@@ -257,14 +257,14 @@ class hotelEntity
     public function setHotelMobile($hotelMobile)
     {
         $this->hotel_mobile = $hotelMobile;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_mobile
      *
-     * @return integer 
+     * @return integer
      */
     public function getHotelMobile()
     {
@@ -280,14 +280,14 @@ class hotelEntity
     public function setHotelAddRoomTtariff($hotelAddRoomTtariff)
     {
         $this->hotel_addRoomTtariff = $hotelAddRoomTtariff;
-    
+
         return $this;
     }
 
     /**
      * Get hotel_addRoomTtariff
      *
-     * @return integer 
+     * @return integer
      */
     public function getHotelAddRoomTtariff()
     {
@@ -303,7 +303,7 @@ class hotelEntity
     public function addRoomEntitie(\Hotel\reserveBundle\Entity\roomEntity $roomEntities)
     {
         $this->roomEntities[] = $roomEntities;
-    
+
         return $this;
     }
 
@@ -320,7 +320,7 @@ class hotelEntity
     /**
      * Get roomEntities
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRoomEntities()
     {
@@ -336,14 +336,14 @@ class hotelEntity
     public function setUserEntity(\Hotel\reserveBundle\Entity\userEntity $userEntity)
     {
         $this->userEntity = $userEntity;
-    
+
         return $this;
     }
 
     /**
      * Get userEntity
      *
-     * @return \Hotel\reserveBundle\Entity\userEntity 
+     * @return \Hotel\reserveBundle\Entity\userEntity
      */
     public function getUserEntity()
     {

@@ -1,30 +1,30 @@
-customer:
+customerentity:
     pattern:  /
     defaults: { _controller: "HotelreserveBundle:customerEntity:index" }
 
-customer_show:
+customerentity_show:
     pattern:  /{id}/show
     defaults: { _controller: "HotelreserveBundle:customerEntity:show" }
 
-customer_new:
+customerentity_new:
     pattern:  /new
     defaults: { _controller: "HotelreserveBundle:customerEntity:new" }
 
-customer_create:
+customerentity_create:
     pattern:  /create
     defaults: { _controller: "HotelreserveBundle:customerEntity:create" }
     requirements: { _method: post }
 
-customer_edit:
+customerentity_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "HotelreserveBundle:customerEntity:edit" }
 
-customer_update:
+customerentity_update:
     pattern:  /{id}/update
     defaults: { _controller: "HotelreserveBundle:customerEntity:update" }
     requirements: { _method: post|put }
 
-customer_delete:
+customerentity_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "HotelreserveBundle:customerEntity:delete" }
     requirements: { _method: post|delete }

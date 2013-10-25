@@ -44,7 +44,7 @@ class hotelEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('hotel_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('hotelentity_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:hotelEntity:new.html.twig', array(
@@ -63,7 +63,7 @@ class hotelEntityController extends Controller
     private function createCreateForm(hotelEntity $entity)
     {
         $form = $this->createForm(new hotelEntityType(), $entity, array(
-            'action' => $this->generateUrl('hotel_create'),
+            'action' => $this->generateUrl('hotelentity_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class hotelEntityController extends Controller
     private function createEditForm(hotelEntity $entity)
     {
         $form = $this->createForm(new hotelEntityType(), $entity, array(
-            'action' => $this->generateUrl('hotel_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('hotelentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class hotelEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('hotel_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('hotelentity_edit', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:hotelEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class hotelEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('hotel'));
+        return $this->redirect($this->generateUrl('hotelentity'));
     }
 
     /**
@@ -214,7 +214,7 @@ class hotelEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('hotel_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('hotelentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

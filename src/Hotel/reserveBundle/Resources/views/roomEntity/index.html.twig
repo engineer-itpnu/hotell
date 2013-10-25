@@ -1,47 +1,68 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
-    <h1>roomEntity list</h1>
-
-    <table class="records_list">
-        <thead>
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+<section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+        <div class="" style="border: 1px solid #74B749;display: block;">
+            <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اطلاعات پایه هتل ها</strong>
+                    </span>
+            </div>
+            <div class="" style="display: block;padding: 25px 15px;">
+                <div class="">
+                    <table class="table table-condensed" style="width: 100%;">
+                        <tbody>
+                        <table class="table table-bordered" dir="rtl">
+                            <thead >
             <tr>
-                <th>Id</th>
-                <th>Room_type</th>
-                <th>Room_name</th>
-                <th>Room_capacity</th>
-                <th>Room_addcapacity</th>
-                <th>Actions</th>
+                <th style="text-align: center">ردیف </th>
+                <th style="text-align: center">نوع اتاق </th>
+                <th style="text-align: center">نام اتاق </th>
+                <th style="text-align: center">گنجایش اتاق </th>
+                <th style="text-align: center">گنجایش نفر اضافه اتاق </th>
+                <th style="text-align: center">متعلق به هتل</th>
+                <th style="text-align: center">اقدامات </th>
+
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('roomm_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.roomtype }}</td>
-                <td>{{ entity.roomname }}</td>
-                <td>{{ entity.roomcapacity }}</td>
-                <td>{{ entity.roomaddCapacity }}</td>
-                <td>
-                <ul>
+                <td style="text-align: center"><a href="{{ path('roomentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td style="text-align: center">{% if entity.roomtype==0 %} رویال
+                {% elseif entity.roomtype==1 %}سوئیت
+                {% elseif entity.roomtype==2 %}اتاق
+                {% else %}ویلا
+                {% endif %}</td>
+                <td style="text-align: center">{{ entity.roomname }}</td>
+                <td style="text-align: center">{{ entity.roomcapacity }}</td>
+                <td style="text-align: center">{{ entity.roomaddCapacity }}</td>
+                <td style="text-align: center">{{ entity.hotelEntity }}</td>
+                <td style="text-align: center"><ul style="list-style-type: none">
                     <li>
-                        <a href="{{ path('roomm_show', { 'id': entity.id }) }}">show</a>
+                        <a class="badge badge-success" href="{{ path('roomentity_show', { 'id': entity.id }) }}">نمایش</a>
                     </li>
                     <li>
-                        <a href="{{ path('roomm_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
+                        <a class="badge badge-info" href="{{ path('roomentity_edit', { 'id': entity.id }) }}">ویرایش</a>
+                 </li></ul></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+        <ul style="list-style-type: none">
         <li>
-            <a href="{{ path('roomm_new') }}">
-                Create a new entry
+            <a class="btn btn-primary" href="">
+                ایجاد اتاق جدید
             </a>
         </li>
     </ul>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     {% endblock %}
