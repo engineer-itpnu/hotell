@@ -1,5 +1,5 @@
 main:
-    pattern:  /main
+    pattern:  /
     defaults: { _controller: HotelreserveBundle:Default:main }
 admin:
     resource: "@HotelreserveBundle/Resources/config/admin.yml"
