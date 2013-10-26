@@ -8,21 +8,25 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class roomEntityType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('room_type')
-            ->add('room_name')
-            ->add('room_capacity')
-            ->add('room_addCapacity')
-            ->add('hotelEntity')
-        ;
+
+
+        $builder->add('room_name');
+        $builder->add('room_capacity');
+        $builder->add('room_addCapacity');
+        $builder->add('hotelEntity');
+        $builder->add('room_type', 'choice', array(
+            'choices' => array('0' => 'سوئيت', '1' => 'سوئيت vip', '2' => 'سوئيت جونيور',
+                '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال'
+            , '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم', '10' => 'پرزيدنتال', 'l1' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم', '15' => 'آپارتمان', '16' => 'آپارتمان رويال')));
+
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

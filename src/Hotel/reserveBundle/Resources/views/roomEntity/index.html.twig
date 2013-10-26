@@ -1,68 +1,81 @@
 {% extends 'HotelreserveBundle::layout_admin.html.twig' %}
 {% block content -%}
-<section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
-    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-        <div class="" style="border: 1px solid #74B749;display: block;">
-            <div class="" style="background: #74B749;height: 36px;display: block;">
+    <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #74B749;display: block;">
+                <div class="" style="background: #74B749;height: 36px;display: block;">
                     <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
                             <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اطلاعات پایه هتل ها</strong>
                     </span>
-            </div>
-            <div class="" style="display: block;padding: 25px 15px;">
-                <div class="">
-                    <table class="table table-condensed" style="width: 100%;">
-                        <tbody>
-                        <table class="table table-bordered" dir="rtl">
-                            <thead >
-            <tr>
-                <th style="text-align: center">ردیف </th>
-                <th style="text-align: center">نوع اتاق </th>
-                <th style="text-align: center">نام اتاق </th>
-                <th style="text-align: center">گنجایش اتاق </th>
-                <th style="text-align: center">گنجایش نفر اضافه اتاق </th>
-                <th style="text-align: center">متعلق به هتل</th>
-                <th style="text-align: center">اقدامات </th>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <tbody>
+                            <table class="table table-bordered" dir="rtl">
+                                <thead >
+                                <tr>
+                                    <th style="text-align: center">ردیف </th>
+                                    <th style="text-align: center">نوع اتاق </th>
+                                    <th style="text-align: center">نام اتاق </th>
+                                    <th style="text-align: center">گنجایش اتاق </th>
+                                    <th style="text-align: center">گنجایش نفر اضافه اتاق </th>
+                                    <th style="text-align: center">متعلق به هتل</th>
+                                    <th style="text-align: center">اقدامات </th>
 
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td style="text-align: center"><a href="{{ path('roomentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td style="text-align: center">{% if entity.roomtype==0 %} رویال
-                {% elseif entity.roomtype==1 %}سوئیت
-                {% elseif entity.roomtype==2 %}اتاق
-                {% else %}ویلا
-                {% endif %}</td>
-                <td style="text-align: center">{{ entity.roomname }}</td>
-                <td style="text-align: center">{{ entity.roomcapacity }}</td>
-                <td style="text-align: center">{{ entity.roomaddCapacity }}</td>
-                <td style="text-align: center">{{ entity.hotelEntity }}</td>
-                <td style="text-align: center"><ul style="list-style-type: none">
-                    <li>
-                        <a class="badge badge-success" href="{{ path('roomentity_show', { 'id': entity.id }) }}">نمایش</a>
-                    </li>
-                    <li>
-                        <a class="badge badge-info" href="{{ path('roomentity_edit', { 'id': entity.id }) }}">ویرایش</a>
-                 </li></ul></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td style="text-align: center"><a href="{{ path('roomentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                        <td style="text-align: center">{% if entity.roomtype==0 %}سوئيت
+                                            {% elseif entity.roomtype==1 %}سوئيت vip
+                                            {% elseif entity.roomtype==2 %}سوئيت جونيور
+                                            {% elseif entity.roomtype==3 %}سوئيت پرزيدنت
+                                            {% elseif entity.roomtype==4 %}سوئيت رويال
+                                            {% elseif entity.roomtype==5 %}سوئيت امپريال
+                                            {% elseif entity.roomtype==6 %}سوئيت لاکچر
+                                            {% elseif entity.roomtype==7 %}سوئيت دوبلکس
+                                            {% elseif entity.roomtype==8 %}سوئيت لوکس
+                                            {% elseif entity.roomtype==9 %}پرنسس روم
+                                            {% elseif entity.roomtype==10 %}پرزيدنتال
+                                            {% elseif entity.roomtype==11 %}تريپل
+                                            {% elseif entity.roomtype==12 %}سينگل
+                                            {% elseif entity.roomtype==13 %}دبل
+                                            {% elseif entity.roomtype==14 %}کانکت روم
+                                            {% elseif entity.roomtype==15 %}آپارتمان
+                                            {% else %}آپارتمان رويال
+                                            {% endif %}</td>
+                                        <td style="text-align: center">{{ entity.roomname }}</td>
+                                        <td style="text-align: center">{{ entity.roomcapacity }}</td>
+                                        <td style="text-align: center">{{ entity.roomaddCapacity }}</td>
+                                        <td style="text-align: center">{{ entity.hotelEntity }}</td>
+                                        <td style="text-align: center"><ul style="list-style-type: none">
+                                                <li>
+                                                    <a class="badge badge-success" href="{{ path('roomentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                                </li>
+                                                <li>
+                                                    <a class="badge badge-info" href="{{ path('roomentity_edit', { 'id': entity.id }) }}">ویرایش</a>
+                                                </li></ul></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
 
-        <ul style="list-style-type: none">
-        <li>
-            <a class="btn btn-primary" href="">
-                ایجاد اتاق جدید
-            </a>
-        </li>
-    </ul>
-                        </tbody>
-                    </table>
+                            <ul style="list-style-type: none">
+                                <li>
+                                    <a class="btn btn-primary" href="{{ path('roomentity_new') }}">
+                                        ایجاد اتاق جدید
+                                    </a>
+                                </li>
+                            </ul>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-    {% endblock %}
+    </section>
+{% endblock %}
