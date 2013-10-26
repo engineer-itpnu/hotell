@@ -20,16 +20,18 @@
 
                                 <tr class="success"><td>تاریخ ورود : </td><td>
                                         {{ form_errors(edit_form.dateIN) }}
-                                        {{ form_widget(edit_form.dateIN) }}
+                                        {{ form_widget(edit_form.dateIN) }}</td>
                                 </tr>
                                 <tr class="info">
-                                     <td>
-                                        {{ form_label(edit_form.countNight,'تعداد شب اقامت : ') }}</td><td>
-                                        {{ form_errors(edit_form.countNight) }}
+
+                                     <td>تعداد شب اقامت :
+
+                                         {{ form_errors(edit_form.countNight) }}
                                         {{ form_widget(edit_form.countNight) }}
                                     </td>
-                                    <td>
-                                        {{ form_label(edit_form.Tariff,'تعرفه هر نفر : ') }}</td><td>
+
+                                    <td>تعرفه هر نفر :
+
                                         {{ form_errors(edit_form.Tariff) }}
                                         {{ form_widget(edit_form.Tariff) }}
                                     </td>
