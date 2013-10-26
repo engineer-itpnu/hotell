@@ -18,7 +18,7 @@ class blankEntityType extends AbstractType
             ->add('dateIN')
             ->add('countNight')
             ->add('Tariff')
-            ->add('reserveEntities')
+//            ->add('reserveEntities')
             ->add('roomEntity')
         ;
     }

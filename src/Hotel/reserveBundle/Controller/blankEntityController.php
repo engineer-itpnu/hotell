@@ -44,7 +44,7 @@ class blankEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blank_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('blankentity_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:blankEntity:new.html.twig', array(
@@ -63,7 +63,7 @@ class blankEntityController extends Controller
     private function createCreateForm(blankEntity $entity)
     {
         $form = $this->createForm(new blankEntityType(), $entity, array(
-            'action' => $this->generateUrl('blank_create'),
+            'action' => $this->generateUrl('blankentity_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class blankEntityController extends Controller
     private function createEditForm(blankEntity $entity)
     {
         $form = $this->createForm(new blankEntityType(), $entity, array(
-            'action' => $this->generateUrl('blank_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('blankentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class blankEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blank_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('blankentity_edit', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:blankEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class blankEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('blank'));
+        return $this->redirect($this->generateUrl('blank_room'));
     }
 
     /**
@@ -214,7 +214,7 @@ class blankEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('blank_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('blankentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

@@ -156,4 +156,8 @@ class reserveEntity
     {
         return $this->agencyEntity;
     }
+    public function __tostring()
+    {
+        return $this->status . ' ';
+    }
 }

@@ -209,5 +209,9 @@ class roomEntity
     {
         return $this->hotelEntity;
     }
+    public function __tostring()
+    {
+        return $this->id . ' '.$this->room_type. '' ;
+    }
 
 }

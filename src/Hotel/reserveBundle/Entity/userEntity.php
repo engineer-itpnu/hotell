@@ -353,6 +353,6 @@ class userEntity extends BaseUser
     }
     public function __tostring()
     {
-        return $this->user_family . ' ';
+        return $this->username . '@' .$this->user_family. '';
     }
 }

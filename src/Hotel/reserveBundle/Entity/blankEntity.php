@@ -39,7 +39,6 @@ class blankEntity
      * @ORM\JoinColumn(name="rid", referencedColumnName="id", nullable=false)
      */
     private $roomEntity;
-
     /**
      * Get id
      *
@@ -163,5 +162,9 @@ class blankEntity
     public function getRoomEntity()
     {
         return $this->roomEntity;
+    }
+    public function __tostring()
+    {
+        return $this->roomEntity . ' ';
     }
 }
