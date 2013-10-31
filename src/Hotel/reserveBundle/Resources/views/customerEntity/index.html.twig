@@ -5,38 +5,32 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Cust_name</th>
-                <th>Cust_family</th>
-                <th>Cust_email</th>
-                <th>Cust_phone</th>
-                <th>Cust_mobile</th>
-                <th>Cust_roomcode</th>
-                <th>Cust_hotelcode</th>
-                <th>Cust_voucher</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Cust_name</th>
+            <th>Cust_family</th>
+            <th>Cust_email</th>
+            <th>Cust_phone</th>
+            <th>Cust_mobile</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('customer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('customerentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.custname }}</td>
                 <td>{{ entity.custfamily }}</td>
                 <td>{{ entity.custemail }}</td>
                 <td>{{ entity.custphone }}</td>
                 <td>{{ entity.custmobile }}</td>
-                <td>{{ entity.custroomCode }}</td>
-                <td>{{ entity.custhotelCode }}</td>
-                <td>{{ entity.custvoucher }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('customer_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('customerentity_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('customer_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('customerentity_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -47,7 +41,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('customer_new') }}">
+            <a href="{{ path('customerentity_new') }}">
                 Create a new entry
             </a>
         </li>

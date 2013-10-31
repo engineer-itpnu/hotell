@@ -5,37 +5,37 @@ namespace Hotel\reserveBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Hotel\reserveBundle\Entity\reserveEntity;
-use Hotel\reserveBundle\Form\reserveEntityType;
+use Hotel\reserveBundle\Entity\accountEntity;
+use Hotel\reserveBundle\Form\accountEntityType;
 
 /**
- * reserveEntity controller.
+ * accountEntity controller.
  *
  */
-class reserveEntityController extends Controller
+class accountEntityController extends Controller
 {
 
     /**
-     * Lists all reserveEntity entities.
+     * Lists all accountEntity entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HotelreserveBundle:reserveEntity')->findAll();
+        $entities = $em->getRepository('HotelreserveBundle:accountEntity')->findAll();
 
-        return $this->render('HotelreserveBundle:reserveEntity:index.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new reserveEntity entity.
+     * Creates a new accountEntity entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new reserveEntity();
+        $entity = new accountEntity();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class reserveEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reserveentity_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('accountentity_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('HotelreserveBundle:reserveEntity:new.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a reserveEntity entity.
+    * Creates a form to create a accountEntity entity.
     *
-    * @param reserveEntity $entity The entity
+    * @param accountEntity $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(reserveEntity $entity)
+    private function createCreateForm(accountEntity $entity)
     {
-        $form = $this->createForm(new reserveEntityType(), $entity, array(
-            'action' => $this->generateUrl('reserveentity_create'),
+        $form = $this->createForm(new accountEntityType(), $entity, array(
+            'action' => $this->generateUrl('accountentity_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class reserveEntityController extends Controller
     }
 
     /**
-     * Displays a form to create a new reserveEntity entity.
+     * Displays a form to create a new accountEntity entity.
      *
      */
     public function newAction()
     {
-        $entity = new reserveEntity();
+        $entity = new accountEntity();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('HotelreserveBundle:reserveEntity:new.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a reserveEntity entity.
+     * Finds and displays a accountEntity entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HotelreserveBundle:reserveEntity')->find($id);
+        $entity = $em->getRepository('HotelreserveBundle:accountEntity')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find reserveEntity entity.');
+            throw $this->createNotFoundException('Unable to find accountEntity entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('HotelreserveBundle:reserveEntity:show.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing reserveEntity entity.
+     * Displays a form to edit an existing accountEntity entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HotelreserveBundle:reserveEntity')->find($id);
+        $entity = $em->getRepository('HotelreserveBundle:accountEntity')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find reserveEntity entity.');
+            throw $this->createNotFoundException('Unable to find accountEntity entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('HotelreserveBundle:reserveEntity:edit.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class reserveEntityController extends Controller
     }
 
     /**
-    * Creates a form to edit a reserveEntity entity.
+    * Creates a form to edit a accountEntity entity.
     *
-    * @param reserveEntity $entity The entity
+    * @param accountEntity $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(reserveEntity $entity)
+    private function createEditForm(accountEntity $entity)
     {
-        $form = $this->createForm(new reserveEntityType(), $entity, array(
-            'action' => $this->generateUrl('reserveentity_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new accountEntityType(), $entity, array(
+            'action' => $this->generateUrl('accountentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class reserveEntityController extends Controller
         return $form;
     }
     /**
-     * Edits an existing reserveEntity entity.
+     * Edits an existing accountEntity entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HotelreserveBundle:reserveEntity')->find($id);
+        $entity = $em->getRepository('HotelreserveBundle:accountEntity')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find reserveEntity entity.');
+            throw $this->createNotFoundException('Unable to find accountEntity entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class reserveEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reserveentity_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('accountentity_edit', array('id' => $id)));
         }
 
-        return $this->render('HotelreserveBundle:reserveEntity:edit.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a reserveEntity entity.
+     * Deletes a accountEntity entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class reserveEntityController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HotelreserveBundle:reserveEntity')->find($id);
+            $entity = $em->getRepository('HotelreserveBundle:accountEntity')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find reserveEntity entity.');
+                throw $this->createNotFoundException('Unable to find accountEntity entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('a_main'));
+        return $this->redirect($this->generateUrl('accountentity'));
     }
 
     /**
-     * Creates a form to delete a reserveEntity entity by id.
+     * Creates a form to delete a accountEntity entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class reserveEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('reserveentity_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('accountentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

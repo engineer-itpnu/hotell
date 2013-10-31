@@ -14,10 +14,18 @@
                         <table class="table table-condensed" style="width: 100%;">
                             <form action="{{ path('blankentity_create') }}" method="post" {{ form_enctype(form) }}>
                                 <tbody>
-                                <tr class="success"><td>نام هتل : </td><td>
+                                <tr class="success"><td>datein</td><td>
                                         {{ form_errors(form.dateIN) }}
-                                        {{ form_widget(form.dateIN) }}</td>
-                                    </td></tr>
+                                        {{ form_widget(form.dateIN) }}</td><td><td></td></td></tr>
+
+                                <tr class="success"><td>status</td><td>
+                                        {{ form_errors(form.status) }}
+                                        {{ form_widget(form.status) }}</td>
+                                    <td>tariff</td><td>
+                                        {{ form_errors(form.Tariff) }}
+                                        {{ form_widget(form.Tariff) }}</td>
+                                    </tr>
+
 
 
                                 {{ form_widget(form._token) }}

@@ -16,9 +16,9 @@ class blankEntityType extends AbstractType
     {
         $builder
             ->add('dateIN')
-            ->add('countNight')
+            ->add('status')
             ->add('Tariff')
-//            ->add('reserveEntities')
+            ->add('reserveEntity')
             ->add('roomEntity')
         ;
     }

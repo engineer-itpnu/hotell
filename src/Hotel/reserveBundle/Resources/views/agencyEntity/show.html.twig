@@ -5,37 +5,29 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Account_stock</th>
-                <td>{{ entity.accountstock }}</td>
-            </tr>
-            <tr>
-                <th>Account_changevalue</th>
-                <td>{{ entity.accountchangeValue }}</td>
-            </tr>
-            <tr>
-                <th>Account_status</th>
-                <td>{{ entity.accountstatus }}</td>
-            </tr>
-            <tr>
-                <th>Account_requestdate</th>
-                <td>{{ entity.accountrequestDate|date('Y-m-d H:i:s') }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Agency_active</th>
+            <td>{{ entity.agencyactive }}</td>
+        </tr>
+        <tr>
+            <th>Agency_name</th>
+            <td>{{ entity.agencyname }}</td>
+        </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('agency') }}">
+        <a href="{{ path('agencyentity') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('agency_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('agencyentity_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

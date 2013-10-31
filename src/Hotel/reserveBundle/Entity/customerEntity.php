@@ -2,59 +2,49 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class customerEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
-     * @ORM\Column(type="string", length=150, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $cust_name;
 
-    /** 
-     * @ORM\Column(type="string", length=150, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $cust_family;
 
-    /** 
-     * @ORM\Column(type="string", length=200, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $cust_email;
 
-    /** 
-     * @ORM\Column(type="string", length=100, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $cust_phone;
 
-    /** 
-     * @ORM\Column(type="string", length=100, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $cust_mobile;
 
-    /** 
-     * @ORM\Column(type="integer", length=100, nullable=false)
+    /**
+     * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="customerEntity")
      */
-    private $cust_roomCode;
+    private $accountEntities;
 
-    /** 
-     * @ORM\Column(type="integer", length=100, nullable=false)
-     */
-    private $cust_hotelCode;
-
-    /** 
-     * @ORM\Column(type="integer", length=250, nullable=false)
-     */
-    private $cust_voucher;
-
-    /** 
+    /**
      * @ORM\OneToMany(targetEntity="reserveEntity", mappedBy="customerEntity")
      */
     private $reserveEntities;
@@ -63,13 +53,14 @@ class customerEntity
      */
     public function __construct()
     {
+        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reserveEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,14 +76,14 @@ class customerEntity
     public function setCustName($custName)
     {
         $this->cust_name = $custName;
-    
+
         return $this;
     }
 
     /**
      * Get cust_name
      *
-     * @return string 
+     * @return string
      */
     public function getCustName()
     {
@@ -108,14 +99,14 @@ class customerEntity
     public function setCustFamily($custFamily)
     {
         $this->cust_family = $custFamily;
-    
+
         return $this;
     }
 
     /**
      * Get cust_family
      *
-     * @return string 
+     * @return string
      */
     public function getCustFamily()
     {
@@ -131,14 +122,14 @@ class customerEntity
     public function setCustEmail($custEmail)
     {
         $this->cust_email = $custEmail;
-    
+
         return $this;
     }
 
     /**
      * Get cust_email
      *
-     * @return string 
+     * @return string
      */
     public function getCustEmail()
     {
@@ -148,20 +139,20 @@ class customerEntity
     /**
      * Set cust_phone
      *
-     * @param string $custPhone
+     * @param integer $custPhone
      * @return customerEntity
      */
     public function setCustPhone($custPhone)
     {
         $this->cust_phone = $custPhone;
-    
+
         return $this;
     }
 
     /**
      * Get cust_phone
      *
-     * @return string 
+     * @return integer
      */
     public function getCustPhone()
     {
@@ -171,20 +162,20 @@ class customerEntity
     /**
      * Set cust_mobile
      *
-     * @param string $custMobile
+     * @param integer $custMobile
      * @return customerEntity
      */
     public function setCustMobile($custMobile)
     {
         $this->cust_mobile = $custMobile;
-    
+
         return $this;
     }
 
     /**
      * Get cust_mobile
      *
-     * @return string 
+     * @return integer
      */
     public function getCustMobile()
     {
@@ -192,72 +183,36 @@ class customerEntity
     }
 
     /**
-     * Set cust_roomCode
+     * Add accountEntities
      *
-     * @param integer $custRoomCode
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
      * @return customerEntity
      */
-    public function setCustRoomCode($custRoomCode)
+    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
     {
-        $this->cust_roomCode = $custRoomCode;
-    
+        $this->accountEntities[] = $accountEntities;
+
         return $this;
     }
 
     /**
-     * Get cust_roomCode
+     * Remove accountEntities
      *
-     * @return integer 
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
      */
-    public function getCustRoomCode()
+    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
     {
-        return $this->cust_roomCode;
+        $this->accountEntities->removeElement($accountEntities);
     }
 
     /**
-     * Set cust_hotelCode
+     * Get accountEntities
      *
-     * @param integer $custHotelCode
-     * @return customerEntity
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setCustHotelCode($custHotelCode)
+    public function getAccountEntities()
     {
-        $this->cust_hotelCode = $custHotelCode;
-    
-        return $this;
-    }
-
-    /**
-     * Get cust_hotelCode
-     *
-     * @return integer 
-     */
-    public function getCustHotelCode()
-    {
-        return $this->cust_hotelCode;
-    }
-
-    /**
-     * Set cust_voucher
-     *
-     * @param integer $custVoucher
-     * @return customerEntity
-     */
-    public function setCustVoucher($custVoucher)
-    {
-        $this->cust_voucher = $custVoucher;
-    
-        return $this;
-    }
-
-    /**
-     * Get cust_voucher
-     *
-     * @return integer 
-     */
-    public function getCustVoucher()
-    {
-        return $this->cust_voucher;
+        return $this->accountEntities;
     }
 
     /**
@@ -269,7 +224,7 @@ class customerEntity
     public function addReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
     {
         $this->reserveEntities[] = $reserveEntities;
-    
+
         return $this;
     }
 
@@ -286,10 +241,14 @@ class customerEntity
     /**
      * Get reserveEntities
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReserveEntities()
     {
         return $this->reserveEntities;
+    }
+    public function __tostring()
+    {
+        return $this->cust_name . ' ';
     }
 }

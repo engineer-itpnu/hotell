@@ -5,26 +5,32 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Startdate</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Dateinp</th>
+            <th>Countnight</th>
+            <th>Money</th>
+            <th>Codepey</th>
+            <th>Voucher</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('reserve_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.startdate %}{{ entity.startdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
+                <td><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.DateInp %}{{ entity.DateInp|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.CountNight }}</td>
+                <td>{{ entity.Money }}</td>
+                <td>{{ entity.CodePey }}</td>
+                <td>{{ entity.Voucher }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('reserve_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('reserve_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('reserveentity_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +41,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('reserve_new') }}">
+            <a href="{{ path('reserveentity_new') }}">
                 Create a new entry
             </a>
         </li>

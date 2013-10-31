@@ -15,9 +15,11 @@ class reserveEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startdate')
-            ->add('status')
-            ->add('blankEntity')
+            ->add('DateInp')
+            ->add('CountNight')
+            ->add('Money')
+            ->add('CodePey')
+            ->add('Voucher')
             ->add('customerEntity')
             ->add('agencyEntity')
         ;

@@ -15,10 +15,8 @@ class agencyEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('account_stock')
-            ->add('account_changeValue')
-            ->add('account_status')
-            ->add('account_requestDate')
+//            ->add('agency_active')
+            ->add('agency_name')
             ->add('userEntity')
         ;
     }

@@ -44,7 +44,7 @@ class customerEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('customer_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('customerentity_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:customerEntity:new.html.twig', array(
@@ -63,7 +63,7 @@ class customerEntityController extends Controller
     private function createCreateForm(customerEntity $entity)
     {
         $form = $this->createForm(new customerEntityType(), $entity, array(
-            'action' => $this->generateUrl('customer_create'),
+            'action' => $this->generateUrl('customerentity_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class customerEntityController extends Controller
     private function createEditForm(customerEntity $entity)
     {
         $form = $this->createForm(new customerEntityType(), $entity, array(
-            'action' => $this->generateUrl('customer_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('customerentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class customerEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('customer_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('customerentity_edit', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:customerEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class customerEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('customer'));
+        return $this->redirect($this->generateUrl('a_main'));
     }
 
     /**
@@ -214,7 +214,7 @@ class customerEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customer_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('customerentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

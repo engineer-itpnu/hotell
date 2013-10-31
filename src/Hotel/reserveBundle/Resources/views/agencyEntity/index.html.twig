@@ -5,30 +5,26 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Account_stock</th>
-                <th>Account_changevalue</th>
-                <th>Account_status</th>
-                <th>Account_requestdate</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Agency_active</th>
+            <th>Agency_name</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('agency_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.accountstock }}</td>
-                <td>{{ entity.accountchangeValue }}</td>
-                <td>{{ entity.accountstatus }}</td>
-                <td>{% if entity.accountrequestDate %}{{ entity.accountrequestDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td><a href="{{ path('agencyentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {#<td>{{ entity.agencyactive }}</td>#}
+                <td>{{ entity.agencyname }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('agency_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('agencyentity_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('agency_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('agencyentity_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -39,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('agency_new') }}">
+            <a href="{{ path('agencyentity_new') }}">
                 Create a new entry
             </a>
         </li>

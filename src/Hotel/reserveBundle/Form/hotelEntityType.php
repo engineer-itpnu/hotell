@@ -24,6 +24,7 @@ class hotelEntityType extends AbstractType
             ->add('hotel_phone')
             ->add('hotel_mobile')
             ->add('hotel_addRoomTtariff')
+//            ->add('hotel_active')
             ->add('userEntity')
         ;
     }

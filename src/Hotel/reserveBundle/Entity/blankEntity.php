@@ -2,47 +2,49 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class blankEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
+    /**
      * @ORM\Column(type="date", nullable=false)
      */
     private $dateIN;
 
-    /** 
-     * @ORM\Column(type="integer", length=255, nullable=false)
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
      */
-    private $countNight;
+    private $status;
 
-    /** 
-     * @ORM\Column(type="integer", length=255, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Tariff;
 
-    /** 
-     * @ORM\OneToOne(targetEntity="reserveEntity", mappedBy="blankEntity")
+    /**
+     * @ORM\ManyToOne(targetEntity="reserveEntity", inversedBy="blankEntities")
+     * @ORM\JoinColumn(name="resid", referencedColumnName="id", nullable=true)
      */
-    private $reserveEntities;
+    private $reserveEntity;
 
-    /** 
-     * @ORM\ManyToOne(targetEntity="roomEntity", inversedBy="reserveEntities")
-     * @ORM\JoinColumn(name="rid", referencedColumnName="id", nullable=false)
+    /**
+     * @ORM\ManyToOne(targetEntity="roomEntity", inversedBy="blankEntities")
+     * @ORM\JoinColumn(name="rid", referencedColumnName="id", nullable=true)
      */
     private $roomEntity;
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,14 +60,14 @@ class blankEntity
     public function setDateIN($dateIN)
     {
         $this->dateIN = $dateIN;
-    
+
         return $this;
     }
 
     /**
      * Get dateIN
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateIN()
     {
@@ -73,26 +75,26 @@ class blankEntity
     }
 
     /**
-     * Set countNight
+     * Set status
      *
-     * @param integer $countNight
+     * @param integer $status
      * @return blankEntity
      */
-    public function setCountNight($countNight)
+    public function setStatus($status)
     {
-        $this->countNight = $countNight;
-    
+        $this->status = $status;
+
         return $this;
     }
 
     /**
-     * Get countNight
+     * Get status
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCountNight()
+    public function getStatus()
     {
-        return $this->countNight;
+        return $this->status;
     }
 
     /**
@@ -104,14 +106,14 @@ class blankEntity
     public function setTariff($tariff)
     {
         $this->Tariff = $tariff;
-    
+
         return $this;
     }
 
     /**
      * Get Tariff
      *
-     * @return integer 
+     * @return integer
      */
     public function getTariff()
     {
@@ -119,26 +121,26 @@ class blankEntity
     }
 
     /**
-     * Set reserveEntities
+     * Set reserveEntity
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntities
+     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntity
      * @return blankEntity
      */
-    public function setReserveEntities(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities = null)
+    public function setReserveEntity(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntity)
     {
-        $this->reserveEntities = $reserveEntities;
-    
+        $this->reserveEntity = $reserveEntity;
+
         return $this;
     }
 
     /**
-     * Get reserveEntities
+     * Get reserveEntity
      *
-     * @return \Hotel\reserveBundle\Entity\reserveEntity 
+     * @return \Hotel\reserveBundle\Entity\reserveEntity
      */
-    public function getReserveEntities()
+    public function getReserveEntity()
     {
-        return $this->reserveEntities;
+        return $this->reserveEntity;
     }
 
     /**
@@ -150,14 +152,14 @@ class blankEntity
     public function setRoomEntity(\Hotel\reserveBundle\Entity\roomEntity $roomEntity)
     {
         $this->roomEntity = $roomEntity;
-    
+
         return $this;
     }
 
     /**
      * Get roomEntity
      *
-     * @return \Hotel\reserveBundle\Entity\roomEntity 
+     * @return \Hotel\reserveBundle\Entity\roomEntity
      */
     public function getRoomEntity()
     {

@@ -44,7 +44,7 @@ class agencyEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('agency_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('agencyentity_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:agencyEntity:new.html.twig', array(
@@ -63,7 +63,7 @@ class agencyEntityController extends Controller
     private function createCreateForm(agencyEntity $entity)
     {
         $form = $this->createForm(new agencyEntityType(), $entity, array(
-            'action' => $this->generateUrl('agency_create'),
+            'action' => $this->generateUrl('agencyentity_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class agencyEntityController extends Controller
     private function createEditForm(agencyEntity $entity)
     {
         $form = $this->createForm(new agencyEntityType(), $entity, array(
-            'action' => $this->generateUrl('agency_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('agencyentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class agencyEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('agency_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('agencyentity_edit', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:agencyEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class agencyEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('agency'));
+        return $this->redirect($this->generateUrl('a_main'));
     }
 
     /**
@@ -214,7 +214,7 @@ class agencyEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('agency_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('agencyentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

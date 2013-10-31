@@ -2,44 +2,44 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class roomEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
-     * @ORM\Column(type="integer", length=100, nullable=false)
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
      */
     private $room_type;
 
-    /** 
-     * @ORM\Column(type="string", length=200, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $room_name;
 
-    /** 
-     * @ORM\Column(type="integer", length=100, nullable=false)
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
      */
     private $room_capacity;
 
-    /** 
-     * @ORM\Column(type="integer", length=100, nullable=true)
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
      */
     private $room_addCapacity;
 
-    /** 
+    /**
      * @ORM\OneToMany(targetEntity="blankEntity", mappedBy="roomEntity")
      */
-    private $reserveEntities;
+    private $blankEntities;
 
-    /** 
+    /**
      * @ORM\ManyToOne(targetEntity="hotelEntity", inversedBy="roomEntities")
      * @ORM\JoinColumn(name="hid", referencedColumnName="id", nullable=false)
      */
@@ -49,13 +49,13 @@ class roomEntity
      */
     public function __construct()
     {
-        $this->reserveEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blankEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,14 +71,14 @@ class roomEntity
     public function setRoomType($roomType)
     {
         $this->room_type = $roomType;
-    
+
         return $this;
     }
 
     /**
      * Get room_type
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomType()
     {
@@ -94,14 +94,14 @@ class roomEntity
     public function setRoomName($roomName)
     {
         $this->room_name = $roomName;
-    
+
         return $this;
     }
 
     /**
      * Get room_name
      *
-     * @return string 
+     * @return string
      */
     public function getRoomName()
     {
@@ -117,14 +117,14 @@ class roomEntity
     public function setRoomCapacity($roomCapacity)
     {
         $this->room_capacity = $roomCapacity;
-    
+
         return $this;
     }
 
     /**
      * Get room_capacity
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomCapacity()
     {
@@ -140,14 +140,14 @@ class roomEntity
     public function setRoomAddCapacity($roomAddCapacity)
     {
         $this->room_addCapacity = $roomAddCapacity;
-    
+
         return $this;
     }
 
     /**
      * Get room_addCapacity
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomAddCapacity()
     {
@@ -155,36 +155,36 @@ class roomEntity
     }
 
     /**
-     * Add reserveEntities
+     * Add blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $reserveEntities
+     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
      * @return roomEntity
      */
-    public function addReserveEntitie(\Hotel\reserveBundle\Entity\blankEntity $reserveEntities)
+    public function addBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
     {
-        $this->reserveEntities[] = $reserveEntities;
-    
+        $this->blankEntities[] = $blankEntities;
+
         return $this;
     }
 
     /**
-     * Remove reserveEntities
+     * Remove blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $reserveEntities
+     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
      */
-    public function removeReserveEntitie(\Hotel\reserveBundle\Entity\blankEntity $reserveEntities)
+    public function removeBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
     {
-        $this->reserveEntities->removeElement($reserveEntities);
+        $this->blankEntities->removeElement($blankEntities);
     }
 
     /**
-     * Get reserveEntities
+     * Get blankEntities
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getReserveEntities()
+    public function getBlankEntities()
     {
-        return $this->reserveEntities;
+        return $this->blankEntities;
     }
 
     /**
@@ -196,14 +196,14 @@ class roomEntity
     public function setHotelEntity(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntity)
     {
         $this->hotelEntity = $hotelEntity;
-    
+
         return $this;
     }
 
     /**
      * Get hotelEntity
      *
-     * @return \Hotel\reserveBundle\Entity\hotelEntity 
+     * @return \Hotel\reserveBundle\Entity\hotelEntity
      */
     public function getHotelEntity()
     {
@@ -211,7 +211,6 @@ class roomEntity
     }
     public function __tostring()
     {
-        return $this->id . ' '.$this->room_type. '' ;
+        return $this->room_name . ' ';
     }
-
 }

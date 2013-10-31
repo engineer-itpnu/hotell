@@ -2,113 +2,262 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class reserveEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
-     * @ORM\Column(type="datetime", nullable=false)
+    /**
+     * @ORM\Column(type="date", nullable=false)
      */
-    private $startdate;
+    private $DateInp;
 
-    /** 
-     * @ORM\Column(type="boolean", nullable=false)
+    /**
+     * @ORM\Column(type="bigint", nullable=false)
      */
-    private $status;
+    private $CountNight;
 
-    /** 
-     * @ORM\OneToOne(targetEntity="blankEntity", inversedBy="reserveEntities")
-     * @ORM\JoinColumn(name="bid", referencedColumnName="id", nullable=false, unique=true)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $blankEntity;
+    private $Money;
 
-    /** 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $CodePey;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $Voucher;
+
+    /**
+     * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="reserveEntity")
+     */
+    private $accountEntities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="blankEntity", mappedBy="reserveEntity")
+     */
+    private $blankEntities;
+
+    /**
      * @ORM\ManyToOne(targetEntity="customerEntity", inversedBy="reserveEntities")
-     * @ORM\JoinColumn(name="cid", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="cid", referencedColumnName="id", nullable=true)
      */
     private $customerEntity;
 
-    /** 
+    /**
      * @ORM\ManyToOne(targetEntity="agencyEntity", inversedBy="reserveEntities")
-     * @ORM\JoinColumn(name="aid", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="aid", referencedColumnName="id", nullable=true)
      */
     private $agencyEntity;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blankEntities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
-     * Set startdate
+     * Get id
      *
-     * @param \DateTime $startdate
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set DateInp
+     *
+     * @param \DateTime $dateInp
      * @return reserveEntity
      */
-    public function setStartdate($startdate)
+    public function setDateInp($dateInp)
     {
-        $this->startdate = $startdate;
-    
+        $this->DateInp = $dateInp;
+
         return $this;
     }
 
     /**
-     * Get startdate
+     * Get DateInp
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getStartdate()
+    public function getDateInp()
     {
-        return $this->startdate;
+        return $this->DateInp;
     }
 
     /**
-     * Set status
+     * Set CountNight
      *
-     * @param boolean $status
+     * @param integer $countNight
      * @return reserveEntity
      */
-    public function setStatus($status)
+    public function setCountNight($countNight)
     {
-        $this->status = $status;
-    
+        $this->CountNight = $countNight;
+
         return $this;
     }
 
     /**
-     * Get status
+     * Get CountNight
      *
-     * @return boolean 
+     * @return integer
      */
-    public function getStatus()
+    public function getCountNight()
     {
-        return $this->status;
+        return $this->CountNight;
     }
 
     /**
-     * Set blankEntity
+     * Set Money
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntity
+     * @param integer $money
      * @return reserveEntity
      */
-    public function setBlankEntity(\Hotel\reserveBundle\Entity\blankEntity $blankEntity)
+    public function setMoney($money)
     {
-        $this->blankEntity = $blankEntity;
-    
+        $this->Money = $money;
+
         return $this;
     }
 
     /**
-     * Get blankEntity
+     * Get Money
      *
-     * @return \Hotel\reserveBundle\Entity\blankEntity 
+     * @return integer
      */
-    public function getBlankEntity()
+    public function getMoney()
     {
-        return $this->blankEntity;
+        return $this->Money;
+    }
+
+    /**
+     * Set CodePey
+     *
+     * @param integer $codePey
+     * @return reserveEntity
+     */
+    public function setCodePey($codePey)
+    {
+        $this->CodePey = $codePey;
+
+        return $this;
+    }
+
+    /**
+     * Get CodePey
+     *
+     * @return integer
+     */
+    public function getCodePey()
+    {
+        return $this->CodePey;
+    }
+
+    /**
+     * Set Voucher
+     *
+     * @param integer $voucher
+     * @return reserveEntity
+     */
+    public function setVoucher($voucher)
+    {
+        $this->Voucher = $voucher;
+
+        return $this;
+    }
+
+    /**
+     * Get Voucher
+     *
+     * @return integer
+     */
+    public function getVoucher()
+    {
+        return $this->Voucher;
+    }
+
+    /**
+     * Add accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @return reserveEntity
+     */
+    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities[] = $accountEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     */
+    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities->removeElement($accountEntities);
+    }
+
+    /**
+     * Get accountEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccountEntities()
+    {
+        return $this->accountEntities;
+    }
+
+    /**
+     * Add blankEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     * @return reserveEntity
+     */
+    public function addBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    {
+        $this->blankEntities[] = $blankEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove blankEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     */
+    public function removeBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    {
+        $this->blankEntities->removeElement($blankEntities);
+    }
+
+    /**
+     * Get blankEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlankEntities()
+    {
+        return $this->blankEntities;
     }
 
     /**
@@ -120,14 +269,14 @@ class reserveEntity
     public function setCustomerEntity(\Hotel\reserveBundle\Entity\customerEntity $customerEntity)
     {
         $this->customerEntity = $customerEntity;
-    
+
         return $this;
     }
 
     /**
      * Get customerEntity
      *
-     * @return \Hotel\reserveBundle\Entity\customerEntity 
+     * @return \Hotel\reserveBundle\Entity\customerEntity
      */
     public function getCustomerEntity()
     {
@@ -143,14 +292,14 @@ class reserveEntity
     public function setAgencyEntity(\Hotel\reserveBundle\Entity\agencyEntity $agencyEntity)
     {
         $this->agencyEntity = $agencyEntity;
-    
+
         return $this;
     }
 
     /**
      * Get agencyEntity
      *
-     * @return \Hotel\reserveBundle\Entity\agencyEntity 
+     * @return \Hotel\reserveBundle\Entity\agencyEntity
      */
     public function getAgencyEntity()
     {
@@ -158,6 +307,6 @@ class reserveEntity
     }
     public function __tostring()
     {
-        return $this->status . ' ';
+        return $this->CountNight . ' ';
     }
 }

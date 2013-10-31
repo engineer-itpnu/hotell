@@ -2,45 +2,40 @@
 namespace Hotel\reserveBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
 
-/** 
+/**
  * @ORM\Entity
  */
 class agencyEntity
 {
-    /** 
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /** 
-     * @ORM\Column(type="integer", length=200, nullable=false)
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $account_stock;
+    private $agency_active;
 
-    /** 
-     * @ORM\Column(type="integer", length=200, nullable=false)
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
-    private $account_changeValue;
+    private $agency_name;
 
-    /** 
-     * @ORM\Column(type="string", length=100, nullable=false)
-     */
-    private $account_status;
-
-    /** 
-     * @ORM\Column(type="date", nullable=false)
-     */
-    private $account_requestDate;
-
-    /** 
-     * @ORM\OneToOne(targetEntity="userEntity", inversedBy="accountEntities")
-     * @ORM\JoinColumn(name="uaid", referencedColumnName="id", nullable=false, unique=true)
+    /**
+     * @ORM\OneToOne(targetEntity="userEntity", inversedBy="agencyEntity")
+     * @ORM\JoinColumn(name="ageid", referencedColumnName="id", nullable=true, unique=true)
      */
     private $userEntity;
 
-    /** 
+    /**
+     * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="agencyEntity")
+     */
+    private $accountEntities;
+
+    /**
      * @ORM\OneToMany(targetEntity="reserveEntity", mappedBy="agencyEntity")
      */
     private $reserveEntities;
@@ -49,13 +44,14 @@ class agencyEntity
      */
     public function __construct()
     {
+        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->reserveEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,95 +59,49 @@ class agencyEntity
     }
 
     /**
-     * Set account_stock
+     * Set agency_active
      *
-     * @param integer $accountStock
+     * @param boolean $agencyActive
      * @return agencyEntity
      */
-    public function setAccountStock($accountStock)
+    public function setAgencyActive($agencyActive)
     {
-        $this->account_stock = $accountStock;
-    
+        $this->agency_active = $agencyActive;
+
         return $this;
     }
 
     /**
-     * Get account_stock
+     * Get agency_active
      *
-     * @return integer 
+     * @return boolean
      */
-    public function getAccountStock()
+    public function getAgencyActive()
     {
-        return $this->account_stock;
+        return $this->agency_active;
     }
 
     /**
-     * Set account_changeValue
+     * Set agency_name
      *
-     * @param integer $accountChangeValue
+     * @param string $agencyName
      * @return agencyEntity
      */
-    public function setAccountChangeValue($accountChangeValue)
+    public function setAgencyName($agencyName)
     {
-        $this->account_changeValue = $accountChangeValue;
-    
+        $this->agency_name = $agencyName;
+
         return $this;
     }
 
     /**
-     * Get account_changeValue
+     * Get agency_name
      *
-     * @return integer 
+     * @return string
      */
-    public function getAccountChangeValue()
+    public function getAgencyName()
     {
-        return $this->account_changeValue;
-    }
-
-    /**
-     * Set account_status
-     *
-     * @param string $accountStatus
-     * @return agencyEntity
-     */
-    public function setAccountStatus($accountStatus)
-    {
-        $this->account_status = $accountStatus;
-    
-        return $this;
-    }
-
-    /**
-     * Get account_status
-     *
-     * @return string 
-     */
-    public function getAccountStatus()
-    {
-        return $this->account_status;
-    }
-
-    /**
-     * Set account_requestDate
-     *
-     * @param \DateTime $accountRequestDate
-     * @return agencyEntity
-     */
-    public function setAccountRequestDate($accountRequestDate)
-    {
-        $this->account_requestDate = $accountRequestDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get account_requestDate
-     *
-     * @return \DateTime 
-     */
-    public function getAccountRequestDate()
-    {
-        return $this->account_requestDate;
+        return $this->agency_name;
     }
 
     /**
@@ -163,18 +113,51 @@ class agencyEntity
     public function setUserEntity(\Hotel\reserveBundle\Entity\userEntity $userEntity)
     {
         $this->userEntity = $userEntity;
-    
+
         return $this;
     }
 
     /**
      * Get userEntity
      *
-     * @return \Hotel\reserveBundle\Entity\userEntity 
+     * @return \Hotel\reserveBundle\Entity\userEntity
      */
     public function getUserEntity()
     {
         return $this->userEntity;
+    }
+
+    /**
+     * Add accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @return agencyEntity
+     */
+    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities[] = $accountEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     */
+    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities->removeElement($accountEntities);
+    }
+
+    /**
+     * Get accountEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccountEntities()
+    {
+        return $this->accountEntities;
     }
 
     /**
@@ -186,7 +169,7 @@ class agencyEntity
     public function addReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
     {
         $this->reserveEntities[] = $reserveEntities;
-    
+
         return $this;
     }
 
@@ -203,10 +186,14 @@ class agencyEntity
     /**
      * Get reserveEntities
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReserveEntities()
     {
         return $this->reserveEntities;
+    }
+    public function __tostring()
+    {
+        return $this->agency_name . ' ';
     }
 }

@@ -20,9 +20,6 @@ class customerEntityType extends AbstractType
             ->add('cust_email')
             ->add('cust_phone')
             ->add('cust_mobile')
-            ->add('cust_roomCode')
-            ->add('cust_hotelCode')
-            ->add('cust_voucher')
         ;
     }
     

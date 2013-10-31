@@ -15,49 +15,59 @@ class hotelEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_name;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_manageName;
 
     /**
-     * @ORM\Column(type="string", length=40, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_grade;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_city;
 
     /**
-     * @ORM\Column(type="integer", length=100, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_zipcode;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_email;
 
     /**
-     * @ORM\Column(type="integer", length=100, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_phone;
 
     /**
-     * @ORM\Column(type="integer", length=100, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_mobile;
 
     /**
-     * @ORM\Column(type="integer", length=200, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $hotel_addRoomTtariff;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hotel_active;
+
+    /**
+     * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="hotelEntity")
+     */
+    private $accountEntities;
 
     /**
      * @ORM\OneToMany(targetEntity="roomEntity", mappedBy="hotelEntity")
@@ -74,6 +84,7 @@ class hotelEntity
      */
     public function __construct()
     {
+        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roomEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -292,6 +303,62 @@ class hotelEntity
     public function getHotelAddRoomTtariff()
     {
         return $this->hotel_addRoomTtariff;
+    }
+
+    /**
+     * Set hotel_active
+     *
+     * @param boolean $hotelActive
+     * @return hotelEntity
+     */
+    public function setHotelActive($hotelActive)
+    {
+        $this->hotel_active = $hotelActive;
+
+        return $this;
+    }
+
+    /**
+     * Get hotel_active
+     *
+     * @return boolean
+     */
+    public function getHotelActive()
+    {
+        return $this->hotel_active;
+    }
+
+    /**
+     * Add accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @return hotelEntity
+     */
+    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities[] = $accountEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove accountEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     */
+    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    {
+        $this->accountEntities->removeElement($accountEntities);
+    }
+
+    /**
+     * Get accountEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAccountEntities()
+    {
+        return $this->accountEntities;
     }
 
     /**

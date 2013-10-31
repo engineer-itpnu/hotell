@@ -41,10 +41,13 @@
                             <tr class="success"><td>تعرفه هر نفر اضافه : </td><td>
                                     {{ form_errors(form.hotel_addRoomTtariff) }}
                                     {{ form_widget(form.hotel_addRoomTtariff) }}</td>
+
                                 <td>متعلق به نام کاربری</td><td>
                                     {{ form_errors(form.userEntity) }}
                                     {{ form_widget(form.userEntity) }}</td></tr>
-
+                            {#<tr><td>active</td><td>
+                                {{ form_errors(form.hotel_active) }}
+                                {{ form_widget(form.hotel_active) }}</td></tr>#}
                             {{ form_widget(form._token) }}
                             <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
                             <ul class="record_actions" style="list-style-type: none">
