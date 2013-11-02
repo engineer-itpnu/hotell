@@ -5,19 +5,19 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>User_firstname</th>
-                <th>User_family</th>
-                <th>User_phone</th>
-                <th>User_roles</th>
-                <th>User_mobile</th>
-                <th>User_city</th>
-                <th>User_accountnumber</th>
-                <th>User_cardnumber</th>
-                <th>User_namebank</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>User_firstname</th>
+            <th>User_family</th>
+            <th>User_phone</th>
+            <th>User_roles</th>
+            <th>User_mobile</th>
+            <th>User_city</th>
+            <th>User_accountnumber</th>
+            <th>User_cardnumber</th>
+            <th>User_namebank</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
@@ -26,9 +26,13 @@
                 <td>{{ entity.userfirstname }}</td>
                 <td>{{ entity.userfamily }}</td>
                 <td>{{ entity.userphone }}</td>
-                <td>{% if entity.roles== 'مدیر سایت' %} ROLE_ADMIN
-                    {% elseif entity.roles== 'کاربر هتلدار' %}ROLE_HOTELDAR
-                        {% else %} ROLE_AGENCY {% endif %}
+                <td>{% if entity.roles[0]== "ROLE_ADMIN" %}
+                        مدیر سایت
+                    {% elseif entity.roles[0]== "ROLE_HOTELDAR" %}
+                        هتل دار
+                    {% else %}
+                        آژانس
+                    {% endif %}
 
                 </td>
                 <td>{{ entity.usermobile }}</td>
@@ -37,25 +41,25 @@
                 <td>{{ entity.usercardNumber }}</td>
                 <td>{{ entity.usernameBank }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('registerentity_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('registerentity_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('registerentity_new') }}">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}
