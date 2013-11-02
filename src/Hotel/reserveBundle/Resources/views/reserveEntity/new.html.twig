@@ -1,15 +1,52 @@
-{% extends '::base.html.twig' %}
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+    <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #74B749;display: block;">
+                <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پایه ای هتل ها</strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <form action="{{ path('reserveentity_create') }}" method="post" {{ form_enctype(form) }}>
+                                <tbody>
+                                <tr class="success"><td>تاریخ ورود مسافر</td><td>
+                                        {{ form_errors(form.DateInp) }}
+                                        {{ form_widget(form.DateInp) }}</td>
+                                    <td>تعداد شب اقامت </td><td>
+                                        {{ form_errors(form.CountNight) }}
+                                        {{ form_widget(form.CountNight) }}</td></tr>
+                                <tr class="info"><td>جمع هزینه اقامت </td><td>
+                                        {{ form_errors(form.Money) }}
+                                        {{ form_widget(form.Money) }}</td>
+                                    <td>کد پیگیری </td><td>
+                                        {{ form_errors(form.CodePey) }}
+                                        {{ form_widget(form.CodePey) }}</td>
+                                </tr>
+                                <tr class="success"><td>واچر </td><td>
+                                        {{ form_errors(form.Voucher) }}
+                                        {{ form_widget(form.Voucher) }}</td><td></td><td></td></tr>
+                                {{ form_widget(form._token) }}
+                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
+                                <ul class="record_actions" style="list-style-type: none">
 
-{% block body -%}
-    <h1>reserveEntity creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('reserveentity') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+                                    <ul class="record_actions" style="list-style-type: none">
+                                        <li>
+                                            <a class="btn btn-primary" href="{{ path('reserveentity') }}">
+                                                برگشت
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </tbody>
+                            </form>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

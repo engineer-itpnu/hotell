@@ -44,7 +44,7 @@ class userEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('userentity_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:userEntity:new.html.twig', array(
@@ -63,7 +63,7 @@ class userEntityController extends Controller
     private function createCreateForm(userEntity $entity)
     {
         $form = $this->createForm(new userEntityType(), $entity, array(
-            'action' => $this->generateUrl('user_create'),
+            'action' => $this->generateUrl('userentity_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class userEntityController extends Controller
     private function createEditForm(userEntity $entity)
     {
         $form = $this->createForm(new userEntityType(), $entity, array(
-            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('userentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class userEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('userentity_edit', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:userEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class userEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('user'));
+        return $this->redirect($this->generateUrl('a_main'));
     }
 
     /**
@@ -214,7 +214,7 @@ class userEntityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('userentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

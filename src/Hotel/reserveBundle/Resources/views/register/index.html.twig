@@ -10,6 +10,7 @@
                 <th>User_firstname</th>
                 <th>User_family</th>
                 <th>User_phone</th>
+                <th>User_roles</th>
                 <th>User_mobile</th>
                 <th>User_city</th>
                 <th>User_accountnumber</th>
@@ -21,10 +22,15 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('userentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('registerentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.userfirstname }}</td>
                 <td>{{ entity.userfamily }}</td>
                 <td>{{ entity.userphone }}</td>
+                <td>{% if entity.roles== 'مدیر سایت' %} ROLE_ADMIN
+                    {% elseif entity.roles== 'کاربر هتلدار' %}ROLE_HOTELDAR
+                        {% else %} ROLE_AGENCY {% endif %}
+
+                </td>
                 <td>{{ entity.usermobile }}</td>
                 <td>{{ entity.usercity }}</td>
                 <td>{{ entity.useraccountNumber }}</td>
@@ -33,10 +39,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('userentity_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('userentity_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('registerentity_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -47,7 +53,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('userentity_new') }}">
+            <a href="{{ path('registerentity_new') }}">
                 Create a new entry
             </a>
         </li>

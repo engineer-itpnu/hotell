@@ -16,12 +16,11 @@
 
                             <form action="{{ path('blankentity_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
                                 <input type="hidden" name="_method" value="PUT"/>
-                                <tr class="success">
+
 
                                 <tr class="success"><td>تاریخ ورود : </td><td>
                                         {{ form_errors(edit_form.dateIN) }}
-                                        {{ form_widget(edit_form.dateIN) }}</td>
-                                </tr>
+                                        {{ form_widget(edit_form.dateIN) }}</td></tr>
                                 <tr class="info">
 
                                      <td>وضعیت :

@@ -1,0 +1,74 @@
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+<section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+        <div class="" style="border: 1px solid #74B749;display: block;">
+            <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پایه ای هتل ها</strong>
+                    </span>
+            </div>
+            <div class="" style="display: block;padding: 25px 15px;">
+                <div class="">
+                    <table class="table table-condensed" style="width: 100%;">
+                        <form action="{{ path('registerentity_create') }}" method="post" {{ form_enctype(form) }}>
+                            <tbody>
+                            <tr class="success"><td>userfirstname</td><td>
+                                    {{ form_errors(form.user_firstname) }}
+                                    {{ form_widget(form.user_firstname) }}</td>
+                                <td>userfamily</td><td>
+                                    {{ form_errors(form.user_family) }}
+                                    {{ form_widget(form.user_family) }}</td></tr>
+                            <tr class="info"><td>username</td><td>
+                                    {{ form_errors(form.username) }}
+                                    {{ form_widget(form.username) }}</td>
+                                <td>password</td><td>
+                                    {{ form_errors(form.plainPassword) }}
+                                    {{ form_widget(form.plainPassword) }}</td></tr>
+                            <tr class="success"><td>userphone</td><td>
+                                    {{ form_errors(form.user_phone) }}
+                                    {{ form_widget(form.user_phone) }}</td>
+                                <td>user_mobile</td><td>
+                                    {{ form_errors(form.user_mobile) }}
+                                    {{ form_widget(form.user_mobile) }}</td>
+                            </tr>
+                            <tr class="success"><td>user_city</td><td>
+                                    {{ form_errors(form.user_city) }}
+                                    {{ form_widget(form.user_city) }}</td>
+                                <td>user_accountNumber</td><td>
+                                    {{ form_errors(form.user_accountNumber) }}
+                                    {{ form_widget(form.user_accountNumber) }}</td>
+                            </tr>
+                            <tr class="success"><td>user_cardNumber</td><td>
+                                    {{ form_errors(form.user_cardNumber) }}
+                                    {{ form_widget(form.user_cardNumber) }}</td>
+                                <td>user_nameBank</td><td>
+                                    {{ form_errors(form.user_nameBank) }}
+                                    {{ form_widget(form.user_nameBank) }}</td>
+                            </tr>
+                            <tr class="success"><td>email</td><td>
+                                    {{ form_errors(form.email) }}
+                                    {{ form_widget(form.email) }}</td>
+
+                            </tr>
+
+                            {{ form_widget(form._token) }}
+                            <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
+                            <ul class="record_actions" style="list-style-type: none">
+                                <ul class="record_actions" style="list-style-type: none">
+                                    <li>
+                                        <a class="btn btn-primary" href="{{ path('registerentity') }}">
+                                            برگشت
+                                        </a>
+                                    </li>
+                                </ul>
+                            </tbody>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -76,7 +76,7 @@ class hotelEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="userEntity", inversedBy="hotelEntities")
-     * @ORM\JoinColumn(name="uid", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="uid", referencedColumnName="id", nullable=true)
      */
     private $userEntity;
     /**

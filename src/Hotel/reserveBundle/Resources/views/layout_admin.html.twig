@@ -20,7 +20,7 @@
                                 <li class = "dropdown"><a href = "#"> &nbsp&nbsp&nbsp&nbspمدیریت تعریف هتل و اتاق&nbsp</a>
                                     <ul>
                                         <li ><a class="pull-right" href = "{{ path('def_hotel') }}"><span>نمایش لیست هتل ها</span></a></li>
-                                        <li ><a class="pull-right" href = "{{ path('def_room') }}"><span>نمایش لیست اتاق ها</span></a></li>
+                                        <li ><a class="pull-right" href = "{{ path('def_room') }}"><span>ایجاد اتاق های هتل</span></a></li>
                                     </ul>
                                 </li>
                                 <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
@@ -33,14 +33,20 @@
                                 <li class = "dropdown"><a>&nbsp &nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbspمدیریت یوزر پنل ها&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp</a>
                                     <ul>
                                         <li ><a href="{{ path('fos_user_registration_register') }}" class="pull-right">ایجاد یوزرها</a></li>
-                                        <li ><a href="{{ path('fos_user_registration_register') }}" class="pull-right">ویرایش رمز عبوروتعیین سطح دسترسی</a></li>
+                                        <li ><a href="{{ path('registerentity') }}" class="pull-right">ثبت نام</a></li>
+                                        <li ><a href="{{ path('fos_user_registration_register') }}" class="pull-right">نمایش لیست یوزرادمین</a></li>
+                                        <li ><a href="{{ path('registerentity') }}" class="pull-right">نمایش لیست یوزر هتلدار</a></li>
+                                        <li ><a href="{{ path('registerentity') }}" class="pull-right">نمایش لیست یوزرآژانس</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href = "#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
                                 <li class = "dropdown"><a href = "#">&nbsp&nbsp&nbspحسابداری</a>
                                     <ul>
-                                        <li ><a class="pull-right"><span>حساب هتلدار</span></a></li>
-                                        <li ><a class="pull-right"><span>حساب آژانس</span></a></li>
+                                        <li ><a href="{{ path('reserveentity') }}" class="pull-right"><span>اتاق رزرو شده</span></a></li>
+                                        <li ><a href="{{ path('customerentity') }}" class="pull-right"><span>اطلاعات مشتری</span></a></li>
+                                        <li ><a href="{{ path('agencyentity') }}" class="pull-right"><span>مدیریت آژانس</span></a></li>
+                                        <li ><a href="{{ path('accountentity') }}" class="pull-right"><span>حسابداری</span></a></li>
                                     </ul>
                                 </li>
                                 <li><a href = "#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>

@@ -21,6 +21,8 @@ class registerType extends BaseType
             ->add('user_accountNumber')
             ->add('user_cardNumber')
             ->add('user_nameBank')
+            ->add('username')
+            ->add('plainPassword')
         ;
     }
 

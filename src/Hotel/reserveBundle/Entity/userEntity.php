@@ -27,12 +27,12 @@ class userEntity extends BaseUser
     private $user_family;
 
     /**
-     * @ORM\Column(type="bigint", nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $user_phone;
 
     /**
-     * @ORM\Column(type="bigint", nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $user_mobile;
 
@@ -42,12 +42,12 @@ class userEntity extends BaseUser
     private $user_city;
 
     /**
-     * @ORM\Column(type="bigint", nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $user_accountNumber;
 
     /**
-     * @ORM\Column(type="bigint", nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $user_cardNumber;
 

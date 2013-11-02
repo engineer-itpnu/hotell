@@ -1,15 +1,63 @@
-{% extends '::base.html.twig' %}
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+    <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #74B749;display: block;">
+                <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پایه ای هتل ها</strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <form action="{{ path('accountentity_create') }}" method="post" {{ form_enctype(form) }}>
+                                <tbody>
+                                <tr class="success">
+                                    <td style="padding-right: 0px;">مبلغ(ریال) :
+                                        {{ form_errors(form.price) }}
+                                        {{ form_widget(form.price) }}
+                                    </td>
+                                    <td>نوع پرداخت </td><td>
+                                        {{ form_errors(form.type) }}
+                                        {{ form_widget(form.type) }}
+                                    </td><td></td><td></td>
+                                </tr>
 
-{% block body -%}
-    <h1>accountEntity creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('accountentity') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+                                <tr class="info">
+                                    <td style="padding-right: 0px;padding-left: 2px">موجودی هتل :
+                                        {{ form_errors(form.StockHotel) }}
+                                        {{ form_widget(form.StockHotel) }}
+                                    </td>
+                                    <td>موجودی آژانس : </td><td>
+                                        {{ form_errors(form.StockAgency) }}
+                                        {{ form_widget(form.StockAgency) }}
+                                    </td>
+                                    <td>شماره پیگیری بانک : </td><td>
+                                        {{ form_errors(form.NumberPey) }}
+                                        {{ form_widget(form.NumberPey) }} </td>
+                                </tr><tr class="info">
+                                    <td style="padding-right: 0px;padding-left: 2px">تاریخ
+                                         {{ form_errors(form.DateTime) }}
+                                         {{ form_widget(form.DateTime) }}
+                                    </td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                {{ form_widget(form._token) }}
+                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
+                                <ul class="record_actions" style="list-style-type: none">
+                                    <li>
+                                        <a class="btn btn-primary" href="{{ path('accountentity') }}">
+                                            برگشت
+                                        </a>
+                                    </li>
+                                </ul>
+                                </tbody>
+                            </form>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

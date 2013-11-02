@@ -1,25 +1,43 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
-    <h1>accountEntity list</h1>
-
-    <table class="records_list">
-        <thead>
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+<section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+        <div class="" style="border: 1px solid #74B749;display: block;">
+            <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اطلاعات پایه هتل ها</strong>
+                    </span>
+            </div>
+            <div class="" style="display: block;padding: 25px 15px;">
+                <div class="">
+                    <table class="table table-condensed" style="width: 100%;">
+                        <tbody>
+                        <table class="table table-bordered" dir="rtl">
+                            <thead >
             <tr>
-                <th>Id</th>
-                <th>Price</th>
-                <th>Type</th>
-                <th>Stockhotel</th>
-                <th>Stockagency</th>
-                <th>Numberpey</th>
-                <th>Datetime</th>
-                <th>Actions</th>
+                <th>ردیف</th>
+                <th>هتل</th>
+                <th>آژانس</th>
+                <th>مشتری</th>
+                <th>اتاق رزروشده</th>
+                <th>مبلغ(ریال)</th>
+                <th>نوع</th>
+                <th>موجودی هتل</th>
+                <th>موجودی آژانس</th>
+                <th>شماره پیگیری بانک</th>
+                <th>تاریخ</th>
+                <th>اقدامات</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('accountentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.hotelEntity }}</td>
+                <td>{{ entity.agencyEntity }}</td>
+                <td>{{ entity.customerEntity }}</td>
+                <td>{{ entity.reserveEntity }}</td>
                 <td>{{ entity.price }}</td>
                 <td>{{ entity.type }}</td>
                 <td>{{ entity.StockHotel }}</td>
@@ -27,12 +45,12 @@
                 <td>{{ entity.NumberPey }}</td>
                 <td>{% if entity.DateTime %}{{ entity.DateTime|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
+                <ul style="list-style-type: none">
                     <li>
-                        <a href="{{ path('accountentity_show', { 'id': entity.id }) }}">show</a>
+                        <a class="badge badge-success" href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
                     </li>
                     <li>
-                        <a href="{{ path('accountentity_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="badge badge-info" href="{{ path('accountentity_edit', { 'id': entity.id }) }}">ویرایش</a>
                     </li>
                 </ul>
                 </td>
@@ -41,11 +59,19 @@
         </tbody>
     </table>
 
-        <ul>
+        <ul style="list-style-type: none">
         <li>
-            <a href="{{ path('accountentity_new') }}">
-                Create a new entry
+            <a class="btn btn-primary" href="{{ path('accountentity_new') }}">
+               ایجاد
             </a>
         </li>
     </ul>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     {% endblock %}

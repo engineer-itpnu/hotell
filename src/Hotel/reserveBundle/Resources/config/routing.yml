@@ -36,7 +36,10 @@ HotelreserveBundle_roomentity:
     prefix:   /roomentity
 HotelreserveBundle_userentity:
     resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
-    prefix:   /userentity
+    prefix:   /admin/userentity
+Hotelregister_register:
+    resource: "@HotelreserveBundle/Resources/config/routing/register.yml"
+    prefix:   /admin/registering
 hotelreserve_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: HotelreserveBundle:Default:index }

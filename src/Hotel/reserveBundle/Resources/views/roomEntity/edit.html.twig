@@ -17,7 +17,6 @@
                                 <tbody>
                                 <form action="{{ path('roomentity_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
                                     <input type="hidden" name="_method" value="PUT"/>
-
                                     <tr class="success">
                                         <td>
                                             {{ form_label(edit_form.room_name,'نام اتاق : ') }}</td><td>
@@ -50,6 +49,7 @@
                                             {{ form_widget(edit_form.room_type) }}
                                         </td><td></td><td></td>
                                     </tr>
+
 
                                     {{ form_widget(edit_form._token) }}
                                     <ul style="list-style-type: none"><li>
