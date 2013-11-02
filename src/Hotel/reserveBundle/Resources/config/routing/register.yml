@@ -1,7 +1,3 @@
-registerentity:
-    pattern:  /{usertype}
-    defaults: { _controller: "HotelreserveBundle:register:index" }
-
 registerentity_show:
     pattern:  /{id}/show
     defaults: { _controller: "HotelreserveBundle:register:show" }
@@ -28,3 +24,8 @@ registerentity_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "HotelreserveBundle:register:delete" }
     requirements: { _method: post|delete }
+
+registerentity:
+    pattern:  /{usertype}
+    defaults: { _controller: "HotelreserveBundle:register:index" }
+

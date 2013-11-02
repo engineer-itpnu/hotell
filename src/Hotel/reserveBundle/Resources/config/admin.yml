@@ -1,5 +1,5 @@
 a_main:
-    pattern:  /home
+    pattern:  /
     defaults: { _controller: HotelreserveBundle:Admin:admin }
 def_hotel:
     pattern:  /addhotel
