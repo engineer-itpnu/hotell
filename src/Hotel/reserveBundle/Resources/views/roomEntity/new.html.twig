@@ -1,50 +1,64 @@
 {% extends 'HotelreserveBundle::layout_admin.html.twig' %}
 {% block content -%}
-<section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
-    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-        <div class="" style="border: 1px solid #74B749;display: block;">
-            <div class="" style="background: #74B749;height: 36px;display: block;">
-                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #74B749;display: block;">
+                <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
                             <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پایه ای هتل ها</strong>
                     </span>
-            </div>
-            <div class="" style="display: block;padding: 25px 15px;">
-                <div class="">
-                    <table class="table table-condensed" style="width: 100%;">
-                        <form action="{{ path('roomentity_create') }}" method="post" {{ form_enctype(form) }}>
-                            <tbody>
-                            <tr class="success"><td>نوع اتاق : </td><td>
-                                    {{ form_errors(form.room_type) }}
-                                    {{ form_widget(form.room_type) }}</td>
-                                <td>نام اتاق : </td><td>
-                                    {{ form_errors(form.room_name) }}
-                                    {{ form_widget(form.room_name) }}</td></tr>
-                            <tr class="info"><td>گنجایش اتاق : </td><td>
-                                    {{ form_errors(form.room_capacity) }}
-                                    {{ form_widget(form.room_capacity) }}</td>
-                                <td>گنجایش نفر اضافه اتاق : </td><td>
-                                    {{ form_errors(form.room_addCapacity) }}
-                                    {{ form_widget(form.room_addCapacity) }}</td></tr>
-                            <tr class="success"><td>متعلق به هتل : </td><td>
-                                    {{ form_errors(form.hotelEntity) }}
-                                    {{ form_widget(form.hotelEntity) }}</td><td></td><td></td></tr>
-                                    {{ form_widget(form._token) }}
-                            <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
-                            <ul class="record_actions" style="list-style-type: none">
-        <ul class="record_actions" style="list-style-type: none">
-    <li>
-        <a class="btn btn-primary" href="{{ path('roomentity') }}">
-            برگشت
-        </a>
-    </li>
-</ul>
-                            </tbody>
-                        </form>
-                    </table>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <form action="{{ path('roomentity_create') }}" method="post" {{ form_enctype(form) }}>
+                                <tbody>
+                                <tr class="success">
+                                    <td>نوع اتاق :</td>
+                                    <td>
+                                        {{ form_errors(form.room_type) }}
+                                        {{ form_widget(form.room_type) }}</td>
+                                    <td>نام اتاق :</td>
+                                    <td>
+                                        {{ form_errors(form.room_name) }}
+                                        {{ form_widget(form.room_name) }}</td>
+                                </tr>
+                                <tr class="info">
+                                    <td>گنجایش اتاق :</td>
+                                    <td>
+                                        {{ form_errors(form.room_capacity) }}
+                                        {{ form_widget(form.room_capacity) }}</td>
+                                    <td>گنجایش نفر اضافه اتاق :</td>
+                                    <td>
+                                        {{ form_errors(form.room_addCapacity) }}
+                                        {{ form_widget(form.room_addCapacity) }}</td>
+                                </tr>
+                                <tr class="success">
+                                    <td>متعلق به هتل :</td>
+                                    <td>
+                                        {{ form_errors(form.hotelEntity) }}
+                                        {{ form_widget(form.hotelEntity) }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {{ form_widget(form._token) }}
+                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
+                                <ul class="record_actions" style="list-style-type: none">
+                                    <ul class="record_actions" style="list-style-type: none">
+                                        <li>
+                                            <a class="btn btn-primary" href="{{ path('roomentity') }}">
+                                                برگشت
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </tbody>
+                            </form>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}

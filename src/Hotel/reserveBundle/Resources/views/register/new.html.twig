@@ -7,86 +7,91 @@
                     <span class=""
                           style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                         <a href="" class=" icon-th-large"></a>
-                        <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پا?ه ا? هتل ها</strong>
+                        <a href="" class="icon-chevron-left"></a> <strong>ثبت نام کاربران سایت </strong>
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
                         <table class="table table-condensed" style="width: 100%;">
                             <form action="{{ path('registerentity_create') }}" method="post" {{ form_enctype(form) }}>
-                                <tbody>
+                                <tbody class="text-error">
                                 <tr class="success">
-                                    <td>userfirstname</td>
                                     <td>
+                                        {{ form_label(form.user_firstname,'نام : ') }}
                                         {{ form_errors(form.user_firstname) }}
-                                        {{ form_widget(form.user_firstname) }}</td>
-                                    <td>userfamily</td>
+                                        {{ form_widget(form.user_firstname) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.user_family,'نام خانوادگی : ') }}
                                         {{ form_errors(form.user_family) }}
-                                        {{ form_widget(form.user_family) }}</td>
+                                        {{ form_widget(form.user_family) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(form.username,'نام کاربری : ') }}
+                                        {{ form_errors(form.username) }}
+                                        {{ form_widget(form.username) }}
+                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="info">
-                                    <td>username</td>
-                                    <td>
-                                        {{ form_errors(form.username) }}
-                                        {{ form_widget(form.username) }}</td>
-                                    <td></td>
                                     <td>
                                         {{ form_errors(form.plainPassword) }}
-                                        {{ form_widget(form.plainPassword) }}</td>
-                                </tr>
-                                <tr class="success">
-                                    <td>userphone</td>
+                                        {{ form_widget(form.plainPassword) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.user_phone,'شماره تلفن : ') }}
                                         {{ form_errors(form.user_phone) }}
-                                        {{ form_widget(form.user_phone) }}</td>
-                                    <td>user_mobile</td>
+                                        {{ form_widget(form.user_phone) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.user_mobile,'شماره موبایل : ') }}
                                         {{ form_errors(form.user_mobile) }}
-                                        {{ form_widget(form.user_mobile) }}</td>
+                                        {{ form_widget(form.user_mobile) }}
+                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="success">
-                                    <td>user_city</td>
                                     <td>
+                                        {{ form_label(form.user_city,'شهر : ') }}
                                         {{ form_errors(form.user_city) }}
-                                        {{ form_widget(form.user_city) }}</td>
-                                    <td>user_accountNumber</td>
+                                        {{ form_widget(form.user_city) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.user_accountNumber,'شماره حساب : ') }}
                                         {{ form_errors(form.user_accountNumber) }}
-                                        {{ form_widget(form.user_accountNumber) }}</td>
-                                </tr>
-                                <tr class="success">
-                                    <td>user_cardNumber</td>
+                                        {{ form_widget(form.user_accountNumber) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.user_cardNumber,'شماره کارت اعتباری : ') }}
                                         {{ form_errors(form.user_cardNumber) }}
-                                        {{ form_widget(form.user_cardNumber) }}</td>
-                                    <td>user_nameBank</td>
-                                    <td>
-                                        {{ form_errors(form.user_nameBank) }}
-                                        {{ form_widget(form.user_nameBank) }}</td>
+                                        {{ form_widget(form.user_cardNumber) }}
+                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr class="success">
-                                    <td>email</td>
                                     <td>
+                                        {{ form_label(form.user_mobile,'نام بانک عامل : ') }}
+                                        {{ form_errors(form.user_nameBank) }}
+                                        {{ form_widget(form.user_nameBank) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(form.email,'ایمیل : ') }}
                                         {{ form_errors(form.email) }}
-                                        {{ form_widget(form.email) }}</td>
-                                    <td>role</td>
+                                        {{ form_widget(form.email) }}
+                                    </td>
                                     <td>
+                                        {{ form_label(form.roles,'متعلق به کاربر : ') }}
                                         {{ form_errors(form.roles) }}
-                                        {{ form_widget(form.roles) }}</td>
-
+                                        {{ form_widget(form.roles) }}
+                                    </td>
+                                    <td></td>
                                 </tr>
-                                    {{ form_widget(form._token) }}
-                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ا?جاد</button>
-                                <ul class="record_actions" style="list-style-type: none">
-                                    <ul class="record_actions" style="list-style-type: none">
-                                        <li>
-                                            <a class="btn btn-primary" href="javascript:history.back()">
-                                                برگشت
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </ul>
+                                {{ form_widget(form._token) }}
+                               <table>
+                                    <button class="btn btn-primary" style="margin-right:450px;margin-bottom: 20px" type="submit">
+                                       ایجاد کاربر
+                                    </button>
+                               </table>
                                 </tbody>
                             </form>
                         </table>

@@ -24,7 +24,7 @@ HotelreserveBundle_customerentity:
     prefix:   /customerentity
 HotelreserveBundle_hotelentity:
     resource: "@HotelreserveBundle/Resources/config/routing/hotelentity.yml"
-    prefix:   /admin/addhotel
+    prefix:   /hotel
 HotelreserveBundle_masterentity:
     resource: "@HotelreserveBundle/Resources/config/routing/masterentity.yml"
     prefix:   /masterentity
@@ -33,7 +33,7 @@ HotelreserveBundle_reserveentity:
     prefix:   /reserveentity
 HotelreserveBundle_roomentity:
     resource: "@HotelreserveBundle/Resources/config/routing/roomentity.yml"
-    prefix:   /roomentity
+    prefix:   /room
 HotelreserveBundle_userentity:
     resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
     prefix:   /admin/userentity

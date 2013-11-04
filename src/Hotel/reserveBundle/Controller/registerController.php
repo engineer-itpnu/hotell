@@ -113,10 +113,10 @@ class registerController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('registerentity_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('registerentity', array('usertype' => $entity->getRoles()[0])));
         }
 
-        return $this->render('HotelreserveBundle:register:edit.html.twig', array(
+        return $this->render("HotelreserveBundle:register:edit.html.twig", array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

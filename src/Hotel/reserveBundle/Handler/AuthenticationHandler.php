@@ -27,7 +27,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
         }
         elseif ($this->security->isGranted('ROLE_HOTELDAR'))
         {
-            $response = new RedirectResponse($this->router->generate(''));
+            $response = new RedirectResponse($this->router->generate('h_main'));
         }
         elseif ($this->security->isGranted('ROLE_AGENCY'))
         {

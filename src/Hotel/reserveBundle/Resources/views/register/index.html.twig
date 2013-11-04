@@ -1,65 +1,82 @@
-{% extends '::base.html.twig' %}
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #74B749;display: block;">
+                <div class="" style="background: #74B749;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>
+                            نمایش لیست کاربران سایت - ویرایش اطلاعات کاربران
+                        </strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <tbody>
+                            <table class="table table-bordered" dir="rtl">
+                                <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>نام</th>
+                                    <th>نام خانوادگی</th>
+                                    <th>نام کاربری</th>
+                                    <th>متعلق به کاربر</th>
+                                    <th>شماره تلفن</th>
+                                    <th>شماره موبایل</th>
+                                    <th>شهر</th>
+                                    <th>شماره حساب</th>
+                                    <th>شماره کارت اعتباری</th>
+                                    <th>نام بانک عامل</th>
+                                    <th>اقدامات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                        </td>
+                                        <td>{{ entity.userfirstname }}</td>
+                                        <td>{{ entity.userfamily }}</td>
+                                        <td>{{ entity.username }}</td>
+                                        <td>{% if entity.roles[0]== "ROLE_ADMIN" %}
+                                                مدیر سایت
+                                            {% elseif entity.roles[0]== "ROLE_HOTELDAR" %}
+                                                هتل دار
+                                            {% else %}
+                                                آژانس
+                                            {% endif %}
 
-{% block body -%}
-    <h1>userEntity list</h1>
+                                        </td>
+                                        <td>{{ entity.userphone }}</td>
+                                        <td>{{ entity.usermobile }}</td>
+                                        <td>{{ entity.usercity }}</td>
+                                        <td>{{ entity.useraccountNumber }}</td>
+                                        <td>{{ entity.usercardNumber }}</td>
+                                        <td>{{ entity.usernameBank }}</td>
+                                        <td>
+                                            <ul style="list-style-type: none;">
 
-    <table class="records_list">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>User_firstname</th>
-            <th>User_family</th>
-            <th>User_phone</th>
-            <th>User_roles</th>
-            <th>User_mobile</th>
-            <th>User_city</th>
-            <th>User_accountnumber</th>
-            <th>User_cardnumber</th>
-            <th>User_namebank</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('registerentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.userfirstname }}</td>
-                <td>{{ entity.userfamily }}</td>
-                <td>{{ entity.userphone }}</td>
-                <td>{% if entity.roles[0]== "ROLE_ADMIN" %}
-                        مدیر سایت
-                    {% elseif entity.roles[0]== "ROLE_HOTELDAR" %}
-                        هتل دار
-                    {% else %}
-                        آژانس
-                    {% endif %}
+                                                <li>
+                                                    <a class="badge badge-info"
+                                                       href="{{ path('registerentity_edit', { 'id': entity.id }) }}">edit</a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
 
-                </td>
-                <td>{{ entity.usermobile }}</td>
-                <td>{{ entity.usercity }}</td>
-                <td>{{ entity.useraccountNumber }}</td>
-                <td>{{ entity.usercardNumber }}</td>
-                <td>{{ entity.usernameBank }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('registerentity_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('registerentity_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

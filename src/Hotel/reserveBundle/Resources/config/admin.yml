@@ -1,13 +1,3 @@
 a_main:
     pattern:  /
     defaults: { _controller: HotelreserveBundle:Admin:admin }
-def_hotel:
-    pattern:  /addhotel
-    defaults: { _controller: "HotelreserveBundle:hotelEntity:index" }
-def_room:
-    pattern:  /addroom
-    defaults: { _controller: "HotelreserveBundle:roomEntity:index" }
-blank_room:
-    pattern:  /blankroom
-    defaults: { _controller: "HotelreserveBundle:blankEntity:index" }
-

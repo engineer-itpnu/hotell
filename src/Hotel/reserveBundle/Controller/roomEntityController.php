@@ -44,7 +44,7 @@ class roomEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('roomentity_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('roomentity', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:roomEntity:new.html.twig', array(
@@ -171,7 +171,7 @@ class roomEntityController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('roomentity_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('roomentity', array('id' => $id)));
         }
 
         return $this->render('HotelreserveBundle:roomEntity:edit.html.twig', array(
@@ -201,7 +201,7 @@ class roomEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('def_room'));
+        return $this->redirect($this->generateUrl('roomentity_new'));
     }
 
     /**

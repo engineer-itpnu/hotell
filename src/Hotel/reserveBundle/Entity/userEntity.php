@@ -17,42 +17,42 @@ class userEntity extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_firstname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_family;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_phone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_mobile;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=600, nullable=false)
      */
     private $user_accountNumber;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=600, nullable=false)
      */
     private $user_cardNumber;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=400, nullable=false)
      */
     private $user_nameBank;
 

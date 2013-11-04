@@ -14,16 +14,4 @@ class AdminController extends Controller
     {
         return $this->render('HotelreserveBundle:admin:home_page_admin.html.twig');
     }
-    public function addhotelAction()
-    {
-        return $this->render('HotelreserveBundle:admin:definition_hotel_admin.html.twig');
-    }
-    public function addroomAction()
-    {
-        return $this->render('HotelreserveBundle:admin:definition_room_admin.html.twig');
-    }
-    public function adduserAction()
-    {
-        return $this->render('HotelreserveBundle:admin:definition_room_admin.html.twig');
-    }
 }

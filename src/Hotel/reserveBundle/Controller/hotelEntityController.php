@@ -2,6 +2,7 @@
 
 namespace Hotel\reserveBundle\Controller;
 
+use Hotel\reserveBundle\Entity\userEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -23,7 +24,10 @@ class hotelEntityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HotelreserveBundle:hotelEntity')->findAll();
+        if($this->getUser()->hasRole('ROLE_ADMIN'))
+            $entities = $em->getRepository('HotelreserveBundle:hotelEntity')->findAll();
+        else
+            $entities = $em->getRepository('HotelreserveBundle:hotelEntity')->findBy(array('userEntity'=>$this->getUser()));
 
         return $this->render('HotelreserveBundle:hotelEntity:index.html.twig', array(
             'entities' => $entities,
@@ -35,6 +39,9 @@ class hotelEntityController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+            return $this->redirect($this->generateUrl('hotelentity'));
+
         $entity = new hotelEntity();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -44,7 +51,7 @@ class hotelEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('hotelentity_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('hotelentity', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:hotelEntity:new.html.twig', array(
@@ -78,6 +85,9 @@ class hotelEntityController extends Controller
      */
     public function newAction()
     {
+        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+            return $this->redirect($this->generateUrl('hotelentity_new'));
+
         $entity = new hotelEntity();
         $form   = $this->createCreateForm($entity);
 
@@ -105,7 +115,8 @@ class hotelEntityController extends Controller
 
         return $this->render('HotelreserveBundle:hotelEntity:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
@@ -114,6 +125,9 @@ class hotelEntityController extends Controller
      */
     public function editAction($id)
     {
+        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+            return $this->redirect($this->generateUrl('hotelentity'));
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HotelreserveBundle:hotelEntity')->find($id);
@@ -156,6 +170,9 @@ class hotelEntityController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+            return $this->redirect($this->generateUrl('hotelentity'));
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HotelreserveBundle:hotelEntity')->find($id);
@@ -186,6 +203,9 @@ class hotelEntityController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+            return $this->redirect($this->generateUrl('hotelentity'));
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 

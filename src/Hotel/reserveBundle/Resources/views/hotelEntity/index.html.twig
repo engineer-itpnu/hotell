@@ -46,12 +46,11 @@
                                         {#<td style="text-align: center">{{ entity.hotelactive }}</td>#}
                                         <td style="text-align: center">
                                             <ul style="list-style-type: none;">
-                                                <li>
-                                                    <a class="badge badge-success" href="{{ path('hotelentity_show', { 'id': entity.id }) }}">نمایش جزئیات هتل</a>
-                                                </li>
-                                                <li style="padding-top: 5px;">
-                                                    <a class="badge badge-info" href="{{ path('hotelentity_edit', { 'id': entity.id }) }}">ویرایش هتل</a>
-                                                </li>
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <li style="padding-top: 5px;">
+                                                        <a class="badge badge-info" href="{{ path('hotelentity_edit', { 'id': entity.id }) }}">ویرایش هتل</a>
+                                                    </li>
+                                                {% endif %}
                                                 <li style="padding-top: 5px;">
                                                     <a class="badge badge-info" href="{{ path('hotelentity_edit', { 'id': entity.id }) }}">لیست اتاق های هتل</a>
                                                 </li>
@@ -61,13 +60,16 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-                            <ul style="list-style-type: none">
-                                <li>
-                                    <a class="btn btn-primary" href="{{ path('hotelentity_new') }}">
-                                        ایجاد هتل جدید
-                                    </a>
-                                </li>
-                            </ul>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <ul style="list-style-type: none">
+                                    <li>
+                                        <a class="btn btn-primary" href="{{ path('hotelentity_new') }}">
+                                            ایجاد هتل جدید
+                                        </a>
+                                    </li>
+                                </ul>
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>

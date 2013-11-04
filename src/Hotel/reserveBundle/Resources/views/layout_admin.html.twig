@@ -20,16 +20,16 @@
                                 <li class="dropdown"><a href="#"> &nbsp&nbsp&nbsp&nbspمدیریت تعریف هتل و اتاق&nbsp</a>
                                     <ul>
                                         <li><a class="pull-right"
-                                               href="{{ path('def_hotel') }}"><span>نمایش لیست هتل ها</span></a></li>
+                                               href="{{ path('hotelentity') }}"><span>نمایش لیست هتل ها</span></a></li>
                                         <li><a class="pull-right"
-                                               href="{{ path('def_room') }}"><span>ایجاد اتاق های هتل</span></a></li>
+                                               href="{{ path('roomentity') }}"><span>ایجاد اتاق های هتل</span></a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
                                         &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                                         &nbsp &nbsp </a>
                                     <ul>
-                                        <li><a href="{{ path('blank_room') }}" class="pull-right"><span>تعیین وضعیت اتاق ها</span></a>
+                                        <li><a href="{{ path('blankentity') }}" class="pull-right"><span>تعیین وضعیت اتاق ها</span></a>
                                         </li>
                                         <li><a class="pull-right"><span>مانیتورینگ وضعیت اتاق ها</span></a></li>
                                     </ul>
@@ -39,16 +39,13 @@
                                         &nbsp&nbsp &nbspمدیریت یوزر پنل ها&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp
                                         &nbsp&nbsp &nbsp&nbsp &nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('fos_user_registration_register') }}" class="pull-right">ایجاد
-                                                یوزرها</a></li>
-                                        <li><a href="{{ path('registerentity_new') }}" class="pull-right">ثبت نام</a>
+                                        {#<li><a href="{{ path('fos_user_registration_register') }}" class="pull-right">ایجاد
+                                                یوزرها</a></li>#}
+                                        <li><a href="{{ path('registerentity_new') }}" class="pull-right">ثبت نام کاربران سایت </a>
                                         </li>
-                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_ADMIN"}) }}" class="pull-right">نمایش
-                                                لیست یوزرادمین</a></li>
-                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_HOTELDAR"}) }}" class="pull-right">نمایش لیست یوزر
-                                                هتلدار</a></li>
-                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_AGENCY"}) }}" class="pull-right">نمایش لیست
-                                                یوزرآژانس</a></li>
+                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_ADMIN"}) }}" class="pull-right">نمایش لیست کاربران مدیر</a></li>
+                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_HOTELDAR"}) }}" class="pull-right">نمایش لیست کاربران هتل</a></li>
+                                        <li><a href="{{ path('registerentity',{'usertype':"ROLE_AGENCY"}) }}" class="pull-right">نمایش لیست کاربران آژانس</a></li>
 
                                     </ul>
                                 </li>
@@ -125,13 +122,13 @@
                                     <div class="">
                                         <table class="table table-condensed" style="width: 100%;">
                                             <tbody>
-                                            <h2 style="text-align: center">Hello Di</h2>
+                                            <h2 style="text-align: center">Hello Htc</h2>
 
-                                            <h2 style="text-align: center">Hello Di</h2>
+                                            <h2 style="text-align: center">Hello Htc</h2>
 
-                                            <h2 style="text-align: center">Hello Di</h2>
+                                            <h2 style="text-align: center">Hello Htc</h2>
 
-                                            <h2 style="text-align: center">Hello Di</h2>
+                                            <h2 style="text-align: center">Hello Htc</h2>
                                             </tbody>
                                         </table>
                                     </div>

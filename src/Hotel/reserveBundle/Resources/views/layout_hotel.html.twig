@@ -16,11 +16,11 @@
                     <div class="navbar " >
                         <div class="">
                             <ul class = "menu1" style = "margin-bottom : 0px;">
-                                <li><a href = "home">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
+                                <li><a href = "{{ path('h_main') }}">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
                                 <li class = "dropdown"><a href = "#"> &nbsp&nbsp&nbsp&nbspمدیریت اتاق ها&nbsp</a>
                                     <ul>
-
-                                        <li><a href = "addroom"><span>ایجاد اتاق جدبد</span></a></li>
+                                        <li><a href = "{{ path('hotelentity') }}"><span>نمایش لیست هتل ها</span></a></li>
+                                        <li><a href = "{{ path('roomentity') }}"><span>ایجاد اتاق های هتل</span></a></li>
                                     </ul>
                                 </li>
                                 <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
