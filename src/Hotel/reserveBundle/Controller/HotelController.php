@@ -5,20 +5,16 @@ namespace Hotel\reserveBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HotelController extends Controller
 {
-    public function adminAction()
+    public function homeAction()
     {
         return $this->render('HotelreserveBundle::layout_hotel.html.twig');
     }
-    public function homeAction()
+    public function requestAction()
     {
-        return $this->render('HotelreserveBundle:admin:home_page_admin.html.twig');
+        return $this->render('HotelreserveBundle:Default:HotelRequestMoney.html.twig');
     }
-    public function addhotelAction()
+    public function rollAction()
     {
-        return $this->render('HotelreserveBundle:admin:definition_hotel_admin.html.twig');
-    }
-    public function addroomAction()
-    {
-        return $this->render('HotelreserveBundle:admin:definition_room_admin.html.twig');
+        return $this->render('HotelreserveBundle:Default:HotelRollAccount.html.twig');
     }
 }

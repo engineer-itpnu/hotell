@@ -1,0 +1,82 @@
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #4d3d98;display: block;">
+                <div class="" style="background: #4d3d98;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اطلاعات پایه هتل ها</strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <tbody>
+                            <table class="table table-bordered" dir="rtl">
+                                <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>هتل</th>
+                                    <th>آژانس</th>
+                                    <th>مشتری</th>
+                                    <th>اتاق رزروشده</th>
+                                    <th>مبلغ(ریال)</th>
+                                    <th>نوع</th>
+                                    <th>موجودی هتل</th>
+                                    <th>شماره پیگیری بانک</th>
+                                    <th>تاریخ</th>
+                                    <th>اقدامات</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('accountentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                        </td>
+                                        <td>{{ entity.hotelEntity }}</td>
+                                        <td>{{ entity.agencyEntity }}</td>
+                                        <td>{{ entity.customerEntity }}</td>
+                                        <td>{{ entity.reserveEntity }}</td>
+                                        <td>{{ entity.price }}</td>
+                                        <td>{% if entity.type== "0" %}
+                                                واریز
+                                            {% elseif entity.type== "1" %}
+                                                برداشت
+                                            {% else %}
+                                                خرید
+                                            {% endif %}</td>
+                                        <td>{{ entity.StockHotel }}</td>
+                                        <td>{{ entity.NumberPey }}</td>
+                                        <td>{% if entity.DateTime %}{{ entity.DateTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>
+                                            <ul style="list-style-type: none">
+                                                <li>
+                                                    <a class="badge badge-success"
+                                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

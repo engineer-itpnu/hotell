@@ -1,4 +1,10 @@
-{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -7,7 +13,7 @@
                     <span class=""
                           style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اطلاعات پایه هتل ها</strong>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اتاق های هتل </strong>
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
@@ -29,9 +35,7 @@
                                 <tbody>
                                 {% for entity in entities %}
                                     <tr>
-                                        <td style="text-align: center"><a
-                                                    href="{{ path('roomentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                                        </td>
+                                        <td style="text-align: center">{{ entity.id }}</td>
                                         <td style="text-align: center">{% if entity.roomtype==0 %}سوئيت
                                             {% elseif entity.roomtype==1 %}سوئيت vip
                                             {% elseif entity.roomtype==2 %}سوئيت جونيور
@@ -58,7 +62,7 @@
                                             <ul style="list-style-type: none">
                                                 <li>
                                                     <a class="badge badge-info"
-                                                       href="{{ path('roomentity_edit', { 'id': entity.id }) }}">ویرایش</a>
+                                                       href="{{ path('roomentity_edit', { 'id': entity.id,'hotel_id':hotel_id }) }}">ویرایش</a>
                                                 </li>
                                             </ul>
                                         </td>
@@ -69,8 +73,13 @@
 
                             <ul style="list-style-type: none">
                                 <li>
-                                    <a class="btn btn-primary" href="{{ path('roomentity_new') }}">
+                                    <a class="btn btn-primary" href="{{ path('roomentity_new',{'hotel_id':hotel_id}) }}">
                                         ایجاد اتاق جدید
+                                    </a>
+                                </li><br/>
+                                <li>
+                                    <a class="btn btn-primary" href="javascript:history.back();">
+                                        برگشت
                                     </a>
                                 </li>
                             </ul>

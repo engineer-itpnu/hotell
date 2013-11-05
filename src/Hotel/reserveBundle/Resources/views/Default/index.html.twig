@@ -1,1 +1,84 @@
-Hello {{ name }}!
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/assets/css/TimeLine.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('bundles/assets/js/timeLine.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            timeline_header();
+            timeline_add_row('یک تخته', 12, [
+                [0, '8-9-10-11-12', 'کد:12<br />میهمان: علی احمدی'],
+                [1, '1-2-3-4', 'bbbbb'],
+                [0, '17-18-19', 'ccccc']
+            ]);
+            timeline_add_row('دو تخته', 34, [
+                [1, '11', 'dddddd'],
+                [0, '8-9-10', 'fffffff']
+            ]);
+            timeline_add_row('سوئیت', 23, [
+                [0, '8-9-10', 'wewewewe'],
+                [1, '', 'wrerwerwerwerwer']
+            ]);
+            timeline_add_row('سوئیت', 23, [
+                [0, '8-9-10', 'wewewewe'],
+                [1, '17', 'wrerwerwerwerwer']
+            ]);
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #88288f;display: block;">
+                <div class="" style="background: #88288f;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>مانیتورینگ وضعیت اتاق ها - ایجاد و ویرایش اتاق های خالی هتل </strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <tbody>
+
+
+                           <div class="timeLine">
+
+
+                           </div>
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        function show_balloon(position, message) {
+            $('#tl-balloon-' + position).balloon({
+                position: "bottom",
+                contents: '<span style="text-align: right;direction: rtl;">' + message + '</span>'
+            });
+        }
+    </script>
+{% endblock %}

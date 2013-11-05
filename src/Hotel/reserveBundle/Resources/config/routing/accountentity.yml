@@ -1,6 +1,6 @@
 accountentity:
     pattern:  /
-    defaults: { _controller: "HotelreserveBundle:accountEntity:index" }
+    defaults: { _controller: "HotelreserveBundle:accountEntity:AdminIndex" }
 
 accountentity_show:
     pattern:  /{id}/show

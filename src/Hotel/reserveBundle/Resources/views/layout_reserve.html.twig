@@ -16,32 +16,36 @@
                     <div class="navbar " >
                         <div class="">
                             <ul class = "menu1" style = "margin-bottom : 0px;">
-                                <li><a href = "home">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
+                                <li><a href = "{{ path('g_main') }}">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
 
-                                <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
+                                <li class="dropdown"><a  href = "#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a><span style="padding-left: 42px;">وضعیت رزرو اتاق ها</span></a></li>
-                                        <li><a><span>مانیتورینگ وضعیت اتاق ها</span></a></li>
+                                        <li><a href="" class="pull-right"><span>گزارش رزرو آژانس </span></a></li>
+
                                     </ul>
                                 </li>
-
-
-                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
                                 <li class = "dropdown"><a href = "#">&nbsp&nbsp&nbspحسابداری</a>
                                     <ul>
 
-                                        <li style="padding-left: 63px;"><a><span>حساب آژانس</span></a></li>
+                                        <li ><a href="{{ path('g_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a></li>
                                     </ul>
                                 </li>
                                 <li><a href = "#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
+                                <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbspشارژ حساب کاربری&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
+                                    <ul>
+                                        <li><a href="" class="pull-right"><span>پرداخت آنلاین </span></a></li>
+                                        <li><a href="" class="pull-right"><span>ثبت رسید واریز بانک</span></a></li>
+                                    </ul>
+                                </li>
                                 <li class = "login_form"><a href = "#"><img src = "{{ asset('bundles/assets/img/login_icon.png') }}"></a>
-                                    <form>
+                                    <form action="{{ path('fos_user_security_logout') }}">
                                         <ul>
-                                            <li>User Login</li>
-                                            <li><input placeholder = "Username"></li>
-                                            <li><input type = "password" placeholder = "Password"></li>
-                                            <li><button>Login</button></li>
+                                            <li></li>
+                                            <li ><input disabled type="text"
+                                                        placeholder="{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}">
+                                            </li>
                                         </ul>
+                                        <button class="btn-danger btn-mini" style="margin-left: 22px">خروج</button>
                                     </form>
                                 </li>
 
@@ -55,29 +59,35 @@
     <div class="container-fluid" style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;" >
         <div class="row-fluid">
             <div class="span12">
-                <section class="container"  style="width: 95%; margin-top: 20px;">
-                    <div class="span12">
-                        <ul class="nav nav-tabs" style="margin-bottom: 0px" >
-                            <li class="" style="float: right; padding-right: 0px;">
-                                <a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> مشاهده لیست هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a>
-                            </li>
-                            <li style="float: right; padding-right: 200px;"><a href="#"><p  class="verysmall coloredbottomhr nobreak"><strong> ایجاد هتل جدید</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
-                            <li style="float: right; padding-right: 181px;"><a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> ویرایش هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
-                        </ul>
-                        <tr>
-                            <div class="progress" style="height: 5px;">
-                                <div class="bar bar-success" style="width: 44%; float: right;"></div>
-                                <div class="bar bar-warning" style="width: 37%; float: right;"></div>
-                                <div class="bar bar-danger" style="width: 19%; float: right;"></div>
-                            </div>
-                        </tr>
-                    </div>
-                </section>
                 {% block content %}
-                    <p>a</p>
+                    <section class="container" style="width: 95%; margin-top: 50px; margin-bottom: 50px;">
+                        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+                            <div class="" style="border: 1px solid #4d3d98;display: block;">
+                                <div class="" style="background: #4d3d98;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>صفحه اصلی</strong>
+                    </span>
+                                </div>
+                                <div class="" style="display: block;padding: 25px 15px;">
+                                    <div class="">
+                                        <table class="table table-condensed" style="width: 100%;">
+                                            <tbody>
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
-                    <section><h2 style="text-align: center">Hello Di</h2></section>
-                    <p>a</p>
                 {% endblock %}
             </div>
         </div></div>

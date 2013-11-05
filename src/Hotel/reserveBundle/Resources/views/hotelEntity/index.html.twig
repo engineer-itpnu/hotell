@@ -1,4 +1,11 @@
-{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
+
 {% block content -%}
     <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -52,7 +59,7 @@
                                                     </li>
                                                 {% endif %}
                                                 <li style="padding-top: 5px;">
-                                                    <a class="badge badge-info" href="{{ path('hotelentity_edit', { 'id': entity.id }) }}">لیست اتاق های هتل</a>
+                                                    <a class="badge badge-info" href="{{ path('roomentity', { 'hotel_id': entity.id }) }}">لیست اتاق های هتل</a>
                                                 </li>
                                             </ul>
                                         </td>
@@ -60,7 +67,9 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-
+                            <div class="pagination-centered pagination">
+                                {{ knp_pagination_render(entities) }}
+                            </div>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <ul style="list-style-type: none">
                                     <li>

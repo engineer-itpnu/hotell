@@ -19,37 +19,43 @@ class roomEntityController extends Controller
      * Lists all roomEntity entities.
      *
      */
-    public function indexAction()
+    public function indexAction($hotel_id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HotelreserveBundle:roomEntity')->findAll();
+        $hotel = $em->getRepository('HotelreserveBundle:hotelEntity')->find($hotel_id);
+
+        $entities = $hotel->getRoomEntities();
 
         return $this->render('HotelreserveBundle:roomEntity:index.html.twig', array(
             'entities' => $entities,
+            'hotel_id' => $hotel_id
         ));
     }
     /**
      * Creates a new roomEntity entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,$hotel_id)
     {
         $entity = new roomEntity();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity,$hotel_id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $hotel = $em->getRepository('HotelreserveBundle:hotelEntity')->find($hotel_id);
+            $entity->setHotelEntity($hotel);
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('roomentity', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('roomentity', array('id' => $entity->getId(),'hotel_id'=>$hotel_id)));
         }
 
         return $this->render('HotelreserveBundle:roomEntity:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'hotel_id' => $hotel_id
         ));
     }
 
@@ -60,10 +66,10 @@ class roomEntityController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(roomEntity $entity)
+    private function createCreateForm(roomEntity $entity,$hotel_id)
     {
         $form = $this->createForm(new roomEntityType(), $entity, array(
-            'action' => $this->generateUrl('roomentity_new'),
+            'action' => $this->generateUrl('roomentity_new',array('hotel_id'=>$hotel_id)),
             'method' => 'POST',
         ));
 
@@ -76,14 +82,15 @@ class roomEntityController extends Controller
      * Displays a form to create a new roomEntity entity.
      *
      */
-    public function newAction()
+    public function newAction($hotel_id)
     {
         $entity = new roomEntity();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity,$hotel_id);
 
         return $this->render('HotelreserveBundle:roomEntity:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'hotel_id' => $hotel_id
         ));
     }
 
@@ -91,7 +98,7 @@ class roomEntityController extends Controller
      * Finds and displays a roomEntity entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id,$hotel_id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -112,7 +119,7 @@ class roomEntityController extends Controller
      * Displays a form to edit an existing roomEntity entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id,$hotel_id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -122,13 +129,14 @@ class roomEntityController extends Controller
             throw $this->createNotFoundException('Unable to find roomEntity entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity,$hotel_id);
+        $deleteForm = $this->createDeleteForm($id,$hotel_id);
 
         return $this->render('HotelreserveBundle:roomEntity:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'hotel_id'    => $hotel_id
         ));
     }
 
@@ -139,10 +147,10 @@ class roomEntityController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(roomEntity $entity)
+    private function createEditForm(roomEntity $entity,$hotel_id)
     {
         $form = $this->createForm(new roomEntityType(), $entity, array(
-            'action' => $this->generateUrl('roomentity_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('roomentity_update', array('id' => $entity->getId(),'hotel_id'=>$hotel_id)),
             'method' => 'PUT',
         ));
 
@@ -154,7 +162,7 @@ class roomEntityController extends Controller
      * Edits an existing roomEntity entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id,$hotel_id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -164,29 +172,30 @@ class roomEntityController extends Controller
             throw $this->createNotFoundException('Unable to find roomEntity entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id,$hotel_id);
+        $editForm = $this->createEditForm($entity,$hotel_id);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('roomentity', array('id' => $id)));
+            return $this->redirect($this->generateUrl('roomentity', array('id' => $id,'hotel_id'=>$hotel_id)));
         }
 
         return $this->render('HotelreserveBundle:roomEntity:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'hotel_id'    => $hotel_id
         ));
     }
     /**
      * Deletes a roomEntity entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id,$hotel_id)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($id,$hotel_id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -201,7 +210,7 @@ class roomEntityController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('roomentity_new'));
+        return $this->redirect($this->generateUrl('roomentity_new',array('hotel_id'=>$hotel_id)));
     }
 
     /**
@@ -211,10 +220,10 @@ class roomEntityController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($id,$hotel_id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('roomentity_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('roomentity_delete', array('id' => $id,'hotel_id'=>$hotel_id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

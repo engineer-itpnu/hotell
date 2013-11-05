@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('HotelreserveBundle::index.html.twig');
     }
+    public function indexAction()
+    {
+        return $this->render('HotelreserveBundle:Default:index.html.twig');
+    }
 }

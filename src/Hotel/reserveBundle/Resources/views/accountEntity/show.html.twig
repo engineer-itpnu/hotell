@@ -1,9 +1,16 @@
-{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
+
 {% block content -%}
 <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
     <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-        <div class="" style="border: 1px solid #74B749;display: block;">
-            <div class="" style="background: #74B749;height: 36px;display: block;">
+        <div class="" style="border: 1px solid #4d3d98;display: block;">
+            <div class="" style="background: #4d3d98;height: 36px;display: block;">
                     <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
                             <a href="" class="icon-chevron-left"></a> <strong>نمایش اطلاعات پایه هتل</strong>
@@ -49,17 +56,7 @@
             Back to the list
         </a>
     </li>
-    <li>
-        <a class="btn btn-danger" href="{{ path('accountentity_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
-                <form action="{{ path('accountentity_delete', { 'id': entity.id }) }}" method="post">
-                    <input type="hidden" name="_method" value="DELETE"/>
-                    {{ form_widget(delete_form) }}
-                </form>
             </div>
         </div>
     </div>

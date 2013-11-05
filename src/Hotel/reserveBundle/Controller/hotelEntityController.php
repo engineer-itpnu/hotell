@@ -24,22 +24,32 @@ class hotelEntityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($this->getUser()->hasRole('ROLE_ADMIN'))
-            $entities = $em->getRepository('HotelreserveBundle:hotelEntity')->findAll();
-        else
-            $entities = $em->getRepository('HotelreserveBundle:hotelEntity')->findBy(array('userEntity'=>$this->getUser()));
+        $qb = $em->createQueryBuilder()
+            ->select('hotel')
+            ->from('HotelreserveBundle:hotelEntity', 'hotel');
+
+        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
+            $qb = $qb->where("hotel.userEntity = :user")->setParameter("user",$this->getUser());
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $qb->getQuery(),
+            $this->get('request')->query->get('page', 1),
+            1
+        );
 
         return $this->render('HotelreserveBundle:hotelEntity:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
         ));
     }
+
     /**
      * Creates a new hotelEntity entity.
      *
      */
     public function createAction(Request $request)
     {
-        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
         $entity = new hotelEntity();
@@ -56,17 +66,17 @@ class hotelEntityController extends Controller
 
         return $this->render('HotelreserveBundle:hotelEntity:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a hotelEntity entity.
-    *
-    * @param hotelEntity $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a hotelEntity entity.
+     *
+     * @param hotelEntity $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(hotelEntity $entity)
     {
         $form = $this->createForm(new hotelEntityType(), $entity, array(
@@ -85,15 +95,15 @@ class hotelEntityController extends Controller
      */
     public function newAction()
     {
-        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity_new'));
 
         $entity = new hotelEntity();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('HotelreserveBundle:hotelEntity:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -114,7 +124,7 @@ class hotelEntityController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HotelreserveBundle:hotelEntity:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -125,7 +135,7 @@ class hotelEntityController extends Controller
      */
     public function editAction($id)
     {
-        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
         $em = $this->getDoctrine()->getManager();
@@ -140,19 +150,19 @@ class hotelEntityController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HotelreserveBundle:hotelEntity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a hotelEntity entity.
-    *
-    * @param hotelEntity $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a hotelEntity entity.
+     *
+     * @param hotelEntity $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(hotelEntity $entity)
     {
         $form = $this->createForm(new hotelEntityType(), $entity, array(
@@ -164,13 +174,14 @@ class hotelEntityController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing hotelEntity entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
-        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
         $em = $this->getDoctrine()->getManager();
@@ -192,18 +203,19 @@ class hotelEntityController extends Controller
         }
 
         return $this->render('HotelreserveBundle:hotelEntity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a hotelEntity entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
-        if(!$this->getUser()->hasRole('ROLE_ADMIN'))
+        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
         $form = $this->createDeleteForm($id);
@@ -237,7 +249,6 @@ class hotelEntityController extends Controller
             ->setAction($this->generateUrl('hotelentity_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

@@ -1,4 +1,5 @@
 {% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+
 {% block content -%}
     <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -78,10 +79,10 @@
                                     </tr>
                                         {{ form_widget(edit_form._token) }}
                                         <ul style="list-style-type: none"><li>
-                                            <button class="btn btn-success tabs-right" type="submit" style="margin-right: 400px">ویرایش</button></li></ul>
+                                            <table><button class="btn btn-success tabs-right" type="submit" style="margin-right: 475px">ویرایش</button></table></li></ul>
                             </form>
                             <tr class="record_actions" style="list-style-type: none">
-                                <td><a class="btn btn-primary" href="{{ path('hotelentity') }}">برگشت </a></td>
+                                <td><a class="btn btn-primary" href="javascript:history.back();">برگشت </a></td>
                             </tr>
                             <td>
                                 {{ form(delete_form) }}</td>

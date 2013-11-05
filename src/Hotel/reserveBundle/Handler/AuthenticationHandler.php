@@ -31,7 +31,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
         }
         elseif ($this->security->isGranted('ROLE_AGENCY'))
         {
-            $response = new RedirectResponse($this->router->generate(''));
+            $response = new RedirectResponse($this->router->generate('g_main'));
         }
         return $response;
     }

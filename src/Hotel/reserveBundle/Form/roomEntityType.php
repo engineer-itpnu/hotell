@@ -19,7 +19,6 @@ class roomEntityType extends AbstractType
         $builder->add('room_name');
         $builder->add('room_capacity');
         $builder->add('room_addCapacity');
-        $builder->add('hotelEntity');
         $builder->add('room_type', 'choice', array(
             'choices' => array('0' => 'سوئيت', '1' => 'سوئيت vip', '2' => 'سوئيت جونيور',
                 '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال'

@@ -2,10 +2,10 @@
 {% block stylesheet %}
     <link href="{{ asset('bundles/assets/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"
           xmlns="http://www.w3.org/1999/html"/>
-    <link href="{{ asset('bundles/assets/css/menu1.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bundles/assets/css/style.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/assets/js/menu1.js')}}" type="text/javascript"></script>
+    <link href="{{ asset('bundles/assets/css/menu1.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/css/style.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/assets/js/menu1.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -13,40 +13,47 @@
         <div class="container" style=" margin-top: 60px;">
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="navbar " >
+                    <div class="navbar ">
                         <div class="">
-                            <ul class = "menu1" style = "margin-bottom : 0px;">
-                                <li><a href = "{{ path('h_main') }}">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
-                                <li class = "dropdown"><a href = "#"> &nbsp&nbsp&nbsp&nbspمدیریت اتاق ها&nbsp</a>
+                            <ul class="menu1" style="margin-bottom : 0px;">
+                                <li><a href="{{ path('h_main') }}">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
+                                <li class="dropdown"><a href="#"> &nbsp&nbsp&nbsp&nbspمدیریت تعرف هتل و اتاق &nbsp</a>
                                     <ul>
-                                        <li><a href = "{{ path('hotelentity') }}"><span>نمایش لیست هتل ها</span></a></li>
-                                        <li><a href = "{{ path('roomentity') }}"><span>ایجاد اتاق های هتل</span></a></li>
+                                        <li><a href="{{ path('hotelentity') }}" class="pull-right"><span>نمایش لیست هتل ها</span></a>
+                                        </li>
+
                                     </ul>
                                 </li>
-                                <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
+                                <li class="dropdown"><a href="#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+                                        &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                        &nbsp &nbsp </a>
                                     <ul>
-                                        <li><a><span style="padding-left: 42px;">وضعیت رزرو اتاق ها</span></a></li>
-                                        <li><a><span>مانیتورینگ وضعیت اتاق ها</span></a></li>
+                                        <li><a href="" class="pull-right">وضعیت رزرو اتاق ها</span></a></li>
+                                        <li><a href="{{ path('monitoring') }}" class="pull-right">مانیتورینگ وضعیت اتاق
+                                                ها</span></a></li>
                                     </ul>
                                 </li>
 
 
-                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
-                                <li class = "dropdown"><a href = "#">&nbsp&nbsp&nbspحسابداری</a>
+                                <li><a href="#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspحسابداری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li style="padding-left: 63px;"><a><span>حساب هتلدار</span></a></li>
-
+                                        <li><a href="{{ path('h_request_money') }}" class="pull-right"><span>درخواست برداشت وجه</span></a></li>
+                                        <li><a href="{{ path('h_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a></li>
                                     </ul>
                                 </li>
-                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
-                                <li class = "login_form"><a href = "#"><img src = "{{ asset('bundles/assets/img/login_icon.png') }}"></a>
-                                    <form>
+                                <li><a href="#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
+                                <li class="login_form"><a href="#"><img
+                                                src="{{ asset('bundles/assets/img/login_icon.png') }}"></a>
+
+                                    <form action="{{ path('fos_user_security_logout') }}">
                                         <ul>
-                                            <li>User Login</li>
-                                            <li><input placeholder = "Username"></li>
-                                            <li><input type = "password" placeholder = "Password"></li>
-                                            <li><button>Login</button></li>
+                                            <li></li>
+                                            <li><input disabled type="text"
+                                                       placeholder="{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}">
+                                            </li>
                                         </ul>
+                                        <button class="btn-danger btn-mini" style="margin-left: 22px">خروج</button>
                                     </form>
                                 </li>
 
@@ -57,43 +64,52 @@
             </div>
         </div>
     {% endblock %}
-    <div class="container-fluid" style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;" >
+    <div class="container-fluid"
+         style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;">
         <div class="row-fluid">
             <div class="span12">
-                <section class="container"  style="width: 95%; margin-top: 20px;">
-                    <div class="span12">
-                        <ul class="nav nav-tabs" style="margin-bottom: 0px" >
-                            <li class="" style="float: right; padding-right: 0px;">
-                                <a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> مشاهده لیست هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a>
-                            </li>
-                            <li style="float: right; padding-right: 200px;"><a href="#"><p  class="verysmall coloredbottomhr nobreak"><strong> ایجاد هتل جدید</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
-                            <li style="float: right; padding-right: 181px;"><a href="#"><p class="verysmall coloredbottomhr nobreak"><strong> ویرایش هتل ها</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p></a></li>
-                        </ul>
-                        <tr>
-                            <div class="progress" style="height: 5px;">
-                                <div class="bar bar-success" style="width: 44%; float: right;"></div>
-                                <div class="bar bar-warning" style="width: 37%; float: right;"></div>
-                                <div class="bar bar-danger" style="width: 19%; float: right;"></div>
-                            </div>
-                        </tr>
-                    </div>
-                </section>
                 {% block content %}
-                    <p>a</p>
+                    <section class="container" style="width: 95%; margin-top: 50px; margin-bottom: 50px;">
+                        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+                            <div class="" style="border: 1px solid #4d3d98;display: block;">
+                                <div class="" style="background: #4d3d98;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>صفحه اصلی</strong>
+                    </span>
+                                </div>
+                                <div class="" style="display: block;padding: 25px 15px;">
+                                    <div class="">
+                                        <table class="table table-condensed" style="width: 100%;">
+                                            <tbody>
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+
+                                            <h2 style="text-align: center">Hello Htc</h2>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
-                    <section><h2 style="text-align: center">Hello Di</h2></section>
-                    <p>a</p>
                 {% endblock %}
             </div>
-        </div></div>
+        </div>
+    </div>
     {% block footer %}
         <footer id="footer" style="border-radius: 9px 9px 0px 0px;">
             <div class="row credits" style="border-style: none;">
                 <div class="span12">
-                    <div class="row social" >
+                    <div class="row social">
                         <div class="span12">
-                            <div class="span8" >
-                                <a href="http://www.facebook.com/pages/Pandr-Web-Design-Development/218895508144583" class="facebook">
+                            <div class="span8">
+                                <a href="http://www.facebook.com/pages/Pandr-Web-Design-Development/218895508144583"
+                                   class="facebook">
                                     <span class="socialicons ico1"></span>
                                     <span class="socialicons_h ico1h"></span>
                                 </a>
@@ -125,6 +141,7 @@
                                     <span class="socialicons ico8"></span>
                                     <span class="socialicons_h ico8h"></span>
                                 </a>
+
                                 <div class="row copyright">
                                     <div class="span8" style="color: #fff; font-family: BTraffic ;">
                                         این سایت توسط تیم برنامه نویسی شرکت پارس فناوران انیاک طراحی شده است.
@@ -132,20 +149,22 @@
                                 </div>
                             </div>
 
-                            <div class="span4 contact pull-right" style="margin: 0px;" >
+                            <div class="span4 contact pull-right" style="margin: 0px;">
 
                                 <form action="" style="margin: -15px 10px 0px;">
-                                    <input style="font-family: yekan;" type="text" placeholder="نام شما" />
-                                    <input  style="font-family: yekan;" type="text" placeholder="ایمیل شما" />
-                                    <textarea  style="font-family: yekan;" rows="3" placeholder="پیام یا نظر"></textarea>
-                                    <br/><input  style="font-family: yekan;" type="submit" value="فرستادن" />
+                                    <input style="font-family: yekan;" type="text" placeholder="نام شما"/>
+                                    <input style="font-family: yekan;" type="text" placeholder="ایمیل شما"/>
+                                    <textarea style="font-family: yekan;" rows="3" placeholder="پیام یا نظر"></textarea>
+                                    <br/><input style="font-family: yekan;" type="submit" value="فرستادن"/>
                                 </form>
                             </div>
-                        </div></div>
+                        </div>
+                    </div>
                     <div class="span8" style="text-align: center;">
                         Call: +98 0913 970 9553&nbsp&nbsp<i class="icon-envelope"></i>
                         &nbsp Email: engineer.soft69@yahoo.com
-                        &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i class="icon-user"></i>
+                        &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i
+                                class="icon-user"></i>
                     </div>
 
 
@@ -155,11 +174,11 @@
         </footer>
     {% endblock %}
     {% block javascript %}
-        <script type = "text/javascript">
+        <script type="text/javascript">
             var col = 0;
 
-            function ChangeCol(){
-                if(col == 1){
+            function ChangeCol() {
+                if (col == 1) {
                     colors = new Array('#4D3D98', '#0C8B44', '#88288F', '#D24827', '#00A0B1');
                     body_Color = "#1C1651";
                     hover_Color = "#352869";
@@ -167,14 +186,14 @@
                     search_color = "#1C1651";
                     search_hover = "#5F4A9E";
 
-                }else if(col == 2){
+                } else if (col == 2) {
                     colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
                     body_Color = "#1D1D1D";
                     hover_Color = "#323232";
 
                     search_color = "#1D1D1D";
                     search_hover = "#515151";
-                }else if(col == 3){
+                } else if (col == 3) {
                     colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
                     body_Color = "#522661";
                     hover_Color = "#5F376C";
@@ -188,34 +207,30 @@
                 $("ul.menu1>li.login_form form").css("background-color", body_Color);
                 $("ul.menu1>li.dropdown>ul").css("background-color", body_Color);
 
-                jQuery("ul.menu1>li").not("ul.menu1>li.search").each(function(){
+                jQuery("ul.menu1>li").not("ul.menu1>li.search").each(function () {
                     L = colors.length;
                     X = $(this).index();
-                    for(i = 0, j = 0; i <= X; i++, j++)
-                    {
-                        if(j == L)
+                    for (i = 0, j = 0; i <= X; i++, j++) {
+                        if (j == L)
                             j = 0;
-                        if(i == X)
+                        if (i == X)
                             $(this).css("background-color", colors[j]);
                     }
                 })
                 $("ul.menu1>li.search:has(img)").css("background-color", search_color);
 
 
-
-
                 $("ul.menu").css("background-color", body_Color);
                 $("ul.menu>li.login_form form").css("background-color", body_Color);
                 $("ul.menu>li.dropdown>ul").css("background-color", body_Color);
 
-                jQuery("ul.menu>li").not("ul.menu>li.search").each(function(){
+                jQuery("ul.menu>li").not("ul.menu>li.search").each(function () {
                     L = colors.length;
                     X = $(this).index();
-                    for(i = 0, j = 0; i <= X; i++, j++)
-                    {
-                        if(j == L)
+                    for (i = 0, j = 0; i <= X; i++, j++) {
+                        if (j == L)
                             j = 0;
-                        if(i == X)
+                        if (i == X)
                             $(this).css("background-color", colors[j]);
                     }
                 })

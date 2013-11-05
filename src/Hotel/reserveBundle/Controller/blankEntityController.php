@@ -44,7 +44,7 @@ class blankEntityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blankentity_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('blankentity_new', array('id' => $entity->getId())));
         }
 
         return $this->render('HotelreserveBundle:blankEntity:new.html.twig', array(

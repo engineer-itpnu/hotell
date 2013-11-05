@@ -1,4 +1,10 @@
-{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% endif  %}
+{% extends parent %}
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -7,13 +13,13 @@
                     <span class=""
                           style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>درج اطلاعات پایه ای هتل ها</strong>
+                            <a href="" class="icon-chevron-left"></a> <strong>ایجاد اتاق هتل ها</strong>
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
                         <table class="table table-condensed" style="width: 100%;">
-                            <form action="{{ path('roomentity_create') }}" method="post" {{ form_enctype(form) }}>
+                            <form action="{{ path('roomentity_create',{'hotel_id':hotel_id}) }}" method="post" {{ form_enctype(form) }}>
                                 <tbody>
                                 <tr class="success">
                                     <td>نوع اتاق :</td>
@@ -35,24 +41,14 @@
                                         {{ form_errors(form.room_addCapacity) }}
                                         {{ form_widget(form.room_addCapacity) }}</td>
                                 </tr>
-                                <tr class="success">
-                                    <td>متعلق به هتل :</td>
-                                    <td>
-                                        {{ form_errors(form.hotelEntity) }}
-                                        {{ form_widget(form.hotelEntity) }}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
                                 {{ form_widget(form._token) }}
-                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
-                                <ul class="record_actions" style="list-style-type: none">
-                                    <ul class="record_actions" style="list-style-type: none">
-                                        <li>
-                                            <a class="btn btn-primary" href="{{ path('roomentity') }}">
-                                                برگشت
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <table><button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد</button>
+                                    <li style="list-style-type: none">
+                                        <a class="btn btn-primary" href="javascript:history.back();">
+                                            برگشت
+                                        </a>
+                                    </li>
+                                </table>
                                 </tbody>
                             </form>
                         </table>

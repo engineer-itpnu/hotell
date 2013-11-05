@@ -1,3 +1,9 @@
 h_main:
     pattern:  /
-    defaults: { _controller: HotelreserveBundle:Hotel:admin }
+    defaults: { _controller: HotelreserveBundle:Hotel:home }
+h_request_money:
+    pattern:  /requestmoney
+    defaults: { _controller: HotelreserveBundle:Hotel:request }
+h_Rool_Account:
+    pattern:  /rollaccount
+    defaults: { _controller: HotelreserveBundle:accountEntity:HoteldarIndex }

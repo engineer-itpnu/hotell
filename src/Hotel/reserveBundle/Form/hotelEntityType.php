@@ -2,6 +2,7 @@
 
 namespace Hotel\reserveBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -25,7 +26,12 @@ class hotelEntityType extends AbstractType
             ->add('hotel_mobile')
             ->add('hotel_addRoomTtariff')
 //            ->add('hotel_active')
-            ->add('userEntity')
+            ->add('userEntity',null,array(
+                'query_builder' => function(EntityRepository $er)
+                {
+                    return $er->createQueryBuilder('u')->where("u.roles like :role")->setParameter('role','%ROLE_HOTELDAR%');
+                }
+            ))
         ;
     }
     

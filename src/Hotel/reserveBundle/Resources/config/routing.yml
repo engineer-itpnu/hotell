@@ -1,5 +1,5 @@
 main:
-    pattern:  /
+    pattern:  /main
     defaults: { _controller: HotelreserveBundle:Default:main }
 admin:
     resource: "@HotelreserveBundle/Resources/config/admin.yml"
@@ -33,13 +33,13 @@ HotelreserveBundle_reserveentity:
     prefix:   /reserveentity
 HotelreserveBundle_roomentity:
     resource: "@HotelreserveBundle/Resources/config/routing/roomentity.yml"
-    prefix:   /room
+    prefix:   /hotel/{hotel_id}/room
 HotelreserveBundle_userentity:
     resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
     prefix:   /admin/userentity
 Hotelregister_register:
     resource: "@HotelreserveBundle/Resources/config/routing/register.yml"
     prefix:   /admin/registering
-hotelreserve_homepage:
-    pattern:  /hello/{name}
+monitoring:
+    pattern:  /monitoring/
     defaults: { _controller: HotelreserveBundle:Default:index }
