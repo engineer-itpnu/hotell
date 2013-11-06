@@ -10,8 +10,4 @@ class AdminController extends Controller
     {
         return $this->render('HotelreserveBundle::layout_admin.html.twig');
     }
-    public function homeAction()
-    {
-        return $this->render('HotelreserveBundle:admin:home_page_admin.html.twig');
-    }
 }

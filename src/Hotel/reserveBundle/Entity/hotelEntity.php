@@ -61,6 +61,7 @@ class hotelEntity
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @var string
      */
     private $hotel_active;
 

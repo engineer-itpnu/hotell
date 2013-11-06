@@ -2,10 +2,10 @@
 {% block stylesheet %}
     <link href="{{ asset('bundles/assets/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"
           xmlns="http://www.w3.org/1999/html"/>
-    <link href="{{ asset('bundles/assets/css/menu1.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bundles/assets/css/style.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/assets/js/menu1.js')}}" type="text/javascript"></script>
+    <link href="{{ asset('bundles/assets/css/menu1.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/css/style.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/assets/js/menu1.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -13,36 +13,46 @@
         <div class="container" style=" margin-top: 60px;">
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="navbar " >
+                    <div class="navbar ">
                         <div class="">
-                            <ul class = "menu1" style = "margin-bottom : 0px;">
-                                <li><a href = "{{ path('g_main') }}">&nbsp&nbsp&nbsp&nbspصفحه اصلی</a></li>
+                            <ul class="menu1" style="margin-bottom : 0px;">
+                                <li><a href="{{ path('g_main') }}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspصفحه
+                                        اصلی&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
 
-                                <li class="dropdown"><a  href = "#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش
+                                        گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="" class="pull-right"><span>گزارش رزرو آژانس </span></a></li>
-
+                                        <li><a href="" class="pull-right"><span>گزارش کل سیستم</span></a></li>
                                     </ul>
                                 </li>
-                                <li class = "dropdown"><a href = "#">&nbsp&nbsp&nbspحسابداری</a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspحسابداری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
 
-                                        <li ><a href="{{ path('g_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a></li>
+                                        <li><a href="{{ path('g_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li><a href = "#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
-                                <li class = "dropdown"><a href = "#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbspشارژ حساب کاربری&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspجستجو&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                    <ul>
+                                        <li><a href="" class="pull-right"><span>جستجو بر اساس پارامترها</span></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#"> &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+                                        &nbsp&nbsp&nbsp&nbsp &nbspشارژ حساب کاربری&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                        &nbsp </a>
                                     <ul>
                                         <li><a href="" class="pull-right"><span>پرداخت آنلاین </span></a></li>
                                         <li><a href="" class="pull-right"><span>ثبت رسید واریز بانک</span></a></li>
                                     </ul>
                                 </li>
-                                <li class = "login_form"><a href = "#"><img src = "{{ asset('bundles/assets/img/login_icon.png') }}"></a>
+                                <li class="login_form"><a href="#">&nbsp&nbsp&nbsp&nbsp<img
+                                                src="{{ asset('bundles/assets/img/login_icon.png') }}">&nbsp&nbsp&nbsp&nbsp</a>
+
                                     <form action="{{ path('fos_user_security_logout') }}">
                                         <ul>
                                             <li></li>
-                                            <li ><input disabled type="text"
-                                                        placeholder="{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}">
+                                            <li><input disabled type="text"
+                                                       placeholder="{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}">
                                             </li>
                                         </ul>
                                         <button class="btn-danger btn-mini" style="margin-left: 22px">خروج</button>
@@ -56,7 +66,8 @@
             </div>
         </div>
     {% endblock %}
-    <div class="container-fluid" style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;" >
+    <div class="container-fluid"
+         style="background-color: #ffffff; margin-top: 0px;margin-bottom: 20px;border-radius: 9px;">
         <div class="row-fluid">
             <div class="span12">
                 {% block content %}
@@ -90,15 +101,17 @@
                     </section>
                 {% endblock %}
             </div>
-        </div></div>
+        </div>
+    </div>
     {% block footer %}
         <footer id="footer" style="border-radius: 9px 9px 0px 0px;">
             <div class="row credits" style="border-style: none;">
                 <div class="span12">
-                    <div class="row social" >
+                    <div class="row social">
                         <div class="span12">
-                            <div class="span8" >
-                                <a href="http://www.facebook.com/pages/Pandr-Web-Design-Development/218895508144583" class="facebook">
+                            <div class="span8">
+                                <a href="http://www.facebook.com/pages/Pandr-Web-Design-Development/218895508144583"
+                                   class="facebook">
                                     <span class="socialicons ico1"></span>
                                     <span class="socialicons_h ico1h"></span>
                                 </a>
@@ -130,6 +143,7 @@
                                     <span class="socialicons ico8"></span>
                                     <span class="socialicons_h ico8h"></span>
                                 </a>
+
                                 <div class="row copyright">
                                     <div class="span8" style="color: #fff; font-family: BTraffic ;">
                                         این سایت توسط تیم برنامه نویسی شرکت پارس فناوران انیاک طراحی شده است.
@@ -137,20 +151,22 @@
                                 </div>
                             </div>
 
-                            <div class="span4 contact pull-right" style="margin: 0px;" >
+                            <div class="span4 contact pull-right" style="margin: 0px;">
 
                                 <form action="" style="margin: -15px 10px 0px;">
-                                    <input style="font-family: yekan;" type="text" placeholder="نام شما" />
-                                    <input  style="font-family: yekan;" type="text" placeholder="ایمیل شما" />
-                                    <textarea  style="font-family: yekan;" rows="3" placeholder="پیام یا نظر"></textarea>
-                                    <br/><input  style="font-family: yekan;" type="submit" value="فرستادن" />
+                                    <input style="font-family: yekan;" type="text" placeholder="نام شما"/>
+                                    <input style="font-family: yekan;" type="text" placeholder="ایمیل شما"/>
+                                    <textarea style="font-family: yekan;" rows="3" placeholder="پیام یا نظر"></textarea>
+                                    <br/><input style="font-family: yekan;" type="submit" value="فرستادن"/>
                                 </form>
                             </div>
-                        </div></div>
+                        </div>
+                    </div>
                     <div class="span8" style="text-align: center;">
                         Call: +98 0913 970 9553&nbsp&nbsp<i class="icon-envelope"></i>
                         &nbsp Email: engineer.soft69@yahoo.com
-                        &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i class="icon-user"></i>
+                        &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i
+                                class="icon-user"></i>
                     </div>
 
 
@@ -160,11 +176,11 @@
         </footer>
     {% endblock %}
     {% block javascript %}
-        <script type = "text/javascript">
+        <script type="text/javascript">
             var col = 0;
 
-            function ChangeCol(){
-                if(col == 1){
+            function ChangeCol() {
+                if (col == 1) {
                     colors = new Array('#4D3D98', '#0C8B44', '#88288F', '#D24827', '#00A0B1');
                     body_Color = "#1C1651";
                     hover_Color = "#352869";
@@ -172,14 +188,14 @@
                     search_color = "#1C1651";
                     search_hover = "#5F4A9E";
 
-                }else if(col == 2){
+                } else if (col == 2) {
                     colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
                     body_Color = "#1D1D1D";
                     hover_Color = "#323232";
 
                     search_color = "#1D1D1D";
                     search_hover = "#515151";
-                }else if(col == 3){
+                } else if (col == 3) {
                     colors = new Array('#4472B8', '#56439B', '#069547', '#B41E43', '#D74F2B');
                     body_Color = "#522661";
                     hover_Color = "#5F376C";
@@ -193,34 +209,30 @@
                 $("ul.menu1>li.login_form form").css("background-color", body_Color);
                 $("ul.menu1>li.dropdown>ul").css("background-color", body_Color);
 
-                jQuery("ul.menu1>li").not("ul.menu1>li.search").each(function(){
+                jQuery("ul.menu1>li").not("ul.menu1>li.search").each(function () {
                     L = colors.length;
                     X = $(this).index();
-                    for(i = 0, j = 0; i <= X; i++, j++)
-                    {
-                        if(j == L)
+                    for (i = 0, j = 0; i <= X; i++, j++) {
+                        if (j == L)
                             j = 0;
-                        if(i == X)
+                        if (i == X)
                             $(this).css("background-color", colors[j]);
                     }
                 })
                 $("ul.menu1>li.search:has(img)").css("background-color", search_color);
 
 
-
-
                 $("ul.menu").css("background-color", body_Color);
                 $("ul.menu>li.login_form form").css("background-color", body_Color);
                 $("ul.menu>li.dropdown>ul").css("background-color", body_Color);
 
-                jQuery("ul.menu>li").not("ul.menu>li.search").each(function(){
+                jQuery("ul.menu>li").not("ul.menu>li.search").each(function () {
                     L = colors.length;
                     X = $(this).index();
-                    for(i = 0, j = 0; i <= X; i++, j++)
-                    {
-                        if(j == L)
+                    for (i = 0, j = 0; i <= X; i++, j++) {
+                        if (j == L)
                             j = 0;
-                        if(i == X)
+                        if (i == X)
                             $(this).css("background-color", colors[j]);
                     }
                 })

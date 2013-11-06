@@ -1,11 +1,12 @@
 {% extends 'HotelreserveBundle::layout_admin.html.twig' %}
 
 {% block content -%}
-    <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
             <div class="" style="border: 1px solid #74B749;display: block;">
                 <div class="" style="background: #74B749;height: 36px;display: block;">
-                    <span class="" style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
                             <a href="" class="icon-chevron-left"></a> <strong>ویرایش اطلاعات پایه ای هتل ها</strong>
                     </span>
@@ -15,71 +16,100 @@
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
 
-                                    <form action="{{ path('hotelentity_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-                                        <input type="hidden" name="_method" value="PUT"/>
-                                    <tr class="success">
-                                        <td>
-                                            {{ form_label(edit_form.hotel_name,'نام هتل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_name) }}
-                                            {{ form_widget(edit_form.hotel_name) }}
-                                        </td>
-                                        <td>
-                                            {{ form_label(edit_form.hotel_manageName,'مدیر هتل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_manageName) }}
-                                            {{ form_widget(edit_form.hotel_manageName) }}
-                                        </td>
-                                    </tr>
-                                    <tr class="info">
-                                        <td>
-                                            {{ form_label(edit_form.hotel_grade,'درجه هتل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_grade) }}
-                                            {{ form_widget(edit_form.hotel_grade) }}
-                                        </td>
-                                        <td>
-                                            {{ form_label(edit_form.hotel_city,'شهر اقامت : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_city) }}
-                                            {{ form_widget(edit_form.hotel_city) }}
-                                        </td>
-                                    </tr>
-                                    <tr class="success">
-                                        <td>
-                                            {{ form_label(edit_form.hotel_zipcode,'کدپستی هتل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_zipcode) }}
-                                            {{ form_widget(edit_form.hotel_zipcode) }}
-                                        </td>
-                                        <td>
-                                            {{ form_label(edit_form.hotel_email,'ایمیل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_email) }}
-                                            {{ form_widget(edit_form.hotel_email) }}
-                                        </td>
-                                    </tr>
-                                    <tr class="info">
-                                        <td>
-                                            {{ form_label(edit_form.hotel_phone,'شماره تلفن : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_phone) }}
-                                            {{ form_widget(edit_form.hotel_phone) }}
-                                        </td>
-                                        <td>
-                                            {{ form_label(edit_form.hotel_mobile,'شماره موبایل : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_mobile) }}
-                                            {{ form_widget(edit_form.hotel_mobile) }}
-                                        </td>
-                                    </tr>
-                                    <tr class="success">
-                                        <td>
-                                            {{ form_label(edit_form.hotel_addRoomTtariff,'تعرفه هر نفر اضافه : ') }}</td><td>
-                                            {{ form_errors(edit_form.hotel_addRoomTtariff) }}
-                                            {{ form_widget(edit_form.hotel_addRoomTtariff) }}
-                                        </td>
-                                        <td>
-                                            {{ form_label(edit_form.userEntity,'متعلق به نام کاربری') }}</td><td>
-                                            {{ form_errors(edit_form.userEntity) }}
-                                            {{ form_widget(edit_form.userEntity) }}
-                                        </td>
-                                    </tr>
-                                        {{ form_widget(edit_form._token) }}
-                                        <ul style="list-style-type: none"><li>
-                                            <table><button class="btn btn-success tabs-right" type="submit" style="margin-right: 475px">ویرایش</button></table></li></ul>
+                            <form action="{{ path('hotelentity_update', { 'id': entity.id }) }}"
+                                  method="post" {{ form_enctype(edit_form) }}>
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_name,'نام هتل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_name) }}
+                                        {{ form_widget(edit_form.hotel_name) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(edit_form.hotel_manageName,'مدیر هتل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_manageName) }}
+                                        {{ form_widget(edit_form.hotel_manageName) }}
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_grade,'درجه هتل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_grade) }}
+                                        {{ form_widget(edit_form.hotel_grade) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(edit_form.hotel_city,'شهر اقامت : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_city) }}
+                                        {{ form_widget(edit_form.hotel_city) }}
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_zipcode,'کدپستی هتل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_zipcode) }}
+                                        {{ form_widget(edit_form.hotel_zipcode) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(edit_form.hotel_email,'ایمیل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_email) }}
+                                        {{ form_widget(edit_form.hotel_email) }}
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_phone,'شماره تلفن : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_phone) }}
+                                        {{ form_widget(edit_form.hotel_phone) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(edit_form.hotel_mobile,'شماره موبایل : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_mobile) }}
+                                        {{ form_widget(edit_form.hotel_mobile) }}
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_addRoomTtariff,'تعرفه هر نفر اضافه : ') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.hotel_addRoomTtariff) }}
+                                        {{ form_widget(edit_form.hotel_addRoomTtariff) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(edit_form.userEntity,'متعلق به نام کاربری') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.userEntity) }}
+                                        {{ form_widget(edit_form.userEntity) }}
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(edit_form.hotel_active,'سطح دسترسی : ') }}
+                                        {{ form_errors(edit_form.hotel_active) }}
+                                        {{ form_widget(edit_form.hotel_active) }}
+                                    </td>
+                                    </td>
+                                    <td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {{ form_widget(edit_form._token) }}
+                                <ul style="list-style-type: none">
+                                    <li>
+                                        <table>
+                                            <button class="btn btn-success tabs-right" type="submit"
+                                                    style="margin-right: 475px">ویرایش
+                                            </button>
+                                        </table>
+                                    </li>
+                                </ul>
                             </form>
                             <tr class="record_actions" style="list-style-type: none">
                                 <td><a class="btn btn-primary" href="javascript:history.back();">برگشت </a></td>

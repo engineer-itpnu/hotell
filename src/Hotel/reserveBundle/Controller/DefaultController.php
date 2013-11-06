@@ -14,4 +14,20 @@ class DefaultController extends Controller
     {
         return $this->render('HotelreserveBundle:Default:index.html.twig');
     }
+    public function reportAction()
+    {
+        return $this->render('HotelreserveBundle:Default:AdminReporting.html.twig');
+    }
+    public function managehtlAction()
+    {
+        return $this->render('HotelreserveBundle:Default:AdminManageHtl.html.twig');
+    }
+    public function manageageAction()
+    {
+        return $this->render('HotelreserveBundle:Default:AdminManageAge.html.twig');
+    }
+    public function searchAction()
+    {
+        return $this->render('HotelreserveBundle:Default:AdminSearch.html.twig');
+    }
 }

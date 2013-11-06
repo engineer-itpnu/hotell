@@ -33,7 +33,7 @@
                                     <th style="text-align: center">شماره تلفن</th>
                                     <th style="text-align: center">شماره موبایل</th>
                                     <th style="text-align: center">تعرفه هر نفر اضافه</th>
-                                    {#<th style="text-align: center">دسترسی</th>#}
+                                    <th style="text-align: center">دسترسی</th>
                                     <th style="text-align: center">اقدامات</th>
                                 </tr>
                                 </thead>
@@ -50,7 +50,13 @@
                                         <td style="text-align: center">{{ entity.hotelphone }}</td>
                                         <td style="text-align: center">{{ entity.hotelmobile }}</td>
                                         <td style="text-align: center">{{ entity.hoteladdRoomTtariff }}</td>
-                                        {#<td style="text-align: center">{{ entity.hotelactive }}</td>#}
+                                        <td style="text-align: center">{% if entity.hotelactive==0 %}
+                                            دسترسی فعال
+                                            {% else  %}
+                                            دسترسی غیرفعال
+                                            {% endif %}
+
+                                        </td>
                                         <td style="text-align: center">
                                             <ul style="list-style-type: none;">
                                                 {% if is_granted('ROLE_ADMIN') %}

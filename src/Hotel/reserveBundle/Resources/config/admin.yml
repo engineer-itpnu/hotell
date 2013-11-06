@@ -1,3 +1,18 @@
 a_main:
     pattern:  /
     defaults: { _controller: HotelreserveBundle:Admin:admin }
+a_reporting:
+    pattern:  /areporting
+    defaults: { _controller: HotelreserveBundle:Default:report }
+a_manage_htl:
+    pattern:  /managehtl
+    defaults: { _controller: HotelreserveBundle:Default:managehtl }
+a_manage_age:
+    pattern:  /manageage
+    defaults: { _controller: HotelreserveBundle:Default:manageage }
+a_search:
+    pattern:  /asearch
+    defaults: { _controller: HotelreserveBundle:Default:search }
+
+
+

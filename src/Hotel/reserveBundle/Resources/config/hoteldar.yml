@@ -7,3 +7,9 @@ h_request_money:
 h_Rool_Account:
     pattern:  /rollaccount
     defaults: { _controller: HotelreserveBundle:accountEntity:HoteldarIndex }
+h_reporting:
+    pattern:  /hreporting
+    defaults: { _controller: HotelreserveBundle:Default:report }
+h_search:
+    pattern:  /hsearch
+    defaults: { _controller: HotelreserveBundle:Default:search }

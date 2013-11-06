@@ -21,7 +21,6 @@
                                     <ul>
                                         <li><a href="{{ path('hotelentity') }}" class="pull-right"><span>نمایش لیست هتل ها</span></a>
                                         </li>
-
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#"> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
@@ -35,14 +34,27 @@
                                 </li>
 
 
-                                <li><a href="#">&nbsp&nbsp&nbsp&nbspگزارش گیری</a></li>
-                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspحسابداری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش
+                                        گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('h_request_money') }}" class="pull-right"><span>درخواست برداشت وجه</span></a></li>
-                                        <li><a href="{{ path('h_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a></li>
+                                        <li><a href="{{ path('h_reporting') }}" class="pull-right"><span>گزارش کل سیستم</span></a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li><a href="#">&nbsp&nbsp&nbsp&nbspجستجو</a></li>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspحسابداری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                    <ul>
+                                        <li><a href="{{ path('h_request_money') }}" class="pull-right"><span>درخواست برداشت مبلغ</span></a>
+                                        </li>
+                                        <li><a href="{{ path('h_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspجستجو&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                    <ul>
+                                        <li><a href="{{ path('h_search') }}" class="pull-right"><span>جستجو براساس پارامترها</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="login_form"><a href="#"><img
                                                 src="{{ asset('bundles/assets/img/login_icon.png') }}"></a>
 
@@ -141,7 +153,6 @@
                                     <span class="socialicons ico8"></span>
                                     <span class="socialicons_h ico8h"></span>
                                 </a>
-
                                 <div class="row copyright">
                                     <div class="span8" style="color: #fff; font-family: BTraffic ;">
                                         این سایت توسط تیم برنامه نویسی شرکت پارس فناوران انیاک طراحی شده است.

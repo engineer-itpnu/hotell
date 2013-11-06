@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class hotelEntityType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -25,16 +25,15 @@ class hotelEntityType extends AbstractType
             ->add('hotel_phone')
             ->add('hotel_mobile')
             ->add('hotel_addRoomTtariff')
-//            ->add('hotel_active')
-            ->add('userEntity',null,array(
-                'query_builder' => function(EntityRepository $er)
-                {
-                    return $er->createQueryBuilder('u')->where("u.roles like :role")->setParameter('role','%ROLE_HOTELDAR%');
+            ->add('hotel_active', 'choice', array(
+                'choices' => array('0' => 'دسترسی فعال', '1' => 'دسترسی غیرفعال')))
+            ->add('userEntity', null, array(
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')->where("u.roles like :role")->setParameter('role', '%ROLE_HOTELDAR%');
                 }
-            ))
-        ;
+            ));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -44,7 +43,6 @@ class hotelEntityType extends AbstractType
             'data_class' => 'Hotel\reserveBundle\Entity\hotelEntity'
         ));
     }
-
     /**
      * @return string
      */

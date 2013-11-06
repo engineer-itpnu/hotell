@@ -20,7 +20,7 @@
                                     <th style="text-align: center">ردیف</th>
                                     <th style="text-align: center">تاریخ ورود</th>
                                     <th style="text-align: center">وضعیت اتاق</th>
-                                    <th style="text-align: center">تعرفه هر نفر</th>
+                                    <th style="text-align: center">تعرفه اتاق</th>
                                     <th style="text-align: center">کد اتاق - نوع اتاق</th>
                                     <th style="text-align: center">اقدامات</th>
                                 </tr>
@@ -32,7 +32,16 @@
                                                     href="{{ path('blankentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                         </td>
                                         <td style="text-align: center">{% if entity.dateIN %}{{ entity.dateIN|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                        <td style="text-align: center">{{ entity.status }}</td>
+                                        <td style="text-align: center">{% if entity.status== "0" %}
+                                                خالی
+                                            {% elseif entity.status== "1" %}
+                                                رزرو
+                                            {% elseif entity.status== "2" %}
+                                                تکمیل شده
+                                            {% else %}
+                                                کنسل شده
+
+                                            {% endif %}</td>
                                         <td style="text-align: center">{{ entity.Tariff }}</td>
                                         <td style="text-align: center">{{ entity.roomEntity }}</td>
 
