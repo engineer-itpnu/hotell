@@ -62,6 +62,16 @@ class userEntity extends BaseUser
     private $agencyEntity;
 
     /**
+     * @ORM\OneToMany(targetEntity="bankEntity", mappedBy="userEntity")
+     */
+    private $bankEntities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="moneyEntity", mappedBy="userEntity")
+     */
+    private $moneyEntities;
+
+    /**
      * @ORM\OneToMany(targetEntity="hotelEntity", mappedBy="userEntity")
      */
     private $hotelEntities;
@@ -70,6 +80,8 @@ class userEntity extends BaseUser
      */
     public function __construct()
     {
+        $this->bankEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->moneyEntities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->hotelEntities = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
     }
@@ -289,6 +301,72 @@ class userEntity extends BaseUser
     public function getAgencyEntity()
     {
         return $this->agencyEntity;
+    }
+
+    /**
+     * Add bankEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\bankEntity $bankEntities
+     * @return userEntity
+     */
+    public function addBankEntitie(\Hotel\reserveBundle\Entity\bankEntity $bankEntities)
+    {
+        $this->bankEntities[] = $bankEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove bankEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\bankEntity $bankEntities
+     */
+    public function removeBankEntitie(\Hotel\reserveBundle\Entity\bankEntity $bankEntities)
+    {
+        $this->bankEntities->removeElement($bankEntities);
+    }
+
+    /**
+     * Get bankEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBankEntities()
+    {
+        return $this->bankEntities;
+    }
+
+    /**
+     * Add moneyEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @return userEntity
+     */
+    public function addMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    {
+        $this->moneyEntities[] = $moneyEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove moneyEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     */
+    public function removeMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    {
+        $this->moneyEntities->removeElement($moneyEntities);
+    }
+
+    /**
+     * Get moneyEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMoneyEntities()
+    {
+        return $this->moneyEntities;
     }
 
     /**

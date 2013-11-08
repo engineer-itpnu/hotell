@@ -16,6 +16,9 @@ HotelreserveBundle_accountentity:
 HotelreserveBundle_agencyentity:
     resource: "@HotelreserveBundle/Resources/config/routing/agencyentity.yml"
     prefix:   /agencyentity
+HotelreserveBundle_bankentity:
+    resource: "@HotelreserveBundle/Resources/config/routing/bankentity.yml"
+    prefix:   /bankentity
 HotelreserveBundle_blankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/blankentity.yml"
     prefix:   /blankentity
@@ -25,6 +28,9 @@ HotelreserveBundle_customerentity:
 HotelreserveBundle_hotelentity:
     resource: "@HotelreserveBundle/Resources/config/routing/hotelentity.yml"
     prefix:   /hotel
+HotelreserveBundle_moneyentity:
+    resource: "@HotelreserveBundle/Resources/config/routing/moneyentity.yml"
+    prefix:   /moneyentity
 HotelreserveBundle_masterentity:
     resource: "@HotelreserveBundle/Resources/config/routing/masterentity.yml"
     prefix:   /masterentity

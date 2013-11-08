@@ -1,0 +1,105 @@
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #d24827;display: block;">
+                <div class="" style="background: #d24827;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>ایجاد اتاق خالی هتل</strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <div class="">
+                        <table class="table table-condensed" style="width: 100%;">
+                            <form action="{{ path('moneyentity_create') }}" method="post" {{ form_enctype(form) }}>
+                                <tbody>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(form.money_type,'نوع درخواست : ') }}
+                                        {{ form_errors(form.money_type) }}
+                                        {{ form_widget(form.money_type) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(form.money_price,'مبلغ : ') }}
+                                        {{ form_errors(form.money_price) }}
+                                        {{ form_widget(form.money_price) }}
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_DateReq,'تاریخ درخواست : ') }}
+                                        {{ form_errors(form.money_DateReq) }}
+                                        {{ form_widget(form.money_DateReq) }}
+                                    </td>
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_DateReply,'تاریخ پاسخ : ') }}
+                                        {{ form_errors(form.money_DateReply) }}
+                                        {{ form_widget(form.money_DateReply) }}
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_status,'وضعیت درخواست : ') }}
+                                        {{ form_errors(form.money_status) }}
+                                        {{ form_widget(form.money_status) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(form.money_NumBill,'شماره فیش بانکی : ') }}
+                                        {{ form_errors(form.money_NumBill) }}
+                                        {{ form_widget(form.money_NumBill) }}
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_DateBill,'تاریخ فیش بانکی : ') }}
+                                        {{ form_errors(form.money_DateBill) }}
+                                        {{ form_widget(form.money_DateBill) }}
+                                    </td><td></td>
+                                </tr>
+                                <tr class="info">
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_BankName,'نام بانک : ') }}
+                                        {{ form_errors(form.money_BankName) }}
+                                        {{ form_widget(form.money_BankName) }}
+                                    </td>
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_branch,'نام-شماره شعبه : ') }}
+                                        {{ form_errors(form.money_branch) }}
+                                        {{ form_widget(form.money_branch) }}
+                                    </td>
+                                </tr>
+                                <tr class="success">
+                                    <td>
+                                        {{ form_label(form.userEntity,'کاربر : ') }}
+                                        {{ form_errors(form.userEntity) }}
+                                        {{ form_widget(form.userEntity) }}
+                                    </td>
+                                    <td>
+                                        {{ form_label(form.hotelEntity,'هتل : ') }}
+                                        {{ form_errors(form.hotelEntity) }}
+                                        {{ form_widget(form.hotelEntity) }}
+                                    </td>
+                                </tr>
+                                {{ form_widget(form._token) }}
+                                <table>
+                                    <button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد
+                                    </button>
+                                </table>
+                                <ul class="record_actions" style="list-style-type: none">
+                                    <li>
+                                        <a class="btn btn-primary" href="javascript:history.back();">
+                                            برگشت
+                                        </a>
+                                    </li>
+                                </ul>
+                                </tbody>
+                            </form>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

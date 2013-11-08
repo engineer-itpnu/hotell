@@ -26,7 +26,7 @@ class hotelEntityType extends AbstractType
             ->add('hotel_mobile')
             ->add('hotel_addRoomTtariff')
             ->add('hotel_active', 'choice', array(
-                'choices' => array('0' => 'دسترسی فعال', '1' => 'دسترسی غیرفعال')))
+                'choices' => array('1' => 'دسترسی فعال', '0' => 'دسترسی غیرفعال')))
             ->add('userEntity', null, array(
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')->where("u.roles like :role")->setParameter('role', '%ROLE_HOTELDAR%');

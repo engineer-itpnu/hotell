@@ -1,0 +1,89 @@
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% elseif is_granted("ROLE_AGENCY") %}
+    {% set parent= 'HotelreserveBundle::layout_reserve.html.twig' %}
+{% endif  %}
+{% extends parent %}
+{% block content -%}
+<section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+    <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+        <div class="" style="border: 1px solid #d24827;display: block;">
+            <div class="" style="background: #d24827;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اتاق های خالی هتل</strong>
+                    </span>
+            </div>
+            <div class="" style="display: block;padding: 25px 15px;">
+                <div class="">
+                    <table class="table table-condensed" style="width: 100%;">
+                        <tbody>
+                        <table class="table table-bordered" dir="rtl">
+                            <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>نوع درخواست</th>
+                <th>مبلغ</th>
+                <th>تاریخ درخواست</th>
+                <th>تاریخ پاسخ</th>
+                <th>وضعیت درخواست</th>
+                <th>شماره فیش بانکی</th>
+                <th>تاریخ فیش بانکی</th>
+                <th>نام بانک</th>
+                <th>نام-شماره شعبه</th>
+                <th>اقدامات</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('moneyentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.moneytype==0 %}
+                    برداشت مبلغ
+                    {% else %}
+                    واریز مبلغ
+                    {% endif %}
+
+                    </td>
+                <td>{{ entity.moneyprice }}</td>
+                <td>{% if entity.moneyDateReq %}{{ entity.moneyDateReq|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.moneyDateReply %}{{ entity.moneyDateReply|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.moneystatus }}</td>
+                <td>{{ entity.moneyNumBill }}</td>
+                <td>{% if entity.moneyDateBill %}{{ entity.moneyDateBill|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.moneyBankName }}</td>
+                <td>{{ entity.moneybranch }}</td>
+                <td>
+                <ul style="list-style-type: none">
+                    <li>
+                        <a class="badge badge-success" href="{{ path('moneyentity_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a class="badge badge-info" href="{{ path('moneyentity_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul style="list-style-type: none">
+        <li>
+            <a class="btn btn-primary" href="{{ path('moneyentity_new') }}">
+                ایجاد
+            </a>
+        </li>
+    </ul>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    {% endblock %}

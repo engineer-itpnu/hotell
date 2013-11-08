@@ -2,7 +2,10 @@
 
 namespace Hotel\reserveBundle\Controller;
 
+use Hotel\reserveBundle\Entity\accountEntity;
+use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -14,9 +17,19 @@ class DefaultController extends Controller
     {
         return $this->render('HotelreserveBundle:Default:index.html.twig');
     }
-    public function reportAction()
+    public function reportAction(Request $request)
     {
-        return $this->render('HotelreserveBundle:Default:AdminReporting.html.twig');
+
+        $form = $this ->createForm(new reportingType());
+//        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em ->getRepository("HotelreserveBundle:accountEntity")->findAll();
+
+
+        return $this->render('HotelreserveBundle:Default:AdminReporting.html.twig',array(
+            'entities'=>$entities,
+            'form' => $form->createView()
+        ));
     }
     public function managehtlAction()
     {
@@ -29,5 +42,9 @@ class DefaultController extends Controller
     public function searchAction()
     {
         return $this->render('HotelreserveBundle:Default:AdminSearch.html.twig');
+    }
+    public function paymentAction()
+    {
+        return $this->render('HotelreserveBundle:Default:AgencyPayment.html.twig');
     }
 }

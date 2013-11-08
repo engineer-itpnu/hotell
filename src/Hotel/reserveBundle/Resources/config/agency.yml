@@ -4,3 +4,15 @@ g_main:
 g_Rool_Account:
     pattern:  /rollaccount
     defaults: { _controller: HotelreserveBundle:accountEntity:AgencyIndex }
+g_reporting:
+    pattern:  /greporting
+    defaults: { _controller: HotelreserveBundle:Default:report }
+g_search:
+    pattern:  /gsearch
+    defaults: { _controller: HotelreserveBundle:Default:search }
+g_moneyentity:
+    pattern:  /gmoney
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:index" }
+g_payment:
+    pattern:  /gpayment
+    defaults: { _controller: HotelreserveBundle:Default:payment }

@@ -71,6 +71,11 @@ class hotelEntity
     private $accountEntities;
 
     /**
+     * @ORM\OneToMany(targetEntity="moneyEntity", mappedBy="hotelEntity")
+     */
+    private $moneyEntities;
+
+    /**
      * @ORM\OneToMany(targetEntity="roomEntity", mappedBy="hotelEntity")
      */
     private $roomEntities;
@@ -86,6 +91,7 @@ class hotelEntity
     public function __construct()
     {
         $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->moneyEntities = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roomEntities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -360,6 +366,39 @@ class hotelEntity
     public function getAccountEntities()
     {
         return $this->accountEntities;
+    }
+
+    /**
+     * Add moneyEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @return hotelEntity
+     */
+    public function addMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    {
+        $this->moneyEntities[] = $moneyEntities;
+
+        return $this;
+    }
+
+    /**
+     * Remove moneyEntities
+     *
+     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     */
+    public function removeMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    {
+        $this->moneyEntities->removeElement($moneyEntities);
+    }
+
+    /**
+     * Get moneyEntities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMoneyEntities()
+    {
+        return $this->moneyEntities;
     }
 
     /**

@@ -22,14 +22,17 @@ class hotelEntityController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getentityManager();
 
         $qb = $em->createQueryBuilder()
             ->select('hotel')
             ->from('HotelreserveBundle:hotelEntity', 'hotel');
 
         if($this->getUser()->hasRole('ROLE_HOTELDAR'))
-            $qb = $qb->where("hotel.userEntity = :user")->setParameter("user",$this->getUser());
+        {
+            $qb = $qb->where("hotel.userEntity = :user")->setParameter("user",$this->getUser())
+                ->andWhere("hotel.hotel_active = 1");
+        }
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>bankEntity list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bank_au</th>
+                <th>Bank_rand</th>
+                <th>Bank_timestamp</th>
+                <th>Bank_status</th>
+                <th>Bank_price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('bankentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.bankau }}</td>
+                <td>{{ entity.bankrand }}</td>
+                <td>{{ entity.bankTimeStamp }}</td>
+                <td>{{ entity.bankstatus }}</td>
+                <td>{{ entity.bankprice }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('bankentity_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('bankentity_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('bankentity_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

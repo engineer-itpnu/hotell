@@ -1,0 +1,30 @@
+moneyentity:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:index" }
+
+moneyentity_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:show" }
+
+moneyentity_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:new" }
+
+moneyentity_create:
+    pattern:  /create
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:create" }
+    requirements: { _method: post }
+
+moneyentity_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:edit" }
+
+moneyentity_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:update" }
+    requirements: { _method: post|put }
+
+moneyentity_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:delete" }
+    requirements: { _method: post|delete }

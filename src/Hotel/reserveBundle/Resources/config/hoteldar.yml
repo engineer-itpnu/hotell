@@ -13,3 +13,6 @@ h_reporting:
 h_search:
     pattern:  /hsearch
     defaults: { _controller: HotelreserveBundle:Default:search }
+h_moneyentity:
+    pattern:  /hmoney
+    defaults: { _controller: "HotelreserveBundle:moneyEntity:index" }
