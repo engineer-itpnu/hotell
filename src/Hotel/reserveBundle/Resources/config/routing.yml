@@ -18,7 +18,7 @@ HotelreserveBundle_agencyentity:
     prefix:   /agencyentity
 HotelreserveBundle_bankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/bankentity.yml"
-    prefix:   /bankentity
+    prefix:   /agency/bankentity
 HotelreserveBundle_blankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/blankentity.yml"
     prefix:   /blankentity
