@@ -17,71 +17,44 @@
                                 <tbody>
                                 <tr class="success">
                                     <td>
-                                        {{ form_label(form.money_type,'نوع درخواست : ') }}
-                                        {{ form_errors(form.money_type) }}
-                                        {{ form_widget(form.money_type) }}
-                                    </td>
-                                    <td>
                                         {{ form_label(form.money_price,'مبلغ : ') }}
                                         {{ form_errors(form.money_price) }}
                                         {{ form_widget(form.money_price) }}
                                     </td>
-                                </tr>
-                                <tr class="info">
-                                    <td style="padding-left: 140px;">
-                                        {{ form_label(form.money_DateReq,'تاریخ درخواست : ') }}
-                                        {{ form_errors(form.money_DateReq) }}
-                                        {{ form_widget(form.money_DateReq) }}
-                                    </td>
-                                    <td style="padding-left: 140px;">
-                                        {{ form_label(form.money_DateReply,'تاریخ پاسخ : ') }}
-                                        {{ form_errors(form.money_DateReply) }}
-                                        {{ form_widget(form.money_DateReply) }}
+                                    <td>
+                                        {% if is_granted('ROLE_HOTELDAR') %}
+                                            {{ form_label(form.hotelEntity,'هتل : ') }}
+                                            {{ form_errors(form.hotelEntity) }}
+                                            {{ form_widget(form.hotelEntity, {'required':'' }) }}
+                                        {% endif %}
                                     </td>
                                 </tr>
+                                {% if is_granted('ROLE_AGENCY') %}
                                 <tr class="info">
-                                    <td style="padding-left: 140px;">
-                                        {{ form_label(form.money_status,'وضعیت درخواست : ') }}
-                                        {{ form_errors(form.money_status) }}
-                                        {{ form_widget(form.money_status) }}
-                                    </td>
                                     <td>
                                         {{ form_label(form.money_NumBill,'شماره فیش بانکی : ') }}
                                         {{ form_errors(form.money_NumBill) }}
-                                        {{ form_widget(form.money_NumBill) }}
+                                        {{ form_widget(form.money_NumBill, {'required':'' }) }}
+                                    </td>
+                                    <td style="padding-left: 140px;">
+                                        {{ form_label(form.money_DateBill,'تاریخ فیش بانکی : ') }}
+                                        {{ form_errors(form.money_DateBill) }}
+                                        {{ form_widget(form.money_DateBill, {'required':'' }) }}
                                     </td>
                                 </tr>
                                 <tr class="success">
                                     <td style="padding-left: 140px;">
-                                        {{ form_label(form.money_DateBill,'تاریخ فیش بانکی : ') }}
-                                        {{ form_errors(form.money_DateBill) }}
-                                        {{ form_widget(form.money_DateBill) }}
-                                    </td><td></td>
-                                </tr>
-                                <tr class="info">
-                                    <td style="padding-left: 140px;">
                                         {{ form_label(form.money_BankName,'نام بانک : ') }}
                                         {{ form_errors(form.money_BankName) }}
-                                        {{ form_widget(form.money_BankName) }}
+                                        {{ form_widget(form.money_BankName, {'required':'' }) }}
                                     </td>
                                     <td style="padding-left: 140px;">
                                         {{ form_label(form.money_branch,'نام-شماره شعبه : ') }}
                                         {{ form_errors(form.money_branch) }}
-                                        {{ form_widget(form.money_branch) }}
+                                        {{ form_widget(form.money_branch, {'required':'' }) }}
                                     </td>
                                 </tr>
-                                <tr class="success">
-                                    <td>
-                                        {{ form_label(form.userEntity,'کاربر : ') }}
-                                        {{ form_errors(form.userEntity) }}
-                                        {{ form_widget(form.userEntity) }}
-                                    </td>
-                                    <td>
-                                        {{ form_label(form.hotelEntity,'هتل : ') }}
-                                        {{ form_errors(form.hotelEntity) }}
-                                        {{ form_widget(form.hotelEntity) }}
-                                    </td>
-                                </tr>
+                                {% endif %}
                                 {{ form_widget(form._token) }}
                                 <table>
                                     <button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد

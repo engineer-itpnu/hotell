@@ -5,28 +5,29 @@ namespace Hotel\reserveBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class moneyEntityType extends AbstractType
 {
-        /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
+    private $user;
+    public function __construct($user)
+    {
+        $this->user = $user;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->user;
         $builder
-            ->add('money_type', 'choice', array(
-                'choices' => array('0' => 'برداشت مبلغ', '1' => 'واریز مبلغ')))
             ->add('money_price')
-            ->add('money_DateReq')
-            ->add('money_DateReply')
-            ->add('money_status')
             ->add('money_NumBill')
             ->add('money_DateBill')
             ->add('money_BankName')
             ->add('money_branch')
-            ->add('userEntity')
-            ->add('hotelEntity')
+            ->add('hotelEntity',null,array(
+                'query_builder' => function (EntityRepository $er) use ($user) {
+
+                    return $er->createQueryBuilder('u')->where("u.userEntity = :user")->setParameter('user', $user);
+                }))
         ;
     }
     

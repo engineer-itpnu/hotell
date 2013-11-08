@@ -26,6 +26,8 @@
                             <thead>
             <tr>
                 <th>ردیف</th>
+                {% if is_granted('ROLE_ADMIN') or  is_granted('ROLE_HOTELDAR') %}<th>هتل</th>{% endif %}
+                <th>کاربر</th>
                 <th>نوع درخواست</th>
                 <th>مبلغ</th>
                 <th>تاریخ درخواست</th>
@@ -41,30 +43,43 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('moneyentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.id }}</td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_HOTELDAR') %}<td>{{ entity.hotelEntity }}</td>{% endif %}
+                <td>{{ entity.userEntity }}</td>
                 <td>{% if entity.moneytype==0 %}
                     برداشت مبلغ
                     {% else %}
                     واریز مبلغ
                     {% endif %}
-
-                    </td>
+                </td>
                 <td>{{ entity.moneyprice }}</td>
-                <td>{% if entity.moneyDateReq %}{{ entity.moneyDateReq|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.moneyDateReply %}{{ entity.moneyDateReply|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.moneystatus }}</td>
+                <td>{% if entity.moneyDateReq %}{{ entity.moneyDateReq|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.moneyDateReply %}{{ entity.moneyDateReply|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    {% if entity.moneystatus == 1 %}
+                    درحال پاسخ
+                    {% elseif entity.moneystatus == 2 %}
+                    تایید
+                    {% elseif entity.moneystatus == 3 %}
+                    لغو از طرف کاربر
+                    {% elseif entity.moneystatus == 4 %}
+                    رد از طرف مدیر سایت
+                    {% endif %}
+                </td>
                 <td>{{ entity.moneyNumBill }}</td>
-                <td>{% if entity.moneyDateBill %}{{ entity.moneyDateBill|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.moneyDateBill %}{{ entity.moneyDateBill|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ entity.moneyBankName }}</td>
                 <td>{{ entity.moneybranch }}</td>
                 <td>
                 <ul style="list-style-type: none">
-                    <li>
-                        <a class="badge badge-success" href="{{ path('moneyentity_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a class="badge badge-info" href="{{ path('moneyentity_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+                    {% if entity.moneystatus == 1 %}
+                        {% if is_granted('ROLE_ADMIN')  %}
+                            <li><a class="badge badge-success" href="{{ path('moneyentity_accept', { 'id': entity.id }) }}">تایید</a></li>
+                            <li><a class="badge badge-info" href="{{ path('moneyentity_reject', { 'id': entity.id }) }}">رد</a></li>
+                        {% else %}
+                            <li><a class="badge badge-info" href="{{ path('moneyentity_delete', { 'id': entity.id }) }}">لغو</a></li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
                 </td>
             </tr>
@@ -73,11 +88,14 @@
     </table>
 
         <ul style="list-style-type: none">
+            {% if is_granted('ROLE_HOTELDAR') or is_granted('ROLE_AGENCY') %}
         <li>
             <a class="btn btn-primary" href="{{ path('moneyentity_new') }}">
                 ایجاد
             </a>
         </li>
+            {% endif %}
+
     </ul>
                         </tbody>
                     </table>

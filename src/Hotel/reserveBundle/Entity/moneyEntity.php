@@ -35,7 +35,7 @@ class moneyEntity
     private $money_DateReply;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="smallint", nullable=false)
      */
     private $money_status;
 
@@ -67,7 +67,7 @@ class moneyEntity
 
     /** 
      * @ORM\ManyToOne(targetEntity="hotelEntity", inversedBy="moneyEntities")
-     * @ORM\JoinColumn(name="hmid", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="hmid", referencedColumnName="id", nullable=true)
      */
     private $hotelEntity;
 
@@ -176,7 +176,7 @@ class moneyEntity
     /**
      * Set money_status
      *
-     * @param string $moneyStatus
+     * @param smallint $moneyStatus
      * @return moneyEntity
      */
     public function setMoneyStatus($moneyStatus)
@@ -189,7 +189,7 @@ class moneyEntity
     /**
      * Get money_status
      *
-     * @return string
+     * @return smallint
      */
     public function getMoneyStatus()
     {

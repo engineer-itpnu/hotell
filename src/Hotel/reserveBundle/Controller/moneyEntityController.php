@@ -2,37 +2,35 @@
 
 namespace Hotel\reserveBundle\Controller;
 
+use Hotel\reserveBundle\Entity\accountEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Hotel\reserveBundle\Entity\moneyEntity;
 use Hotel\reserveBundle\Form\moneyEntityType;
 
-/**
- * moneyEntity controller.
- *
- */
 class moneyEntityController extends Controller
 {
 
-    /**
-     * Lists all moneyEntity entities.
-     *
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HotelreserveBundle:moneyEntity')->findAll();
+        if($this->getUser()->hasRole('ROLE_ADMIN'))
+        {
+            $entities = $em->getRepository('HotelreserveBundle:moneyEntity')->findAll();
+        }
+        else
+        {
+            $entities = $em->getRepository('HotelreserveBundle:moneyEntity')->findBy(array("userEntity"=>$this->getUser()));
+        }
+
 
         return $this->render('HotelreserveBundle:moneyEntity:index.html.twig', array(
             'entities' => $entities,
         ));
     }
-    /**
-     * Creates a new moneyEntity entity.
-     *
-     */
+
     public function createAction(Request $request)
     {
         $entity = new moneyEntity();
@@ -41,10 +39,14 @@ class moneyEntityController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setMoneyType($this->getUser()->hasRole('ROLE_HOTELDAR')?0:1);
+            $entity->setMoneyDateReq(new \DateTime());
+            $entity->setMoneyStatus(1);
+            $entity->setUserEntity($this->getUser());
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('moneyentity_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('moneyentity'));
         }
 
         return $this->render('HotelreserveBundle:moneyEntity:new.html.twig', array(
@@ -53,16 +55,9 @@ class moneyEntityController extends Controller
         ));
     }
 
-    /**
-    * Creates a form to create a moneyEntity entity.
-    *
-    * @param moneyEntity $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
     private function createCreateForm(moneyEntity $entity)
     {
-        $form = $this->createForm(new moneyEntityType(), $entity, array(
+        $form = $this->createForm(new moneyEntityType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('moneyentity_create'),
             'method' => 'POST',
         ));
@@ -72,10 +67,6 @@ class moneyEntityController extends Controller
         return $form;
     }
 
-    /**
-     * Displays a form to create a new moneyEntity entity.
-     *
-     */
     public function newAction()
     {
         $entity = new moneyEntity();
@@ -87,137 +78,58 @@ class moneyEntityController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a moneyEntity entity.
-     *
-     */
-    public function showAction($id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('HotelreserveBundle:moneyEntity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find moneyEntity entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('HotelreserveBundle:moneyEntity:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        $entity->setMoneyStatus(3);
+        $em->flush();
+        return $this->redirect($this->generateUrl("moneyentity"));
     }
 
-    /**
-     * Displays a form to edit an existing moneyEntity entity.
-     *
-     */
-    public function editAction($id)
+    public function rejectAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('HotelreserveBundle:moneyEntity')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find moneyEntity entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('HotelreserveBundle:moneyEntity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $entity->setMoneyStatus(4);
+        $entity->setMoneyDateReply(new \DateTime());
+        $em->flush();
+        return $this->redirect($this->generateUrl("moneyentity"));
     }
 
-    /**
-    * Creates a form to edit a moneyEntity entity.
-    *
-    * @param moneyEntity $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(moneyEntity $entity)
-    {
-        $form = $this->createForm(new moneyEntityType(), $entity, array(
-            'action' => $this->generateUrl('moneyentity_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing moneyEntity entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
+    public function acceptAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('HotelreserveBundle:moneyEntity')->find($id);
+        $entity->setMoneyStatus(2);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find moneyEntity entity.');
+        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
+            $lastAccount  = $em->getRepository('HotelreserveBundle:accountEntity')->findOneBy(array("hotelEntity"=>$entity->getHotelEntity()),array("id"=>"desc"));
+        else
+            $lastAccount = $em->getRepository('HotelreserveBundle:accountEntity')->findOneBy(array("agencyEntity"=>$entity->getUserEntity()->getAgencyEntity()),array("id"=>"desc"));
+
+        $account = new accountEntity();
+        $account->setPrice($entity->getMoneyPrice());
+        $account->setDateTime(new \DateTime());
+        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
+        {
+            if($lastAccount == null || $lastAccount->getStockHotel()== 0)
+                return $this->forward("HotelreserveBundle:moneyEntity:reject",array('id'=>$id));
+            $account->setHotelEntity($entity->getHotelEntity());
+            $account->setType(1);
+            $account->setStockHotel($lastAccount->getStockHotel() - $entity->getMoneyPrice());
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('moneyentity_edit', array('id' => $id)));
+        else
+        {
+            $account->setAgencyEntity($entity->getUserEntity()->getAgencyEntity());
+            $account->setType(0);
+            if($lastAccount != null)
+                $account->setStockAgency($lastAccount->getStockAgency() + $entity->getMoneyPrice());
+            else
+                $account->setStockAgency(0 + $entity->getMoneyPrice());
         }
-
-        return $this->render('HotelreserveBundle:moneyEntity:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    /**
-     * Deletes a moneyEntity entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HotelreserveBundle:moneyEntity')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find moneyEntity entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('moneyentity'));
-    }
-
-    /**
-     * Creates a form to delete a moneyEntity entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('moneyentity_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        $em->persist($account);
+        $em->flush();
+        return $this->redirect($this->generateUrl("moneyentity"));
     }
 }
