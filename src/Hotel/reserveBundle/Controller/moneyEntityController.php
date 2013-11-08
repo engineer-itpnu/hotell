@@ -103,7 +103,7 @@ class moneyEntityController extends Controller
         $entity = $em->getRepository('HotelreserveBundle:moneyEntity')->find($id);
         $entity->setMoneyStatus(2);
 
-        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
+        if($entity->getUserEntity()->hasRole('ROLE_HOTELDAR'))
             $lastAccount  = $em->getRepository('HotelreserveBundle:accountEntity')->findOneBy(array("hotelEntity"=>$entity->getHotelEntity()),array("id"=>"desc"));
         else
             $lastAccount = $em->getRepository('HotelreserveBundle:accountEntity')->findOneBy(array("agencyEntity"=>$entity->getUserEntity()->getAgencyEntity()),array("id"=>"desc"));
@@ -111,7 +111,7 @@ class moneyEntityController extends Controller
         $account = new accountEntity();
         $account->setPrice($entity->getMoneyPrice());
         $account->setDateTime(new \DateTime());
-        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
+        if($entity->getUserEntity()->hasRole('ROLE_HOTELDAR'))
         {
             if($lastAccount == null || $lastAccount->getStockHotel()== 0)
                 return $this->forward("HotelreserveBundle:moneyEntity:reject",array('id'=>$id));
