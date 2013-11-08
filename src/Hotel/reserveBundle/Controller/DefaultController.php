@@ -2,7 +2,6 @@
 
 namespace Hotel\reserveBundle\Controller;
 
-use Hotel\reserveBundle\Entity\accountEntity;
 use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +18,28 @@ class DefaultController extends Controller
     }
     public function reportAction(Request $request)
     {
-
+        $em = $this->getDoctrine()->getEntityManager();
         $form = $this ->createForm(new reportingType());
-//        $form->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em ->getRepository("HotelreserveBundle:accountEntity")->findAll();
 
+        $qb = $em->createQueryBuilder()
+            ->select('account')
+            ->from("HotelreserveBundle:accountEntity","account");
+        if($request->isMethod("post"))
+        {
+            $form->handleRequest($request);
+            if($form->isValid())
+            {
+                $data = $form->getData();
+                if($data['type']!=null) $qb = $qb->andWhere('account.type = :type')->setParameter('type',$data['type']);
+                if($data['hotelEntity']!==null) $qb = $qb->andWhere('account.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                if($data['agencyEntity']!=null) $qb = $qb->andWhere('account.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+
+                if($data['fromDateTime']!=null) $qb = $qb->andWhere('account.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
+                if($data['toDateTime']!=null) $qb = $qb->andWhere('account.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
+            }
+        }
+
+        $entities = $qb->getQuery()->getResult();
 
         return $this->render('HotelreserveBundle:Default:AdminReporting.html.twig',array(
             'entities'=>$entities,

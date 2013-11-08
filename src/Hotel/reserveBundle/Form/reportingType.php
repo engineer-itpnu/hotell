@@ -15,21 +15,15 @@ class reportingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price')
-            ->add('type','choice', array('choices' => array('0' => 'واریز', '1' => 'برداشت', '2' => 'خرید'),
+            ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
                 'required'=>false,'empty_value' => 'همه انواع ',
             ))
-            ->add('StockHotel')
-            ->add('StockAgency')
-            ->add('NumberPey')
-            ->add('fromDateTime','date',array('widget'=>'single_text'))
-            ->add('toDateTime','date',array('widget'=>'single_text'))
+            ->add('fromDateTime','date',array('widget'=>'single_text','format' => 'yyyy/MM/dd','required'=>false))
+            ->add('toDateTime','date',array('widget'=>'single_text','format' => 'yyyy/MM/dd','required'=>false))
             ->add('hotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها ',))
             ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
-        'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
-            ->add('customerEntity')
-            ->add('reserveEntity')
+                'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
         ;
     }
 

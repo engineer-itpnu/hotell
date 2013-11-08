@@ -16,9 +16,7 @@
         }
     </style>
     <section class="container " style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
-        <form action="#" method="post">
-            <input type="hidden" name="_method" value="PUT"/>
-
+        <form method="post">
             <div class="psp ">
                 <table>
                     <fieldset>
@@ -64,8 +62,9 @@
             <input class="btn btn-danger" type="button" value="پرینت اطلاعات">
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <img width="64" height="64" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
-
-        </form><br/><br/><div class="progress progress-striped active">
+            {{ form_widget(form._token) }}
+        </form>
+        <br/><br/><div class="progress progress-striped active">
             <div class="bar" style="width: 100%"></div>
         </div>
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12"
@@ -110,17 +109,17 @@
                                         <td>{{ entity.customerEntity }}</td>
                                         <td>{{ entity.reserveEntity }}</td>
                                         <td>{{ entity.price }}</td>
-                                        <td>{% if entity.type== "0" %}
-                                                واریز
-                                            {% elseif entity.type== "1" %}
-                                                برداشت
-                                            {% else %}
+                                        <td>{% if entity.type== "1" %}
                                                 خرید
+                                            {% elseif entity.type== "2" %}
+                                                برداشت
+                                            {% elseif entity.type== "3" %}
+                                                واریز
                                             {% endif %}</td>
                                         <td>{{ entity.StockHotel }}</td>
                                         <td>{{ entity.StockAgency }}</td>
                                         <td>{{ entity.NumberPey }}</td>
-                                        <td>{% if entity.DateTime %}{{ entity.DateTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{% if entity.DateTime %}{{ entity.DateTime|date('Y/m/d') }}{% endif %}</td>
                                         <td>
                                             <ul style="list-style-type: none">
                                                 <li>
