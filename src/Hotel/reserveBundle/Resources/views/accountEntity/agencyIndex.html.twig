@@ -58,7 +58,7 @@
                                             {% endif %}</td>
                                         <td>{{ entity.StockAgency }}</td>
                                         <td>{{ entity.NumberPey }}</td>
-                                        <td>{% if entity.DateTime %}{{ entity.DateTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime) }}{% endif %}</td>
                                         <td>
                                             <ul style="list-style-type: none">
                                                 <li>

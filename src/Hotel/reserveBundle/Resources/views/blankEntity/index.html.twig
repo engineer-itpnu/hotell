@@ -31,7 +31,7 @@
                                         <td style="text-align: center"><a
                                                     href="{{ path('blankentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                         </td>
-                                        <td style="text-align: center">{% if entity.dateIN %}{{ entity.dateIN|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td style="text-align: center">{% if entity.dateIN %}{{ DateConvert.MiladiToShamsi(entity.dateIN) }}{% endif %}</td>
                                         <td style="text-align: center">{% if entity.status== "0" %}
                                                 خالی
                                             {% elseif entity.status== "1" %}

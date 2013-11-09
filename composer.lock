@@ -3,8 +3,51 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "abba9c21f8c532377e58465d37ff513b",
+    "hash": "91ee2fe3e6c9b8235d904b0ccca1604a",
     "packages": [
+        {
+            "name": "ce/jalali-date-bundle",
+            "version": "dev-master",
+            "target-dir": "CybersExperts/Bundle/JalaliDateBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cyberexperts/jalalidate-bundle.git",
+                "reference": "db8b9d4a290f270aa11c79f9fd37055421dd5fcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cyberexperts/jalalidate-bundle/zipball/db8b9d4a290f270aa11c79f9fd37055421dd5fcf",
+                "reference": "db8b9d4a290f270aa11c79f9fd37055421dd5fcf",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CybersExperts\\Bundle\\JalaliDateBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "mit"
+            ],
+            "authors": [
+                {
+                    "name": "Hossein Zolfi",
+                    "email": "hossein.zolfi@gmail.com"
+                }
+            ],
+            "description": "Bundle for working with jalali date",
+            "keywords": [
+                "Jalali",
+                "bundle",
+                "calendar",
+                "symfony"
+            ],
+            "time": "2013-04-22 14:14:16"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.1.2",
@@ -1690,7 +1733,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "knplabs/knp-paginator-bundle": 20
+        "knplabs/knp-paginator-bundle": 20,
+        "ce/jalali-date-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

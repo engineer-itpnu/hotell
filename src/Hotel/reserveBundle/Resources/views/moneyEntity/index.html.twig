@@ -53,8 +53,8 @@
                     {% endif %}
                 </td>
                 <td>{{ entity.moneyprice }}</td>
-                <td>{% if entity.moneyDateReq %}{{ entity.moneyDateReq|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if entity.moneyDateReply %}{{ entity.moneyDateReply|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.moneyDateReq %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReq) }}{% endif %}</td>
+                <td>{% if entity.moneyDateReply %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReply) }}{% endif %}</td>
                 <td>
                     {% if entity.moneystatus == 1 %}
                     درحال پاسخ

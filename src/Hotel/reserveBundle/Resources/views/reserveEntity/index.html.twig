@@ -29,7 +29,7 @@
                                 {% for entity in entities %}
                                     <tr>
                                         <td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                                        <td style="text-align: center">{% if entity.DateInp %}{{ entity.DateInp|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td style="text-align: center">{% if entity.DateInp %}{{ DateConvert.MiladiToShamsi(entity.DateInp) }}{% endif %}</td>
                                         <td style="text-align: center">{{ entity.CountNight }}</td>
                                         <td style="text-align: center">{{ entity.Money }}</td>
                                         <td style="text-align: center">{{ entity.CodePey }}</td>

@@ -24,7 +24,17 @@ class moneyEntityController extends Controller
         {
             $entities = $em->getRepository('HotelreserveBundle:moneyEntity')->findBy(array("userEntity"=>$this->getUser()));
         }
+//        $convertor = $this->get('my_date_convert');
 
+//        var_dump($convertor->MiladiToShamsi(new \DateTime()));
+//
+//        var_dump($convertor->ShamsiToMiladi("1392/8/18"));
+////        var_dump($jalaliDatetime->gregorianToJalali(2013, 11, 9)); // Convert gregorian date to jalali
+////        $jalaliDatetime->jalaliToGregorian(1392, 11, 4); // Convert jalali date to gregorian
+////        $jalaliDatetime->jalaliToJd(1392, 11, 4); // Convert jalali date to julian
+////        $jalaliDatetime->jalaliToTimestamp(1392, 11, 4); // Getting timestamp of jalali date
+//
+//        die();
 
         return $this->render('HotelreserveBundle:moneyEntity:index.html.twig', array(
             'entities' => $entities,

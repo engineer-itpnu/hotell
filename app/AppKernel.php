@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Hotel\reserveBundle\HotelreserveBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new CybersExperts\Bundle\JalaliDateBundle\CybersExpertsJalaliDateBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
