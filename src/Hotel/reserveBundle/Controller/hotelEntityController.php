@@ -22,7 +22,7 @@ class hotelEntityController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getentityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder()
             ->select('hotel')

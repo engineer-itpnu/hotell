@@ -1,4 +1,12 @@
-{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+{% set parent="" %}
+{% if is_granted("ROLE_ADMIN") %}
+    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
+{% elseif is_granted("ROLE_HOTELDAR") %}
+    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
+{% elseif is_granted("ROLE_AGENCY") %}
+    {% set parent= 'HotelreserveBundle::layout_reserve.html.twig' %}
+{% endif  %}
+{% extends parent %}
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
