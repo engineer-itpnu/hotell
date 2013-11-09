@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/app/cache" />
       <excludeFolder url="file://$MODULE_DIR$/app/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ce/jalali-date-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
@@ -79,6 +80,7 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
           <root url="file://$MODULE_DIR$/vendor/jdorn/sql-formatter" />
+          <root url="file://$MODULE_DIR$/vendor/ce/jalali-date-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
         </CLASSES>
         <SOURCES>
@@ -110,6 +112,7 @@
           <root url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/orm" />
           <root url="file://$MODULE_DIR$/vendor/jdorn/sql-formatter" />
+          <root url="file://$MODULE_DIR$/vendor/ce/jalali-date-bundle" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
         </SOURCES>
       </library>
