@@ -3,7 +3,7 @@
     {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
 {% elseif is_granted("ROLE_HOTELDAR") %}
     {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif  %}
+{% endif %}
 {% extends parent %}
 {% block stylesheet %}
     {{ parent() }}
@@ -12,34 +12,29 @@
     <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            timeline_header();
-            timeline_add_row('یک تخته', 12, [
-                [0, '8-9-10-11-12', 'کد:12<br />میهمان: علی احمدی'],
-                [1, '1-2-3-4', 'bbbbb'],
-                [0, '17-18-19', 'ccccc']
+            timeline_header(true);
+            timeline_add_row(112, 'یک تخته', 12, [
+                [0, '13-14', 5000],
+                [0, '8-9-10-11-12', 2000],
+                [1, '21-22-23-24', 'bbbbb'],
+                [0, '1-2-3-4', 5000],
+                [1, '17-18-19-20', 'ccccc']
             ]);
-            timeline_add_row('دو تخته', 34, [
-                [1, '11', 'dddddd'],
-                [0, '8-9-10', 'fffffff']
+            timeline_add_row(113, 'دو تخته', 34, [
+                [1, '11-12', 'sdfewwefewf'],
+                [0, '8-9-10', 6000]
             ]);
-            timeline_add_row('سوئیت', 23, [
-                [0, '8-9-10', 'wewewewe'],
-                [1, '', 'wrerwerwerwerwer']
-            ]);
-            timeline_add_row('سوئیت', 23, [
-                [0, '8-9-10', 'wewewewe'],
+            timeline_add_row(114, 'سوئیت', 23, [
+                [0, '8-9-10', 1000],
                 [1, '17', 'wrerwerwerwerwer']
+            ]);
+            timeline_add_row(115, 'سوئیت', 23, [
+                [1, '8-9-10', 'wewewewe'],
+                [1, '16-17', 'wrerwerwerwerwer']
             ]);
         });
     </script>
 {% endblock %}
-
-
-
-
-
-
-
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -48,7 +43,8 @@
                     <span class=""
                           style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>مانیتورینگ وضعیت اتاق ها - ایجاد و ویرایش اتاق های خالی هتل </strong>
+                            <a href="" class="icon-chevron-left"></a> <strong>مانیتورینگ وضعیت اتاق ها - ایجاد و ویرایش
+                            اتاق های خالی هتل </strong>
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
@@ -56,29 +52,36 @@
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
 
+                            <div style="width: 100%;overflow-x: scroll;">
+                                <div class="timeLine">
+                                </div>
+                            </div>
+                            <div>
+                                <div id="tl_cost_viewer">
+                                    <div style="direction: rtl;text-align: right;">
+                                        <div class="tl_cost_header">مشخصات</div>
+                                    </div>
+                                    <div id="tl_showCost" style="width: 100%;"></div>
+                                </div>
+                                <div id="tl_options">
+                                    <label for="tl_cost_for_day">قیمت شبانه روز:</label>
+                                    <input type="number" id="tl_cost_for_day" value="20000" style="width: 85px;">
 
-                           <div class="timeLine">
+                                    <form id="tl_form" method="post" action="http://localhost/getTimeline/index.php">
+                                        <input type="hidden" id="tl_hidden_add" name="empty_added" value="">
+                                        <input type="hidden" id="tl_hidden_del" name="empty_deleted" value="">
 
-
-                           </div>
-
-
+                                        <div class="btn btn-info" style="position: relative;top:-15px;width: 75px;"
+                                             onclick="create_array_new_emptys();">ثبت نهایی
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <script type="text/javascript">
-        function show_balloon(position, message) {
-            $('#tl-balloon-' + position).balloon({
-                position: "bottom",
-                contents: '<span style="text-align: right;direction: rtl;">' + message + '</span>'
-            });
-        }
-    </script>
 {% endblock %}

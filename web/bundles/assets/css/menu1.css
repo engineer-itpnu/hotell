@@ -24,6 +24,7 @@ ul.menu1>li
 	height : 46px;
 	cursor : pointer;
 	border : solid 2px transparent;
+    z-index: 900;
 }
 
 ul.menu1>li a
