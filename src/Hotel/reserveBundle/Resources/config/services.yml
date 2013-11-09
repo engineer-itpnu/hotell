@@ -18,3 +18,9 @@ services:
     my_date_convert:
         class: Hotel\reserveBundle\Handler\DateConvertor
         arguments: [@ce.jalali_date.date_converter]
+
+    hotel_user.form.type.ShamsiDate:
+        class: Hotel\reserveBundle\Form\Type\ShamsiDateType
+        tags:
+            - { name: form.type, alias: ShamsiDate }
+        arguments: [@my_date_convert]

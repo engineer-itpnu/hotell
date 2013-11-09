@@ -67,7 +67,7 @@
                     {% endif %}
                 </td>
                 <td>{{ entity.moneyNumBill }}</td>
-                <td>{% if entity.moneyDateBill %}{{ entity.moneyDateBill|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.moneyDateBill %}{{ DateConvert.MiladiToShamsi(entity.moneyDateBill) }}{% endif %}</td>
                 <td>{{ entity.moneyBankName }}</td>
                 <td>{{ entity.moneybranch }}</td>
                 <td>
