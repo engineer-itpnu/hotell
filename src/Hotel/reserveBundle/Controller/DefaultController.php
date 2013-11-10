@@ -17,13 +17,10 @@ class DefaultController extends Controller
     }
     public function indexAction(Request $request)
     {
-//        $a = date_diff(date_create("2013-01-01"),date_create("2013-01-02"))->format("%a") == "1";
-//        die(var_dump($a));
-
         $user = $this->getUser();
         $form = $this->createFormBuilder()
             ->add("hotel","entity",array(
-               'class' => 'HotelreserveBundle:hotelEntity',
+                'class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name',
                 'query_builder' => function(EntityRepository $er) use ($user) {
                     $er = $er->createQueryBuilder('u')
@@ -31,7 +28,7 @@ class DefaultController extends Controller
                     if($user->hasRole('ROLE_HOTELDAR'))
                         $er = $er->andWhere("u.userEntity = :user")->setParameter("user",$user);
                     return $er;
-            }))
+                }))
             ->add("year","text")
             ->add("month","choice",array("choices"=>array(
                 "1"=>"فروردین",
@@ -47,10 +44,11 @@ class DefaultController extends Controller
                 "11"=>"بهمن",
                 "12"=>"اسفند"
             )))
-        ->getForm();
+            ->getForm();
 
         $rooms = null;
         $data = array('year' => '0', 'month'=>0);
+        $hotelid = null;
 
         if($request->isMethod("post"))
         {
@@ -65,8 +63,9 @@ class DefaultController extends Controller
                     ->select("room")
                     ->from("HotelreserveBundle:roomEntity","room")
                     ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
-                    ;
+                ;
                 $rooms = $qb->getQuery()->getResult();
+                $hotelid = $hotel->getId();
             }
         }
 
@@ -74,7 +73,31 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'rooms' => $rooms,
             'year' => $data['year'],
-            'month' => $data['month']
+            'month' => $data['month'],
+            'hotelid' => $hotelid
+        ));
+    }
+    public function editAction($hotelid, $year, $month)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
+        $user = $this->getUser();
+        if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user))
+            return $this->redirect($this->generateUrl("monitoring"));
+
+        $qb = $em->createQueryBuilder()
+            ->select("room")
+            ->from("HotelreserveBundle:roomEntity","room")
+            ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
+            ;
+        $rooms = $qb->getQuery()->getResult();
+
+        return $this->render('HotelreserveBundle:Default:edit.html.twig',array(
+            'rooms' => $rooms,
+            'year' => $year,
+            'month' => $month,
+            'hotelid' => $hotelid
         ));
     }
 

@@ -14,9 +14,9 @@
         $(document).ready(function () {
             timeline_header(true);
             {% if rooms is not null %}
-            {% for room in rooms %}
-            {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month })) }}
-            {% endfor %}
+                {% for room in rooms %}
+                    {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month })) }}
+                {% endfor %}
             {% endif %}
         });
     </script>
@@ -38,38 +38,31 @@
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
                             <div>
-                                <form method="post">
-
-                                    <table class="table table-condensed">
-                                        <tr class=" info">
-                                            <td>هتل :</td>
-                                            <td>
-                                                {{ form_errors(form.hotel) }}
-                                                {{ form_widget(form.hotel) }}
-                                            </td>
-                                            <td>ماه :</td>
-                                            <td>
-                                                {{ form_errors(form.month) }}
-                                                {{ form_widget(form.month) }}
-                                            </td>
-                                            <td>سال :</td>
-                                            <td>
-                                                {{ form_errors(form.year) }}
-                                                {{ form_widget(form.year) }}
-                                            </td>
-                                            <td><input type="submit" value="تایید"/></td>
-                                        </tr>
-                                    </table>
-                                    {{ form_widget(form._token) }}
-                                </form>
-                                {% if rooms is not null %}
-                                    <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}" class="btn btn-primary">ویرایش اتاق ها</a>
-                                {% endif %}
-                            </div>
-                            <br>
-
+                                <a href="{{ path('monitoring') }}" class="btn btn-primary">بازگشت</a>
+                            </div><br>
                             <div style="width: 100%;overflow-x: scroll;">
                                 <div class="timeLine">
+                                </div>
+                            </div>
+                            <div>
+                                <div id="tl_cost_viewer">
+                                    <div style="direction: rtl;text-align: right;">
+                                        <div class="tl_cost_header">مشخصات</div>
+                                    </div>
+                                    <div id="tl_showCost" style="width: 100%;"></div>
+                                </div>
+                                <div id="tl_options">
+                                    <label for="tl_cost_for_day">قیمت شبانه روز:</label>
+                                    <input type="number" id="tl_cost_for_day" value="20000" style="width: 85px;">
+
+                                    <form id="tl_form" method="post" action="http://localhost/getTimeline/index.php">
+                                        <input type="hidden" id="tl_hidden_add" name="empty_added" value="">
+                                        <input type="hidden" id="tl_hidden_del" name="empty_deleted" value="">
+
+                                        <div class="btn btn-info" style="position: relative;top:-15px;width: 75px;"
+                                             onclick="create_array_new_emptys();">ثبت نهایی
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             </tbody>

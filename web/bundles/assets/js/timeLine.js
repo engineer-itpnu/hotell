@@ -44,7 +44,8 @@ function timeline_add_row_balloon(roomType,roomNum,tl_events){
 
     var types=new Array();
     types[0]="#74b749";
-    types[1]="rgb(255,0,0)";
+    types[2]="rgb(255,0,0)";
+    types[1]="#ffaa00";
     count_events = tl_events.length;
     for(ev=0;ev<count_events;ev++){
         datas = tl_events[ev][1].split("-");
@@ -63,7 +64,20 @@ function timeline_add_row_balloon(roomType,roomNum,tl_events){
                 $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-event-first" style="background-color: '+types[type]+';"></div>');
                 $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+rows+'-'+datas[0]+'" style="width: '+width_balloon+'px" onmouseover="show_balloon(\''+rows+'-'+datas[0]+'\',\''+tl_events[ev][2]+'\');"></div>');
             }
-        }else{
+        }else if(type == 2){
+            width_balloon = 25;
+            if(count > 1){
+                $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-event-first" style="background-color: '+types[type]+';"></div>');
+                for(j=1;j<count;j++){
+                    $('#tl-'+rows+'-'+datas[j]).append('<div class="tl-event" style="background-color: '+types[type]+';"></div>');
+                    width_balloon+=26;
+                }
+                $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+rows+'-'+datas[0]+'" style="width: '+width_balloon+'px" onmouseover="show_balloon(\''+rows+'-'+datas[0]+'\',\''+tl_events[ev][2]+'\');"></div>');
+            }else if(count == 1){
+                $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-event-first" style="background-color: '+types[type]+';"></div>');
+                $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+rows+'-'+datas[0]+'" style="width: '+width_balloon+'px" onmouseover="show_balloon(\''+rows+'-'+datas[0]+'\',\''+tl_events[ev][2]+'\');"></div>');
+            }
+        }else if(type == 0){
             if(count > 1){
                 $('#tl-'+rows+'-'+datas[0]).append('<div class="tl-event-first" style="background-color: '+types[type]+';"></div>');
                 for(j=1;j<count;j++){
