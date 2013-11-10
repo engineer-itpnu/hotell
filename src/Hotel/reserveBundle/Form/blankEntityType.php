@@ -16,7 +16,7 @@ class blankEntityType extends AbstractType
     {
         $builder
             ->add('dateIN')
-            ->add('status','choice', array('choices' => array('0' => 'خالی', '1' => 'رزرو', '2' => 'تکمیل شده', '3' => 'کنسل شده'),
+            ->add('status','choice', array('choices' => array('0' => 'خالی', '1' => 'رزرو', '2' => 'تکمیل شده'),
                 'multiple'  => true,))
             ->add('Tariff')
             ->add('reserveEntity')

@@ -13,25 +13,11 @@
     <script type="text/javascript">
         $(document).ready(function () {
             timeline_header(true);
-            timeline_add_row(112, 'یک تخته', 12, [
-                [0, '13-14', 5000],
-                [0, '8-9-10-11-12', 2000],
-                [1, '21-22-23-24', 'bbbbb'],
-                [0, '1-2-3-4', 5000],
-                [1, '17-18-19-20', 'ccccc']
-            ]);
-            timeline_add_row(113, 'دو تخته', 34, [
-                [1, '11-12', 'sdfewwefewf'],
-                [0, '8-9-10', 6000]
-            ]);
-            timeline_add_row(114, 'سوئیت', 23, [
-                [0, '8-9-10', 1000],
-                [1, '17', 'wrerwerwerwerwer']
-            ]);
-            timeline_add_row(115, 'سوئیت', 23, [
-                [1, '8-9-10', 'wewewewe'],
-                [1, '16-17', 'wrerwerwerwerwer']
-            ]);
+            {% if rooms is not null %}
+                {% for room in rooms %}
+                    {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month })) }}
+                {% endfor %}
+            {% endif %}
         });
     </script>
 {% endblock %}
@@ -51,7 +37,32 @@
                     <div class="">
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
+                            <div>
+                                <form method="post">
 
+                                    <table class="table table-condensed">
+                                        <tr class=" info">
+                                            <td>هتل :</td>
+                                            <td>
+                                                {{ form_errors(form.hotel) }}
+                                                {{ form_widget(form.hotel) }}
+                                            </td>
+                                            <td>ماه : </td>
+                                            <td>
+                                                {{ form_errors(form.month) }}
+                                                {{ form_widget(form.month) }}
+                                            </td>
+                                            <td>سال : </td>
+                                            <td>
+                                                {{ form_errors(form.year) }}
+                                                {{ form_widget(form.year) }}
+                                            </td>
+                                            <td><input type="submit" value="تایید"/></td>
+                                        </tr>
+                                    </table>
+                                    {{ form_widget(form._token) }}
+                                </form>
+                            </div><br>
                             <div style="width: 100%;overflow-x: scroll;">
                                 <div class="timeLine">
                                 </div>

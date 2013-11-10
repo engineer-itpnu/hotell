@@ -100,7 +100,8 @@ function timeline_add_row(roomId,roomType,roomName,tl_events){
 
     var types = new Array();
     types[0]="#74b749";
-    types[1]="rgb(255,0,0)";
+    types[2]="rgb(255,0,0)";
+    types[1]="#ffaa00";
     count_events = tl_events.length;
     var empty_this_room = [];
 
@@ -125,7 +126,24 @@ function timeline_add_row(roomId,roomType,roomName,tl_events){
                 $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+roomId+'-'+datas[0]+'" style="top:-36px;width: 25px" onmouseover="show_detail_full(\''+tl_events[ev][2]+'\','+roomId+','+datas[0]+','+width_balloon+');"></div>');
                 $('#tl-'+roomId+'-'+datas[0]).removeAttr("onmouseover");
             }
-        }else{
+        }else if(type == 2){
+            width_balloon2 = 1;
+            if(count > 1){
+                $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-event-first tl-type-1" id="tle-'+roomId+'-'+datas[0]+'" style="top:-18px;background-color: '+types[2]+';"></div>');
+                $('#tl-'+roomId+'-'+datas[0]).removeAttr("onmouseover");
+                for(j=1;j<count;j++){
+                    $('#tl-'+roomId+'-'+datas[j]).append('<div class="tl-event tl-type-1"  id="tle-'+roomId+'-'+datas[j]+'" style="top:-18px;background-color: '+types[2]+';"></div>');
+                    $('#tl-'+roomId+'-'+datas[j]).removeAttr("onmouseover");
+                    width_balloon2+=1;
+                }
+                $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+roomId+'-'+datas[0]+'" style="top:-36px;width: '+(26*width_balloon2)+'px" onmouseover="show_detail_full(\''+tl_events[ev][2]+'\','+roomId+','+datas[0]+','+width_balloon2+');"></div>');
+
+            }else if(count == 1){
+                $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-event-first tl-type-1" id="tle-'+roomId+'-'+datas[0]+'" style="top:-18px;background-color: '+types[2]+';"></div>');
+                $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-over" id="tl-balloon-'+roomId+'-'+datas[0]+'" style="top:-36px;width: 25px" onmouseover="show_detail_full(\''+tl_events[ev][2]+'\','+roomId+','+datas[0]+','+width_balloon2+');"></div>');
+                $('#tl-'+roomId+'-'+datas[0]).removeAttr("onmouseover");
+            }
+        }else if(type == 0){
             if(count > 1){
                 $('#tl-'+roomId+'-'+datas[0]).append('<div class="tl-event-first tl-type-0" id="tle-'+roomId+'-'+datas[0]+'" style="top:-18px;background-color: '+types[0]+';"></div>');
                 $('#tl-'+roomId+'-'+datas[0]).attr("onmouseover",'show_cost(\'قیمت: <br />'+tl_events[ev][2]+' ریال\',"'+roomId+'-'+datas[0]+'");');
@@ -221,14 +239,14 @@ function tl_emptyOrNot(roomId,day){
 function show_cost(cost,id){
     $("#tl_showCost").html(cost);
     $(".tl-data").css("backgroundColor",'transparent');
-    $('#tl-'+id).css("backgroundColor",'#ffaa00');
+    $('#tl-'+id).css("backgroundColor",'#ddddff');
 }
 function show_detail_full(detail,room,day,width_balloon){
     //alert(detail);
     $("#tl_showCost").html(detail);
     $(".tl-data").css("backgroundColor",'transparent');
     for(i=0;i<width_balloon;i++){
-    $('#tl-'+room+'-'+(day+i)).css("backgroundColor",'#ffaa00');
+    $('#tl-'+room+'-'+(day+i)).css("backgroundColor",'#ddddff');
     }
 }
 
