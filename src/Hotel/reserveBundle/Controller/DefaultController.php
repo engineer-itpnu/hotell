@@ -94,12 +94,45 @@ class DefaultController extends Controller
     public function editAction(Request $request,$hotelid, $year, $month)
     {
         $em = $this->getDoctrine()->getEntityManager();
+
+        $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
+        $user = $this->getUser();
+        if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user) || $user->hasRole("ROLE_AGENCY"))
+            return $this->redirect($this->generateUrl("monitoring"));
+
         if($request->isMethod("post"))
         {
+            $dateconvertor = $this->get("my_date_convert");
             $empty_added = json_decode($request->request->get("empty_added"),true);
             $empty_deleted = json_decode($request->request->get("empty_deleted"),true);
 
+            foreach($empty_deleted as $roomid=>$days)
+            {
+                $room = $em ->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
+                foreach($days as $day)
+                {
+                    $date = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$day);
+                    $blank = $em ->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("roomEntity"=>$room,"dateIN"=>$date));
+                    $em->remove($blank);
+                }
+            }
+            $em->flush();
 
+            foreach($empty_added as $roomid=>$days)
+            {
+                $room = $em ->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
+                foreach($days as $day=>$tariff)
+                {
+                    $date = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$day);
+                    $blank = new blankEntity();
+                    $blank->setDateIN($date);
+                    $blank->setRoomEntity($room);
+                    $blank->setStatus(0);
+                    $blank->setTariff($tariff);
+                    $em->persist($blank);
+                }
+            }
+            $em->flush();
 
             return $this->redirect($this->generateUrl("monitoring",array(
                 'year' => $year,
@@ -107,10 +140,6 @@ class DefaultController extends Controller
                 'hotelid' => $hotelid
             )));
         }
-        $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
-        $user = $this->getUser();
-        if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user))
-            return $this->redirect($this->generateUrl("monitoring"));
 
         $qb = $em->createQueryBuilder()
             ->select("room")
