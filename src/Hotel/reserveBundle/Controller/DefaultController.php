@@ -96,6 +96,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         if($request->isMethod("post"))
         {
+            $empty_added = json_decode($request->request->get("empty_added"),true);
+            $empty_deleted = json_decode($request->request->get("empty_deleted"),true);
+
+
+
             return $this->redirect($this->generateUrl("monitoring",array(
                 'year' => $year,
                 'month' => $month,
@@ -122,12 +127,16 @@ class DefaultController extends Controller
         ));
     }
 
-    public function getStatusRoomInMonthAction($roomid,$year,$month)
+    public function getStatusRoomInMonthAction($roomid,$year,$month,$editable)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $room = $em->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
 
-        $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','"."aaaaa"."', [";
+        if($editable == false)
+            $result = "timeline_add_row_balloon('".$room->getRoomName()."','"."aaaaa"."', [";
+        else
+            $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','"."aaaaa"."', [";
+
 
         $dateconvertor = $this->get("my_date_convert");
         $fromdate = $dateconvertor->ShamsiToMiladi($year."/".$month."/1");

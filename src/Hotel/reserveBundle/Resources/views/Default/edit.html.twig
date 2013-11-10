@@ -15,7 +15,7 @@
             timeline_header(true);
             {% if rooms is not null %}
                 {% for room in rooms %}
-                    {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month })) }}
+                    {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month, 'editable':true })) }}
                 {% endfor %}
             {% endif %}
         });

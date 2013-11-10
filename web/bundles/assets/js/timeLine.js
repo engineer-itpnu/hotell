@@ -265,7 +265,8 @@ function show_detail_full(detail,room,day,width_balloon){
 }
 
 function create_array_new_emptys(){
-    //alert(edited_rooms[112][28]);
+    editedRoomsString = "{";
+    deletedRoomsString = "{";
     for(singleRoomId in roomIds){
         //editedRoomsString
         editedRoomsString += '"'+roomIds[singleRoomId]+'": { ';
