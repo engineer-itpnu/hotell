@@ -18,7 +18,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
     {
         $doSearch = false;
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $rooms = null;
         $user = $this->getUser();
         $search = array();
@@ -93,7 +93,7 @@ class DefaultController extends Controller
     }
     public function editAction(Request $request,$hotelid, $year, $month)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
         $user = $this->getUser();
@@ -158,7 +158,7 @@ class DefaultController extends Controller
 
     public function getStatusRoomInMonthAction($roomid,$year,$month,$editable)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $room = $em->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
 
         if($editable == false)
@@ -208,7 +208,7 @@ class DefaultController extends Controller
 
     public function reportAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $form = $this ->createForm(new reportingType());
 
         $qb = $em->createQueryBuilder()
