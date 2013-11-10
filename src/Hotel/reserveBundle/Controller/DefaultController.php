@@ -15,10 +15,21 @@ class DefaultController extends Controller
     {
         return $this->render('HotelreserveBundle::index.html.twig');
     }
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
     {
+        $doSearch = false;
+        $em = $this->getDoctrine()->getEntityManager();
+        $rooms = null;
         $user = $this->getUser();
-        $form = $this->createFormBuilder()
+        $search = array();
+        if( $year!=null && $month!=null && $hotelid!= null )
+        {
+            $search['year']=$year;
+            $search['month'] = $month;
+            $search['hotel'] = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
+            $doSearch = true;
+        }
+        $form = $this->createFormBuilder($search)
             ->add("hotel","entity",array(
                 'class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name',
@@ -46,7 +57,6 @@ class DefaultController extends Controller
             )))
             ->getForm();
 
-        $rooms = null;
         $data = array('year' => '0', 'month'=>0);
         $hotelid = null;
 
@@ -55,18 +65,22 @@ class DefaultController extends Controller
             $form->handleRequest($request);
             if($form->isValid())
             {
-                $em = $this->getDoctrine()->getEntityManager();
-                $data = $form->getData();
-                $hotel = $data['hotel'];
-
-                $qb = $em->createQueryBuilder()
-                    ->select("room")
-                    ->from("HotelreserveBundle:roomEntity","room")
-                    ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
-                ;
-                $rooms = $qb->getQuery()->getResult();
-                $hotelid = $hotel->getId();
+                $doSearch = true;
             }
+        }
+
+        if($doSearch)
+        {
+            $data = $form->getData();
+            $hotel = $data['hotel'];
+
+            $qb = $em->createQueryBuilder()
+                ->select("room")
+                ->from("HotelreserveBundle:roomEntity","room")
+                ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
+            ;
+            $rooms = $qb->getQuery()->getResult();
+            $hotelid = $hotel->getId();
         }
 
         return $this->render('HotelreserveBundle:Default:index.html.twig',array(
@@ -77,10 +91,17 @@ class DefaultController extends Controller
             'hotelid' => $hotelid
         ));
     }
-    public function editAction($hotelid, $year, $month)
+    public function editAction(Request $request,$hotelid, $year, $month)
     {
         $em = $this->getDoctrine()->getEntityManager();
-
+        if($request->isMethod("post"))
+        {
+            return $this->redirect($this->generateUrl("monitoring",array(
+                'year' => $year,
+                'month' => $month,
+                'hotelid' => $hotelid
+            )));
+        }
         $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
         $user = $this->getUser();
         if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user))
