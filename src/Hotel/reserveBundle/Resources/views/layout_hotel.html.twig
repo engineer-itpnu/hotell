@@ -27,14 +27,10 @@
                                         &nbsp&nbsp&nbsp&nbsp &nbsp رک هتل &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                                         &nbsp &nbsp </a>
                                     <ul>
-                                        <li><a href="" class="pull-right">وضعیت رزرو اتاق ها</span></a></li>
                                         <li><a href="{{ path('monitoring') }}" class="pull-right">مانیتورینگ وضعیت اتاق
                                                 ها</span></a></li>
                                     </ul>
                                 </li>
-
-
-
                                 <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspحسابداری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
                                         <li><a href="{{ path('h_moneyentity') }}" class="pull-right"><span>درخواست برداشت مبلغ</span></a>
@@ -46,7 +42,8 @@
                                 <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش
                                         گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('h_reporting') }}" class="pull-right"><span>گزارش کل سیستم</span></a>
+                                        <li><a href="{{ path('h_reporting') }}"
+                                               class="pull-right"><span>گزارش کل سیستم</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -154,6 +151,7 @@
                                     <span class="socialicons ico8"></span>
                                     <span class="socialicons_h ico8h"></span>
                                 </a>
+
                                 <div class="row copyright">
                                     <div class="span8" style="color: #fff; font-family: BTraffic ;">
                                         این سایت توسط تیم برنامه نویسی شرکت پارس فناوران انیاک طراحی شده است.
@@ -178,8 +176,6 @@
                         &nbsp &nbsp<i class="icon-th-large"></i>&nbsp&nbspSkype: engineer.soft69 &nbsp<i
                                 class="icon-user"></i>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -248,7 +244,6 @@
                 })
                 $("ul.menu>li.search:has(img)").css("background-color", search_color);
             }
-
         </script>
     {% endblock %}
     </div>

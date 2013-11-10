@@ -54,3 +54,7 @@ monitoring:
 monitoring_edit:
     pattern:  /monitoring/edit/{hotelid}/{year}/{month}
     defaults: { _controller: HotelreserveBundle:Default:edit }
+
+login_page:
+    pattern:  /
+    defaults: { _controller: FOSUserBundle:Security:login }
