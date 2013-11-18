@@ -61,6 +61,7 @@ class hotelEntityController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setHotelActive(true);
             $em->persist($entity);
             $em->flush();
 

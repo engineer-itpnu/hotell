@@ -103,8 +103,8 @@ class DefaultController extends Controller
         if($request->isMethod("post"))
         {
             $dateconvertor = $this->get("my_date_convert");
-            $empty_added = json_decode($request->request->get("empty_added"),true);
-            $empty_deleted = json_decode($request->request->get("empty_deleted"),true);
+            $empty_added = json_decode(stripslashes($request->request->get("empty_added")),true);
+            $empty_deleted = json_decode(stripslashes($request->request->get("empty_deleted")),true);
 
             foreach($empty_deleted as $roomid=>$days)
             {
@@ -188,16 +188,21 @@ class DefaultController extends Controller
             if($prev == null)
             {
                 $result .= "[".$blank->getStatus().",'";
-                $result .= explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()))[2];
+                $d = explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()));
+                $result .= $d[2];
             }
 
             else if($prev!=null && ($blank->getStatus()!=$prev->getStatus() || date_diff($blank->getDateIN(),$prev->getDateIN())->format("%a") != "1" || ( $blank->getStatus()!=0 && ($blank->getTariff()!=$prev->getTariff() || ($blank->getReserveEntity() != $prev->getReserveEntity()) ) )))
             {
                 $result .= "',".$blank->getTariff()."],[".$blank->getStatus().",'";
-                $result .= explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()))[2];
+                $d = explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()));
+                $result .= $d[2];
             }
             else
-                $result .= "-".explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()))[2];
+            {
+                $d = explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()));
+                $result .= "-".$d[2];
+            }
 
             $prev = $blank;
         }
