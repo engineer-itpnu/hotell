@@ -58,3 +58,7 @@ monitoring_edit:
 login_page:
     pattern:  /
     defaults: { _controller: FOSUserBundle:Security:login }
+
+Hotelreserve_service:
+    pattern:  /hotelService
+    defaults: { _controller: "HotelreserveBundle:Service:index" }
