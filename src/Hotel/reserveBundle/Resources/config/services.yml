@@ -27,4 +27,4 @@ services:
 
     hotel_service:
         class: Hotel\reserveBundle\Service\HotelService
-        arguments: [@my_date_convert]
+        arguments: [@my_date_convert,@doctrine.orm.entity_manager]
