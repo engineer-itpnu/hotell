@@ -74,8 +74,8 @@ class PreReserveRequest
 		$this->setDate($_date);
 		$this->setDays_count($_days_count);
 		$this->setExtra_capacity_count($_extra_capacity_count);
-		$this->setCustomer($_customer);
-		$this->setAgency_info($_agency_info);
+		$this->setCustomer($_customer?$_customer:new CustomerInfo());
+		$this->setAgency_info($_agency_info?$_agency_info:new AgencyInfo());
 		$this->setCustomer_code($_customer_code);
 	}
 	/**

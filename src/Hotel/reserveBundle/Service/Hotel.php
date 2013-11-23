@@ -58,7 +58,7 @@ class Hotel
 		$this->setRate($_rate);
 		$this->setPhone($_phone);
 		$this->setExtra_capacity_tariff($_extra_capacity_tariff);
-		$this->setRooms($_rooms);
+		$this->setRooms($_rooms?$_rooms:new Room());
 	}
 	/**
 	 * Get code value

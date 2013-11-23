@@ -40,7 +40,7 @@ class RoomListRequest
 		$this->setDate($_date);
 		$this->setDays_count($_days_count);
 		$this->setCity($_city);
-		$this->setAgency_info($_agency_info);
+		$this->setAgency_info($_agency_info?$_agency_info:new AgencyInfo());
 	}
 	/**
 	 * Get date value

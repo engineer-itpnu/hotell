@@ -8,6 +8,8 @@ class ServiceController extends Controller
 {
     public function indexAction()
     {
+//        try
+//        {
         $server = new \SoapServer('hotels.wsdl');
         $server->setObject($this->get('hotel_service'));
 
@@ -19,5 +21,10 @@ class ServiceController extends Controller
         $responseXml->setContent(ob_get_clean());
 
         return $responseXml->getContent()!=null?$responseXml:new Response('Please use <b>/hotelService?wsdl</b> for address to wsdl.');
+//        }
+//        catch(\Exception $ex)
+//        {
+//            die($ex->getMessage());
+//        }
     }
 }

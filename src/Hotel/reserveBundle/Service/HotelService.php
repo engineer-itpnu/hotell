@@ -24,18 +24,19 @@ class HotelService {
     {
         $this->dateconvertor = $dc;
         $this->em = $em;
-
-        ini_set("log_errors", 1);
-        ini_set("error_log", @"C:/xampp/htdocs/hotellre/web/log.txt");
     }
 
     public function ListRooms($input)
     {
-        $username = $input->Userinfo->UserName;
-        $password = $input->Userinfo->Password;
-        $roomid = $input->roomid;
+        $RoomListRequest = new RoomListRequest();
+        HotelService::CopyObject($input,$RoomListRequest);
 
-        return "user: $username pass: $password roomid: $roomid ";
+        HotelService::log("city:".$RoomListRequest->getCity());
+        HotelService::log("date:".$RoomListRequest->getDate());
+        HotelService::log("days:".$RoomListRequest->getDays_count());
+        HotelService::log("Username:".$RoomListRequest->getAgency_info()->getUsername());
+        HotelService::log("Password:".$RoomListRequest->getAgency_info()->getPassword());
+        return 12;
     }
 
     public function PreReserve($input)
@@ -49,43 +50,28 @@ class HotelService {
 
     public function Reserve($input)
     {
-//        $r = $input->reserve_code;
-//        $this->log($r);
-        $a = new ReserveRequest($input);
+        $ReserveRequest = new ReserveRequest();
+        HotelService::CopyObject($input,$ReserveRequest);
 
-        ob_start();
-        var_dump($a);
-        $this->log(ob_get_clean());
+        HotelService::log("Reserve_code:".$ReserveRequest->getReserve_code());
+        HotelService::log("Username:".$ReserveRequest->getAgency_info()->getUsername());
+        HotelService::log("Password:".$ReserveRequest->getAgency_info()->getPassword());
         return 12;
     }
 
-    private function log($message)
+    static public function log($message)
     {
-        $file= fopen(@"log.txt","a");
-        fwrite($file,date_format(new \DateTime(),"Y/m/d H:i:s")." :: ".$message."\r\n");
+        $file= fopen(@"../app/logs/service.txt","a");
+        fwrite($file,"[".date_format(new \DateTime(),"Y-m-d H:i:s")."] ".$message."\r\n");
     }
 
-//$in = $this->cast("ReserveRequest",$input);
-//    private function cast($destination, $sourceObject)
-//    {
-//        if (is_string($destination)) {
-//            $destination = new $destination();
-//        }
-//        $sourceReflection = new \ReflectionObject($sourceObject);
-//        $destinationReflection = new \ReflectionObject($destination);
-//        $sourceProperties = $sourceReflection->getProperties();
-//        foreach ($sourceProperties as $sourceProperty) {
-//            $sourceProperty->setAccessible(true);
-//            $name = $sourceProperty->getName();
-//            $value = $sourceProperty->getValue($sourceObject);
-//            if ($destinationReflection->hasProperty($name)) {
-//                $propDest = $destinationReflection->getProperty($name);
-//                $propDest->setAccessible(true);
-//                $propDest->setValue($destination,$value);
-//            } else {
-//                $destination->$name = $value;
-//            }
-//        }
-//        return $destination;
-//    }
+    public static function CopyObject($objectFrom,$objectTo)
+    {
+        foreach (get_object_vars($objectFrom) as $key => $value) {
+            if(is_object($value))
+                HotelService::CopyObject($value,$objectTo->$key);
+            else
+                $objectTo->$key = $value;
+        }
+    }
 } 

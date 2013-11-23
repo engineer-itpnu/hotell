@@ -27,7 +27,7 @@ class RoomListResponse
 	public function __construct($_status = NULL,$_hotels = NULL)
 	{
 		$this->setStatus($_status);
-		$this->setHotels($_hotels);
+		$this->setHotels($_hotels?$_hotels:new Hotel());
 	}
 	/**
 	 * Get status value

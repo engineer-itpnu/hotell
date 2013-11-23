@@ -24,7 +24,7 @@ class ReserveRequest
 	public function __construct($_reserve_code = NULL,$_agency_info = NULL)
 	{
 		$this->setReserve_code($_reserve_code);
-		$this->setAgency_info($_agency_info);
+		$this->setAgency_info($_agency_info?$_agency_info:new AgencyInfo());
 	}
 	/**
 	 * Get reserve_code value
