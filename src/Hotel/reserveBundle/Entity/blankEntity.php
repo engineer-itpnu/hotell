@@ -127,7 +127,7 @@ class blankEntity
      * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntity
      * @return blankEntity
      */
-    public function setReserveEntity(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntity)
+    public function setReserveEntity(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntity = null)
     {
         $this->reserveEntity = $reserveEntity;
 
