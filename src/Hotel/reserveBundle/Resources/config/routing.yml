@@ -62,3 +62,7 @@ login_page:
 Hotelreserve_service:
     pattern:  /hotelService
     defaults: { _controller: "HotelreserveBundle:Service:index" }
+
+Hotelreserve_test:
+    pattern:  /servicetest
+    defaults: { _controller: "HotelreserveBundle:Service:get" }

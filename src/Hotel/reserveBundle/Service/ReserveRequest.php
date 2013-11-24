@@ -15,50 +15,14 @@ class ReserveRequest
 	public $agency_info;
 	/**
 	 * Constructor method for reserve_request
-	 * @uses ReserveRequest::setReserve_code()
-	 * @uses ReserveRequest::setAgency_info()
 	 * @param int $_reserve_code
 	 * @param AgencyInfo $_agency_info
 	 * @return ReserveRequest
 	 */
 	public function __construct($_reserve_code = NULL,$_agency_info = NULL)
 	{
-		$this->setReserve_code($_reserve_code);
-		$this->setAgency_info($_agency_info?$_agency_info:new AgencyInfo());
-	}
-	/**
-	 * Get reserve_code value
-	 * @return int|null
-	 */
-	public function getReserve_code()
-	{
-		return $this->reserve_code;
-	}
-	/**
-	 * Set reserve_code value
-	 * @param int $_reserve_code the reserve_code
-	 * @return int
-	 */
-	public function setReserve_code($_reserve_code)
-	{
-		return ($this->reserve_code = $_reserve_code);
-	}
-	/**
-	 * Get agency_info value
-	 * @return AgencyInfo|null
-	 */
-	public function getAgency_info()
-	{
-		return $this->agency_info;
-	}
-	/**
-	 * Set agency_info value
-	 * @param AgencyInfo $_agency_info the agency_info
-	 * @return AgencyInfo
-	 */
-	public function setAgency_info($_agency_info)
-	{
-		return ($this->agency_info = $_agency_info);
+		$this->reserve_code=$_reserve_code;
+		$this->agency_info=$_agency_info?$_agency_info:new AgencyInfo();
 	}
 	/**
 	 * Method returning the class name
