@@ -16,6 +16,11 @@ class reserveEntity
     private $id;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $DateCreate;
+
+    /**
      * @ORM\Column(type="date", nullable=false)
      */
     private $DateInp;
@@ -29,16 +34,6 @@ class reserveEntity
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $Money;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
-    private $CodePey;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
-    private $Voucher;
 
     /**
      * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="reserveEntity")
@@ -147,52 +142,6 @@ class reserveEntity
     public function getMoney()
     {
         return $this->Money;
-    }
-
-    /**
-     * Set CodePey
-     *
-     * @param integer $codePey
-     * @return reserveEntity
-     */
-    public function setCodePey($codePey)
-    {
-        $this->CodePey = $codePey;
-
-        return $this;
-    }
-
-    /**
-     * Get CodePey
-     *
-     * @return integer
-     */
-    public function getCodePey()
-    {
-        return $this->CodePey;
-    }
-
-    /**
-     * Set Voucher
-     *
-     * @param integer $voucher
-     * @return reserveEntity
-     */
-    public function setVoucher($voucher)
-    {
-        $this->Voucher = $voucher;
-
-        return $this;
-    }
-
-    /**
-     * Get Voucher
-     *
-     * @return integer
-     */
-    public function getVoucher()
-    {
-        return $this->Voucher;
     }
 
     /**
@@ -309,5 +258,28 @@ class reserveEntity
     public function __tostring()
     {
         return $this->CountNight . ' ';
+    }
+
+    /**
+     * Set DateCreate
+     *
+     * @param \DateTime $dateCreate
+     * @return reserveEntity
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->DateCreate = $dateCreate;
+    
+        return $this;
+    }
+
+    /**
+     * Get DateCreate
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreate()
+    {
+        return $this->DateCreate;
     }
 }

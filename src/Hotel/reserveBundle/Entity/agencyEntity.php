@@ -27,7 +27,7 @@ class agencyEntity
 
     /**
      * @ORM\OneToOne(targetEntity="userEntity", inversedBy="agencyEntity")
-     * @ORM\JoinColumn(name="ageid", referencedColumnName="id", nullable=true, unique=true)
+     * @ORM\JoinColumn(name="uid", referencedColumnName="id", nullable=false, unique=true)
      */
     private $userEntity;
 
