@@ -69,13 +69,17 @@ class HotelService {
             return new PreReserveResponse(null,null,null,"User is not Agency");
 
         //get Customer
-        $customer = $this->em->getRepository("HotelreserveBundle:customerEntity")->find($PreReserveRequest->customer_code);
+        $customer = null;
+        if($PreReserveRequest->customer_code != null || $PreReserveRequest->customer_code!= "")
+            $customer = $this->em->getRepository("HotelreserveBundle:customerEntity")->find($PreReserveRequest->customer_code);
+
         if ($customer == null)
         {
             HotelService::log("customer_code is null");
             $customerReq = $PreReserveRequest->customer;
-            if($customerReq == null)
-                return new PreReserveResponse(null,null,null,"Customer is Empty");
+            if(!$customerReq->first_name || !$customerReq->last_name || !$customerReq->email || !$customerReq->mobile || !$customerReq->phone)
+                return new PreReserveResponse(null,null,null,"Customer Not Found");
+
             $customer = new customerEntity();
             $customer->setCustName($customerReq->first_name);
             $customer->setCustFamily($customerReq->last_name);
