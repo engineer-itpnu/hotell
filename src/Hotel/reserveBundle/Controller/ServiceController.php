@@ -57,7 +57,7 @@ class ServiceController extends Controller
 //        $Status = $response->status;
 //        return new Response("customer_code= $customer_code final_price= $final_price reserve_code= $reserve_code Status= $Status");
 
-//        $result = $client->Reserve(new ReserveRequest("10",new AgencyInfo("mostafa","1234")));
+//        $result = $client->Reserve(new ReserveRequest("3",new AgencyInfo("mostafa","1234")));
 //        $response = new ReserveResponse();
 //        HotelService::CopyObject($result,$response);
 //        $balance = $response->balance;

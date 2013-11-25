@@ -217,8 +217,26 @@ class HotelService {
             return new ReserveResponse(null,null,"Reserve Code not Valid");
 
         //get hotel
-        $temp = $reserveEntity->getBlankEntities()[0];
-        $hotel = new hotelEntity();//TODO $temp->getRoomEntity()->getHotelEntity();
+        $firstBlankEntity = $reserveEntity->getBlankEntities()[0];
+        $hotel = $firstBlankEntity->getRoomEntity()->getHotelEntity();
+
+        //check is not already reserve finished
+        if($firstBlankEntity->getStatus()!=1)
+            return new ReserveResponse(null,null,"Reserve Code already used");
+
+        //get hotel Balance
+        $lastHotelAccounting = $this->em->getRepository("HotelreserveBundle:accountEntity")->findOneBy(array("hotelEntity"=>$hotel),array("id"=>"desc"));
+        $hotelBalance = $lastHotelAccounting==null?0:$lastHotelAccounting->getStockHotel();
+
+        //get agency Balance
+        $lastAgencyAccounting = $this->em->getRepository("HotelreserveBundle:accountEntity")->findOneBy(array("agencyEntity"=>$userAgency->getAgencyEntity()),array("id"=>"desc"));
+        if(!$lastAgencyAccounting || $lastAgencyAccounting->getStockAgency()<$reserveEntity->getMoney())
+            return new ReserveResponse(null,null,"Agency has not enough Balance");
+        $agencyBalance = $lastAgencyAccounting->getStockAgency();
+
+        //update blank entities to reserve finished
+        foreach($reserveEntity->getBlankEntities() as $blankEntity)
+            $blankEntity->setStatus(2);
 
         //create accounting
         $accountEntity = new accountEntity();
@@ -227,18 +245,15 @@ class HotelService {
         $accountEntity->setDateTime(new \DateTime());
         $accountEntity->setHotelEntity($hotel);
         $accountEntity->setPrice($reserveEntity->getMoney());
-        //TODO
         $accountEntity->setType(2);
-//        $accountEntity->setNumberPey();delete
-//        $accountEntity->setStockAgency();
-//        $accountEntity->setStockHotel();
-
+        $accountEntity->setStockAgency($agencyBalance-$reserveEntity->getMoney());
+        $accountEntity->setStockHotel($hotelBalance+$reserveEntity->getMoney());
         $accountEntity->setReserveEntity($reserveEntity);
         $reserveEntity->addAccountEntitie($accountEntity);
         $this->em->persist($accountEntity);
         $this->em->flush();
-//TODO
-        return new ReserveResponse($accountEntity->getId(),null,"Success");
+
+        return new ReserveResponse($accountEntity->getId(),$agencyBalance-$reserveEntity->getMoney(),"Success");
     }
 
     //-----------------------------------------------------------------------------
