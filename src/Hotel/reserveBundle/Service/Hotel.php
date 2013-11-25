@@ -42,7 +42,7 @@ class Hotel
 	 * @param int $_rate
 	 * @param string $_phone
 	 * @param int $_extra_capacity_tariff
-	 * @param Room $_rooms
+	 * @param array $_rooms
 	 * @return Hotel
 	 */
 	public function __construct($_code = NULL,$_name = NULL,$_rate = NULL,$_phone = NULL,$_extra_capacity_tariff = NULL,$_rooms = NULL)
@@ -52,7 +52,7 @@ class Hotel
 		$this->rate=$_rate;
 		$this->phone=$_phone;
 		$this->extra_capacity_tariff=$_extra_capacity_tariff;
-		$this->rooms=$_rooms?$_rooms:new Room();
+		$this->rooms=$_rooms?$_rooms:array();
 	}
     /**
      * Method returning the class name

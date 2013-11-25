@@ -19,13 +19,13 @@ class RoomListResponse
 	/**
 	 * Constructor method for room_list_response
 	 * @param string $_status
-	 * @param Hotel $_hotels
+	 * @param array $_hotels
 	 * @return RoomListResponse
 	 */
 	public function __construct($_status = NULL,$_hotels = NULL)
 	{
 		$this->status=$_status;
-		$this->hotels=$_hotels?$_hotels:new Hotel();
+		$this->hotels=$_hotels?$_hotels:array();
 	}
 	/**
 	 * Method returning the class name

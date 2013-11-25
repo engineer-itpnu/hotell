@@ -282,21 +282,18 @@ class HotelService {
         );
 
         //add room to hotel
-        $room = new Room(
+        $selHotel->rooms [] = new Room(
             $roomEntity->getId(),
             $roomTypes[$roomEntity->getRoomType()],
             $roomEntity->getRoomCapacity(),
             $roomEntity->getRoomAddCapacity(),
             $price
         );
-//        $selHotel->rooms [] = $room;
     }
 
     private function checkIsEmptyNextDays(blankEntity $firstBlank,\DateTime $firstday, $countDays)
     {
-        HotelService::log("--------");//TODO----delete
         $nextdays = clone $firstday;
-        HotelService::log("roomid: ".$firstBlank->getRoomEntity()->getId()." - date: ".date_format($nextdays,"Y-m-d")." n:0 is empty");//TODO----delete
         $mainprice = $firstBlank->getTariff();
         for($i=1;$i<$countDays;$i++)
         {
@@ -304,7 +301,6 @@ class HotelService {
             $nextBlank = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$nextdays,"roomEntity"=>$firstBlank->getRoomEntity()));
             if(!$nextBlank || $nextBlank->getStatus()!=0)
                 return null;
-            HotelService::log("roomid: ".$nextBlank->getRoomEntity()->getId()." - date: ".date_format($nextdays,"Y-m-d")." n:$i is empty");//TODO----delete
             $mainprice += $nextBlank->getTariff();
         }
         return $mainprice;
