@@ -37,7 +37,8 @@
                                 {% for entity in entities %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('registerentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                            {{ entity.id }}
+                                            {#<a href="{{ path('registerentity_show', { 'id': entity.id }) }}"></a>#}
                                         </td>
                                         <td>{{ entity.userfirstname }}</td>
                                         <td>{{ entity.userfamily }}</td>
@@ -70,8 +71,6 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-
-
                             </tbody>
                         </table>
                     </div>
