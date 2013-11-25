@@ -41,21 +41,21 @@ class ServiceController extends Controller
     {
         $client = new \SoapClient("http://localhost/hotellre/web/app_dev.php/hotelService?wsdl");
 
-//        $result = $client->ListRooms(new RoomListRequest("1392/10/10","3","مشهد",new AgencyInfo("mostafa","1234")));
-//        $response = new RoomListResponse();
-//        HotelService::CopyObject($result,$response);
-//        $Status = $response->status;
-//        $hotels = print_r($response->hotels,true);
-//        return new Response("Status = $Status hotels = $hotels");
-
-        $result = $client->PreReserve(new PreReserveRequest(2,2,"1392/9/12",3,2,null,new AgencyInfo("mostafa","1234"),10));
-        $response = new PreReserveResponse();
+        $result = $client->ListRooms(new RoomListRequest("1392/9/12","3","تهران",new AgencyInfo("mostafa","1234")));
+        $response = new RoomListResponse();
         HotelService::CopyObject($result,$response);
-        $customer_code = $response->customer_code;
-        $final_price = $response->final_price;
-        $reserve_code = $response->reserve_code;
         $Status = $response->status;
-        return new Response("customer_code= $customer_code final_price= $final_price reserve_code= $reserve_code Status= $Status");
+        $hotels = print_r($response->hotels,true);
+        return new Response("Status = ($Status) hotels = ($hotels)");
+
+//        $result = $client->PreReserve(new PreReserveRequest(2,2,"1392/9/12",3,2,null,new AgencyInfo("mostafa","1234"),10));
+//        $response = new PreReserveResponse();
+//        HotelService::CopyObject($result,$response);
+//        $customer_code = $response->customer_code;
+//        $final_price = $response->final_price;
+//        $reserve_code = $response->reserve_code;
+//        $Status = $response->status;
+//        return new Response("customer_code= $customer_code final_price= $final_price reserve_code= $reserve_code Status= $Status");
 
 //        $result = $client->Reserve(new ReserveRequest("10",new AgencyInfo("mostafa","1234")));
 //        $response = new ReserveResponse();

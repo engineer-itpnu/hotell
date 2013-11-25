@@ -2,8 +2,12 @@
 namespace Hotel\reserveBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Hotel\reserveBundle\Entity\accountEntity;
+use Hotel\reserveBundle\Entity\blankEntity;
 use Hotel\reserveBundle\Entity\customerEntity;
+use Hotel\reserveBundle\Entity\hotelEntity;
 use Hotel\reserveBundle\Entity\reserveEntity;
+use Hotel\reserveBundle\Entity\roomEntity;
 use Hotel\reserveBundle\Handler\DateConvertor;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
@@ -42,16 +46,55 @@ class HotelService {
         $RoomListRequest = new RoomListRequest();
         HotelService::CopyObject($input,$RoomListRequest);
 
-        if(!$this->checkUser($RoomListRequest->agency_info))
+        //get user Agency
+        $userAgency = $this->getUserAgency($RoomListRequest->agency_info);
+        if(!$userAgency)
             return new RoomListResponse("User Not Verified",null);
 
-        HotelService::log("city:".$RoomListRequest->city);
-        HotelService::log("date:".$RoomListRequest->date);
-        HotelService::log("days:".$RoomListRequest->days_count);
-        HotelService::log("Username:".$RoomListRequest->agency_info->username);
-        HotelService::log("Password:".$RoomListRequest->agency_info->password);
+        if(!$userAgency->hasRole("ROLE_AGENCY") || !$userAgency->getAgencyEntity())
+            return new RoomListResponse("User is not Agency",null);
 
-        return new RoomListResponse("Success",null);
+        //get shamsi Date
+        if($RoomListRequest->date == null || $RoomListRequest->date == "")
+            return new RoomListResponse("Date Not Valid",null);
+        $date = null;
+        try{
+            $date = $this->dateconvertor->ShamsiToMiladi($RoomListRequest->date);
+            date_time_set($date,0,0,0);
+        }catch(\Exception $ex){
+            return new RoomListResponse("Date Not Valid",null);
+        }
+
+        //check days count
+        if($RoomListRequest->days_count <= 0)
+            return new RoomListResponse("days count not valid",null);
+
+        //check city name
+        if($RoomListRequest->city == null || $RoomListRequest->city == "")
+            return new RoomListResponse("city not valid",null);
+
+        $qb = $this->em->createQueryBuilder()
+            -> select("b")
+            ->from("HotelreserveBundle:blankEntity","b")
+            ->innerJoin("b.roomEntity","r")
+            ->innerJoin("r.hotelEntity","h")
+            ->where("b.status = :status")->setParameter("status","0")
+            ->andWhere("b.dateIN >= :date")->setParameter("date",$date)
+            ->andWhere("h.hotel_city LIKE :city")->setParameter("city",$RoomListRequest->city)
+            ;
+        $firstBlanks = $qb->getQuery()->getResult();
+        HotelService::log("firstBlanks count:".count($firstBlanks));
+
+        $hotels = array();
+        foreach($firstBlanks as $firstBlank)
+        {
+            $resPrice = $this->checkIsEmptyNextDays($firstBlank,$date, $RoomListRequest->days_count);
+            if($resPrice)
+                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrice);
+        }
+        HotelService::log("Hotels-Rooms:".print_r($hotels,true));
+
+        return new RoomListResponse("Success",$hotels);
     }
 
     //-----------------------------------------------------------------------------
@@ -61,7 +104,7 @@ class HotelService {
         HotelService::CopyObject($input,$PreReserveRequest);
 
         //get user Agency
-        $userAgency = $this->checkUser($PreReserveRequest->agency_info);
+        $userAgency = $this->getUserAgency($PreReserveRequest->agency_info);
         if(!$userAgency)
             return new PreReserveResponse(null,null,null,"User Not Verified");
 
@@ -114,6 +157,14 @@ class HotelService {
         if($room->getHotelEntity()!=$hotel)
             return new PreReserveResponse(null,null,null,"room is not in hotel");
 
+        //check days count
+        if($PreReserveRequest->days_count <= 0)
+            return new PreReserveResponse(null,null,null,"days count not valid");
+
+        //check extra capacity count
+        if($PreReserveRequest->extra_capacity_count < 0)
+            return new PreReserveResponse(null,null,null,"extra capacity count not valid");
+
         //create reserve
         $reserveEntity = new reserveEntity();
         $reserveEntity->setCustomerEntity($customer);
@@ -154,23 +205,109 @@ class HotelService {
         $ReserveRequest = new ReserveRequest();
         HotelService::CopyObject($input,$ReserveRequest);
 
-        if(!$this->checkUser($ReserveRequest->agency_info))
+        //get user Agency
+        $userAgency = $this->getUserAgency($ReserveRequest->agency_info);
+        if(!$userAgency)
             return new ReserveResponse(null,null,"User Not Verified");
 
-        HotelService::log("Reserve_code:".$ReserveRequest->reserve_code);
-        HotelService::log("Username:".$ReserveRequest->agency_info->username);
-        HotelService::log("Password:".$ReserveRequest->agency_info->password);
+        if(!$userAgency->hasRole("ROLE_AGENCY") || !$userAgency->getAgencyEntity())
+            return new ReserveResponse(null,null,"User is not Agency");
 
-        return new ReserveResponse(null,null,"Success");
+        //get reserve code
+        $reserveEntity = $this->em->getRepository("HotelreserveBundle:reserveEntity")->find($ReserveRequest->reserve_code);
+        if(!$reserveEntity)
+            return new ReserveResponse(null,null,"Reserve Code not Valid");
+
+        //get hotel
+        $temp = $reserveEntity->getBlankEntities()[0];
+        $hotel = new hotelEntity();//TODO $temp->getRoomEntity()->getHotelEntity();
+
+        //create accounting
+        $accountEntity = new accountEntity();
+        $accountEntity->setAgencyEntity($reserveEntity->getAgencyEntity());
+        $accountEntity->setCustomerEntity($reserveEntity->getCustomerEntity());
+        $accountEntity->setDateTime(new \DateTime());
+        $accountEntity->setHotelEntity($hotel);
+        $accountEntity->setPrice($reserveEntity->getMoney());
+        //TODO
+        $accountEntity->setType(2);
+//        $accountEntity->setNumberPey();delete
+//        $accountEntity->setStockAgency();
+//        $accountEntity->setStockHotel();
+
+        $accountEntity->setReserveEntity($reserveEntity);
+        $reserveEntity->addAccountEntitie($accountEntity);
+        $this->em->persist($accountEntity);
+        $this->em->flush();
+//TODO
+        return new ReserveResponse($accountEntity->getId(),null,"Success");
     }
 
     //-----------------------------------------------------------------------------
-    private function checkUser($agency)
+    private function getUserAgency($agency)
     {
         $user = $this->em->getRepository("HotelreserveBundle:userEntity")->findOneBy(array("username"=>$agency->username));
-        if($user == null)return false;
+        if($user == null)return null;
         $encoder = $this->encoderFactory->getEncoder($user);
-        return $encoder->isPasswordValid($user->getPassword(),$agency->password,$user->getSalt())?$user:false;
+        return $encoder->isPasswordValid($user->getPassword(),$agency->password,$user->getSalt())?$user:null;
+    }
+
+    private function addRoom(&$hotels,roomEntity $roomEntity,$price)
+    {
+        $hotelEntity = $roomEntity->getHotelEntity();
+
+        // find hotel in list
+        $selHotel = null;
+        foreach($hotels as $hotel)
+            if($hotelEntity->getId() == $hotel->code) $selHotel = $hotelEntity;
+
+        //create hotel if not exist in list
+        if(!$selHotel)
+        {
+            $selHotel = new Hotel(
+                $hotelEntity->getId(),
+                $hotelEntity->getHotelName(),
+                $hotelEntity->getHotelGrade(),
+                $hotelEntity->getHotelPhone(),
+                $hotelEntity->getHotelAddRoomTtariff()
+            );
+            $hotels [] = $selHotel;
+        }
+
+        $roomTypes = array(
+            '0' => 'سوئيت', '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
+            '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
+            '10' => 'پرزيدنتال', 'l1' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
+            '15' => 'آپارتمان', '16' => 'آپارتمان رويال'
+        );
+
+        //add room to hotel
+        $room = new Room(
+            $roomEntity->getId(),
+            $roomTypes[$roomEntity->getRoomType()],
+            $roomEntity->getRoomCapacity(),
+            $roomEntity->getRoomAddCapacity(),
+            $price
+        );
+//        $selHotel->rooms [] = $room;
+    }
+
+    private function checkIsEmptyNextDays(blankEntity $firstBlank,\DateTime $firstday, $countDays)
+    {
+        HotelService::log("--------");//TODO----delete
+        $nextdays = clone $firstday;
+        HotelService::log("roomid: ".$firstBlank->getRoomEntity()->getId()." - date: ".date_format($nextdays,"Y-m-d")." n:0 is empty");//TODO----delete
+        $mainprice = $firstBlank->getTariff();
+        for($i=1;$i<$countDays;$i++)
+        {
+            $nextdays->add(new \DateInterval("P1D"));
+            $nextBlank = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$nextdays,"roomEntity"=>$firstBlank->getRoomEntity()));
+            if(!$nextBlank || $nextBlank->getStatus()!=0)
+                return null;
+            HotelService::log("roomid: ".$nextBlank->getRoomEntity()->getId()." - date: ".date_format($nextdays,"Y-m-d")." n:$i is empty");//TODO----delete
+            $mainprice += $nextBlank->getTariff();
+        }
+        return $mainprice;
     }
 
     static public function log($message)

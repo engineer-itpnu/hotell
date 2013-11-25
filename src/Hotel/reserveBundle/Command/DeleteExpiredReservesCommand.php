@@ -8,18 +8,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteExpiredReservesCommand extends ContainerAwareCommand
 {
+    private $expireDays = 1;
+
     protected function configure()
     {
         $this
             ->setName('reserves:expired:delete')
-            ->setDescription('Delete 1 Day old Reserves.')
+            ->setDescription('Delete '.$this->expireDays.' day(s) old Reserves.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dateExpire = new \DateTime();
-        $dateExpire->sub(new \DateInterval("P1D"));
+        $dateExpire->sub(new \DateInterval("P".$this->expireDays."D"));
 
         $em = $this->getContainer()->get("doctrine.orm.entity_manager");
         $qb = $em->createQueryBuilder()
@@ -30,7 +32,6 @@ class DeleteExpiredReservesCommand extends ContainerAwareCommand
             ->andWhere("r.DateCreate < :dateExpire")->setParameter("dateExpire",$dateExpire)
             ;
         $reserves = $qb->getQuery()->getResult();
-
 
         foreach($reserves as $reserve)
         {
