@@ -79,11 +79,10 @@ class HotelService {
             ->innerJoin("b.roomEntity","r")
             ->innerJoin("r.hotelEntity","h")
             ->where("b.status = :status")->setParameter("status","0")
-            ->andWhere("b.dateIN >= :date")->setParameter("date",$date)
+            ->andWhere("b.dateIN = :date")->setParameter("date",$date)
             ->andWhere("h.hotel_city LIKE :city")->setParameter("city",$RoomListRequest->city)
             ;
         $firstBlanks = $qb->getQuery()->getResult();
-        HotelService::log("firstBlanks count:".count($firstBlanks));
 
         $hotels = array();
         foreach($firstBlanks as $firstBlank)
@@ -92,7 +91,6 @@ class HotelService {
             if($resPrice)
                 $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrice);
         }
-        HotelService::log("Hotels-Rooms:".print_r($hotels,true));
 
         return new RoomListResponse("Success",$hotels);
     }
@@ -259,7 +257,7 @@ class HotelService {
         // find hotel in list
         $selHotel = null;
         foreach($hotels as $hotel)
-            if($hotelEntity->getId() == $hotel->code) $selHotel = $hotelEntity;
+            if($hotelEntity->getId() == $hotel->code) $selHotel = $hotel;
 
         //create hotel if not exist in list
         if(!$selHotel)
