@@ -22,7 +22,7 @@ class ServiceController extends Controller
             $server->setObject($this->get('hotel_service'));
 
             $responseXml = new Response();
-            $responseXml->headers->set('Content-Type', 'text/xml; charset=ISO-8859-1');
+            $responseXml->headers->set('Content-Type', 'text/xml; charset=utf-8');
 
             ob_start();
             $server->handle();
