@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by mostafa (ms) -->
 <definitions xmlns:tns="ir.hotels.wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" name="Hotels_Service" targetNamespace="ir.hotels.wsdl">
 	<types>
-		<xsd:schema xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="ir.hotels.wsdl">
+		<xsd:schema targetNamespace="ir.hotels.wsdl">
 			<xsd:complexType name="customer_info">
 				<xsd:sequence>
 					<xsd:element name="first_name" type="xsd:string"/>
