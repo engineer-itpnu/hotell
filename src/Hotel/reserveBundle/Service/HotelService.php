@@ -217,11 +217,11 @@ class HotelService {
             return new ReserveResponse(null,null,"Reserve Code not Valid");
 
         //get hotel
-        $firstBlankEntity = $reserveEntity->getBlankEntities()[0];
-        $hotel = $firstBlankEntity->getRoomEntity()->getHotelEntity();
+        $firstBlankEntities = $reserveEntity->getBlankEntities();
+        $hotel = $firstBlankEntities[0]->getRoomEntity()->getHotelEntity();
 
         //check is not already reserve finished
-        if($firstBlankEntity->getStatus()!=1)
+        if($firstBlankEntities[0]->getStatus()!=1)
             return new ReserveResponse(null,null,"Reserve Code already used");
 
         //get hotel Balance

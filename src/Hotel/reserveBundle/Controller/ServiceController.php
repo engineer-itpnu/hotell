@@ -26,7 +26,8 @@ class ServiceController extends Controller
 
             ob_start();
             $server->handle();
-            $responseXml->setContent(ob_get_clean());
+            $responseXml->setContent(ob_get_contents ());
+            if(strlen($responseXml->getContent())>0) ob_clean ();
 
             return $responseXml->getContent()!=null?$responseXml:new Response('Please use <b>/hotelService?wsdl</b> for address to wsdl.');
         }
