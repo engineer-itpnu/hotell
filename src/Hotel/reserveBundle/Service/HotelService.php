@@ -87,9 +87,9 @@ class HotelService {
         $hotels = array();
         foreach($firstBlanks as $firstBlank)
         {
-            $resPrice = $this->checkIsEmptyNextDays($firstBlank,$date, $RoomListRequest->days_count);
-            if($resPrice)
-                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrice);
+            $resPrices = $this->checkIsEmptyNextDays($firstBlank,$date, $RoomListRequest->days_count);
+            if($resPrices)
+                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices);
         }
 
         return new RoomListResponse("Success",$hotels);
@@ -265,7 +265,7 @@ class HotelService {
         return $encoder->isPasswordValid($user->getPassword(),$agency->password,$user->getSalt())?$user:null;
     }
 
-    private function addRoom(&$hotels,roomEntity $roomEntity,$price)
+    private function addRoom(&$hotels,roomEntity $roomEntity,$prices)
     {
         $hotelEntity = $roomEntity->getHotelEntity();
 
@@ -294,29 +294,40 @@ class HotelService {
             '15' => 'آپارتمان', '16' => 'آپارتمان رويال'
         );
 
+        //create array of days and sum of Tariffs
+        $sumPrices = 0;
+        $days = array();
+        foreach ($prices as $day=>$price)
+        {
+            $days [] = new Day($day,$price);
+            $sumPrices += $price;
+        }
+
         //add room to hotel
         $selHotel->rooms [] = new Room(
             $roomEntity->getId(),
             $roomTypes[$roomEntity->getRoomType()],
             $roomEntity->getRoomCapacity(),
             $roomEntity->getRoomAddCapacity(),
-            $price
+            $sumPrices,
+            $days
         );
     }
 
     private function checkIsEmptyNextDays(blankEntity $firstBlank,\DateTime $firstday, $countDays)
     {
+        $prices = array();
         $nextdays = clone $firstday;
-        $mainprice = $firstBlank->getTariff();
+        $prices [$this->dateconvertor->MiladiToShamsi($nextdays)] = $firstBlank->getTariff();
         for($i=1;$i<$countDays;$i++)
         {
             $nextdays->add(new \DateInterval("P1D"));
             $nextBlank = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$nextdays,"roomEntity"=>$firstBlank->getRoomEntity()));
             if(!$nextBlank || $nextBlank->getStatus()!=0)
                 return null;
-            $mainprice += $nextBlank->getTariff();
+            $prices [$this->dateconvertor->MiladiToShamsi($nextdays)] = $firstBlank->getTariff();
         }
-        return $mainprice;
+        return $prices;
     }
 
     static public function log($message)
