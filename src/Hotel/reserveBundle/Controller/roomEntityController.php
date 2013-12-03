@@ -108,7 +108,7 @@ class roomEntityController extends Controller
             throw $this->createNotFoundException('Unable to find roomEntity entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id,$hotel_id);
 
         return $this->render('HotelreserveBundle:roomEntity:show.html.twig', array(
             'entity'      => $entity,
