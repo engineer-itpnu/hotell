@@ -38,4 +38,9 @@ class DateConvertor {
         $shamsiarray = $this->dateconvertor->gregorianToJalali($miladiarray['year'],$miladiarray['month'],$miladiarray['day']);
         return $shamsiarray[0]."/".$shamsiarray[1]."/".$shamsiarray[2];
     }
+
+    public function isLeap($year)
+    {
+        return $this->jalaliDateTime->isLeapYear($year);
+    }
 }

@@ -179,8 +179,13 @@ class DefaultController extends Controller
 
 
         $dateconvertor = $this->get("my_date_convert");
-        $fromdate = $dateconvertor->ShamsiToMiladi($year."/".$month."/1");
-        $todate = $dateconvertor->ShamsiToMiladi($year."/".$month."/".($month<=6?31:30));
+        $fromdate = $dateconvertor->ShamsiToMiladi($year."/".$month."/0");
+
+        $lastdayMonth = 31;
+        if ($month>6) $lastdayMonth = 30;
+        if($month == 12 && !$dateconvertor->isLeap($year)) $lastdayMonth = 29;
+
+        $todate = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$lastdayMonth);
 
         $qb = $em->createQueryBuilder()
             ->select("blank")
