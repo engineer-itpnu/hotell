@@ -12,13 +12,13 @@ moneyentity_create:
     requirements: { _method: post }
 
 moneyentity_accept:
-    pattern:  /accept/{id}
+    pattern:  /accept/{id}/
     defaults: { _controller: "HotelreserveBundle:moneyEntity:accept" }
 
 moneyentity_reject:
-    pattern:  /reject/{id}
+    pattern:  /reject/{id}/
     defaults: { _controller: "HotelreserveBundle:moneyEntity:reject" }
 
 moneyentity_delete:
-    pattern:  /delete/{id}
+    pattern:  /delete/{id}/
     defaults: { _controller: "HotelreserveBundle:moneyEntity:delete" }
