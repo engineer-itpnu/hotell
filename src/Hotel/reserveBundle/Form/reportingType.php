@@ -18,8 +18,8 @@ class reportingType extends AbstractType
             ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
                 'required'=>false,'empty_value' => 'همه انواع ',
             ))
-            ->add('fromDateTime','date',array('widget'=>'single_text','format' => 'yyyy/MM/dd','required'=>false))
-            ->add('toDateTime','date',array('widget'=>'single_text','format' => 'yyyy/MM/dd','required'=>false))
+            ->add('fromDateTime','shamsi_date',array('required'=>false))
+            ->add('toDateTime','shamsi_date',array('required'=>false))
             ->add('hotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها ',))
             ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',

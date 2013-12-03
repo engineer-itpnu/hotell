@@ -1,0 +1,8 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block shamsi_date_widget %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+        <input type="{{ type }}" autocomplete="off" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} class="pdate"/>
+    {% endspaceless %}
+{% endblock shamsi_date_widget %}

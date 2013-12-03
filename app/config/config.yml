@@ -27,6 +27,9 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         DateConvert: "@my_date_convert"
+    form:
+        resources:
+            - '::fields.html.twig'
 
 # Assetic Configuration
 assetic:

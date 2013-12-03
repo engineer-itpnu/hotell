@@ -47,6 +47,6 @@ class ShamsiDateType extends AbstractType
      */
     public function getName()
     {
-        return 'ShamsiDate';
+        return 'shamsi_date';
     }
 } 

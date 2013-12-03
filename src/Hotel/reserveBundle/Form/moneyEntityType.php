@@ -20,7 +20,7 @@ class moneyEntityType extends AbstractType
         $builder
             ->add('money_price')
             ->add('money_NumBill')
-            ->add('money_DateBill',"ShamsiDate")
+            ->add('money_DateBill',"shamsi_date")
             ->add('money_BankName')
             ->add('money_branch')
             ->add('hotelEntity',null,array(

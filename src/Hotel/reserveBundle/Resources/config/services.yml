@@ -22,7 +22,7 @@ services:
     hotel_user.form.type.ShamsiDate:
         class: Hotel\reserveBundle\Form\Type\ShamsiDateType
         tags:
-            - { name: form.type, alias: ShamsiDate }
+            - { name: form.type, alias: shamsi_date }
         arguments: [@my_date_convert]
 
     hotel_service:

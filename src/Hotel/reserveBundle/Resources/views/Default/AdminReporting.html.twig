@@ -25,12 +25,12 @@
                             <td>از تاریخ :</td>
                             <td>
                                 {{ form_errors(form.fromDateTime) }}
-                                {{ form_widget(form.fromDateTime) }}
+                                {{ form_widget(form.fromDateTime,{'id':'pcal1'}) }}
                             </td>
                             <td>تا تاریخ :</td>
                             <td>
                                 {{ form_errors(form.toDateTime) }}
-                                {{ form_widget(form.toDateTime) }}
+                                {{ form_widget(form.toDateTime,{'id':'pcal2'}) }}
                             </td>
                         </tr>
                         <tr>
