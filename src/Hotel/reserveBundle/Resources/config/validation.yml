@@ -77,92 +77,80 @@ Hotel\reserveBundle\Entity\userEntity:
                 minMessage: 'حداقل کاراکتر رعایت نشده'
                 maxMessage: 'حداکثر کاراکتر رعایت نشده'
 
-#Hotel\reserveBundle\Entity\hotelEntity:
-#    properties:
-#        hotel_name:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 2
-#                max: 50
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#        hotel_manageName:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 2
-#                max: 50
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#        hotel_grade:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 1
-#                max: 22
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#        hotel_city:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 2
-#                max: 50
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#        hotel_zipcode:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 7
-#                max: 12
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#            - Type:
-#                type: integer
-#                message: "این مقدار معتبر نیست"
-#        hotel_email:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 2
-#                max: 50
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#        hotel_phone:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 6
-#                max: 14
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#            - Type:
-#                type: integer
-#                message: "این مقدار معتبر نیست"
-#        hotel_mobile:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 8
-#                max: 13
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#            - Type:
-#                type: integer
-#                message: "این مقدار معتبر نیست"
-#        hotel_addRoomTtariff:
-#            - NotBlank:
-#                message: "فیلد نمیتواند خالی باشد"
-#            - Length:
-#                min: 2
-#                max: 40
-#                minMessage: 'حداقل کاراکتر رعایت نشده'
-#                maxMessage: 'حداکثر کاراکتر رعایت نشده'
-#            - Type:
-#                type: integer
-#                message: "این مقدار معتبر نیست"
+Hotel\reserveBundle\Entity\hotelEntity:
+    properties:
+        hotel_name:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 2
+                max: 50
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_manageName:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 2
+                max: 50
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_grade:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 1
+                max: 22
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_city:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 2
+                max: 50
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_zipcode:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 7
+                max: 12
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_email:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 2
+                max: 50
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_phone:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 6
+                max: 14
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_mobile:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 8
+                max: 13
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
+        hotel_addRoomTtariff:
+            - NotBlank:
+                message: "فیلد نمیتواند خالی باشد"
+            - Length:
+                min: 2
+                max: 40
+                minMessage: 'حداقل کاراکتر رعایت نشده'
+                maxMessage: 'حداکثر کاراکتر رعایت نشده'
 
 Hotel\reserveBundle\Entity\roomEntity:
     properties:

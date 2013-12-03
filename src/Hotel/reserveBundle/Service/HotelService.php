@@ -245,7 +245,7 @@ class HotelService {
         $accountEntity->setDateTime(new \DateTime());
         $accountEntity->setHotelEntity($hotel);
         $accountEntity->setPrice($reserveEntity->getMoney());
-        $accountEntity->setType(2);
+        $accountEntity->setType(1);
         $accountEntity->setStockAgency($agencyBalance-$reserveEntity->getMoney());
         $accountEntity->setStockHotel($hotelBalance+$reserveEntity->getMoney());
         $accountEntity->setReserveEntity($reserveEntity);

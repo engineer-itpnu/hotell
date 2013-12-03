@@ -126,13 +126,13 @@ class moneyEntityController extends Controller
             if($lastAccount == null || $lastAccount->getStockHotel()== 0)
                 return $this->forward("HotelreserveBundle:moneyEntity:reject",array('id'=>$id));
             $account->setHotelEntity($entity->getHotelEntity());
-            $account->setType(1);
+            $account->setType(2);
             $account->setStockHotel($lastAccount->getStockHotel() - $entity->getMoneyPrice());
         }
         else
         {
             $account->setAgencyEntity($entity->getUserEntity()->getAgencyEntity());
-            $account->setType(0);
+            $account->setType(3);
             if($lastAccount != null)
                 $account->setStockAgency($lastAccount->getStockAgency() + $entity->getMoneyPrice());
             else

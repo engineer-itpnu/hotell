@@ -16,7 +16,7 @@ class accountEntityType extends AbstractType
     {
         $builder
             ->add('price')
-            ->add('type','choice', array('choices' => array('0' => 'واریز', '1' => 'برداشت', '2' => 'خرید'),
+            ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
                 'multiple'  => true,))
             ->add('StockHotel')
             ->add('StockAgency')
