@@ -38,7 +38,7 @@ class hotelEntityController extends Controller
         $pagination = $paginator->paginate(
             $qb->getQuery(),
             $this->get('request')->query->get('page', 1),
-            1
+            10
         );
 
         return $this->render('HotelreserveBundle:hotelEntity:index.html.twig', array(

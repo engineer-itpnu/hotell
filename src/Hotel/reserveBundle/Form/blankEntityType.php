@@ -15,7 +15,7 @@ class blankEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateIN')
+            ->add('dateIN','shamsi_date')
             ->add('status','choice', array('choices' => array('0' => 'خالی', '1' => 'رزرو', '2' => 'تکمیل شده'),
                 'multiple'  => true,))
             ->add('Tariff')

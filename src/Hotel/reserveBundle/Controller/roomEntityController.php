@@ -228,7 +228,6 @@ class roomEntityController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('roomentity_delete', array('id' => $id,'hotel_id'=>$hotel_id)))
             ->setMethod('DELETE')
-            ->setAttribute("id","dddddddd")
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
