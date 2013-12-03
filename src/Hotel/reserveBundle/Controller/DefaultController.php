@@ -112,6 +112,7 @@ class DefaultController extends Controller
                 foreach($days as $day)
                 {
                     $date = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$day);
+                    if(!$date) continue;
                     $blank = $em ->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("roomEntity"=>$room,"dateIN"=>$date));
                     $em->remove($blank);
                 }
@@ -124,6 +125,9 @@ class DefaultController extends Controller
                 foreach($days as $day=>$tariff)
                 {
                     $date = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$day);
+                    if(!$date) continue;
+                    $blank = $em ->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("roomEntity"=>$room,"dateIN"=>$date));
+                    if($blank) continue;
                     $blank = new blankEntity();
                     $blank->setDateIN($date);
                     $blank->setRoomEntity($room);

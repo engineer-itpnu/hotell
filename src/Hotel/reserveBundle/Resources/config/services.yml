@@ -17,7 +17,7 @@ services:
 
     my_date_convert:
         class: Hotel\reserveBundle\Handler\DateConvertor
-        arguments: [@ce.jalali_date.date_converter]
+        arguments: [@ce.jalali_date.date_converter,@ce.jalali_date.date_time]
 
     hotel_user.form.type.ShamsiDate:
         class: Hotel\reserveBundle\Form\Type\ShamsiDateType
