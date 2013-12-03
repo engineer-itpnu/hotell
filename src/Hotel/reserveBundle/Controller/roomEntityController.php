@@ -206,6 +206,9 @@ class roomEntityController extends Controller
                 throw $this->createNotFoundException('Unable to find roomEntity entity.');
             }
 
+            foreach($entity->getBlankEntities() as $blank)
+                $em->remove($blank);
+
             $em->remove($entity);
             $em->flush();
         }
@@ -225,6 +228,7 @@ class roomEntityController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('roomentity_delete', array('id' => $id,'hotel_id'=>$hotel_id)))
             ->setMethod('DELETE')
+            ->setAttribute("id","dddddddd")
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;

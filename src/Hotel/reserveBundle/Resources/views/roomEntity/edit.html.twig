@@ -61,7 +61,11 @@
                                 </table>
                             </form>
                             <td>
-                                {{ form(delete_form) }}</td>
+                                {{ form_start(delete_form, {'attr': {'header': 'aaaa','message': 'bb','class': 'YesNoMessage'}}) }}
+                                {{ form_errors(delete_form) }}
+                                {{ form_widget(delete_form) }}
+                                {{ form_end(delete_form) }}
+                            </td>
                             </tbody>
                         </table>
                     </div>
