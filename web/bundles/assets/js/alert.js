@@ -15,7 +15,7 @@ $(document).ready(function () {
 
 function PopuptopOpen(header, message, action) {
     var body =   '<div style="border: 1px solid #aaaaaa;width: 50%;margin: 10% auto;background-color: #ffffff">'
-                    +'<div class="headerpopup" style="background: #aaaaaa;height: 36px;">'
+                    +'<div class="headerpopup" style="background: #A50101;height: 36px;">'
                         +'<span style="color: #fff; font-size: 14px;float: right;margin: 8px 8px;">'
                             +'<a href="" class=" icon-th-large"></a><a href="" class="icon-chevron-left"></a>'
                             +'<b>' + header + '</b>'
