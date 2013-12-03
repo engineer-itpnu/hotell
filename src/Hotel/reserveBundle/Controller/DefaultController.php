@@ -161,10 +161,17 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $room = $em->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
 
+        $roomTypes = array(
+            '0' => 'سوئيت', '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
+            '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
+            '10' => 'پرزيدنتال', 'l1' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
+            '15' => 'آپارتمان', '16' => 'آپارتمان رويال'
+        );
+
         if($editable == false)
-            $result = "timeline_add_row_balloon('".$room->getRoomName()."','"."aaaaa"."', [";
+            $result = "timeline_add_row_balloon('".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
         else
-            $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','"."aaaaa"."', [";
+            $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
 
 
         $dateconvertor = $this->get("my_date_convert");
