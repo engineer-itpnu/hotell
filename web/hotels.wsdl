@@ -95,6 +95,8 @@
 				<xsd:sequence>
 					<xsd:element name="code" type="xsd:long"/>
 					<xsd:element name="type" type="xsd:string"/>
+					<xsd:element name="main_capacity" type="xsd:int"/>
+					<xsd:element name="extra_capacity" type="xsd:int"/>
 					<xsd:element name="price_main_capacity" type="xsd:long"/>
 					<xsd:element name="days" type="tns:day" maxOccurs="unbounded"/>
 				</xsd:sequence>

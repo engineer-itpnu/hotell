@@ -14,6 +14,16 @@ class Room
 	 */
 	public $type;
 	/**
+	 * The main_capacity
+	 * @var int
+	 */
+	public $main_capacity;
+	/**
+	 * The extra_capacity
+	 * @var int
+	 */
+	public $extra_capacity;
+	/**
 	 * The price_main_capacity
 	 * @var int
 	 */
@@ -29,14 +39,18 @@ class Room
 	 * Constructor method for room
 	 * @param int $_code
 	 * @param string $_type
+	 * @param int $_main_capacity
+	 * @param int $_extra_capacity
 	 * @param int $_price_main_capacity
      * @param array $_days
 	 * @return Room
 	 */
-	public function __construct($_code = NULL,$_type = NULL,$_price_main_capacity = NULL,$_days = NULL)
+	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL)
 	{
 		$this->code=$_code;
 		$this->type=$_type;
+		$this->main_capacity=$_main_capacity;
+		$this->extra_capacity=$_extra_capacity;
 		$this->price_main_capacity=$_price_main_capacity;
         $this->days=$_days?$_days:array();
 	}
