@@ -11,6 +11,10 @@ use Hotel\reserveBundle\Entity\roomEntity;
 use Hotel\reserveBundle\Handler\DateConvertor;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
+/**
+ * Class HotelService
+ * @package Hotel\reserveBundle\Service
+ */
 class HotelService {
 
     /**
@@ -41,6 +45,10 @@ class HotelService {
     }
 
     //-----------------------------------------------------------------------------
+    /**
+     * @param $input
+     * @return RoomListResponse
+     */
     public function ListRooms($input)
     {
         $RoomListRequest = new RoomListRequest();
@@ -89,13 +97,20 @@ class HotelService {
         {
             $resPrices = $this->checkIsEmptyNextDays($firstBlank,$date, $RoomListRequest->days_count);
             if($resPrices)
-                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices);
+            {
+                $freeDaysBeside = $this->getCountFreeDaysBeside($firstBlank->getRoomEntity(),$date,$RoomListRequest->days_count);
+                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices,$date,$RoomListRequest->days_count,$freeDaysBeside);
+            }
         }
 
         return new RoomListResponse("Success",$hotels);
     }
 
     //-----------------------------------------------------------------------------
+    /**
+     * @param $input
+     * @return PreReserveResponse
+     */
     public function PreReserve($input)
     {
         $PreReserveRequest = new PreReserveRequest();
@@ -198,6 +213,10 @@ class HotelService {
     }
 
     //-----------------------------------------------------------------------------
+    /**
+     * @param $input
+     * @return ReserveResponse
+     */
     public function Reserve($input)
     {
         $ReserveRequest = new ReserveRequest();
@@ -257,6 +276,10 @@ class HotelService {
     }
 
     //-----------------------------------------------------------------------------
+    /**
+     * @param $agency
+     * @return \Hotel\reserveBundle\Entity\userEntity|null
+     */
     private function getUserAgency($agency)
     {
         $user = $this->em->getRepository("HotelreserveBundle:userEntity")->findOneBy(array("username"=>$agency->username));
@@ -265,7 +288,13 @@ class HotelService {
         return $encoder->isPasswordValid($user->getPassword(),$agency->password,$user->getSalt())?$user:null;
     }
 
-    private function addRoom(&$hotels,roomEntity $roomEntity,$prices)
+    /**
+     * @param array $hotels
+     * @param roomEntity $roomEntity
+     * @param array $prices
+     * @param array $freeDaysBeside
+     */
+    private function addRoom(array &$hotels,roomEntity $roomEntity,array $prices,array $freeDaysBeside)
     {
         $hotelEntity = $roomEntity->getHotelEntity();
 
@@ -293,26 +322,113 @@ class HotelService {
             '15' => 'آپارتمان', '16' => 'آپارتمان رويال'
         );
 
-        //create array of days and sum of Tariffs
-        $sumPrices = 0;
-        $days = array();
-        foreach ($prices as $day=>$price)
-        {
-            $days [] = new Day($day,$price);
-            $sumPrices += $price;
-        }
+        $selRoom = null;
+        foreach($selHotel->rooms as $room)
+            if($room->type == $roomTypes[$roomEntity->getRoomType()]) $selRoom = $room;
 
-        //add room to hotel
-        $selHotel->rooms [] = new Room(
-            $roomEntity->getId(),
-            $roomTypes[$roomEntity->getRoomType()],
-            $roomEntity->getRoomCapacity(),
-            $roomEntity->getRoomAddCapacity(),
-            $sumPrices,
-            $days
-        );
+        if($selRoom == null)
+        {
+            //create array of days and sum of Tariffs
+            $sumPrices = 0;
+            $days = array();
+            foreach ($prices as $day=>$price)
+            {
+                $days [] = new Day($day,$price);
+                $sumPrices += $price;
+            }
+
+            //add room to hotel
+            $selHotel->rooms [] = new Room(
+                $roomEntity->getId(),
+                $roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomCapacity(),
+                $roomEntity->getRoomAddCapacity(),
+                $sumPrices,
+                $days,
+                $freeDaysBeside
+            );
+        }
+        else
+        {
+//            $freeDaysBeside;
+
+        }
     }
 
+    /**
+     * @param array $RoomServiceFreeDays
+     * @param array $RoomEntityFreeDays
+     * @return int
+     */
+    private function bestRoomByFreeDayBeside(array $RoomServiceFreeDays,array $RoomEntityFreeDays)
+    {
+        $sumService= $RoomServiceFreeDays['before']+$RoomEntityFreeDays['after'];
+        $sumEntity= $RoomEntityFreeDays['before']+$RoomEntityFreeDays['after'];
+
+        if($sumService == 0 && $sumEntity == 0) return 0;
+
+        if($RoomServiceFreeDays['before']==0 && $RoomServiceFreeDays['after'] != 1)
+        {
+//            if()
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param int $RoomServicePrices
+     * @param int $RoomEntityPrices
+     * @return int
+     */
+    private function bestRoomByMoney($RoomServicePrices,$RoomEntityPrices)
+    {
+        if($RoomServicePrices>$RoomEntityPrices) return 1;
+        if($RoomServicePrices<$RoomEntityPrices) return -1;
+        return 0;
+    }
+
+    /**
+     * @param roomEntity $roomEntity
+     * @param \DateTime $from
+     * @param int $count
+     * @return array
+     */
+    private function getCountFreeDaysBeside(roomEntity $roomEntity,\DateTime $from,$count)
+    {
+        $day = clone $from;
+
+        $before = 0;
+        while (true)
+        {
+            $day->sub(new \DateInterval("P1D"));
+            $prevBlank = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$day,"roomEntity"=>$roomEntity));
+            if($prevBlank == null || $prevBlank->getStatus()!= 0) break;
+            else $before++;
+            if($before>5) break;
+        }
+
+        $day = clone $from;
+        $day->add(new \DateInterval("P".($count-1)."D"));
+
+        $after = 0;
+        while (true)
+        {
+            $day->add(new \DateInterval("P1D"));
+            $prevBlank = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$day,"roomEntity"=>$roomEntity));
+            if($prevBlank == null || $prevBlank->getStatus()!= 0) break;
+            else $after++;
+            if($after>5) break;
+        }
+
+        return array("before"=>$before,"after"=>$after);
+    }
+
+    /**
+     * @param blankEntity $firstBlank
+     * @param \DateTime $firstday
+     * @param int $countDays
+     * @return array|null
+     */
     private function checkIsEmptyNextDays(blankEntity $firstBlank,\DateTime $firstday, $countDays)
     {
         $prices = array();
@@ -329,12 +445,19 @@ class HotelService {
         return $prices;
     }
 
+    /**
+     * @param string $message
+     */
     static public function log($message)
     {
         $file= fopen(@"../app/logs/service.txt","a");
         fwrite($file,"[".date_format(new \DateTime(),"Y-m-d H:i:s")."] ".$message."\r\n");
     }
 
+    /**
+     * @param $objectFrom
+     * @param $objectTo
+     */
     static public function CopyObject($objectFrom,$objectTo)
     {
         foreach (get_object_vars($objectFrom) as $key => $value)

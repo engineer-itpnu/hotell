@@ -35,23 +35,31 @@ class Room
      * @var Room
      */
     public $days;
-	/**
-	 * Constructor method for room
-	 * @param int $_code
-	 * @param string $_type
-	 * @param int $_main_capacity
-	 * @param int $_extra_capacity
-	 * @param int $_price_main_capacity
+    /**
+     * The free_Days
+     * @var array
+     */
+    public $freeDaysBeside;
+
+    /**
+     * Constructor method for room
+     * @param int $_code
+     * @param string $_type
+     * @param int $_main_capacity
+     * @param int $_extra_capacity
+     * @param int $_price_main_capacity
      * @param array $_days
-	 * @return Room
-	 */
-	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL)
+     * @param array $_freeDaysBeside
+     * @return Room
+     */
+	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL,$_freeDaysBeside = NULL)
 	{
 		$this->code=$_code;
 		$this->type=$_type;
 		$this->main_capacity=$_main_capacity;
 		$this->extra_capacity=$_extra_capacity;
-		$this->price_main_capacity=$_price_main_capacity;
+        $this->price_main_capacity=$_price_main_capacity;
+		$this->freeDaysBeside=$_freeDaysBeside?$_freeDaysBeside:array("before"=>0, "after"=>0);
         $this->days=$_days?$_days:array();
 	}
 	/**
