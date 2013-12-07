@@ -23,20 +23,27 @@ class RoomListRequest
 	 * @var AgencyInfo
 	 */
 	public $agency_info;
+    /**
+     * The hotel_code
+     * @var int
+     */
+    public $hotel_code;
 	/**
 	 * Constructor method for room_list_request
 	 * @param string $_date
 	 * @param int $_days_count
 	 * @param string $_city
 	 * @param AgencyInfo $_agency_info
+     * @param string $_hotel_code
 	 * @return RoomListRequest
 	 */
-	public function __construct($_date = NULL,$_days_count = NULL,$_city = NULL,$_agency_info = NULL)
+	public function __construct($_date = NULL,$_days_count = NULL,$_city = NULL,$_agency_info = NULL,$_hotel_code = NULL)
 	{
 		$this->date=$_date;
 		$this->days_count=$_days_count;
 		$this->city=$_city;
 		$this->agency_info=$_agency_info?$_agency_info:new AgencyInfo();
+        $this->hotel_code=$_hotel_code;
 	}
 	/**
 	 * Method returning the class name

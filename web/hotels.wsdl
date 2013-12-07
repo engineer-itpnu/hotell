@@ -86,8 +86,9 @@
 					<xsd:sequence>
 						<xsd:element name="date" type="xsd:string"/>
 						<xsd:element name="days_count" type="xsd:int"/>
-						<xsd:element name="city" type="xsd:string"/>
+						<xsd:element name="city" type="xsd:string" minOccurs="0"/>
 						<xsd:element name="agency_info" type="tns:agency_info"/>
+						<xsd:element name="hotel_code" type="xsd:long" minOccurs="0"/>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>

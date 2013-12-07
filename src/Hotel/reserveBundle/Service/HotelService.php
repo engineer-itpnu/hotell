@@ -76,9 +76,26 @@ class HotelService {
         if($RoomListRequest->days_count <= 0)
             return new RoomListResponse("days count not valid",null);
 
-        //check city name
-        if($RoomListRequest->city == null || $RoomListRequest->city == "")
-            return new RoomListResponse("city not valid",null);
+        //check city name or hotel_code
+        $hotel_city = null;
+        if($RoomListRequest->hotel_code != null && $RoomListRequest->hotel_code != "")
+        {
+            $hotel = $this->em->getRepository("HotelreserveBundle:hotelEntity")->find($RoomListRequest->hotel_code);
+            if(!$hotel) return new RoomListResponse("hotel doesn't exist.",null);
+
+            if($RoomListRequest->city != null && $RoomListRequest->city != "")
+                if($hotel->getHotelCity()!=$RoomListRequest->city)
+                    return new RoomListResponse("hotel isn't in that city.",null);
+
+            $hotel_city = "hotel";
+        }
+        else
+        {
+            if($RoomListRequest->city != null && $RoomListRequest->city != "")
+                $hotel_city = "city";
+            else
+                return new RoomListResponse("fill hotel_code or city",null);
+        }
 
         $qb = $this->em->createQueryBuilder()
             -> select("b")
@@ -87,10 +104,16 @@ class HotelService {
             ->innerJoin("r.hotelEntity","h")
             ->where("b.status = :status")->setParameter("status","0")
             ->andWhere("b.dateIN = :date")->setParameter("date",$date)
-            ->andWhere("h.hotel_city LIKE :city")->setParameter("city",$RoomListRequest->city)
-            ;
+        ;
+
+        if($hotel_city == "city")
+            $qb->andWhere("h.hotel_city LIKE :city")->setParameter("city",$RoomListRequest->city);
+        else
+            $qb->andWhere("h.id LIKE :hotel_code")->setParameter("hotel_code",$RoomListRequest->hotel_code);
+
         $firstBlanks = $qb->getQuery()->getResult();
 
+        HotelService::log("==============================================");
         HotelService::log("count firstBlanks: ".count($firstBlanks));
         $hotels = array();
         foreach($firstBlanks as $firstBlank)
