@@ -168,6 +168,7 @@
 	<service name="HotelsService">
 		<port name="port" binding="tns:MyBinding">
 			<soap:address location="http://hotel.picolig.ir/web/hotelService"/>
+            <!--<soap:address location="http://localhost/hotellre/web/app_dev.php/hotelService"/>-->
 		</port>
 	</service>
 </definitions>

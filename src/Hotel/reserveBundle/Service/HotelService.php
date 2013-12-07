@@ -5,7 +5,6 @@ use Doctrine\ORM\EntityManager;
 use Hotel\reserveBundle\Entity\accountEntity;
 use Hotel\reserveBundle\Entity\blankEntity;
 use Hotel\reserveBundle\Entity\customerEntity;
-use Hotel\reserveBundle\Entity\hotelEntity;
 use Hotel\reserveBundle\Entity\reserveEntity;
 use Hotel\reserveBundle\Entity\roomEntity;
 use Hotel\reserveBundle\Handler\DateConvertor;
@@ -92,6 +91,7 @@ class HotelService {
             ;
         $firstBlanks = $qb->getQuery()->getResult();
 
+        HotelService::log("count firstBlanks: ".count($firstBlanks));
         $hotels = array();
         foreach($firstBlanks as $firstBlank)
         {
@@ -99,7 +99,7 @@ class HotelService {
             if($resPrices)
             {
                 $freeDaysBeside = $this->getCountFreeDaysBeside($firstBlank->getRoomEntity(),$date,$RoomListRequest->days_count);
-                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices,$date,$RoomListRequest->days_count,$freeDaysBeside);
+                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices,$freeDaysBeside);
             }
         }
 
@@ -296,6 +296,7 @@ class HotelService {
      */
     private function addRoom(array &$hotels,roomEntity $roomEntity,array $prices,array $freeDaysBeside)
     {
+        HotelService::log("-------");
         $hotelEntity = $roomEntity->getHotelEntity();
 
         // find hotel in list
@@ -322,12 +323,17 @@ class HotelService {
             '15' => 'آپارتمان', '16' => 'آپارتمان رويال'
         );
 
-        $selRoom = null;
-        foreach($selHotel->rooms as $room)
-            if($room->type == $roomTypes[$roomEntity->getRoomType()]) $selRoom = $room;
+        $selRoomKey = null;
+        foreach($selHotel->rooms as $key=>$room)
+            if($room->type == $roomTypes[$roomEntity->getRoomType()]) $selRoomKey = $key;
 
-        if($selRoom == null)
+        if($selRoomKey === null)
         {
+            HotelService::log("add room type (".
+                    "hotel:".$selHotel->code.",".
+                    "type:".$roomEntity->getRoomType().",".
+                    "room:".$roomEntity->getId().
+                ")");
             //create array of days and sum of Tariffs
             $sumPrices = 0;
             $days = array();
@@ -350,8 +356,42 @@ class HotelService {
         }
         else
         {
-//            $freeDaysBeside;
+            //create array of days and sum of Tariffs
+            $sumPrices = 0;
+            $days = array();
+            foreach ($prices as $day=>$price)
+            {
+                $days [] = new Day($day,$price);
+                $sumPrices += $price;
+            }
 
+            $newRoom = new Room(
+                $roomEntity->getId(),
+                $roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomCapacity(),
+                $roomEntity->getRoomAddCapacity(),
+                $sumPrices,
+                $days,
+                $freeDaysBeside
+            );
+
+            $best = $this->bestRoomByFreeDayBeside($selHotel->rooms[$selRoomKey]->freeDaysBeside,$freeDaysBeside);
+            HotelService::log("best by free day(".
+                "hotel:".$selHotel->code.",".
+                "type:".$roomEntity->getRoomType().",".
+                "room:".$roomEntity->getId().
+                "):".$best);
+            if($best == 1) $selHotel->rooms[$selRoomKey] = $newRoom;
+            else if($best == 0)
+            {
+                $best = $this->bestRoomByMoney($selHotel->rooms[$selRoomKey]->price_main_capacity,$sumPrices);
+                HotelService::log("best by money   (".
+                    "hotel:".$selHotel->code.",".
+                    "type:".$roomEntity->getRoomType().",".
+                    "room:".$roomEntity->getId().
+                    "):".$best);
+                if($best == 1) $selHotel->rooms[$selRoomKey] = $newRoom;
+            }
         }
     }
 
@@ -366,13 +406,34 @@ class HotelService {
         $sumEntity= $RoomEntityFreeDays['before']+$RoomEntityFreeDays['after'];
 
         if($sumService == 0 && $sumEntity == 0) return 0;
+        if($sumService == 0) return -1;
+        if($sumEntity  == 0) return 1;
 
-        if($RoomServiceFreeDays['before']==0 && $RoomServiceFreeDays['after'] != 1)
+        if( $RoomServiceFreeDays['before']==1 || $RoomServiceFreeDays['after']== 1)
         {
-//            if()
-        }
+            if( $RoomEntityFreeDays['before']==1 || $RoomEntityFreeDays['after']==1)
+            {
+                if($sumService == 2) return 1;
+                else if($sumEntity == 2) return -1;
 
-        return 0;
+                if($sumService>$sumEntity) return -1;
+                else if($sumService<$sumEntity) return 1;
+                else return 0;
+            }
+            else
+                return 1;
+        }
+        else
+        {
+            if( $RoomEntityFreeDays['before']==1 || $RoomEntityFreeDays['after']== 1)
+                return -1;
+            else
+            {
+                if($sumService>$sumEntity) return -1;
+                else if($sumService<$sumEntity) return 1;
+                else return 0;
+            }
+        }
     }
 
     /**
