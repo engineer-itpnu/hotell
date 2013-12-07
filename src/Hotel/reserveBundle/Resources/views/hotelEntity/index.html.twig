@@ -23,7 +23,7 @@
                             <table class="table table-bordered" dir="rtl">
                                 <thead >
                                 <tr class="" >
-                                    <th style="text-align: center">ردیف</th>
+                                    <th style="text-align: center">کد هتل</th>
                                     <th style="text-align: center">نام هتل</th>
                                     <th style="text-align: center">مدیر هتل</th>
                                     <th style="text-align: center">درجه هتل</th>
@@ -40,7 +40,7 @@
                                 <tbody>
                                 {% for entity in entities %}
                                     <tr class="table table-bordered alert alert-error" >
-                                        <td style="text-align: center"><a href="{{ path('hotelentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                        <td style="text-align: center">{#<a href="{{ path('hotelentity_show', { 'id': entity.id }) }}">#}{{ entity.id }}</a></td>
                                         <td style="text-align: center">{{ entity.hotelname }}</td>
                                         <td style="text-align: center">{{ entity.hotelmanageName }}</td>
                                         <td style="text-align: center">{{ entity.hotelgrade }}</td>

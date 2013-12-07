@@ -18,7 +18,7 @@
                                 <tr class="info">
                                     <td style="padding-right: 0px;padding-left: 2px">نام آژانس :
                                         {{ form_errors(form.agency_name) }}
-                                        {{ form_widget(form.agency_name) }}
+                                        {{ form_widget(form.agency_name,{ 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
                                     </td>
                                     <td></td></tr>
 

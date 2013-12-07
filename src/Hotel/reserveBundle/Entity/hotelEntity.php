@@ -36,7 +36,7 @@ class hotelEntity
     private $hotel_city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $hotel_zipcode;
 
@@ -46,17 +46,17 @@ class hotelEntity
     private $hotel_email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $hotel_phone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $hotel_mobile;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $hotel_addRoomTtariff;
 

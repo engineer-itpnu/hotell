@@ -21,8 +21,14 @@ class registerController extends Controller
         $qb ->where($qb->expr()->like('u.roles', $qb->expr()->literal('%'.$usertype.'%')));
         $entities = $qb->getQuery()->getResult();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $qb->getQuery(),
+            $this->get('request')->query->get('page', 1),
+            10
+        );
         return $this->render('HotelreserveBundle:register:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
         ));
     }
 

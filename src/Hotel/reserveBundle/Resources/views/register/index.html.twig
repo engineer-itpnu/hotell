@@ -19,7 +19,7 @@
                             <table class="table table-bordered" dir="rtl">
                                 <thead>
                                 <tr>
-                                    <th>ردیف</th>
+                                    <th>کدکاربر</th>
                                     <th>نام</th>
                                     <th>نام خانوادگی</th>
                                     <th>نام کاربری</th>
@@ -69,8 +69,12 @@
                                         </td>
                                     </tr>
                                 {% endfor %}
+
                                 </tbody>
                             </table>
+                            <div class="pagination-centered pagination">
+                                {{ knp_pagination_render(entities) }}
+                            </div>
                             </tbody>
                         </table>
                     </div>

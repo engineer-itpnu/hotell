@@ -70,6 +70,9 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
+                            <div class="pagination-centered pagination">
+                                {{ knp_pagination_render(entities) }}
+                            </div>
 
                             <ul style="list-style-type: none">
                                 <li>
@@ -85,6 +88,7 @@
                             </ul>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

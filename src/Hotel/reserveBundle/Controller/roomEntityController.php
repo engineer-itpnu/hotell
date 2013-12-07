@@ -26,9 +26,15 @@ class roomEntityController extends Controller
         $hotel = $em->getRepository('HotelreserveBundle:hotelEntity')->find($hotel_id);
 
         $entities = $hotel->getRoomEntities();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1),
+            10
+        );
 
         return $this->render('HotelreserveBundle:roomEntity:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
             'hotel_id' => $hotel_id
         ));
     }
