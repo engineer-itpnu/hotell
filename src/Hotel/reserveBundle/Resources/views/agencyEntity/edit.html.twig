@@ -21,12 +21,16 @@
                                         {{ form_widget(edit_form.agency_name) }}
                                     </td>
                                     <td>
+                                        {{ form_label(edit_form.userEntity,'متعلق به نام کاربری') }}</td>
+                                    <td>
+                                        {{ form_errors(edit_form.userEntity) }}
+                                        {{ form_widget(edit_form.userEntity) }}
                                     </td>
                                 </tr>
 
                                 {{ form_widget(edit_form._token) }}
-                                <ul style="list-style-type: none"><li>
-                                        <button class="btn btn-success tabs-right" type="submit" style="margin-right: 400px">ویرایش</button></li></ul>
+                                <table><ul style="list-style-type: none"><li>
+                                        <button class="btn btn-success tabs-right" type="submit" style="margin-right: 400px">ویرایش</button></li></ul></table>
                             </form>
                             <tr class="record_actions" style="list-style-type: none">
                                 <td><a class="btn btn-primary" href="{{ path('agencyentity') }}">برگشت </a></td>

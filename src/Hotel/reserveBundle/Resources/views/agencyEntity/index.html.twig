@@ -16,23 +16,25 @@
                         <table class="table table-bordered" dir="rtl">
                             <thead >
         <tr>
-            <th>ردیف</th>
+            <th>کدآژانس</th>
 
             <th>نام آژانس</th>
+            <th> نام کاربری آژانس</th>
             <th>اقدامات</th>
         </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('agencyentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{#<a href="{{ path('agencyentity_show', { 'id': entity.id }) }}">#}{{ entity.id }}</a></td>
                 {#<td>{{ entity.agencyactive }}</td>#}
                 <td>{{ entity.agencyname }}</td>
+                <td>{{ entity.userEntity }}</td>
                 <td>
                 <ul style="list-style-type: none">
-                    <li>
+                   {# <li>
                         <a class="badge badge-success" href="{{ path('agencyentity_show', { 'id': entity.id }) }}">نمایش</a>
-                    </li>
+                    </li>#}
                     <li>
                         <a class="badge badge-info" href="{{ path('agencyentity_edit', { 'id': entity.id }) }}">ویرایش</a>
                     </li>
@@ -44,11 +46,11 @@
     </table>
 
         <ul style="list-style-type: none">
-        {#<li>
+        <li>
             <a class="btn btn-primary" href="{{ path('agencyentity_new') }}">
                 ایجاد
             </a>
-        </li>#}
+        </li>
     </ul>
 
                         </tbody>

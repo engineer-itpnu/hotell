@@ -20,10 +20,15 @@
                                         {{ form_errors(form.agency_name) }}
                                         {{ form_widget(form.agency_name,{ 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
                                     </td>
-                                    <td></td></tr>
+                                    <td>متعلق به نام کاربری</td>
+                                    <td>
+                                        {{ form_errors(form.userEntity) }}
+                                        {{ form_widget(form.userEntity) }}
+                                    </td>
+                                </tr>
 
                                 {{ form_widget(form._token) }}
-                                <button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button>
+                                <table><button class="btn btn-primary" style="margin-right:400px" type="submit">ایجاد</button></table>
                                 <ul class="record_actions" style="list-style-type: none">
                                     <li>
                                         <a class="btn btn-primary" href="{{ path('agencyentity') }}">
