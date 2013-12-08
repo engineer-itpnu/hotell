@@ -14,6 +14,11 @@ class Hotel
 	 */
 	public $name;
 	/**
+	 * The rate
+	 * @var int
+	 */
+	public $rate;
+	/**
 	 * The phone
 	 * @var string
 	 */
@@ -34,15 +39,17 @@ class Hotel
 	 * Constructor method for hotel
 	 * @param int $_code
 	 * @param string $_name
+	 * @param int $_rate
 	 * @param string $_phone
 	 * @param int $_extra_capacity_tariff
 	 * @param array $_rooms
 	 * @return Hotel
 	 */
-	public function __construct($_code = NULL,$_name = NULL,$_phone = NULL,$_extra_capacity_tariff = NULL,$_rooms = NULL)
+	public function __construct($_code = NULL,$_name = NULL,$_rate = NULL,$_phone = NULL,$_extra_capacity_tariff = NULL,$_rooms = NULL)
 	{
 		$this->code=$_code;
 		$this->name=$_name;
+		$this->rate=$_rate;
 		$this->phone=$_phone;
 		$this->extra_capacity_tariff=$_extra_capacity_tariff;
 		$this->rooms=$_rooms?$_rooms:array();

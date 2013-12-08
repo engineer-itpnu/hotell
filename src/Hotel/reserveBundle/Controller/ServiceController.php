@@ -40,9 +40,9 @@ class ServiceController extends Controller
 
     public function getAction()
     {
-        $client = new \SoapClient("http://localhost/hotellre/web/app_dev.php/hotelService?wsdl");
+        $client = new \SoapClient("http://hotel.picolig.ir/web/app_dev.php/hotelService?wsdl");
 
-        $result = $client->ListRooms(new RoomListRequest("1392/9/12","3","تهران",new AgencyInfo("mostafa","1234")));
+        $result = $client->ListRooms(new RoomListRequest("1392/9/9","3","تهران",new AgencyInfo("mostafa","1234")));
         $response = new RoomListResponse();
         HotelService::CopyObject($result,$response);
         $Status = $response->status;

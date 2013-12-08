@@ -333,6 +333,7 @@ class HotelService {
             $selHotel = new Hotel(
                 $hotelEntity->getId(),
                 $hotelEntity->getHotelName(),
+                $hotelEntity->getHotelGrade(),
                 $hotelEntity->getHotelPhone(),
                 $hotelEntity->getHotelAddRoomTtariff()
             );
