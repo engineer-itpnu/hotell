@@ -36,6 +36,16 @@ class reserveEntity
     private $Money;
 
     /**
+     * @ORM\Column(type="string", length=20, nullable=false)
+     */
+    private $CodePey;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $Voucher;
+
+    /**
      * @ORM\OneToMany(targetEntity="accountEntity", mappedBy="reserveEntity")
      */
     private $accountEntities;
@@ -142,6 +152,52 @@ class reserveEntity
     public function getMoney()
     {
         return $this->Money;
+    }
+
+    /**
+     * Set CodePey
+     *
+     * @param string $codePey
+     * @return reserveEntity
+     */
+    public function setCodePey($codePey)
+    {
+        $this->CodePey = $codePey;
+
+        return $this;
+    }
+
+    /**
+     * Get CodePey
+     *
+     * @return string
+     */
+    public function getCodePey()
+    {
+        return $this->CodePey;
+    }
+
+    /**
+     * Set Voucher
+     *
+     * @param string $voucher
+     * @return reserveEntity
+     */
+    public function setVoucher($voucher)
+    {
+        $this->Voucher = $voucher;
+
+        return $this;
+    }
+
+    /**
+     * Get Voucher
+     *
+     * @return string
+     */
+    public function getVoucher()
+    {
+        return $this->Voucher;
     }
 
     /**

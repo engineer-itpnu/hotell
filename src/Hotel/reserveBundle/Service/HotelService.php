@@ -229,10 +229,14 @@ class HotelService {
         $reserveEntity->setMoney($money);
         $reserveEntity->setCountNight($PreReserveRequest->days_count);
         $reserveEntity->setDateCreate(new \DateTime());
+
+        $codePay = $this->createCodePay();
+
+        $reserveEntity->setCodePey($codePay);
         $this->em->persist($reserveEntity);
         $this->em->flush();
 
-        return new PreReserveResponse($money,$reserveEntity->getId(),$customer->getId(),"Success");
+        return new PreReserveResponse($money,$codePay,$customer->getId(),"Success");
     }
 
     //-----------------------------------------------------------------------------
@@ -254,7 +258,10 @@ class HotelService {
             return new ReserveResponse(null,null,"User is not Agency");
 
         //get reserve code
-        $reserveEntity = $this->em->getRepository("HotelreserveBundle:reserveEntity")->find($ReserveRequest->reserve_code);
+        if($ReserveRequest->reserve_code == null || $ReserveRequest->reserve_code == "")
+            return new ReserveResponse(null,null,"Reserve Code not Valid");
+
+        $reserveEntity = $this->em->getRepository("HotelreserveBundle:reserveEntity")->findOneBy(array("CodePey"=>$ReserveRequest->reserve_code));
         if(!$reserveEntity)
             return new ReserveResponse(null,null,"Reserve Code not Valid");
 
@@ -280,6 +287,10 @@ class HotelService {
         foreach($reserveEntity->getBlankEntities() as $blankEntity)
             $blankEntity->setStatus(2);
 
+        //set voucher
+        $voucher = $this->createVoucher();
+        $reserveEntity->setVoucher($voucher);
+
         //create accounting
         $accountEntity = new accountEntity();
         $accountEntity->setAgencyEntity($reserveEntity->getAgencyEntity());
@@ -295,7 +306,7 @@ class HotelService {
         $this->em->persist($accountEntity);
         $this->em->flush();
 
-        return new ReserveResponse($accountEntity->getId(),$agencyBalance-$reserveEntity->getMoney(),"Success");
+        return new ReserveResponse($voucher,$accountEntity->getStockAgency(),"Success");
     }
 
     //-----------------------------------------------------------------------------
@@ -528,6 +539,34 @@ class HotelService {
             $prices [$this->dateconvertor->MiladiToShamsi($nextdays)] = $firstBlank->getTariff();
         }
         return $prices;
+    }
+
+    /**
+     * @return string
+     */
+    private function createCodePay()
+    {
+        $in = round(microtime(true) * 3000).rand(0,9);
+        $out = '';
+        do {
+            $last = bcmod($in, 16);
+            $out = dechex($last).$out;
+            $in = bcdiv(bcsub($in, $last), 16);
+        } while($in>0);
+        return strtoupper($out);
+    }
+
+    /**
+     * @return string
+     */
+    private function createVoucher()
+    {
+        $str = round(microtime(true) * 4000).rand(0,9);
+
+        for ($i=0;$i<strlen($str);$i++)
+            if(rand(1,4)==1) $str[$i]=chr(65+$str[$i]);
+
+        return $str;
     }
 
     /**

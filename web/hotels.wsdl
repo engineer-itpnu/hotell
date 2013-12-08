@@ -36,7 +36,7 @@
 			<xsd:element name="reserve_response">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="reserve_accept_code" type="xsd:long" minOccurs="0"/>
+						<xsd:element name="reserve_accept_code" type="xsd:string" minOccurs="0"/>
 						<xsd:element name="balance" type="xsd:long" minOccurs="0"/>
 						<xsd:element name="status" type="xsd:string"/>
 					</xsd:sequence>
@@ -45,7 +45,7 @@
 			<xsd:element name="reserve_request">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="reserve_code" type="xsd:long"/>
+						<xsd:element name="reserve_code" type="xsd:string"/>
 						<xsd:element name="agency_info" type="tns:agency_info"/>
 					</xsd:sequence>
 				</xsd:complexType>
@@ -54,7 +54,7 @@
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="final_price" type="xsd:long" minOccurs="0"/>
-						<xsd:element name="reserve_code" type="xsd:long" minOccurs="0"/>
+						<xsd:element name="reserve_code" type="xsd:string" minOccurs="0"/>
 						<xsd:element name="customer_code" type="xsd:long" minOccurs="0"/>
 						<xsd:element name="status" type="xsd:string"/>
 					</xsd:sequence>
@@ -169,8 +169,8 @@
 	</binding>
 	<service name="HotelsService">
 		<port name="port" binding="tns:MyBinding">
-			<soap:address location="http://hotel.picolig.ir/web/app_dev.php/hotelService"/>
-            <!--<soap:address location="http://localhost/hotellre/web/app_dev.php/hotelService"/>-->
+			<!--<soap:address location="http://hotel.picolig.ir/web/app_dev.php/hotelService"/>-->
+            <soap:address location="http://localhost/hotellre/web/app_dev.php/hotelService"/>
 		</port>
 	</service>
 </definitions>

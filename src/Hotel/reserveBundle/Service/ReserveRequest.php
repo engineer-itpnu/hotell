@@ -5,7 +5,7 @@ class ReserveRequest
 {
 	/**
 	 * The reserve_code
-	 * @var int
+	 * @var string
 	 */
 	public $reserve_code;
 	/**
@@ -15,7 +15,7 @@ class ReserveRequest
 	public $agency_info;
 	/**
 	 * Constructor method for reserve_request
-	 * @param int $_reserve_code
+	 * @param string $_reserve_code
 	 * @param AgencyInfo $_agency_info
 	 * @return ReserveRequest
 	 */

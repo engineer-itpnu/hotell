@@ -7,7 +7,7 @@ class ReserveResponse
 	 * The reserve_accept_code
 	 * Meta informations extracted from the WSDL
 	 * - minOccurs : 0
-	 * @var int
+	 * @var string
 	 */
 	public $reserve_accept_code;
 	/**
@@ -24,7 +24,7 @@ class ReserveResponse
 	public $status;
 	/**
 	 * Constructor method for reserve_response
-	 * @param int $_reserve_accept_code
+	 * @param string $_reserve_accept_code
 	 * @param int $_balance
 	 * @param string $_status
 	 * @return ReserveResponse

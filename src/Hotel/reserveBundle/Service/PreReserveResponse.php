@@ -14,7 +14,7 @@ class PreReserveResponse
 	 * The reserve_code
 	 * Meta informations extracted from the WSDL
 	 * - minOccurs : 0
-	 * @var int
+	 * @var string
 	 */
 	public $reserve_code;
 	/**
@@ -32,7 +32,7 @@ class PreReserveResponse
 	/**
 	 * Constructor method for pre_reserve_response
 	 * @param int $_final_price
-	 * @param int $_reserve_code
+	 * @param string $_reserve_code
 	 * @param int $_customer_code
 	 * @param string $_status
 	 * @return PreReserveResponse
