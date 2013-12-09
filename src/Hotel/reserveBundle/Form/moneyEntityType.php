@@ -19,10 +19,10 @@ class moneyEntityType extends AbstractType
         $user = $this->user;
         $builder
             ->add('money_price')
-            ->add('money_NumBill')
+            ->add('money_NumBill',null,array('required'=>true))
             ->add('money_DateBill',"shamsi_date")
-            ->add('money_BankName')
-            ->add('money_branch')
+            ->add('money_BankName',null,array('required'=>true))
+            ->add('money_branch',null,array('required'=>true))
             ->add('hotelEntity',null,array(
                 'query_builder' => function (EntityRepository $er) use ($user) {
 
