@@ -250,6 +250,6 @@ class customerEntity
     }
     public function __tostring()
     {
-        return $this->cust_name . ' ';
+        return $this->cust_name . ' '. $this->cust_family;
     }
 }

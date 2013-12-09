@@ -27,7 +27,7 @@ class reportingType extends AbstractType
             ->add('RfromDateTime','shamsi_date',array('required'=>false))
             ->add('RtoDateTime','shamsi_date',array('required'=>false))
             ->add('customerEntity','entity', array('class' => 'HotelreserveBundle:customerEntity',
-                'property' => 'cust_name','required'=>false,'empty_value' => 'همه مسافران',))
+                'required'=>false,'empty_value' => 'همه مسافران',))
             ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
             ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
