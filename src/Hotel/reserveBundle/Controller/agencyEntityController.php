@@ -141,7 +141,7 @@ class agencyEntityController extends Controller
     */
     private function createEditForm(agencyEntity $entity)
     {
-        $form = $this->createForm(new agencyEntityType(), $entity, array(
+        $form = $this->createForm(new agencyEntityType($entity->getUserEntity()), $entity, array(
             'action' => $this->generateUrl('agencyentity_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
