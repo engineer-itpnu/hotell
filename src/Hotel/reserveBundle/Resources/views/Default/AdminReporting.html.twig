@@ -5,7 +5,7 @@
     {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
 {% elseif is_granted("ROLE_AGENCY") %}
     {% set parent= 'HotelreserveBundle::layout_reserve.html.twig' %}
-{% endif  %}
+{% endif %}
 {% extends parent %}
 {% block content -%}
     <style type="text/css">
@@ -20,9 +20,18 @@
             <div class="psp ">
                 <table>
                     <fieldset>
-                        <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">گزارش گیری صورت حساب بر اساس پارامترها</legend>
-                        <br/><br/><tr>
-                            <td>از تاریخ :</td>
+                        <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">
+                            گزارش گیری صورت حساب مالی  - رزرواسیون
+                        </legend><br/>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="radio1">&nbsp&nbsp&nbsp<span class="">گزارش گیری صورت حساب مالی</span>
+                                </td>
+                            </tr>
+                        </table><br/>
+                        <tr>
+                            <td>حساب مالی ثبت شده از تاریخ :</td>
                             <td>
                                 {{ form_errors(form.fromDateTime) }}
                                 {{ form_widget(form.fromDateTime,{'id':'pcal1'}) }}
@@ -33,28 +42,71 @@
                                 {{ form_widget(form.toDateTime,{'id':'pcal2'}) }}
                             </td>
                         </tr>
-                        <tr>
-                            <td>نوع درخواست :</td>
+                        <br/>
+                        <table><br/>
+                            <tr>
+                                <td>نوع درخواست :</td>
+                                <td>
+                                    {{ form_errors(form.type) }}
+                                    {{ form_widget(form.type) }}
+                                </td>
+                                <td>هتل :</td>
+                                <td>
+                                    {{ form_errors(form.hotelEntity) }}
+                                    {{ form_widget(form.hotelEntity) }}
+                                </td>
+                                <td>آژانس :</td>
+                                <td>
+                                    {{ form_errors(form.agencyEntity) }}
+                                    {{ form_widget(form.agencyEntity) }}
+                                </td>
+                            </tr>
+                        </table>
+                        <table><br/>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="radio1">&nbsp&nbsp&nbsp<span
+                                            class="">گزارش گیری رزرواسیون</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <table><br/>
+                            <tr>
+                                <td>تاریخ ورود مسافر از تاریخ : </td>
+                                <td>
+                                    {{ form_errors(form.RfromDateTime) }}
+                                    {{ form_widget(form.RfromDateTime,{'id':'pcal3'}) }}
+                                </td>
+                                <td>تا تاریخ :</td>
+                                <td>
+                                    {{ form_errors(form.RtoDateTime) }}
+                                    {{ form_widget(form.RtoDateTime,{'id':'pcal4'}) }}
+                                </td>
+                            </tr>
+                            <tr>
+                            <td>نام مشتری</td>
                             <td>
-                                {{ form_errors(form.type) }}
-                                {{ form_widget(form.type) }}
-                            </td>
-                            <td>هتل :</td>
-                            <td>
-                                {{ form_errors(form.hotelEntity) }}
-                                {{ form_widget(form.hotelEntity) }}
+                            {{ form_errors(form.customerEntity) }}
+                            {{ form_widget(form.customerEntity) }}
                             </td>
                             <td>آژانس :</td>
                             <td>
-                                {{ form_errors(form.agencyEntity) }}
-                                {{ form_widget(form.agencyEntity) }}
+                            {{ form_errors(form.RagencyEntity) }}
+                            {{ form_widget(form.RagencyEntity) }}
                             </td>
-                        </tr>
+                            <td>هتل : </td>
+                            <td>
+                            {{ form_errors(form.RhotelEntity) }}
+                            {{ form_widget(form.RhotelEntity) }}
+                            </td>
+                            </tr>
+
+                        </table>
                     </fieldset>
                 </table>
             </div>
             <br/>
-            <input class="btn btn-danger" type="submit"  value="گزارش گیری">
+            <input class="btn btn-danger" type="submit" value="گزارش گیری">
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <img width="64" height="64" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -64,7 +116,9 @@
             <img width="64" height="64" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
             {{ form_widget(form._token) }}
         </form>
-        <br/><br/><div class="progress progress-striped active">
+        <br/><br/>
+
+        <div class="progress progress-striped active">
             <div class="bar" style="width: 100%"></div>
         </div>
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12"
