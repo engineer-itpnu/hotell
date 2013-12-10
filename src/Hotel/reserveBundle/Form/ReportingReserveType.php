@@ -2,6 +2,7 @@
 
 namespace Hotel\reserveBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,18 +18,17 @@ class ReportingReserveType extends AbstractType
         $builder
             ->add('RfromDateTime','shamsi_date',array('required'=>false))
             ->add('RtoDateTime','shamsi_date',array('required'=>false))
-            ->add('cust_name','entity', array('class' => 'HotelreserveBundle:customerEntity',
-                'property' => 'cust_name','required'=>false,'empty_value' => 'نام مسافر',))
-            ->add('cust_family','entity', array('class' => 'HotelreserveBundle:customerEntity',
-                'property' => 'cust_family','required'=>false,'empty_value' => 'نام خانوادگی مسافر',))
-            ->add('cust_mobile','entity', array('class' => 'HotelreserveBundle:customerEntity',
-                'property' => 'cust_mobile','required'=>false,'empty_value' => 'شماره همراه مسافر',))
+            ->add('cust_name','text', array('required'=>false))
+            ->add('cust_family','text', array('required'=>false))
+            ->add('cust_mobile','text', array('required'=>false))
             ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
-                'property' => 'hotel_city','required'=>false,'empty_value' => 'شهر اقامت',))
-            ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
-                'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها ',))
+                'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')->groupBy("u.hotel_city");
+                    }))
+            ->add('RhotelEntity','choice', array('required'=>false,'choices' => array(''=>'همه هتل ها ')))
         ;
     }
 

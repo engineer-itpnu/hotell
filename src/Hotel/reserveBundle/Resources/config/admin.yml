@@ -13,6 +13,9 @@ a_manage_age:
 a_search:
     pattern:  /asearch
     defaults: { _controller: HotelreserveBundle:Default:search }
+a_searchCity:
+    pattern:  /asearchCity
+    defaults: { _controller: HotelreserveBundle:Default:listHotelByCity }
 
 
 

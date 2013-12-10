@@ -269,12 +269,13 @@ class DefaultController extends Controller
     }
     public function searchAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $form = $this ->createForm(new ReportingReserveType());
 
         $qb = $em->createQueryBuilder()
             ->select('reserve')
-            ->from("HotelreserveBundle:reserveEntity","reserve");
+            ->from("HotelreserveBundle:reserveEntity","reserve")
+            ->innerJoin("reserve.customerEntity","customer");
 
         if($request->isMethod("post"))
         {
@@ -297,8 +298,22 @@ class DefaultController extends Controller
             'entities'=>$entities,
             'form' => $form->createView()
         ));
-
     }
+
+    public function listHotelByCityAction(Request $request)
+    {
+        $city = $request->get("city","");
+        $em = $this->getDoctrine()->getManager();
+        $hotels = $em->getRepository("HotelreserveBundle:hotelEntity")->findBy(array("hotel_city"=>$city));
+        $res = '';
+        foreach ($hotels as $hotel)
+        {
+            $res .= '<option value="'.$hotel->getId().'">'.$hotel->getHotelName().'</option>';
+        }
+        if($res == '')  $res .= '<option value="">همه هتل ها</option>';
+        return new Response($res);
+    }
+
     public function paymentAction()
     {
         return $this->render('HotelreserveBundle:Default:AgencyPayment.html.twig');

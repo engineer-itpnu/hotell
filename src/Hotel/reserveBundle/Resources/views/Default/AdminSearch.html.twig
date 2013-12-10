@@ -24,7 +24,10 @@
                 <div class="group2">
                     <table>
                         <tr>
-                            <td>تاریخ ورود مسافر از تاریخ :</td>
+                            <td>تاریخ ورود مسافر:</td>
+                        </tr>
+                        <tr>
+                            <td>از تاریخ :</td>
                             <td>
                                 {{ form_errors(form.RfromDateTime) }}
                                 {{ form_widget(form.RfromDateTime,{'id':'pcal1'}) }}
@@ -34,6 +37,9 @@
                                 {{ form_errors(form.RtoDateTime) }}
                                 {{ form_widget(form.RtoDateTime,{'id':'pcal2'}) }}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><br/>مشخصات مسافر:</td>
                         </tr>
                         <tr>
                             <td>نام مسافر</td>
@@ -61,12 +67,12 @@
                             <td>شهر اقامت : </td>
                             <td>
                                 {{ form_errors(form.hotel_city) }}
-                                {{ form_widget(form.hotel_city) }}
+                                {{ form_widget(form.hotel_city,{'id':'citySelect'}) }}
                             </td>
                             <td>هتل :</td>
                             <td>
                                 {{ form_errors(form.RhotelEntity) }}
-                                {{ form_widget(form.RhotelEntity) }}
+                                {{ form_widget(form.RhotelEntity,{'id':'hotelSelect'}) }}
                             </td>
                         </tr>
                     </table>
@@ -153,4 +159,21 @@
             </div>
         </div>
     </section>
+
+    <script type="text/javascript">
+        $("#citySelect").change(function() {
+            var selCity =  $(this).val()?$("#citySelect option:selected").text():"";
+            $("#hotelSelect").prop('disabled', true);
+            $.ajax({
+                type: "Post",
+                url: "{{ path("a_searchCity") }}",
+                data: {"city":selCity},
+                cache: false,
+                success: function(result)
+                {
+                    $("#hotelSelect").html(result).prop('disabled', false);
+                }
+            });
+        });
+    </script>
 {% endblock %}
