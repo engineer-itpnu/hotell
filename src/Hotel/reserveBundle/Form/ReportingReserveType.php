@@ -15,15 +15,14 @@ class reportingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
-                'required'=>false,'empty_value' => 'همه انواع ',
-            ))
-            ->add('fromDateTime','shamsi_date',array('required'=>false))
-            ->add('toDateTime','shamsi_date',array('required'=>false))
-            ->add('hotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
-                'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها ',))
-            ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
+            ->add('RfromDateTime','shamsi_date',array('required'=>false))
+            ->add('RtoDateTime','shamsi_date',array('required'=>false))
+            ->add('customerEntity','entity', array('class' => 'HotelreserveBundle:customerEntity',
+                'required'=>false,'empty_value' => 'همه مسافران',))
+            ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
+            ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
+                'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها ',))
         ;
     }
 

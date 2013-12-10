@@ -5,26 +5,131 @@
     {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
 {% elseif is_granted("ROLE_AGENCY") %}
     {% set parent= 'HotelreserveBundle::layout_reserve.html.twig' %}
-{% endif  %}
+{% endif %}
 {% extends parent %}
 {% block content -%}
+    <style type="text/css">
+        .psp {
+            font-weight: bold;
+            font-size: 18px;
+            font-family: "b koodak";
+        }
+    </style>
     <section class="container " style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
-        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-            <div class="" style="border: 1px solid #0c8b44;display: block;">
-                <div class="" style="background: #0c8b44;height: 36px;display: block;">
+        <form method="post">
+            <div class="psp ">
+                <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">
+                    گزارش گیری رزرواسیون
+                </legend>
+                <div class="group2">
+                    <table>
+                        <tr>
+                            <td>تاریخ ورود مسافر از تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.RfromDateTime) }}
+                                {{ form_widget(form.RfromDateTime,{'id':'pcal3'}) }}
+                            </td>
+                            <td>تا تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.RtoDateTime) }}
+                                {{ form_widget(form.RtoDateTime,{'id':'pcal4'}) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>نام مشتری</td>
+                            <td>
+                                {{ form_errors(form.customerEntity) }}
+                                {{ form_widget(form.customerEntity) }}
+                            </td>
+                            <td>آژانس :</td>
+                            <td>
+                                {{ form_errors(form.RagencyEntity) }}
+                                {{ form_widget(form.RagencyEntity) }}
+                            </td>
+                            <td>هتل :</td>
+                            <td>
+                                {{ form_errors(form.RhotelEntity) }}
+                                {{ form_widget(form.RhotelEntity) }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br/>
+            <input class="btn btn-danger" type="submit" value="گزارش گیری">
+
+            <img width="64" height="64" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
+
+            <input class="btn btn-danger" type="button" value="پرینت اطلاعات" style="margin-right: 200px">
+
+            <img width="64" height="64" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
+            {{ form_widget(form._token) }}
+        </form>
+        <br/><br/>
+
+        <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%"></div>
+        </div>
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12"
+             style="margin-left: 30px; float: right">
+            <div class="" style="border: 1px solid #4a8bc2;display: block;">
+                <div class="" style="background: #4a8bc2;height: 36px;display: block;">
                     <span class=""
                           style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
                             <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>
-                            جستجو بر اساس پارامترهای - سوابق رزرو - اطلاعات صورت حساب
-                        </strong>
+                            <a href="" class="icon-chevron-left"></a> <strong>گزارش رزرواسیون هتل</strong>
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
+                    <div>
                         <table class="table table-condensed" style="width: 100%;">
-
-
+                            <tbody>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center">ردیف </th>
+                                    <th style="text-align: center">آژانس</th>
+                                    <th style="text-align: center">مشتری</th>
+                                    <th style="text-align: center">تاریخ ورود مسافر</th>
+                                    <th style="text-align: center">تعداد شب </th>
+                                    <th style="text-align: center">جمع هزینه اقامت</th>
+                                    <th style="text-align: center">کد پیگیری</th>
+                                    <th style="text-align: center">واچر</th>
+                                    <th style="text-align: center">نام مشتری</th>
+                                    <th style="text-align: center">نام خانوادگی مشتری</th>
+                                    <th style="text-align: center">ایمیل مشتری</th>
+                                    <th style="text-align: center">شماره تلفن مشتری</th>
+                                    <th style="text-align: center">شماره موبایل مشتری</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                        <td style="text-align: center">{{ entity.hotelEntity }}</td>
+                                        <td style="text-align: center">{{ entity.agencyEntity }}</td>
+                                        <td style="text-align: center">{{ entity.CountNight }}</td>
+                                        <td style="text-align: center">{{ entity.Money }}</td>
+                                        <td style="text-align: center">{{ entity.CodePey }}</td>
+                                        <td style="text-align: center">{{ entity.Voucher }}</td>
+                                        <td style="text-align: center">{{ entity.custname }}</td>
+                                        <td style="text-align: center">{{ entity.custfamily }}</td>
+                                        <td style="text-align: center">{{ entity.custemail }}</td>
+                                        <td style="text-align: center">{{ entity.custphone }}</td>
+                                        <td style="text-align: center">{{ entity.custmobile }}</td>
+                                        <td>
+                                            <ul style="list-style-type: none">
+                                                <li>
+                                                    <a class="badge badge-success"
+                                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            </tbody>
                         </table>
                     </div>
                 </div>

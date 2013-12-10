@@ -268,7 +268,34 @@ class DefaultController extends Controller
     }
     public function searchAction()
     {
-        return $this->render('HotelreserveBundle:Default:AdminSearch.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $form = $this ->createForm(new reportingType());
+
+        $qb = $em->createQueryBuilder()
+            ->select('account')
+            ->from("HotelreserveBundle:accountEntity","account");
+        if($request->isMethod("post"))
+        {
+            $form->handleRequest($request);
+            if($form->isValid())
+            {
+                $data = $form->getData();
+                if($data['type']!=null) $qb = $qb->andWhere('account.type = :type')->setParameter('type',$data['type']);
+                if($data['hotelEntity']!==null) $qb = $qb->andWhere('account.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                if($data['agencyEntity']!=null) $qb = $qb->andWhere('account.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+
+                if($data['fromDateTime']!=null) $qb = $qb->andWhere('account.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
+                if($data['toDateTime']!=null) $qb = $qb->andWhere('account.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
+            }
+        }
+
+        $entities = $qb->getQuery()->getResult();
+
+        return $this->render('HotelreserveBundle:Default:AdminSearch.html.twig',array(
+            'entities'=>$entities,
+            'form' => $form->createView()
+        ));
+
     }
     public function paymentAction()
     {

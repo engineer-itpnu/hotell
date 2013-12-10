@@ -19,13 +19,8 @@
         <form method="post">
             <div class="psp ">
                 <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">
-                    گزارش گیری صورت حساب مالی - رزرواسیون
-                </legend>
-
-                <label style="font-size: 18px;color: rgb(74, 139, 194);margin-top: 20px">
-                    <input id="radioGroup1" type="radio" name="radio1">
                     گزارش گیری صورت حساب مالی
-                </label>
+                </legend>
                 <div class="group1">
                     <table>
                         <tr>
@@ -59,51 +54,13 @@
                         </tr>
                     </table>
                 </div>
-
-                <label style="font-size: 18px;color: rgb(74, 139, 194);padding-top: 20px;border-top: 1px solid rgb(74, 139, 194)">
-                    <input id="radioGroup2" type="radio" name="radio1">
-                    گزارش گیری رزرواسیون
-                </label>
-                <div class="group2">
-                    <table>
-                        <tr>
-                            <td>تاریخ ورود مسافر از تاریخ :</td>
-                            <td>
-                                {{ form_errors(form.RfromDateTime) }}
-                                {{ form_widget(form.RfromDateTime,{'id':'pcal3'}) }}
-                            </td>
-                            <td>تا تاریخ :</td>
-                            <td>
-                                {{ form_errors(form.RtoDateTime) }}
-                                {{ form_widget(form.RtoDateTime,{'id':'pcal4'}) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>نام مشتری</td>
-                            <td>
-                                {{ form_errors(form.customerEntity) }}
-                                {{ form_widget(form.customerEntity) }}
-                            </td>
-                            <td>آژانس :</td>
-                            <td>
-                                {{ form_errors(form.RagencyEntity) }}
-                                {{ form_widget(form.RagencyEntity) }}
-                            </td>
-                            <td>هتل :</td>
-                            <td>
-                                {{ form_errors(form.RhotelEntity) }}
-                                {{ form_widget(form.RhotelEntity) }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </div>
             <br/>
             <input class="btn btn-danger" type="submit" value="گزارش گیری">
 
             <img width="64" height="64" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
 
-            <input class="btn btn-danger" type="button" value="پرینت اطلاعات"style="margin-right: 200px">
+            <input class="btn btn-danger" type="button" value="پرینت اطلاعات" style="margin-right: 200px">
 
             <img width="64" height="64" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
             {{ form_widget(form._token) }}
@@ -172,7 +129,6 @@
                                                     <a class="badge badge-success"
                                                        href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
                                                 </li>
-
                                             </ul>
                                         </td>
                                     </tr>
@@ -186,17 +142,4 @@
             </div>
         </div>
     </section>
-
-    <script type="text/javascript">
-        $("#radioGroup1").change(function ()
-        {
-            $(".group2").slideUp();
-            $(".group1").slideDown();
-        });
-        $("#radioGroup2").change(function ()
-        {
-            $(".group1").slideUp();
-            $(".group2").slideDown();
-        });
-    </script>
 {% endblock %}
