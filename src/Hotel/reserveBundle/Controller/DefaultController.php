@@ -269,12 +269,12 @@ class DefaultController extends Controller
     }
     public function searchAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getEntityManager();
         $form = $this ->createForm(new ReportingReserveType());
 
         $qb = $em->createQueryBuilder()
-            ->select('account')
-            ->from("HotelreserveBundle:accountEntity","account");
+            ->select('reserve')
+            ->from("HotelreserveBundle:reserveEntity","reserve");
 
         if($request->isMethod("post"))
         {
@@ -282,12 +282,12 @@ class DefaultController extends Controller
             if($form->isValid())
             {
                 $data = $form->getData();
-                if($data['type']!=null) $qb = $qb->andWhere('account.type = :type')->setParameter('type',$data['type']);
-                if($data['hotelEntity']!==null) $qb = $qb->andWhere('account.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
-                if($data['agencyEntity']!=null) $qb = $qb->andWhere('account.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+                if($data['customerEntity']!=null) $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
+                if($data['RhotelEntity']!==null)  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                if($data['RagencyEntity']!=null)  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
 
-                if($data['fromDateTime']!=null) $qb = $qb->andWhere('account.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
-                if($data['toDateTime']!=null) $qb = $qb->andWhere('account.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
+                if($data['RfromDateTime']!=null)  $qb = $qb->andWhere('reserve.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
+                if($data['RtoDateTime']!=null)    $qb = $qb->andWhere('reserve.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
             }
         }
 
