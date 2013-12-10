@@ -27,24 +27,41 @@
                             <td>تاریخ ورود مسافر از تاریخ :</td>
                             <td>
                                 {{ form_errors(form.RfromDateTime) }}
-                                {{ form_widget(form.RfromDateTime,{'id':'pcal3'}) }}
+                                {{ form_widget(form.RfromDateTime,{'id':'pcal1'}) }}
                             </td>
                             <td>تا تاریخ :</td>
                             <td>
                                 {{ form_errors(form.RtoDateTime) }}
-                                {{ form_widget(form.RtoDateTime,{'id':'pcal4'}) }}
+                                {{ form_widget(form.RtoDateTime,{'id':'pcal2'}) }}
                             </td>
                         </tr>
                         <tr>
-                            <td>نام مشتری</td>
+                            <td>نام مسافر</td>
                             <td>
-                                {{ form_errors(form.customerEntity) }}
-                                {{ form_widget(form.customerEntity) }}
+                                {{ form_errors(form.cust_name) }}
+                                {{ form_widget(form.cust_name) }}
                             </td>
+                            <td>نام خانوادگی مسافر</td>
+                            <td>
+                                {{ form_errors(form.cust_family) }}
+                                {{ form_widget(form.cust_family) }}
+                            </td>
+                            <td>شماره همراه مسافر</td>
+                            <td>
+                                {{ form_errors(form.cust_mobile) }}
+                                {{ form_widget(form.cust_mobile) }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td>آژانس :</td>
                             <td>
                                 {{ form_errors(form.RagencyEntity) }}
                                 {{ form_widget(form.RagencyEntity) }}
+                            </td>
+                            <td>شهر اقامت : </td>
+                            <td>
+                                {{ form_errors(form.hotel_city) }}
+                                {{ form_widget(form.hotel_city) }}
                             </td>
                             <td>هتل :</td>
                             <td>
