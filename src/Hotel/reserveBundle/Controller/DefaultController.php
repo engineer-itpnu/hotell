@@ -4,6 +4,7 @@ namespace Hotel\reserveBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use Hotel\reserveBundle\Entity\blankEntity;
+use Hotel\reserveBundle\Form\ReportingReserveType;
 use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -266,14 +267,15 @@ class DefaultController extends Controller
     {
         return $this->render('HotelreserveBundle:Default:AdminManageAge.html.twig');
     }
-    public function searchAction()
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this ->createForm(new reportingType());
+        $form = $this ->createForm(new ReportingReserveType());
 
         $qb = $em->createQueryBuilder()
             ->select('account')
             ->from("HotelreserveBundle:accountEntity","account");
+
         if($request->isMethod("post"))
         {
             $form->handleRequest($request);

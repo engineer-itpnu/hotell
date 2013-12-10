@@ -103,30 +103,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for entity in entities %}
-                                    <tr>
-                                        <td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                                        <td style="text-align: center">{{ entity.hotelEntity }}</td>
-                                        <td style="text-align: center">{{ entity.agencyEntity }}</td>
-                                        <td style="text-align: center">{{ entity.CountNight }}</td>
-                                        <td style="text-align: center">{{ entity.Money }}</td>
-                                        <td style="text-align: center">{{ entity.CodePey }}</td>
-                                        <td style="text-align: center">{{ entity.Voucher }}</td>
-                                        <td style="text-align: center">{{ entity.custname }}</td>
-                                        <td style="text-align: center">{{ entity.custfamily }}</td>
-                                        <td style="text-align: center">{{ entity.custemail }}</td>
-                                        <td style="text-align: center">{{ entity.custphone }}</td>
-                                        <td style="text-align: center">{{ entity.custmobile }}</td>
-                                        <td>
-                                            <ul style="list-style-type: none">
-                                                <li>
-                                                    <a class="badge badge-success"
-                                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                                {#{% for entity in entities %}#}
+                                    {#<tr>#}
+                                        {#<td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+                                        {#<td style="text-align: center">{{ entity.hotelEntity }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.agencyEntity }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.CountNight }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.Money }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.CodePey }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.Voucher }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custname }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custfamily }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custemail }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custphone }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custmobile }}</td>#}
+                                        {#<td>#}
+                                            {#<ul style="list-style-type: none">#}
+                                                {#<li>#}
+                                                    {#<a class="badge badge-success"#}
+                                                       {#href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>#}
+                                                {#</li>#}
+                                            {#</ul>#}
+                                        {#</td>#}
+                                    {#</tr>#}
+                                {#{% endfor %}#}
                                 </tbody>
                             </table>
                             </tbody>
