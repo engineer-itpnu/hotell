@@ -18,9 +18,11 @@ class ReportingReserveType extends AbstractType
         $builder
             ->add('RfromDateTime','shamsi_date',array('required'=>false))
             ->add('RtoDateTime','shamsi_date',array('required'=>false))
-            ->add('cust_name','text', array('required'=>false))
             ->add('cust_family','text', array('required'=>false))
             ->add('cust_mobile','text', array('required'=>false))
+            ->add('CodePey','text', array('required'=>false))
+            ->add('Voucher','text', array('required'=>false))
+            ->add('CountNight','text', array('required'=>false))
             ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',

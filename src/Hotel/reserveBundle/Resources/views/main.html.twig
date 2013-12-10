@@ -67,6 +67,13 @@
 <script src="{{ asset("bundles/assets/js/js-persian-cal.min.js") }}" type="text/javascript"></script>
 
 <script type="text/javascript">
+        $(".MoneyComma").keyup(function(){
+            var num = this.value.replace(/[^\d]/g, '');
+        if(num.length>3)
+            num = num.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+        this.value = num;
+    });
+
     var objCal1 = new AMIB.persianCalendar( 'objCal1', 'pcal1' );
     var objCal2 = new AMIB.persianCalendar( 'objCal2', 'pcal2' );
     var objCal3 = new AMIB.persianCalendar( 'objCal3', 'pcal3' );

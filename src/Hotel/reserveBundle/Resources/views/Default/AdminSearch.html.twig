@@ -19,7 +19,7 @@
         <form method="post">
             <div class="psp ">
                 <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">
-                    گزارش گیری رزرواسیون
+                    گزارش گیری رزرواسیون هتل ها
                 </legend>
                 <div class="group2">
                     <table>
@@ -42,24 +42,36 @@
                             <td><br/>مشخصات مسافر:</td>
                         </tr>
                         <tr>
-                            <td>نام مسافر</td>
-                            <td>
-                                {{ form_errors(form.cust_name) }}
-                                {{ form_widget(form.cust_name) }}
-                            </td>
-                            <td>نام خانوادگی مسافر</td>
+                            <td>نام و نام خانوادگی مسافر : </td>
                             <td>
                                 {{ form_errors(form.cust_family) }}
                                 {{ form_widget(form.cust_family) }}
                             </td>
-                            <td>شماره همراه مسافر</td>
+                            <td>شماره همراه مسافر : </td>
                             <td>
                                 {{ form_errors(form.cust_mobile) }}
                                 {{ form_widget(form.cust_mobile) }}
                             </td>
                         </tr>
                         <tr>
-                            <td>آژانس :</td>
+                            <td>کد پیگیری : </td>
+                            <td>
+                                {{ form_errors(form.CodePey) }}
+                                {{ form_widget(form.CodePey) }}
+                            </td>
+                            <td>کد واچر : </td>
+                            <td>
+                                {{ form_errors(form.Voucher) }}
+                                {{ form_widget(form.Voucher) }}
+                            </td>
+                            <td>تعداد شب : </td>
+                            <td>
+                                {{ form_errors(form.CountNight) }}
+                                {{ form_widget(form.CountNight) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>آژانس : </td>
                             <td>
                                 {{ form_errors(form.RagencyEntity) }}
                                 {{ form_widget(form.RagencyEntity) }}
@@ -69,7 +81,7 @@
                                 {{ form_errors(form.hotel_city) }}
                                 {{ form_widget(form.hotel_city,{'id':'citySelect'}) }}
                             </td>
-                            <td>هتل :</td>
+                            <td>هتل : </td>
                             <td>
                                 {{ form_errors(form.RhotelEntity) }}
                                 {{ form_widget(form.RhotelEntity,{'id':'hotelSelect'}) }}
@@ -81,11 +93,11 @@
             <br/>
             <input class="btn btn-danger" type="submit" value="گزارش گیری">
 
-            <img width="64" height="64" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
+            <img width="32" height="32" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
 
             <input class="btn btn-danger" type="button" value="پرینت اطلاعات" style="margin-right: 200px">
 
-            <img width="64" height="64" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
+            <img width="32" height="32" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
             {{ form_widget(form._token) }}
         </form>
         <br/><br/>
@@ -111,18 +123,23 @@
                                 <thead>
                                 <tr>
                                     <th style="text-align: center">ردیف </th>
+                                    <th style="text-align: center">هتل</th>
                                     <th style="text-align: center">آژانس</th>
-                                    <th style="text-align: center">مشتری</th>
+                                    <th style="text-align: center">نام مسافر</th>
                                     <th style="text-align: center">تاریخ ورود مسافر</th>
                                     <th style="text-align: center">تعداد شب </th>
-                                    <th style="text-align: center">جمع هزینه اقامت</th>
+                                    <th style="text-align: center">شهر اقامت</th>
                                     <th style="text-align: center">کد پیگیری</th>
                                     <th style="text-align: center">واچر</th>
-                                    <th style="text-align: center">نام مشتری</th>
-                                    <th style="text-align: center">نام خانوادگی مشتری</th>
-                                    <th style="text-align: center">ایمیل مشتری</th>
-                                    <th style="text-align: center">شماره تلفن مشتری</th>
-                                    <th style="text-align: center">شماره موبایل مشتری</th>
+                                    <th style="text-align: center">اقدامات</th>
+                                    {#<th style="text-align: center">نوع اتاق</th>#}
+                                    {#<th style="text-align: center">نام اتاق</th>#}
+                                    {#<th style="text-align: center">تعداد نفر</th>#}
+                                    {#<th style="text-align: center">تعداد نفر اضافه</th>#}
+                                    {#<th style="text-align: center">ایمیل مشتری</th>#}
+                                    {#<th style="text-align: center">جمع هزینه اقامت</th>#}
+                                    {#<th style="text-align: center">شماره تلفن مشتری</th>#}
+                                    {#<th style="text-align: center">شماره موبایل مشتری</th>#}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -131,12 +148,17 @@
                                         {#<td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
                                         {#<td style="text-align: center">{{ entity.hotelEntity }}</td>#}
                                         {#<td style="text-align: center">{{ entity.agencyEntity }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.custfamily }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.DateInp }}</td>#}
                                         {#<td style="text-align: center">{{ entity.CountNight }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.Money }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.hotel_city }}</td>#}
                                         {#<td style="text-align: center">{{ entity.CodePey }}</td>#}
                                         {#<td style="text-align: center">{{ entity.Voucher }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custname }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custfamily }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.room_type }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.room_name }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.room_capacity }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.room_addCapacity }}</td>#}
+                                        {#<td style="text-align: center">{{ entity.Money }}</td>#}
                                         {#<td style="text-align: center">{{ entity.custemail }}</td>#}
                                         {#<td style="text-align: center">{{ entity.custphone }}</td>#}
                                         {#<td style="text-align: center">{{ entity.custmobile }}</td>#}

@@ -18,7 +18,7 @@
                                 <input type="hidden" name="_method" value="PUT"/>
                                 <tr class="success"><td>نام آژانس : </td><td>
                                         {{ form_errors(edit_form.agency_name) }}
-                                        {{ form_widget(edit_form.agency_name) }}
+                                        {{ form_widget(edit_form.agency_name,{ 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
                                     </td>
                                     <td>
                                         {{ form_label(edit_form.userEntity,'متعلق به نام کاربری') }}</td>
