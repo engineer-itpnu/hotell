@@ -44,15 +44,23 @@
                                 {{ form_errors(form.type) }}
                                 {{ form_widget(form.type) }}
                             </td>
-                            <td>هتل :</td>
-                            <td>
-                                {{ form_errors(form.hotelEntity) }}
-                                {{ form_widget(form.hotelEntity) }}
-                            </td>
+
                             <td>آژانس :</td>
                             <td>
                                 {{ form_errors(form.agencyEntity) }}
                                 {{ form_widget(form.agencyEntity) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>شهر اقامت : </td>
+                            {#<td>#}
+                                {#{{ form_errors(form.hotel_city) }}#}
+                                {#{{ form_widget(form.hotel_city,{'id':'citySelect'}) }}#}
+                            {#</td>#}
+                            <td>هتل : </td>
+                            <td>
+                                {{ form_errors(form.hotelEntity) }}
+                                {{ form_widget(form.hotelEntity,{'id':'hotelSelect'}) }}
                             </td>
                         </tr>
                     </table>
@@ -145,4 +153,23 @@
             </div>
         </div>
     </section>
+
+    </section>
+
+    <script type="text/javascript">
+        $("#citySelect").change(function() {
+            var selCity =  $(this).val()?$("#citySelect option:selected").text():"";
+            $("#hotelSelect").prop('disabled', true);
+            $.ajax({
+                type: "Post",
+                url: "{{ path("a_searchCity") }}",
+                data: {"city":selCity},
+                cache: false,
+                success: function(result)
+                {
+                    $("#hotelSelect").html(result).prop('disabled', false);
+                }
+            });
+        });
+    </script>
 {% endblock %}
