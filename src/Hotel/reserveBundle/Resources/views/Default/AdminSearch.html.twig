@@ -42,12 +42,17 @@
                             <td><br/>مشخصات مسافر:</td>
                         </tr>
                         <tr>
-                            <td>نام و نام خانوادگی مسافر : </td>
+                            <td>نام : </td>
+                            <td>
+                                {{ form_errors(form.cust_name) }}
+                                {{ form_widget(form.cust_name) }}
+                            </td>
+                            <td> نام خانوادگی : </td>
                             <td>
                                 {{ form_errors(form.cust_family) }}
                                 {{ form_widget(form.cust_family) }}
                             </td>
-                            <td>شماره همراه مسافر : </td>
+                            <td>شماره همراه : </td>
                             <td>
                                 {{ form_errors(form.cust_mobile) }}
                                 {{ form_widget(form.cust_mobile) }}

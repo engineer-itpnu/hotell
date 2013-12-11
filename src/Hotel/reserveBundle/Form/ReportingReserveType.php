@@ -18,6 +18,7 @@ class ReportingReserveType extends AbstractType
         $builder
             ->add('RfromDateTime','shamsi_date',array('required'=>false))
             ->add('RtoDateTime','shamsi_date',array('required'=>false))
+            ->add('cust_name','text', array('required'=>false))
             ->add('cust_family','text', array('required'=>false))
             ->add('cust_mobile','text', array('required'=>false))
             ->add('CodePey','text', array('required'=>false))
