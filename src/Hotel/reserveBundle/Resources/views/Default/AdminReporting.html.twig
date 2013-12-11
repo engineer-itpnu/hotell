@@ -53,10 +53,11 @@
                         </tr>
                         <tr>
                             <td>شهر اقامت : </td>
-                            {#<td>#}
-                                {#{{ form_errors(form.hotel_city) }}#}
-                                {#{{ form_widget(form.hotel_city,{'id':'citySelect'}) }}#}
-                            {#</td>#}
+                            <td>
+                                {{ form_errors(form.hotel_city) }}
+                                {{ form_widget(form.hotel_city) }}
+                                {#,{'id':'citySelect'}#}
+                            </td>
                             <td>هتل : </td>
                             <td>
                                 {{ form_errors(form.hotelEntity) }}

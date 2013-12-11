@@ -22,8 +22,9 @@ class reportingType extends AbstractType
             ->add('toDateTime','shamsi_date',array('required'=>false))
             ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
-//            ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
-//                'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',
+            ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
+                'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',))
+
 //                'query_builder' => function (EntityRepository $er) {
 //                    return $er->createQueryBuilder('u')->groupBy("u.hotel_city");
 //                }))
