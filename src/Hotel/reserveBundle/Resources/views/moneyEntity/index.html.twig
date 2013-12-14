@@ -74,12 +74,12 @@
                 <ul style="list-style-type: none">
                     {% if entity.moneystatus == 1 %}
                         {% if is_granted('ROLE_ADMIN')  %}
-                            <li><a class="badge badge-success YesNoMessage " href="{{ path('moneyentity_accept', { 'id': entity.id }) }}" header="تایید" message="آیا سطر انتخابی حذف شود" >
+                            <li><a class="badge badge-success YesNoMessage " href="{{ path('moneyentity_accept', { 'id': entity.id }) }}" header="تایید" message= "آیا درخواست تایید شود">
                                     تایید
                                 </a><br/><br/></li>
-                            <li><a class="badge badge-info YesNoMessage" href="{{ path('moneyentity_reject', { 'id': entity.id }) }}"header="رد درخواست" message="آیا درخواست رد تایید شود" >رد</a></li>
+                            <li><a class="badge badge-info YesNoMessage" href="{{ path('moneyentity_reject', { 'id': entity.id }) }}"header="رد درخواست" message="آیا درخواست رد شود" >رد</a></li>
                         {% else %}
-                            <li><a class="badge badge-info YesNoMessage" href="{{ path('moneyentity_delete', { 'id': entity.id }) }}"header="لغو درخواست" message="آیا درخواست لغو تایید شود" >لغو</a></li>
+                            <li><a class="badge badge-info YesNoMessage" href="{{ path('moneyentity_delete', { 'id': entity.id }) }}"header="لغو درخواست" message="آیا درخواست لغو شود" >لغو</a></li>
                         {% endif %}
                     {% endif %}
                 </ul>
