@@ -68,10 +68,12 @@
 
 <script type="text/javascript">
     $(".MoneyComma").each(function(){
-        var num = this.value.replace(/[^\d]/g, '');
+        var type = $(this).first().prop("tagName")=="INPUT";
+        var num = type?this.value.replace(/[^\d]/g, ''):$(this).text().replace(/[^\d]/g,'');
         if(num.length>3)
             num = num.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
-        this.value = num;
+        if(type) this.value = num;
+        else     $(this).text(num);
     }).keyup(function(){
         var num = this.value.replace(/[^\d]/g, '');
         if(num.length>3)

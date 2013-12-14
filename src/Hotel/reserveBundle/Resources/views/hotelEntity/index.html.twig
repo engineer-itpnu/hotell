@@ -40,7 +40,7 @@
                                 <tbody>
                                 {% for entity in entities %}
                                     <tr class="table table-bordered alert alert-error" >
-                                        <td style="text-align: center">{#<a href="{{ path('hotelentity_show', { 'id': entity.id }) }}">#}{{ entity.id }}</a></td>
+                                        <td style="text-align: center">{{ entity.id }}</td>
                                         <td style="text-align: center">{{ entity.hotelname }}</td>
                                         <td style="text-align: center">{{ entity.hotelmanageName }}</td>
                                         <td style="text-align: center">{{ entity.hotelgrade }}</td>
@@ -49,7 +49,7 @@
                                         <td style="text-align: center">{{ entity.hotelemail }}</td>
                                         <td style="text-align: center">{{ entity.hotelphone }}</td>
                                         <td style="text-align: center">{{ entity.hotelmobile }}</td>
-                                        <td style="text-align: center">{{ entity.hoteladdRoomTtariff }}</td>
+                                        <td style="text-align: center" class="MoneyComma">{{ entity.hoteladdRoomTtariff }}</td>
                                         <td style="text-align: center">{% if entity.hotelactive==1 %}
                                             دسترسی فعال
                                             {% else  %}
