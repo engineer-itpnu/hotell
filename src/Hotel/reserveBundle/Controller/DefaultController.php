@@ -230,7 +230,7 @@ class DefaultController extends Controller
 
     public function reportAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getEntityManager();
         $form = $this ->createForm(new reportingType());
 
         $qb = $em->createQueryBuilder()
@@ -242,12 +242,17 @@ class DefaultController extends Controller
             if($form->isValid())
             {
                 $data = $form->getData();
-                if($data['type']!=null) $qb = $qb->andWhere('account.type = :type')->setParameter('type',$data['type']);
-                if($data['hotelEntity']!==null) $qb = $qb->andWhere('account.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
-                if($data['agencyEntity']!=null) $qb = $qb->andWhere('account.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
-
                 if($data['fromDateTime']!=null) $qb = $qb->andWhere('account.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
                 if($data['toDateTime']!=null) $qb = $qb->andWhere('account.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
+                if($data['type']!=null) $qb = $qb->andWhere('account.type = :type')->setParameter('type',$data['type']);
+                if($data['agencyEntity']!=null) $qb = $qb->andWhere('account.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+                if($data['hotelEntity']!=null)
+                    $qb = $qb->andWhere('account.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                elseif($data['hotel_city']!=null || $data['hotel_city']!="")
+                    $qb = $qb->innerJoin("account.hotelEntity","hotel")
+                        ->andWhere('hotel.hotel_city = :hotel_city')->setParameter('hotel_city',$data['hotel_city']->getHotelCity());
+
+//                die($data['hotel_city']->getHotelCity());
             }
         }
 
@@ -283,12 +288,15 @@ class DefaultController extends Controller
             if($form->isValid())
             {
                 $data = $form->getData();
-                if($data['customerEntity']!=null) $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
-                if($data['RhotelEntity']!==null)  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
-                if($data['RagencyEntity']!=null)  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+                if($data['RfromDateTime']!=null)  $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
+                if($data['RtoDateTime']!=null)    $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['toDateTime']);
 
-                if($data['RfromDateTime']!=null)  $qb = $qb->andWhere('reserve.DateTime >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
-                if($data['RtoDateTime']!=null)    $qb = $qb->andWhere('reserve.DateTime <= :todate')->setParameter('todate',$data['toDateTime']);
+                if($data['cust_name']!="") $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
+                if($data['cust_family']!=="")  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                if($data['cust_mobile']!="")  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+                if($data['RagencyEntity']!==null)  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+                if($data['hotel_city']!=null)  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
+                if($data['RhotelEntity']!=null) $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
             }
         }
 
@@ -305,12 +313,9 @@ class DefaultController extends Controller
         $city = $request->get("city","");
         $em = $this->getDoctrine()->getManager();
         $hotels = $em->getRepository("HotelreserveBundle:hotelEntity")->findBy(array("hotel_city"=>$city));
-        $res = '';
+        $res = '<option value="">همه هتل ها</option>';
         foreach ($hotels as $hotel)
-        {
             $res .= '<option value="'.$hotel->getId().'">'.$hotel->getHotelName().'</option>';
-        }
-        if($res == '')  $res .= '<option value="">همه هتل ها</option>';
         return new Response($res);
     }
 

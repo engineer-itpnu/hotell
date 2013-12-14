@@ -55,8 +55,7 @@
                             <td>شهر اقامت : </td>
                             <td>
                                 {{ form_errors(form.hotel_city) }}
-                                {{ form_widget(form.hotel_city) }}
-                                {#,{'id':'citySelect'}#}
+                                {{ form_widget(form.hotel_city,{'id':'citySelect'}) }}
                             </td>
                             <td>هتل : </td>
                             <td>
@@ -155,9 +154,28 @@
         </div>
     </section>
 
-    </section>
-
     <script type="text/javascript">
+        $(document).ready(function(){
+            var selCityVal =  $("#citySelect").val();
+            if(selCityVal.length != 0)
+            {
+                var selCity =  $("#citySelect option:selected").text();
+                $("#hotelSelect").prop('disabled', true);
+                $.ajax({
+                    type: "Post",
+                    url: "{{ path("a_searchCity") }}",
+                    data: {"city":selCity},
+                    cache: false,
+                    success: function(result)
+                    {
+                        $("#hotelSelect").html(result).prop('disabled', false);
+                    }
+                });
+            }
+            else
+                $("#hotelSelect").html('<option value="">همه هتل ها</option>');
+        });
+
         $("#citySelect").change(function() {
             var selCity =  $(this).val()?$("#citySelect option:selected").text():"";
             $("#hotelSelect").prop('disabled', true);
