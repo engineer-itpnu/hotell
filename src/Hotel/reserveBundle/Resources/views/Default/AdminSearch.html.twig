@@ -137,46 +137,30 @@
                                     <th style="text-align: center">کد پیگیری</th>
                                     <th style="text-align: center">واچر</th>
                                     <th style="text-align: center">اقدامات</th>
-                                    {#<th style="text-align: center">نوع اتاق</th>#}
-                                    {#<th style="text-align: center">نام اتاق</th>#}
-                                    {#<th style="text-align: center">تعداد نفر</th>#}
-                                    {#<th style="text-align: center">تعداد نفر اضافه</th>#}
-                                    {#<th style="text-align: center">ایمیل مشتری</th>#}
-                                    {#<th style="text-align: center">جمع هزینه اقامت</th>#}
-                                    {#<th style="text-align: center">شماره تلفن مشتری</th>#}
-                                    {#<th style="text-align: center">شماره موبایل مشتری</th>#}
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {#{% for entity in entities %}#}
-                                    {#<tr>#}
-                                        {#<td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
-                                        {#<td style="text-align: center">{{ entity.hotelEntity }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.agencyEntity }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custfamily }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.DateInp }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.CountNight }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.hotel_city }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.CodePey }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.Voucher }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.room_type }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.room_name }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.room_capacity }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.room_addCapacity }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.Money }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custemail }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custphone }}</td>#}
-                                        {#<td style="text-align: center">{{ entity.custmobile }}</td>#}
-                                        {#<td>#}
-                                            {#<ul style="list-style-type: none">#}
-                                                {#<li>#}
-                                                    {#<a class="badge badge-success"#}
-                                                       {#href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>#}
-                                                {#</li>#}
-                                            {#</ul>#}
-                                        {#</td>#}
-                                    {#</tr>#}
-                                {#{% endfor %}#}
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td style="text-align: center"><a href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                        <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity }}</td>
+                                        <td style="text-align: center">{{ entity.agencyEntity }}</td>
+                                        <td style="text-align: center">{{ entity.customerEntity }}</td>
+                                        <td style="text-align: center">{{ DateConvert.MiladiToShamsi(entity.DateInp) }}</td>
+                                        <td style="text-align: center">{{ entity.CountNight }}</td>
+                                        <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity.HotelCity }}</td>
+                                        <td style="text-align: center">{{ entity.CodePey }}</td>
+                                        <td style="text-align: center">{{ entity.Voucher }}</td>
+                                        <td>
+                                            <ul style="list-style-type: none">
+                                                <li>
+                                                    <a class="badge badge-success"
+                                                       href="{{ path('reserveentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                             </tbody>

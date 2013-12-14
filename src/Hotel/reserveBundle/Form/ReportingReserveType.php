@@ -31,7 +31,9 @@ class ReportingReserveType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')->groupBy("u.hotel_city");
                     }))
-            ->add('RhotelEntity','choice', array('required'=>false,'choices' => array(''=>'همه هتل ها')))
+            ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
+                    'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها'
+                ))
         ;
     }
 

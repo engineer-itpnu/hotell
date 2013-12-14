@@ -251,8 +251,6 @@ class DefaultController extends Controller
                 elseif($data['hotel_city']!=null || $data['hotel_city']!="")
                     $qb = $qb->innerJoin("account.hotelEntity","hotel")
                         ->andWhere('hotel.hotel_city = :hotel_city')->setParameter('hotel_city',$data['hotel_city']->getHotelCity());
-
-//                die($data['hotel_city']->getHotelCity());
             }
         }
 
@@ -288,15 +286,24 @@ class DefaultController extends Controller
             if($form->isValid())
             {
                 $data = $form->getData();
-                if($data['RfromDateTime']!=null)  $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
-                if($data['RtoDateTime']!=null)    $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['toDateTime']);
+                if($data['RfromDateTime']!=null) $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
+                if($data['RtoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['toDateTime']);
 
-                if($data['cust_name']!="") $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
-                if($data['cust_family']!=="")  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
-                if($data['cust_mobile']!="")  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
-                if($data['RagencyEntity']!==null)  $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
-                if($data['hotel_city']!=null)  $qb = $qb->andWhere('reserve.agencyEntity = :agencyEntity')->setParameter('agencyEntity',$data['agencyEntity']);
-                if($data['RhotelEntity']!=null) $qb = $qb->andWhere('reserve.customerEntity = :customerEntity')->setParameter('customerEntity',$data['customerEntity']);
+                if($data['cust_name']!="")   $qb = $qb->andWhere('reserve.cust_name LIKE :cust_name')->setParameter('cust_name',"%".$data['cust_name']."%");
+                if($data['cust_family']!="") $qb = $qb->andWhere('reserve.cust_family LIKE :cust_family')->setParameter('cust_family',"%".$data['cust_family']."%");
+                if($data['cust_mobile']!="") $qb = $qb->andWhere('reserve.cust_mobile = :cust_mobile')->setParameter('cust_mobile',$data['cust_mobile']);
+
+                if($data['CodePey']!=null)    $qb = $qb->andWhere('reserve.CodePey = :CodePey')->setParameter('CodePey',$data['CodePey']);
+                if($data['Voucher']!=null)    $qb = $qb->andWhere('reserve.Voucher = :Voucher')->setParameter('Voucher',$data['Voucher']);
+                if($data['CountNight']!=null) $qb = $qb->andWhere('reserve.CountNight = :CountNight')->setParameter('CountNight',$data['CountNight']);
+
+                if($data['RagencyEntity']!=null) $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
+
+                if($data['RhotelEntity']!=null)
+                    $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['RhotelEntity']);
+                elseif($data['hotel_city']!=null || $data['hotel_city']!="")
+                    $qb = $qb->innerJoin("reserve.hotelEntity","hotel")
+                        ->andWhere('hotel.hotel_city = :hotel_city')->setParameter('hotel_city',$data['hotel_city']->getHotelCity());
             }
         }
 

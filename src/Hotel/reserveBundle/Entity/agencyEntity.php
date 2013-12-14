@@ -195,6 +195,6 @@ class agencyEntity
     }
     public function __tostring()
     {
-        return $this->agency_name . ' ';
+        return $this->agency_name;
     }
 }
