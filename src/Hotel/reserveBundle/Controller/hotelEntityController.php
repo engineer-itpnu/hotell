@@ -62,6 +62,7 @@ class hotelEntityController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setHotelActive(true);
+            $entity->setHotelAddRoomTtariff(str_replace(",","",$entity->getHotelAddRoomTtariff()));
             $em->persist($entity);
             $em->flush();
 
@@ -188,7 +189,7 @@ class hotelEntityController extends Controller
         if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('HotelreserveBundle:hotelEntity')->find($id);
 
@@ -201,6 +202,7 @@ class hotelEntityController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setHotelAddRoomTtariff(str_replace(",","",$entity->getHotelAddRoomTtariff()));
             $em->flush();
 
             return $this->redirect($this->generateUrl('hotelentity_edit', array('id' => $id)));

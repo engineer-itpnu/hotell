@@ -53,6 +53,7 @@ class moneyEntityController extends Controller
             $entity->setMoneyDateReq(new \DateTime());
             $entity->setMoneyStatus(1);
             $entity->setUserEntity($this->getUser());
+            $entity->setMoneyPrice(str_replace(",","",$entity->getMoneyPrice()));
             $em->persist($entity);
             $em->flush();
 
