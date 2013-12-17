@@ -231,7 +231,7 @@ class DefaultController extends Controller
 
     public function reportAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $form = $this ->createForm(new reportingType());
 
         $qb = $em->createQueryBuilder()

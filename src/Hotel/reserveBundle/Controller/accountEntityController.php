@@ -16,7 +16,7 @@ class accountEntityController extends Controller
 
         $entities = $em->getRepository('HotelreserveBundle:accountEntity')->findAll();
 
-        return $this->render('HotelreserveBundle:accountEntity:adminIndex.html.twig', array(
+        return $this->render('HotelreserveBundle:accountEntity:Adminindex.html.twig', array(
             'entities' => $entities,
         ));
     }

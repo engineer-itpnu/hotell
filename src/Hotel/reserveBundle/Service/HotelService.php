@@ -202,6 +202,7 @@ class HotelService {
         $codePay = $this->createCodePay();
         $money = $room->price_main_capacity + $PreReserveRequest->extra_capacity_count * $hotel->getHotelAddRoomTtariff();
         $roomEntity = $this->em->getRepository("HotelreserveBundle:roomEntity")->find($room->id);
+
         $reserveEntity = new reserveEntity();
         $reserveEntity->setCustomerEntity($customer);
         $reserveEntity->setAgencyEntity($userAgency->getAgencyEntity());
@@ -578,7 +579,7 @@ class HotelService {
      */
     private function createCodePay()
     {
-        $in = round(microtime(true) * 3000).rand(0,9);
+        $in = number_format (round(microtime(true) * 3000),0,'.','').rand(0,9);
         $out = '';
         do {
             $last = bcmod($in, 16);
@@ -593,7 +594,7 @@ class HotelService {
      */
     private function createVoucher()
     {
-        $str = round(microtime(true) * 4000).rand(0,9);
+        $str = number_format (round(microtime(true) * 4000),0,'.','').rand(0,9);
 
         for ($i=0;$i<strlen($str);$i++)
             if(rand(1,4)==1) $str[$i]=chr(65+$str[$i]);

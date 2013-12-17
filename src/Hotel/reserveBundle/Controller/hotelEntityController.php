@@ -189,7 +189,7 @@ class hotelEntityController extends Controller
         if (!$this->getUser()->hasRole('ROLE_ADMIN'))
             return $this->redirect($this->generateUrl('hotelentity'));
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HotelreserveBundle:hotelEntity')->find($id);
 
