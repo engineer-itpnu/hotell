@@ -18,14 +18,15 @@ class DefaultController extends Controller
     }
     public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
     {
+        $now = explode("/",$this->get("my_date_convert")->MiladiToShamsi(new \DateTime()));
         $doSearch = false;
         $em = $this->getDoctrine()->getManager();
         $rooms = null;
         $user = $this->getUser();
-        $search = array();
+        $search = array('year'=>$now[0],'month'=>$now[1],'hotel'=>null);
         if( $year!=null && $month!=null && $hotelid!= null )
         {
-            $search['year']=$year;
+            $search['year'] = $year;
             $search['month'] = $month;
             $search['hotel'] = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
             $doSearch = true;
