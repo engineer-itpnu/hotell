@@ -16,8 +16,15 @@ class accountEntityController extends Controller
 
         $entities = $em->getRepository('HotelreserveBundle:accountEntity')->findAll();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1),
+            10
+        );
+
         return $this->render('HotelreserveBundle:accountEntity:Adminindex.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
         ));
     }
 
