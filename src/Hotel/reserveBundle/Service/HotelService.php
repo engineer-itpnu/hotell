@@ -182,7 +182,7 @@ class HotelService {
             return new PreReserveResponse(null,null,null,"days count not valid");
 
         //check extra capacity count
-        if(!$PreReserveRequest->extra_capacity_count || $PreReserveRequest->extra_capacity_count < 0)
+        if($PreReserveRequest->extra_capacity_count===null || $PreReserveRequest->extra_capacity_count < 0)
             return new PreReserveResponse(null,null,null,"extra capacity count not valid");
 
         //find best room
