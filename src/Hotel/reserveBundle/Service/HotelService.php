@@ -17,6 +17,16 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 class HotelService {
 
     /**
+     * @var array
+     */
+    private $roomTypes = array(
+        '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
+        '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
+        '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
+        '15' => 'آپارتمان', '16' => 'آپارتمان رويال','17' => 'سوئيت'
+    );
+
+    /**
      * @var DateConvertor
      */
     private $dateconvertor;
@@ -97,34 +107,11 @@ class HotelService {
                 return new RoomListResponse("fill hotel_code or city",null);
         }
 
-        $qb = $this->em->createQueryBuilder()
-            -> select("b")
-            ->from("HotelreserveBundle:blankEntity","b")
-            ->innerJoin("b.roomEntity","r")
-            ->innerJoin("r.hotelEntity","h")
-            ->where("b.status = :status")->setParameter("status","0")
-            ->andWhere("b.dateIN = :date")->setParameter("date",$date)
-        ;
-
-        if($hotel_city == "city")
-            $qb->andWhere("h.hotel_city LIKE :city")->setParameter("city",$RoomListRequest->city);
-        else
-            $qb->andWhere("h.id LIKE :hotel_code")->setParameter("hotel_code",$RoomListRequest->hotel_code);
-
-        $firstBlanks = $qb->getQuery()->getResult();
-
-        HotelService::log("==============================================");
-        HotelService::log("count firstBlanks: ".count($firstBlanks));
-        $hotels = array();
-        foreach($firstBlanks as $firstBlank)
-        {
-            $resPrices = $this->checkIsEmptyNextDays($firstBlank,$date, $RoomListRequest->days_count);
-            if($resPrices)
-            {
-                $freeDaysBeside = $this->getCountFreeDaysBeside($firstBlank->getRoomEntity(),$date,$RoomListRequest->days_count);
-                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices,$freeDaysBeside);
-            }
-        }
+        $hotels = (
+            $hotel_city == "city"?
+            $this->findBestRooms($date,$RoomListRequest->days_count,$RoomListRequest->city,null):
+            $this->findBestRooms($date,$RoomListRequest->days_count,null,$RoomListRequest->hotel_code)
+        );
 
         return new RoomListResponse("Success",$hotels);
     }
@@ -176,67 +163,70 @@ class HotelService {
         $date = null;
         try{
             $date = $this->dateconvertor->ShamsiToMiladi($PreReserveRequest->date);
+            date_time_set($date,0,0,0);
         }catch(\Exception $ex){
             return new PreReserveResponse(null,null,null,"Date Not Valid");
         }
 
-        //check room and hotel code
+        //check hotel code
         $hotel = $this->em->getRepository("HotelreserveBundle:hotelEntity")->find($PreReserveRequest->hotel_code);
-        $room = $this->em->getRepository("HotelreserveBundle:roomEntity")->find($PreReserveRequest->room_code);
-
         if(!$hotel)
             return new PreReserveResponse(null,null,null,"hotel code not valid");
 
-        if(!$room)
+        //check room code
+        if(!$PreReserveRequest->room_code || $PreReserveRequest->room_code <= 0)
             return new PreReserveResponse(null,null,null,"room code not valid");
 
-        if($room->getHotelEntity()!=$hotel)
-            return new PreReserveResponse(null,null,null,"room is not in hotel");
-
         //check days count
-        if($PreReserveRequest->days_count <= 0)
+        if(!$PreReserveRequest->days_count || $PreReserveRequest->days_count <= 0)
             return new PreReserveResponse(null,null,null,"days count not valid");
 
         //check extra capacity count
-        if($PreReserveRequest->extra_capacity_count < 0)
+        if(!$PreReserveRequest->extra_capacity_count || $PreReserveRequest->extra_capacity_count < 0)
             return new PreReserveResponse(null,null,null,"extra capacity count not valid");
 
+        //find best room
+        $hotels = $this->findBestRooms($date,$PreReserveRequest->days_count,null,$PreReserveRequest->hotel_code,$PreReserveRequest->room_code);
+
+        $room = null;
+        if(count($hotels) == 1)
+        {
+            $selHotel = $hotels[0];
+            $room = $selHotel->rooms[0];
+        }
+        //check room code
+        if(!$room)
+            return new PreReserveResponse(null,null,null,"room type in hotel not found");
+
         //create reserve
+        $codePay = $this->createCodePay();
+        $money = $room->price_main_capacity + $PreReserveRequest->extra_capacity_count * $hotel->getHotelAddRoomTtariff();
+        $roomEntity = $this->em->getRepository("HotelreserveBundle:roomEntity")->find($room->id);
         $reserveEntity = new reserveEntity();
         $reserveEntity->setCustomerEntity($customer);
         $reserveEntity->setAgencyEntity($userAgency->getAgencyEntity());
         $reserveEntity->setDateInp($date);
-
-        $money = 0;
-        $day = clone $date;
-        for($i=0;$i<$PreReserveRequest->days_count;$i++)
-        {
-            if($i!=0) $day->add(new \DateInterval("P1D"));
-            HotelService::log("day+$i:".date_format($day,"Y-m-d"));
-            $blankEntity = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array("dateIN"=>$day,"roomEntity"=>$room));
-
-            if(!$blankEntity || $blankEntity->getStatus()!=0)
-                return new PreReserveResponse(null,null,null,"room not empty in ".$this->dateconvertor->MiladiToShamsi($day));
-
-            $blankEntity->setStatus(1);
-            $blankEntity->setReserveEntity($reserveEntity);
-            $reserveEntity->addBlankEntitie($blankEntity);
-
-            $money += $blankEntity->getTariff();
-        }
-        $money += $PreReserveRequest->extra_capacity_count * $hotel->getHotelAddRoomTtariff();
-
         $reserveEntity->setMoney($money);
         $reserveEntity->setCountNight($PreReserveRequest->days_count);
         $reserveEntity->setDateCreate(new \DateTime());
-
-        $codePay = $this->createCodePay();
-
         $reserveEntity->setCodePey($codePay);
+
+        //update blanks to reserve
+        foreach($room->days as $day)
+        {
+            $blankEntity = $this->em->getRepository("HotelreserveBundle:blankEntity")->findOneBy(array(
+                    "dateIN"=>$this->dateconvertor->ShamsiToMiladi($day->date),
+                    "roomEntity" => $roomEntity
+                ));
+            $blankEntity->setStatus(1);
+            $blankEntity->setReserveEntity($reserveEntity);
+            $reserveEntity->addBlankEntitie($blankEntity);
+        }
+
         $this->em->persist($reserveEntity);
         $this->em->flush();
 
-        return new PreReserveResponse($money,$codePay,$customer->getId(),"Success");
+        return new PreReserveResponse($money,$codePay,$customer->getId(),"Success",$room->id,$room->price_main_capacity);
     }
 
     //-----------------------------------------------------------------------------
@@ -330,7 +320,7 @@ class HotelService {
      */
     private function addRoom(array &$hotels,roomEntity $roomEntity,array $prices,array $freeDaysBeside)
     {
-        HotelService::log("-------");
+//        HotelService::log("-------");
         $hotelEntity = $roomEntity->getHotelEntity();
 
         // find hotel in list
@@ -351,24 +341,17 @@ class HotelService {
             $hotels [] = $selHotel;
         }
 
-        $roomTypes = array(
-             '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
-            '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
-            '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
-            '15' => 'آپارتمان', '16' => 'آپارتمان رويال','17' => 'سوئيت'
-        );
-
         $selRoomKey = null;
         foreach($selHotel->rooms as $key=>$room)
-            if($room->type == $roomTypes[$roomEntity->getRoomType()]) $selRoomKey = $key;
+            if($room->code == $roomEntity->getRoomType()) $selRoomKey = $key;
 
         if($selRoomKey === null)
         {
-            HotelService::log("add room type (".
-                    "hotel:".$selHotel->code.",".
-                    "type:".$roomEntity->getRoomType().",".
-                    "room:".$roomEntity->getId().
-                ")");
+//            HotelService::log("add room type (".
+//                    "hotel:".$selHotel->code.",".
+//                    "type:".$roomEntity->getRoomType().",".
+//                    "room:".$roomEntity->getId().
+//                ")");
             //create array of days and sum of Tariffs
             $sumPrices = 0;
             $days = array();
@@ -380,13 +363,14 @@ class HotelService {
 
             //add room to hotel
             $selHotel->rooms [] = new Room(
-                $roomEntity->getId(),
-                $roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomType(),
+                $this->roomTypes[$roomEntity->getRoomType()],
                 $roomEntity->getRoomCapacity(),
                 $roomEntity->getRoomAddCapacity(),
                 $sumPrices,
                 $days,
-                $freeDaysBeside
+                $freeDaysBeside,
+                $roomEntity->getId()
             );
         }
         else
@@ -401,30 +385,31 @@ class HotelService {
             }
 
             $newRoom = new Room(
-                $roomEntity->getId(),
-                $roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomType(),
+                $this->roomTypes[$roomEntity->getRoomType()],
                 $roomEntity->getRoomCapacity(),
                 $roomEntity->getRoomAddCapacity(),
                 $sumPrices,
                 $days,
-                $freeDaysBeside
+                $freeDaysBeside,
+                $roomEntity->getId()
             );
 
             $best = $this->bestRoomByFreeDayBeside($selHotel->rooms[$selRoomKey]->freeDaysBeside,$freeDaysBeside);
-            HotelService::log("best by free day(".
-                "hotel:".$selHotel->code.",".
-                "type:".$roomEntity->getRoomType().",".
-                "room:".$roomEntity->getId().
-                "):".$best);
+//            HotelService::log("best by free day(".
+//                "hotel:".$selHotel->code.",".
+//                "type:".$roomEntity->getRoomType().",".
+//                "room:".$roomEntity->getId().
+//                "):".$best);
             if($best == 1) $selHotel->rooms[$selRoomKey] = $newRoom;
             else if($best == 0)
             {
                 $best = $this->bestRoomByMoney($selHotel->rooms[$selRoomKey]->price_main_capacity,$sumPrices);
-                HotelService::log("best by money   (".
-                    "hotel:".$selHotel->code.",".
-                    "type:".$roomEntity->getRoomType().",".
-                    "room:".$roomEntity->getId().
-                    "):".$best);
+//                HotelService::log("best by money   (".
+//                    "hotel:".$selHotel->code.",".
+//                    "type:".$roomEntity->getRoomType().",".
+//                    "room:".$roomEntity->getId().
+//                    "):".$best);
                 if($best == 1) $selHotel->rooms[$selRoomKey] = $newRoom;
             }
         }
@@ -539,6 +524,53 @@ class HotelService {
             $prices [$this->dateconvertor->MiladiToShamsi($nextdays)] = $firstBlank->getTariff();
         }
         return $prices;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @param $dayCount
+     * @param string $city
+     * @param int $hotelCode
+     * @param int $roomType
+     * @return array
+     */
+    private function findBestRooms(\DateTime $date, $dayCount, $city=null, $hotelCode=null, $roomType=null)
+    {
+        $qb = $this->em->createQueryBuilder()
+            -> select("b")
+            ->from("HotelreserveBundle:blankEntity","b")
+            ->innerJoin("b.roomEntity","r")
+            ->innerJoin("r.hotelEntity","h")
+            ->where("b.status = :status")->setParameter("status","0")
+            ->andWhere("b.dateIN = :date")->setParameter("date",$date)
+        ;
+
+        if($roomType)
+        {
+            $qb->andWhere("r.room_type = :roomType")->setParameter("roomType",$roomType)
+               ->andWhere("h.id = :hotel_code")->setParameter("hotel_code",$hotelCode);
+        }
+        elseif($hotelCode)
+            $qb->andWhere("h.id = :hotel_code")->setParameter("hotel_code",$hotelCode);
+        else
+            $qb->andWhere("h.hotel_city LIKE :city")->setParameter("city",$city);
+
+        $firstBlanks = $qb->getQuery()->getResult();
+
+//        HotelService::log("==============================================");
+//        HotelService::log("count firstBlanks: ".count($firstBlanks));
+        $hotels = array();
+        foreach($firstBlanks as $firstBlank)
+        {
+            $resPrices = $this->checkIsEmptyNextDays($firstBlank,$date, $dayCount);
+            if($resPrices)
+            {
+                $freeDaysBeside = $this->getCountFreeDaysBeside($firstBlank->getRoomEntity(),$date,$dayCount);
+                $this->addRoom($hotels,$firstBlank->getRoomEntity(),$resPrices,$freeDaysBeside);
+            }
+        }
+
+        return $hotels;
     }
 
     /**

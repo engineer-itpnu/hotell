@@ -40,6 +40,11 @@ class Room
      * @var array
      */
     public $freeDaysBeside;
+    /**
+     * The id
+     * @var int
+     */
+    public $id;
 
     /**
      * Constructor method for room
@@ -52,7 +57,7 @@ class Room
      * @param array $_freeDaysBeside
      * @return Room
      */
-	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL,$_freeDaysBeside = NULL)
+	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL,$_freeDaysBeside = NULL,$_id = NULL)
 	{
 		$this->code=$_code;
 		$this->type=$_type;
@@ -61,6 +66,7 @@ class Room
         $this->price_main_capacity=$_price_main_capacity;
 		$this->freeDaysBeside=$_freeDaysBeside?$_freeDaysBeside:array("before"=>0, "after"=>0);
         $this->days=$_days?$_days:array();
+        $this->id = $_id;
 	}
 	/**
 	 * Method returning the class name

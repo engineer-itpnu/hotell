@@ -53,6 +53,8 @@
 			<xsd:element name="pre_reserve_response">
 				<xsd:complexType>
 					<xsd:sequence>
+						<xsd:element name="room_code" type="xsd:long" minOccurs="0"/>
+						<xsd:element name="main_price" type="xsd:long" minOccurs="0"/>
 						<xsd:element name="final_price" type="xsd:long" minOccurs="0"/>
 						<xsd:element name="reserve_code" type="xsd:string" minOccurs="0"/>
 						<xsd:element name="customer_code" type="xsd:long" minOccurs="0"/>
