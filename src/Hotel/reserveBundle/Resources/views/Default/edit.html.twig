@@ -12,8 +12,8 @@
     <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            timeline_header(true);
             {% if rooms is not null %}
+                timeline_header(true,{{ weekDay }});
                 {% for room in rooms %}
                     {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month, 'editable':true })) }}
                 {% endfor %}

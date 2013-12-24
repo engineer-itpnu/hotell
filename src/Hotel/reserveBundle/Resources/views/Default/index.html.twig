@@ -12,8 +12,8 @@
     <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            timeline_header(true);
             {% if rooms is not null %}
+            timeline_header(true,{{ weekDay }});
             {% for room in rooms %}
             {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month , 'editable':false })) }}
             {% endfor %}
@@ -70,6 +70,14 @@
 
                             <div style="width: 100%;overflow-x: scroll;">
                                 <div class="timeLine">
+                                </div>
+                            </div>
+                            <div>
+                                <div id="tl_cost_viewer">
+                                    <div style="direction: rtl;text-align: right;">
+                                        <div class="tl_cost_header">مشخصات</div>
+                                    </div>
+                                    <div id="tl_showCost" style="width: 100%;"></div>
                                 </div>
                             </div>
                             </tbody>

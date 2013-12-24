@@ -21,10 +21,11 @@ class DateConvertor {
             return null;
 
         $shamsiarray = explode("/",$shamsi);
-        $miladiarray = $this->dateconvertor->jalaliToGregorian($shamsiarray[0],$shamsiarray[1],$shamsiarray[2]);
 
         if($shamsiarray[1]>6 && $shamsiarray[2]>30) return null;
         if($shamsiarray[1]==12 && $shamsiarray[2]>29 && !$this->jalaliDateTime->isLeapYear($shamsiarray[0])) return null;
+
+        $miladiarray = $this->dateconvertor->jalaliToGregorian($shamsiarray[0],$shamsiarray[1],$shamsiarray[2]);
 
         return date_create_from_format("Y/m/d",$miladiarray[0]."/".$miladiarray[1]."/".$miladiarray[2]);
     }
@@ -42,5 +43,12 @@ class DateConvertor {
     public function isLeap($year)
     {
         return $this->jalaliDateTime->isLeapYear($year);
+    }
+
+    public function getWeekDayNumber($shamsi = "")
+    {
+        $miladiDate = $this->ShamsiToMiladi($shamsi);
+
+        return (date_format($miladiDate,"w")+1)%7;
     }
 }

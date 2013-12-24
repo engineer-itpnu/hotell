@@ -18,10 +18,12 @@ class DefaultController extends Controller
     }
     public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
     {
-        $now = explode("/",$this->get("my_date_convert")->MiladiToShamsi(new \DateTime()));
+        $date_convert = $this->get("my_date_convert");
+        $now = explode("/",$date_convert->MiladiToShamsi(new \DateTime()));
         $doSearch = false;
         $em = $this->getDoctrine()->getManager();
         $rooms = null;
+        $weekDay = null;
         $user = $this->getUser();
         $search = array('year'=>$now[0],'month'=>$now[1],'hotel'=>null);
         if( $year!=null && $month!=null && $hotelid!= null )
@@ -83,6 +85,7 @@ class DefaultController extends Controller
             ;
             $rooms = $qb->getQuery()->getResult();
             $hotelid = $hotel->getId();
+            $weekDay = $date_convert->getWeekDayNumber($data['year']."/".$data['month']."/1");
         }
 
         return $this->render('HotelreserveBundle:Default:index.html.twig',array(
@@ -90,11 +93,13 @@ class DefaultController extends Controller
             'rooms' => $rooms,
             'year' => $data['year'],
             'month' => $data['month'],
-            'hotelid' => $hotelid
+            'hotelid' => $hotelid,
+            'weekDay' => $weekDay
         ));
     }
     public function editAction(Request $request,$hotelid, $year, $month)
     {
+        $dateconvertor = $this->get("my_date_convert");
         $em = $this->getDoctrine()->getManager();
 
         $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
@@ -102,9 +107,10 @@ class DefaultController extends Controller
         if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user) || $user->hasRole("ROLE_AGENCY"))
             return $this->redirect($this->generateUrl("monitoring"));
 
+        $weekDay = $dateconvertor->getWeekDayNumber($year."/".$month."/1");
+
         if($request->isMethod("post"))
         {
-            $dateconvertor = $this->get("my_date_convert");
             $empty_added = json_decode(stripslashes($request->request->get("empty_added")),true);
             $empty_deleted = json_decode(stripslashes($request->request->get("empty_deleted")),true);
 
@@ -158,7 +164,8 @@ class DefaultController extends Controller
             'rooms' => $rooms,
             'year' => $year,
             'month' => $month,
-            'hotelid' => $hotelid
+            'hotelid' => $hotelid,
+            'weekDay' => $weekDay
         ));
     }
 
@@ -175,7 +182,7 @@ class DefaultController extends Controller
         );
 
         if($editable == false)
-            $result = "timeline_add_row_balloon('".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
+            $result = "timeline_add_row_notEdit(".$roomid.",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
         else
             $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
 
@@ -209,10 +216,9 @@ class DefaultController extends Controller
                 $d = explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()));
                 $result .= $d[2];
             }
-
             else if($prev!=null && ($blank->getStatus()!=$prev->getStatus() || date_diff($blank->getDateIN(),$prev->getDateIN())->format("%a") != "1" || ( $blank->getStatus()!=0 && ($blank->getTariff()!=$prev->getTariff() || ($blank->getReserveEntity() != $prev->getReserveEntity()) ) )))
             {
-                $result .= "',".$blank->getTariff()."],[".$blank->getStatus().",'";
+                $result .= "',".$prev->getTariff()."],[".$blank->getStatus().",'";
                 $d = explode("/",$dateconvertor->MiladiToShamsi($blank->getDateIN()));
                 $result .= $d[2];
             }
@@ -224,7 +230,7 @@ class DefaultController extends Controller
 
             $prev = $blank;
         }
-        if($prev!=null)$result .= "',".$blank->getTariff()."]";
+        if($prev!=null)$result .= "',".$prev->getTariff()."]";
         $result.=  "]);";
         return new Response($result);
     }
