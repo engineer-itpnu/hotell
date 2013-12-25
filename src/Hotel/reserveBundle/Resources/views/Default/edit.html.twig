@@ -35,38 +35,34 @@
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
-                        <table class="table table-condensed" style="width: 100%;">
-                            <tbody>
-                            <div>
-                                <a href="{{ path('monitoring',{'hotelid':hotelid, 'year':year, 'month':month}) }}" class="btn btn-primary">بازگشت</a>
-                            </div><br>
-                            <div style="width:100%;overflow-x: visible;overflow-y: hidden;">
-                                <div class="timeLine">
-                                </div>
+                        <div>
+                            <a href="{{ path('monitoring',{'hotelid':hotelid, 'year':year, 'month':month}) }}" class="btn btn-primary">بازگشت</a>
+                        </div><br>
+                        <div style="width:100%;overflow-x: visible;overflow-y: hidden;">
+                            <div class="timeLine">
                             </div>
-                            <div>
-                                <div id="tl_cost_viewer">
-                                    <div style="direction: rtl;text-align: right;">
-                                        <div class="tl_cost_header">مشخصات</div>
+                        </div>
+                        <div>
+                            <div id="tl_cost_viewer">
+                                <div style="direction: rtl;text-align: right;">
+                                    <div class="tl_cost_header">مشخصات</div>
+                                </div>
+                                <div id="tl_showCost" style="width: 100%;"></div>
+                            </div>
+                            <div id="tl_options">
+                                <label for="tl_cost_for_day">قیمت شبانه روز:</label>
+                                <input type="number" id="tl_cost_for_day" value="20000" style="width: 85px;">
+
+                                <form id="tl_form" method="post">
+                                    <input type="hidden" id="tl_hidden_add" name="empty_added" value="">
+                                    <input type="hidden" id="tl_hidden_del" name="empty_deleted" value="">
+
+                                    <div class="btn btn-info" style="position: relative;top:-15px;width: 75px;" onclick="create_array_new_emptys();">
+                                        ثبت نهایی
                                     </div>
-                                    <div id="tl_showCost" style="width: 100%;"></div>
-                                </div>
-                                <div id="tl_options">
-                                    <label for="tl_cost_for_day">قیمت شبانه روز:</label>
-                                    <input type="number" id="tl_cost_for_day" value="20000" style="width: 85px;">
-
-                                    <form id="tl_form" method="post">
-                                        <input type="hidden" id="tl_hidden_add" name="empty_added" value="">
-                                        <input type="hidden" id="tl_hidden_del" name="empty_deleted" value="">
-
-                                        <div class="btn btn-info" style="position: relative;top:-15px;width: 75px;" onclick="create_array_new_emptys();">
-                                            ثبت نهایی
-                                        </div>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
