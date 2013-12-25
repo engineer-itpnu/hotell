@@ -13,7 +13,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             {% if rooms is not null %}
-            timeline_header(true,{{ weekDay }});
+            timeline_header(true, {{ weekDay }});
             {% for room in rooms %}
             {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month , 'editable':false })) }}
             {% endfor %}
@@ -34,54 +34,41 @@
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
-                        <table class="table table-condensed" style="width: 100%;">
-                            <tbody>
-                            <div>
-                                <form method="post">
+                    <form method="post">
+                        <div style="background-color: #4a97bd;padding: 10px;border-radius: 10px">
+                            <span style="display: inline-block">
+                            هتل :
+                                {{ form_errors(form.hotel) }}
+                                {{ form_widget(form.hotel) }}
+                                </span>
+                            <span style="display: inline-block">
+                            ماه :
+                                {{ form_errors(form.month) }}
+                                {{ form_widget(form.month) }}
+                                </span>
+                                <span style="display: inline-block">
+                            سال :
+                                    {{ form_errors(form.year) }}
+                                    {{ form_widget(form.year) }}
+                                </span>
+                                <span style="display: inline-block">
+                            <input type="submit" value="مشاهده"/>
+                                </span>
+                        </div>
+                        {{ form_widget(form._token) }}
+                    </form>
+                    {% if rooms is not null %}
+                        <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"
+                           class="btn btn-primary">ویرایش اتاق ها</a>
+                    {% endif %}
+                    <div class="timeLine" style="width:100%;overflow-x: visible;overflow-y: hidden;">
+                    </div>
 
-                                    <table class="table table-condensed">
-                                        <tr class=" info">
-                                            <td>هتل :</td>
-                                            <td>
-                                                {{ form_errors(form.hotel) }}
-                                                {{ form_widget(form.hotel) }}
-                                            </td>
-                                            <td>ماه :</td>
-                                            <td>
-                                                {{ form_errors(form.month) }}
-                                                {{ form_widget(form.month) }}
-                                            </td>
-                                            <td>سال :</td>
-                                            <td>
-                                                {{ form_errors(form.year) }}
-                                                {{ form_widget(form.year) }}
-                                            </td>
-                                            <td><input type="submit" value="مشاهده"/></td>
-                                        </tr>
-                                    </table>
-                                    {{ form_widget(form._token) }}
-                                </form>
-                                {% if rooms is not null %}
-                                    <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}" class="btn btn-primary">ویرایش اتاق ها</a>
-                                {% endif %}
-                            </div>
-                            <br>
-
-                            <div style="width: 100%;overflow-x: scroll;">
-                                <div class="timeLine">
-                                </div>
-                            </div>
-                            <div>
-                                <div id="tl_cost_viewer">
-                                    <div style="direction: rtl;text-align: right;">
-                                        <div class="tl_cost_header">مشخصات</div>
-                                    </div>
-                                    <div id="tl_showCost" style="width: 100%;"></div>
-                                </div>
-                            </div>
-                            </tbody>
-                        </table>
+                    <div id="tl_cost_viewer">
+                        <div style="direction: rtl;text-align: right;">
+                            <div class="tl_cost_header">مشخصات</div>
+                        </div>
+                        <div id="tl_showCost" style="width: 100%;"></div>
                     </div>
                 </div>
             </div>
