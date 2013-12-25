@@ -18,9 +18,10 @@
                             <ul class="menu1" style="margin-bottom : 0px;">
                                 <li><a href="{{ path('g_main') }}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspصفحه
                                         اصلی&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a></li>
-                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspجستجو&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspمدیریت رزرواسیون&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('g_search') }}" class="pull-right"><span>جستجو بر اساس پارامترها</span></a></li>
+                                        <li><a href="{{ path('reserveentity') }}"
+                                               class="pull-right"><span>اتاق رزرو شده</span></a></li>
                                     </ul>
                                 </li>
 
@@ -37,14 +38,15 @@
                                         &nbsp&nbsp&nbsp&nbsp &nbspشارژ حساب کاربری&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                                         &nbsp </a>
                                     <ul>
-                                        <li><a href="{{ path('g_payment') }}" class="pull-right"><span>پرداخت آنلاین </span></a></li>
                                         <li><a href="{{ path('g_moneyentity') }}" class="pull-right"><span>ثبت رسید واریز بانک</span></a></li>
+                                        <li><a href="{{ path('g_payment') }}" class="pull-right"><span>پرداخت آنلاین </span></a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگزارش
                                         گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('g_reporting') }}" class="pull-right"><span>گزارش کل سیستم</span></a></li>
+                                        <li><a href="{{ path('g_reporting') }}" class="pull-right"><span>صورت حساب مالی</span></a></li>
+                                        <li><a href="{{ path('g_search') }}" class="pull-right"><span>رزرواسیون هتل ها</span></a></li>
                                     </ul>
                                 </li>
                                 <li class="login_form"><a href="#">&nbsp&nbsp&nbsp&nbsp<img

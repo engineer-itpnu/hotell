@@ -43,16 +43,22 @@
                                         گیری&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
                                         <li><a href="{{ path('h_reporting') }}"
-                                               class="pull-right"><span>گزارش کل سیستم</span></a>
+                                               class="pull-right"><span>صورت حساب مالی </span></a>
+                                        </li>
+                                        <li><a href="{{ path('a_search') }}"
+                                               class="pull-right"><span>رزرواسیون هتل ها</span></a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspگردش حساب&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                <li class="dropdown"><a href="#">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspمدیریت رزرواسیون&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
                                     <ul>
-                                        <li><a href="{{ path('h_Rool_Account') }}" class="pull-right"><span>مشاهده گردش حساب </span></a>
+                                        <li><a href="{{ path('h_Rool_Account') }}" class="pull-right"><span> گردش حساب </span></a>
                                         </li>
-                                        {#<li><a href="{{ path('h_search') }}" class="pull-right"><span>جستجو براساس پارامترها</span></a>
-                                        </li>#}
+                                        <li><a href="{{ path('reserveentity') }}"
+                                               class="pull-right"><span>اتاق رزرو شده</span></a></li>
+                                        <li><a href="{{ path('customerentity') }}"
+                                               class="pull-right"><span>اطلاعات مشتری</span></a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="login_form"><a href="#"><img
