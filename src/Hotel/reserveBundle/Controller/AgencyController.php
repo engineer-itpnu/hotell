@@ -7,6 +7,6 @@ class AgencyController extends Controller
 {
     public function homeAction()
     {
-        return $this->render('layout_agency.html.twig');
+        return $this->render('HotelreserveBundle::layout_agency.html.twig');
     }
 }
