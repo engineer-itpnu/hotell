@@ -1,0 +1,3 @@
+hotel_hotel_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:HotelHotel:index" }

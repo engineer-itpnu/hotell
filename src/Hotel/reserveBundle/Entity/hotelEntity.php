@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -16,22 +17,22 @@ class hotelEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $hotel_name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $hotel_manageName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=7, nullable=false)
      */
     private $hotel_grade;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $hotel_city;
 
@@ -41,7 +42,7 @@ class hotelEntity
     private $hotel_zipcode;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $hotel_email;
 
@@ -56,13 +57,12 @@ class hotelEntity
     private $hotel_mobile;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $hotel_addRoomTtariff;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
-     * @var string
      */
     private $hotel_active;
 
@@ -91,9 +91,9 @@ class hotelEntity
      */
     public function __construct()
     {
-        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->moneyEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->roomEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accountEntities = new ArrayCollection();
+        $this->moneyEntities = new ArrayCollection();
+        $this->roomEntities = new ArrayCollection();
     }
 
     /**
@@ -339,10 +339,10 @@ class hotelEntity
     /**
      * Add accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      * @return hotelEntity
      */
-    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function addAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities[] = $accountEntities;
 
@@ -352,9 +352,9 @@ class hotelEntity
     /**
      * Remove accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      */
-    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function removeAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities->removeElement($accountEntities);
     }
@@ -372,10 +372,10 @@ class hotelEntity
     /**
      * Add moneyEntities
      *
-     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @param moneyEntity $moneyEntities
      * @return hotelEntity
      */
-    public function addMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    public function addMoneyEntitie(moneyEntity $moneyEntities)
     {
         $this->moneyEntities[] = $moneyEntities;
 
@@ -385,9 +385,9 @@ class hotelEntity
     /**
      * Remove moneyEntities
      *
-     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @param moneyEntity $moneyEntities
      */
-    public function removeMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    public function removeMoneyEntitie(moneyEntity $moneyEntities)
     {
         $this->moneyEntities->removeElement($moneyEntities);
     }
@@ -405,10 +405,10 @@ class hotelEntity
     /**
      * Add roomEntities
      *
-     * @param \Hotel\reserveBundle\Entity\roomEntity $roomEntities
+     * @param roomEntity $roomEntities
      * @return hotelEntity
      */
-    public function addRoomEntitie(\Hotel\reserveBundle\Entity\roomEntity $roomEntities)
+    public function addRoomEntitie(roomEntity $roomEntities)
     {
         $this->roomEntities[] = $roomEntities;
 
@@ -418,9 +418,9 @@ class hotelEntity
     /**
      * Remove roomEntities
      *
-     * @param \Hotel\reserveBundle\Entity\roomEntity $roomEntities
+     * @param roomEntity $roomEntities
      */
-    public function removeRoomEntitie(\Hotel\reserveBundle\Entity\roomEntity $roomEntities)
+    public function removeRoomEntitie(roomEntity $roomEntities)
     {
         $this->roomEntities->removeElement($roomEntities);
     }
@@ -438,10 +438,10 @@ class hotelEntity
     /**
      * Set userEntity
      *
-     * @param \Hotel\reserveBundle\Entity\userEntity $userEntity
+     * @param userEntity $userEntity
      * @return hotelEntity
      */
-    public function setUserEntity(\Hotel\reserveBundle\Entity\userEntity $userEntity)
+    public function setUserEntity(userEntity $userEntity)
     {
         $this->userEntity = $userEntity;
 
@@ -451,14 +451,14 @@ class hotelEntity
     /**
      * Get userEntity
      *
-     * @return \Hotel\reserveBundle\Entity\userEntity
+     * @return userEntity
      */
     public function getUserEntity()
     {
         return $this->userEntity;
     }
-    public function __tostring()
+    public function __toString()
     {
-        return $this->hotel_name . ' ';
+        return $this->hotel_name;
     }
 }

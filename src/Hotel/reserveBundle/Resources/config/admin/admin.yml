@@ -17,5 +17,6 @@ a_searchCity:
     pattern:  /asearchCity
     defaults: { _controller: HotelreserveBundle:Default:listHotelByCity }
 
-
-
+admin_hotel:
+    resource: "@HotelreserveBundle/Resources/config/admin/hotelentity.yml"
+    prefix:   /hotel

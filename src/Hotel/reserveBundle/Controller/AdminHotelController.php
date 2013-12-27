@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Hotel\reserveBundle\Entity\hotelEntity;
 use Hotel\reserveBundle\Form\hotelEntityType;
 
-class hotelEntityController extends Controller
+class AdminHotelController extends Controller
 {
     public function indexAction()
     {
@@ -16,12 +16,6 @@ class hotelEntityController extends Controller
             ->select('hotel')
             ->from('HotelreserveBundle:hotelEntity', 'hotel');
 
-        if($this->getUser()->hasRole('ROLE_HOTELDAR'))
-        {
-            $qb = $qb->where("hotel.userEntity = :user")->setParameter("user",$this->getUser())
-                ->andWhere("hotel.hotel_active = 1");
-        }
-
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb->getQuery(),
@@ -29,16 +23,13 @@ class hotelEntityController extends Controller
             10
         );
 
-        return $this->render('HotelreserveBundle:hotelEntity:index.html.twig', array(
+        return $this->render('HotelreserveBundle:admin_hotel:index.html.twig', array(
             'entities' => $pagination,
         ));
     }
 
     public function newAction(Request $request)
     {
-        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
-            return $this->redirect($this->generateUrl('hotelentity'));
-
         $entity = new hotelEntity();
         $form = $this->createForm(new hotelEntityType(), $entity);
 
@@ -53,11 +44,11 @@ class hotelEntityController extends Controller
                 $em->persist($entity);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('hotelentity'));
+                return $this->redirect($this->generateUrl('admin_hotel_index'));
             }
         }
 
-        return $this->render('HotelreserveBundle:hotelEntity:new.html.twig', array(
+        return $this->render('HotelreserveBundle:admin_hotel:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -65,9 +56,6 @@ class hotelEntityController extends Controller
 
     public function editAction(Request $request, $id)
     {
-        if (!$this->getUser()->hasRole('ROLE_ADMIN'))
-            return $this->redirect($this->generateUrl('hotelentity'));
-
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('HotelreserveBundle:hotelEntity')->find($id);
@@ -86,11 +74,11 @@ class hotelEntityController extends Controller
                 $entity->setHotelAddRoomTtariff(str_replace(",","",$entity->getHotelAddRoomTtariff()));
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('hotelentity'));
+                return $this->redirect($this->generateUrl('admin_hotel_index'));
             }
         }
 
-        return $this->render('HotelreserveBundle:hotelEntity:edit.html.twig', array(
+        return $this->render('HotelreserveBundle:admin_hotel:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
         ));

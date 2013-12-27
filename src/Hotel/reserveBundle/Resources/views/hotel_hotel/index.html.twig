@@ -1,10 +1,4 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif  %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_hotel.html.twig' %}
 
 {% block content -%}
     <section class="container"  style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
@@ -17,10 +11,7 @@
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
-                        <table class="table table-condensed" style="width: 100%;">
-                            <tbody>
-                            <table class="table table-bordered" dir="rtl">
+                            <table class="table table-bordered table-condensed" dir="rtl" style="width: 100%;">
                                 <thead >
                                 <tr class="" >
                                     <th style="text-align: center">کد هتل</th>
@@ -59,11 +50,6 @@
                                         </td>
                                         <td style="text-align: center">
                                             <ul style="list-style-type: none;">
-                                                {% if is_granted('ROLE_ADMIN') %}
-                                                    <li style="padding-top: 5px;">
-                                                        <a class="badge badge-info" href="{{ path('hotelentity_edit', { 'id': entity.id }) }}">ویرایش هتل</a>
-                                                    </li>
-                                                {% endif %}
                                                 <li style="padding-top: 5px;">
                                                     <a class="badge badge-info" href="{{ path('roomentity', { 'hotel_id': entity.id }) }}">لیست اتاق های هتل</a>
                                                 </li>
@@ -76,20 +62,8 @@
                             <div class="pagination-centered pagination">
                                 {{ knp_pagination_render(entities) }}
                             </div>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <ul style="list-style-type: none">
-                                    <li>
-                                        <a class="btn btn-primary" href="{{ path('hotelentity_new') }}">
-                                            ایجاد هتل جدید
-                                        </a>
-                                    </li>
-                                </ul>
-                            {% endif %}
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 {% endblock %}

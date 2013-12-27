@@ -13,12 +13,9 @@
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
+                        <form method="post" {{ form_enctype(edit_form) }}>
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
-
-                            <form action="{{ path('hotelentity_update', { 'id': entity.id }) }}"
-                                  method="post" {{ form_enctype(edit_form) }}>
-                                <input type="hidden" name="_method" value="PUT"/>
                                 <tr class="success">
                                     <td>
                                         {{ form_label(edit_form.hotel_name,'نام هتل : ') }}</td>
@@ -120,7 +117,6 @@
                                         {{ form_errors(edit_form.hotel_active) }}
                                         {{ form_widget(edit_form.hotel_active) }}
                                     </td>
-                                    </td>
                                     <td>
                                     <td></td>
                                     <td></td>
@@ -135,14 +131,12 @@
                                         </table>
                                     </li>
                                 </ul>
-                            </form>
                             <tr class="record_actions" style="list-style-type: none">
-                                <td><a class="btn btn-primary" href="{{ path('hotelentity') }}">برگشت </a></td>
+                                <td><a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a></td>
                             </tr>
-                            {#<td>
-                                {{ form(delete_form) }}</td>#}
                             </tbody>
                         </table>
+                        </form>
                     </div>
                 </div>
             </div>

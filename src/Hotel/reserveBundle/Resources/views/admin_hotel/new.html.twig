@@ -11,8 +11,8 @@
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
+                        <form method="post" {{ form_enctype(form) }}>
                         <table class="table table-condensed" style="width: 100%;">
-                            <form action="{{ path('hotelentity_create') }}" method="post" {{ form_enctype(form) }}>
                             <tbody>
                             <tr class="success"><td>نام هتل : </td><td>
                                     {{ form_errors(form.hotel_name) }}
@@ -75,14 +75,12 @@
                            <table> <button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد</button></table>
                             <ul class="record_actions" style="list-style-type: none">
                                 <li>
-                                    <a class="btn btn-primary" href="javascript:history.back();">
-                                        برگشت
-                                    </a>
+                                    <a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a>
                                 </li>
                             </ul>
                             </tbody>
-                                </form>
                         </table>
+                        </form>
                     </div>
                 </div>
             </div>

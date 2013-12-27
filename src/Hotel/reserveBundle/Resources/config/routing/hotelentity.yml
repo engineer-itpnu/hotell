@@ -10,21 +10,6 @@ hotelentity_new:
     pattern:  /new
     defaults: { _controller: "HotelreserveBundle:hotelEntity:new" }
 
-hotelentity_create:
-    pattern:  /create
-    defaults: { _controller: "HotelreserveBundle:hotelEntity:create" }
-    requirements: { _method: post }
-
 hotelentity_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "HotelreserveBundle:hotelEntity:edit" }
-
-hotelentity_update:
-    pattern:  /{id}/update
-    defaults: { _controller: "HotelreserveBundle:hotelEntity:update" }
-    requirements: { _method: post|put }
-
-hotelentity_delete:
-    pattern:  /{id}/delete
-    defaults: { _controller: "HotelreserveBundle:hotelEntity:delete" }
-    requirements: { _method: post|delete }
