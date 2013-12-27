@@ -1,12 +1,12 @@
 <?php
-
 namespace Hotel\reserveBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 class AgencyController extends Controller
 {
     public function homeAction()
     {
-        return $this->render('HotelreserveBundle::layout_reserve.html.twig');
+        return $this->render('layout_agency.html.twig');
     }
 }

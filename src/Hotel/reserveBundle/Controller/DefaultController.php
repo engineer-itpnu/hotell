@@ -12,10 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function mainAction()
-    {
-        return $this->render('HotelreserveBundle::index.html.twig');
-    }
     public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
     {
         $date_convert = $this->get("my_date_convert");
@@ -269,14 +265,6 @@ class DefaultController extends Controller
         ));
     }
 
-    public function managehtlAction()
-    {
-        return $this->render('HotelreserveBundle:Default:AdminManageHtl.html.twig');
-    }
-    public function manageageAction()
-    {
-        return $this->render('HotelreserveBundle:Default:AdminManageAge.html.twig');
-    }
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
