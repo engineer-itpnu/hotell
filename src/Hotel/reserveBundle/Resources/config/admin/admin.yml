@@ -20,3 +20,7 @@ a_searchCity:
 admin_hotel:
     resource: "@HotelreserveBundle/Resources/config/admin/hotelentity.yml"
     prefix:   /hotel
+
+admin_room:
+    resource: "@HotelreserveBundle/Resources/config/admin/roomentity.yml"
+    prefix:   /hotel/{hotel_id}/room

@@ -70,16 +70,11 @@
                                 <td>متعلق به نام کاربری</td><td>
                                     {{ form_errors(form.userEntity) }}
                                     {{ form_widget(form.userEntity) }}</td></tr>
-
-                            {{ form_widget(form._token) }}
-                           <table> <button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد</button></table>
-                            <ul class="record_actions" style="list-style-type: none">
-                                <li>
-                                    <a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a>
-                                </li>
-                            </ul>
                             </tbody>
                         </table>
+                            {{ form_widget(form._token) }}
+                            <a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a>
+                            <button class="btn btn-success" type="submit">ایجاد</button>
                         </form>
                     </div>
                 </div>

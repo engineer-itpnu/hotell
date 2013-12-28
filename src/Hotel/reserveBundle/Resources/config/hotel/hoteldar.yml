@@ -20,3 +20,7 @@ h_moneyentity:
 hotel_hotel:
     resource: "@HotelreserveBundle/Resources/config/hotel/hotelentity.yml"
     prefix:   /hotel
+
+hotel_room:
+    resource: "@HotelreserveBundle/Resources/config/hotel/roomentity.yml"
+    prefix:   /hotel/{hotel_id}/room

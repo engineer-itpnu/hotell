@@ -111,31 +111,22 @@
                                         {{ form_widget(edit_form.userEntity) }}
                                     </td>
                                 </tr>
-                                <tr class="success">
+                                <tr class="info">
                                     <td>
                                         {{ form_label(edit_form.hotel_active,'سطح دسترسی : ') }}
+                                    </td>
+                                    <td>
                                         {{ form_errors(edit_form.hotel_active) }}
                                         {{ form_widget(edit_form.hotel_active) }}
                                     </td>
-                                    <td>
                                     <td></td>
                                     <td></td>
                                 </tr>
-                                {{ form_widget(edit_form._token) }}
-                                <ul style="list-style-type: none">
-                                    <li>
-                                        <table>
-                                            <button class="btn btn-success tabs-right" type="submit"
-                                                    style="margin-right: 475px">ویرایش
-                                            </button>
-                                        </table>
-                                    </li>
-                                </ul>
-                            <tr class="record_actions" style="list-style-type: none">
-                                <td><a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a></td>
-                            </tr>
                             </tbody>
                         </table>
+                            {{ form_widget(edit_form._token) }}
+                            <a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت </a>
+                            <button class="btn btn-success tabs-right" type="submit">ویرایش</button>
                         </form>
                     </div>
                 </div>

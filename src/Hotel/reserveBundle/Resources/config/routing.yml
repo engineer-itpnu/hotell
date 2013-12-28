@@ -35,9 +35,6 @@ HotelreserveBundle_masterentity:
 HotelreserveBundle_reserveentity:
     resource: "@HotelreserveBundle/Resources/config/routing/reserveentity.yml"
     prefix:   /reserveentity
-HotelreserveBundle_roomentity:
-    resource: "@HotelreserveBundle/Resources/config/routing/roomentity.yml"
-    prefix:   /hotel/{hotel_id}/room
 HotelreserveBundle_userentity:
     resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
     prefix:   /admin/userentity

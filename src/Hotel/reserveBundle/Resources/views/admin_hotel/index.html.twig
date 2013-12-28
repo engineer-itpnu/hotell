@@ -44,9 +44,9 @@
                                 <td style="text-align: center"
                                     class="MoneyComma">{{ entity.hoteladdRoomTtariff }}</td>
                                 <td style="text-align: center">{% if entity.hotelactive==1 %}
-                                        دسترسی فعال
+                                         فعال
                                     {% else %}
-                                        دسترسی غیرفعال
+                                         غیرفعال
                                     {% endif %}
 
                                 </td>
@@ -58,8 +58,8 @@
                                                 هتل</a>
                                         </li>
                                         <li style="padding-top: 5px;">
-                                            <a class="badge badge-info"
-                                               href="{{ path('roomentity', { 'hotel_id': entity.id }) }}">لیست
+                                            <a class="badge badge-success"
+                                               href="{{ path('admin_room_index', { 'hotel_id': entity.id }) }}">لیست
                                                 اتاق های هتل</a>
                                         </li>
                                     </ul>
@@ -73,7 +73,7 @@
                     </div>
                     <ul style="list-style-type: none">
                         <li>
-                            <a class="btn btn-primary" href="{{ path('admin_hotel_new') }}">
+                            <a class="btn btn-success" href="{{ path('admin_hotel_new') }}">
                                 ایجاد هتل جدید
                             </a>
                         </li>

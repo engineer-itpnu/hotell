@@ -24,7 +24,6 @@
                                     <th style="text-align: center">شماره تلفن</th>
                                     <th style="text-align: center">شماره موبایل</th>
                                     <th style="text-align: center">تعرفه هر نفر اضافه</th>
-                                    <th style="text-align: center">دسترسی</th>
                                     <th style="text-align: center">اقدامات</th>
                                 </tr>
                                 </thead>
@@ -41,17 +40,10 @@
                                         <td style="text-align: center">{{ entity.hotelphone }}</td>
                                         <td style="text-align: center">{{ entity.hotelmobile }}</td>
                                         <td style="text-align: center" class="MoneyComma">{{ entity.hoteladdRoomTtariff }}</td>
-                                        <td style="text-align: center">{% if entity.hotelactive==1 %}
-                                            دسترسی فعال
-                                            {% else  %}
-                                            دسترسی غیرفعال
-                                            {% endif %}
-
-                                        </td>
                                         <td style="text-align: center">
                                             <ul style="list-style-type: none;">
                                                 <li style="padding-top: 5px;">
-                                                    <a class="badge badge-info" href="{{ path('roomentity', { 'hotel_id': entity.id }) }}">لیست اتاق های هتل</a>
+                                                    <a class="badge badge-success" href="{{ path('hotel_room_index', { 'hotel_id': entity.id }) }}">لیست اتاق های هتل</a>
                                                 </li>
                                             </ul>
                                         </td>

@@ -1,10 +1,5 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif  %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_hotel.html.twig' %}
+
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
@@ -52,7 +47,7 @@
                                 </tbody>
                         </table>
                         {{ form_widget(form._token) }}
-                        <a class="btn btn-primary" href="{{ path("roomentity",{'hotel_id':hotel_id}) }}">برگشت</a>
+                        <a class="btn btn-primary" href="{{ path("hotel_room_index",{'hotel_id':hotel_id}) }}">برگشت</a>
                         <button class="btn btn-success" type="submit">ایجاد</button>
                     </form>
                 </div>

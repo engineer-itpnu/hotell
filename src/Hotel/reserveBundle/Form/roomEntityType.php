@@ -5,6 +5,8 @@ namespace Hotel\reserveBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class roomEntityType extends AbstractType
 {
@@ -14,16 +16,24 @@ class roomEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder
+            ->add('room_name',null,array('constraints' => array(
+                new NotBlank(),
+                new Length(array('max' => 63)))))
 
+            ->add('room_capacity',null,array('constraints' => array(
+                new NotBlank())))
 
-        $builder->add('room_name');
-        $builder->add('room_capacity');
-        $builder->add('room_addCapacity');
-        $builder->add('room_type', 'choice', array(
-            'choices' => array('1' => 'سوئيت vip', '2' => 'سوئيت جونيور',
-                '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال'
-            , '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم', '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم', '15' => 'آپارتمان', '16' => 'آپارتمان رويال','17' => 'سوئيت')));
+            ->add('room_addCapacity',null,array('constraints' => array(
+                new NotBlank())))
 
+            ->add('room_type', 'choice', array(
+                'choices' => array('1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
+                    '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس',
+                    '9' => 'پرنسس روم', '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل',
+                    '13' => 'دبل', '14' => 'کانکت روم', '15' => 'آپارتمان', '16' => 'آپارتمان رويال','17' => 'سوئيت')
+            ))
+        ;
     }
 
     /**

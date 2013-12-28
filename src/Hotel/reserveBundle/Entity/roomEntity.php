@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -21,7 +22,7 @@ class roomEntity
     private $room_type;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $room_name;
 
@@ -50,7 +51,7 @@ class roomEntity
      */
     public function __construct()
     {
-        $this->blankEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blankEntities = new ArrayCollection();
     }
 
     /**
@@ -158,10 +159,10 @@ class roomEntity
     /**
      * Add blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     * @param blankEntity $blankEntities
      * @return roomEntity
      */
-    public function addBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    public function addBlankEntitie(blankEntity $blankEntities)
     {
         $this->blankEntities[] = $blankEntities;
 
@@ -171,9 +172,9 @@ class roomEntity
     /**
      * Remove blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     * @param blankEntity $blankEntities
      */
-    public function removeBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    public function removeBlankEntitie(blankEntity $blankEntities)
     {
         $this->blankEntities->removeElement($blankEntities);
     }
@@ -191,10 +192,10 @@ class roomEntity
     /**
      * Set hotelEntity
      *
-     * @param \Hotel\reserveBundle\Entity\hotelEntity $hotelEntity
+     * @param hotelEntity $hotelEntity
      * @return roomEntity
      */
-    public function setHotelEntity(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntity)
+    public function setHotelEntity(hotelEntity $hotelEntity)
     {
         $this->hotelEntity = $hotelEntity;
 
@@ -204,14 +205,14 @@ class roomEntity
     /**
      * Get hotelEntity
      *
-     * @return \Hotel\reserveBundle\Entity\hotelEntity
+     * @return hotelEntity
      */
     public function getHotelEntity()
     {
         return $this->hotelEntity;
     }
-    public function __tostring()
+    public function __toString()
     {
-        return $this->room_name . ' ';
+        return $this->room_name;
     }
 }

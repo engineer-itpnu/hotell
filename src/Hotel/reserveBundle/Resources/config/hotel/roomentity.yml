@@ -1,0 +1,15 @@
+hotel_room_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:HotelRoom:index" }
+
+hotel_room_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:HotelRoom:new" }
+
+hotel_room_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:HotelRoom:edit" }
+
+hotel_room_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "HotelreserveBundle:HotelRoom:delete" }
