@@ -43,11 +43,11 @@ Hotelregister_register:
     prefix:   /admin/registering
 
 monitoring:
-    pattern:  /monitoring/{hotelid}/{year}/{month}
-    defaults: { _controller: HotelreserveBundle:Default:index,hotelid:null, year:null, month:null }
+    pattern:  /monitoring
+    defaults: { _controller: HotelreserveBundle:Default:index }
 
 monitoring_edit:
-    pattern:  /monitoring/edit/{hotelid}/{year}/{month}
+    pattern:  /monitoring/{hotelid}/{year}/{month}/edit
     defaults: { _controller: HotelreserveBundle:Default:edit }
 
 login_page:

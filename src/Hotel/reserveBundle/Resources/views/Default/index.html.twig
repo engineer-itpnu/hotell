@@ -34,28 +34,29 @@
                     </span>
                 </div>
                 <div class="" style="display: block;padding: 25px 15px;">
-                    <form method="post">
-                        <div style="background-color: #4a97bd;padding: 10px;border-radius: 10px">
-                            <span style="display: inline-block">
-                            هتل :
-                                {{ form_errors(form.hotel) }}
-                                {{ form_widget(form.hotel) }}
-                                </span>
-                            <span style="display: inline-block">
-                            ماه :
-                                {{ form_errors(form.month) }}
-                                {{ form_widget(form.month) }}
-                                </span>
-                                <span style="display: inline-block">
-                            سال :
-                                    {{ form_errors(form.year) }}
-                                    {{ form_widget(form.year) }}
-                                </span>
-                                <span style="display: inline-block">
-                            <input type="submit" value="مشاهده"/>
-                                </span>
-                        </div>
-                        {{ form_widget(form._token) }}
+                    <form method="GET">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>هتل :</th>
+                                <td>{{ form_widget(form.hotel) }}</td>
+                                <th>ماه :</th>
+                                <td>{{ form_widget(form.month) }}</td>
+                                <th>سال :</th>
+                                <td>{{ form_widget(form.year) }}</td>
+                                <td><input type="submit" value="مشاهده"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ form_errors(form.month) }}</td>
+                                <td></td>
+                                <td>{{ form_errors(form.year) }}</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </form>
                     {% if rooms is not null %}
                         <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"

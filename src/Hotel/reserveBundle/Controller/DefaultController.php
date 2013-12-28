@@ -9,38 +9,35 @@ use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request,$hotelid=null, $year=null, $month=null)
+    public function indexAction(Request $request)
     {
         $date_convert = $this->get("my_date_convert");
         $now = explode("/",$date_convert->MiladiToShamsi(new \DateTime()));
-        $doSearch = false;
         $em = $this->getDoctrine()->getManager();
-        $rooms = null;
-        $weekDay = null;
-        $user = $this->getUser();
-        $search = array('year'=>$now[0],'month'=>$now[1],'hotel'=>null);
-        if( $year!=null && $month!=null && $hotelid!= null )
-        {
-            $search['year'] = $year;
-            $search['month'] = $month;
-            $search['hotel'] = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
-            $doSearch = true;
-        }
-        $form = $this->createFormBuilder($search)
+
+        $form = $this->get('form.factory')->createNamedBuilder(null, 'form',array('hotel'=>'0','month'=>$now[1],'year'=>$now[0]), array('method' => 'GET','csrf_protection' => false))
             ->add("hotel","entity",array(
                 'class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name',
-                'query_builder' => function(EntityRepository $er) use ($user) {
+                'query_builder' => function(EntityRepository $er) {
+                    $user = $this->getUser();
                     $er = $er->createQueryBuilder('u')
                         ->where("u.hotel_active = :true")->setParameter("true",true);
                     if($user->hasRole('ROLE_HOTELDAR'))
                         $er = $er->andWhere("u.userEntity = :user")->setParameter("user",$user);
                     return $er;
                 }))
-            ->add("year","text")
+            ->add("year","integer",array('constraints' => array(
+                new NotBlank(),
+                new Range(array('min' => 1380,'max' => 1500))
+            )))
             ->add("month","choice",array("choices"=>array(
                 "1"=>"فروردین",
                 "2"=>"اردیبهشت",
@@ -57,19 +54,12 @@ class DefaultController extends Controller
             )))
             ->getForm();
 
-        $data = array('year' => '0', 'month'=>0);
+        $form->handleRequest($request);
+
+        $rooms = null;
+        $weekDay = null;
         $hotelid = null;
-
-        if($request->isMethod("post"))
-        {
-            $form->handleRequest($request);
-            if($form->isValid())
-            {
-                $doSearch = true;
-            }
-        }
-
-        if($doSearch)
+        if($form->isValid())
         {
             $data = $form->getData();
             $hotel = $data['hotel'];
@@ -87,12 +77,13 @@ class DefaultController extends Controller
         return $this->render('HotelreserveBundle:Default:index.html.twig',array(
             'form' => $form->createView(),
             'rooms' => $rooms,
-            'year' => $data['year'],
-            'month' => $data['month'],
+            'year' => $request->get('year'),
+            'month' => $request->get('month'),
             'hotelid' => $hotelid,
             'weekDay' => $weekDay
         ));
     }
+
     public function editAction(Request $request,$hotelid, $year, $month)
     {
         $dateconvertor = $this->get("my_date_convert");
@@ -142,11 +133,7 @@ class DefaultController extends Controller
             }
             $em->flush();
 
-            return $this->redirect($this->generateUrl("monitoring",array(
-                'year' => $year,
-                'month' => $month,
-                'hotelid' => $hotelid
-            )));
+            return $this->redirect($this->generateUrl("monitoring")."?hotel=$hotelid&month=$month&year=$year");
         }
 
         $qb = $em->createQueryBuilder()

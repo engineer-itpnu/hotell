@@ -6,3 +6,15 @@
         <input type="{{ type }}" autocomplete="off" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} class="pdate"/>
     {% endspaceless %}
 {% endblock shamsi_date_widget %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <ul style="color: red;list-style-type: none">
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
