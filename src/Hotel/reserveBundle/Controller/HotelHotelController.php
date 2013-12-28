@@ -1,10 +1,7 @@
 <?php
 namespace Hotel\reserveBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Hotel\reserveBundle\Entity\hotelEntity;
-use Hotel\reserveBundle\Form\hotelEntityType;
 
 class HotelHotelController extends Controller
 {

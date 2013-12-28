@@ -2,23 +2,17 @@
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-            <div class="" style="border: 1px solid #74B749;display: block;">
-                <div class="" style="background: #74B749;height: 36px;display: block;">
-                    <span class=""
-                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
-                            <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>ویرایش اطلاعات اتاق </strong>
+            <div style="border: 1px solid #74B749;display: block;">
+                <div style="background: #74B749;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px;padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a class="icon-th-large"></a>
+                            <a class="icon-chevron-left"></a> <strong>ویرایش اطلاعات اتاق </strong>
                     </span>
                 </div>
-                <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
+                <div style="display: block;padding: 25px 15px;">
+                    <form method="post" {{ form_enctype(edit_form) }}>
                         <table class="table table-condensed" style="width: 100%;">
                             <tbody>
-
-                            <tbody>
-                            <form action="{{ path('roomentity_update', { 'id': entity.id ,'hotel_id':hotel_id}) }}"
-                                  method="post" {{ form_enctype(edit_form) }}>
-                                <input type="hidden" name="_method" value="PUT"/>
                                 <tr class="success">
                                     <td>
                                         {{ form_label(edit_form.room_name,'نام اتاق : ') }}</td>
@@ -58,29 +52,14 @@
                                     </td>
                                 </tr>
 
-
-                                {{ form_widget(edit_form._token) }}
-                                <table>
-                                    <ul style="list-style-type: none">
-                                        <li>
-                                            <button class="btn btn-success tabs-right" type="submit"
-                                                    style="margin-right: 450px">ویرایش
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </table>
-                            </form>
-                            <td>
-                                {{ form_start(delete_form, {'attr': {'header': 'تایید درخواست ','message': 'آیا درخواست حذف تایید گردد','class': 'YesNoMessage'}}) }}
-                                {{ form_errors(delete_form) }}
-                                {{ form_widget(delete_form) }}
-                                {{ form_end(delete_form) }}
-                            </td>
                             </tbody>
                         </table>
+                        <a class="btn btn-primary" href="{{ path("roomentity",{'hotel_id':hotel_id}) }}">برگشت</a>
+                        <button class="btn btn-success tabs-right" type="submit">ویرایش</button>
+                        {{ form_widget(edit_form._token) }}
+                    </form>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 {% endblock %}

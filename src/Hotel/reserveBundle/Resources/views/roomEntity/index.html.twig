@@ -3,93 +3,78 @@
     {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
 {% elseif is_granted("ROLE_HOTELDAR") %}
     {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif  %}
+{% endif %}
 {% extends parent %}
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-            <div class="" style="border: 1px solid #74B749;display: block;">
-                <div class="" style="background: #74B749;height: 36px;display: block;">
-                    <span class=""
-                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
-                            <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>نمایش لیست اتاق های هتل </strong>
+            <div style="border: 1px solid #74B749;display: block;">
+                <div style="background: #74B749;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px;padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                        <a class="icon-th-large"></a>
+                        <a class="icon-chevron-left"></a> <strong>نمایش لیست اتاق های هتل </strong>
                     </span>
                 </div>
-                <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
-                        <table class="table table-condensed" style="width: 100%;">
-                            <tbody>
-                            <table class="table table-bordered" dir="rtl">
-                                <thead>
-                                <tr>
-                                    <th style="text-align: center">کداتاق</th>
-                                    <th style="text-align: center">نوع اتاق</th>
-                                    <th style="text-align: center">نام اتاق</th>
-                                    <th style="text-align: center">گنجایش اتاق</th>
-                                    <th style="text-align: center">گنجایش نفر اضافه اتاق</th>
-                                    <th style="text-align: center">متعلق به هتل</th>
-                                    <th style="text-align: center">اقدامات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for entity in entities %}
-                                    <tr>
-                                        <td style="text-align: center">{{ entity.id }}</td>
-                                        <td style="text-align: center">{% if entity.roomtype==17 %}سوئيت
-                                            {% elseif entity.roomtype==1 %}سوئيت vip
-                                            {% elseif entity.roomtype==2 %}سوئيت جونيور
-                                            {% elseif entity.roomtype==3 %}سوئيت پرزيدنت
-                                            {% elseif entity.roomtype==4 %}سوئيت رويال
-                                            {% elseif entity.roomtype==5 %}سوئيت امپريال
-                                            {% elseif entity.roomtype==6 %}سوئيت لاکچر
-                                            {% elseif entity.roomtype==7 %}سوئيت دوبلکس
-                                            {% elseif entity.roomtype==8 %}سوئيت لوکس
-                                            {% elseif entity.roomtype==9 %}پرنسس روم
-                                            {% elseif entity.roomtype==10 %}پرزيدنتال
-                                            {% elseif entity.roomtype==11 %}تريپل
-                                            {% elseif entity.roomtype==12 %}سينگل
-                                            {% elseif entity.roomtype==13 %}دبل
-                                            {% elseif entity.roomtype==14 %}کانکت روم
-                                            {% elseif entity.roomtype==15 %}آپارتمان
-                                            {% else %}آپارتمان رويال
-                                            {% endif %}</td>
-                                        <td style="text-align: center">{{ entity.roomname }}</td>
-                                        <td style="text-align: center">{{ entity.roomcapacity }}</td>
-                                        <td style="text-align: center">{{ entity.roomaddCapacity }}</td>
-                                        <td style="text-align: center">{{ entity.hotelEntity }}</td>
-                                        <td style="text-align: center">
-                                            <ul style="list-style-type: none">
-                                                <li>
-                                                    <a class="badge badge-info"
-                                                       href="{{ path('roomentity_edit', { 'id': entity.id,'hotel_id':hotel_id }) }}">ویرایش</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                            <div class="pagination-centered pagination">
-                                {{ knp_pagination_render(entities) }}
-                            </div>
-
-                            <ul style="list-style-type: none">
-                                <li>
-                                    <a class="btn btn-primary" href="{{ path('roomentity_new',{'hotel_id':hotel_id}) }}">
-                                        ایجاد اتاق جدید
-                                    </a>
-                                </li><br/>
-                                <li>
-                                    <a class="btn btn-primary" href="{{ path('hotelentity') }}">
-                                        برگشت
-                                    </a>
-                                </li>
-                            </ul>
-                            </tbody>
-                        </table>
-
+                <div style="display: block;padding: 25px 15px;">
+                    <table class="table table-condensed table-bordered" dir="rtl" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">کداتاق</th>
+                            <th style="text-align: center">نوع اتاق</th>
+                            <th style="text-align: center">نام اتاق</th>
+                            <th style="text-align: center">گنجایش اتاق</th>
+                            <th style="text-align: center">گنجایش نفر اضافه اتاق</th>
+                            <th style="text-align: center">متعلق به هتل</th>
+                            <th style="text-align: center">اقدامات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td style="text-align: center">{{ entity.id }}</td>
+                                <td style="text-align: center">{% if entity.roomtype==17 %}سوئيت
+                                    {% elseif entity.roomtype==1 %}سوئيت vip
+                                    {% elseif entity.roomtype==2 %}سوئيت جونيور
+                                    {% elseif entity.roomtype==3 %}سوئيت پرزيدنت
+                                    {% elseif entity.roomtype==4 %}سوئيت رويال
+                                    {% elseif entity.roomtype==5 %}سوئيت امپريال
+                                    {% elseif entity.roomtype==6 %}سوئيت لاکچر
+                                    {% elseif entity.roomtype==7 %}سوئيت دوبلکس
+                                    {% elseif entity.roomtype==8 %}سوئيت لوکس
+                                    {% elseif entity.roomtype==9 %}پرنسس روم
+                                    {% elseif entity.roomtype==10 %}پرزيدنتال
+                                    {% elseif entity.roomtype==11 %}تريپل
+                                    {% elseif entity.roomtype==12 %}سينگل
+                                    {% elseif entity.roomtype==13 %}دبل
+                                    {% elseif entity.roomtype==14 %}کانکت روم
+                                    {% elseif entity.roomtype==15 %}آپارتمان
+                                    {% else %}آپارتمان رويال
+                                    {% endif %}</td>
+                                <td style="text-align: center">{{ entity.roomname }}</td>
+                                <td style="text-align: center">{{ entity.roomcapacity }}</td>
+                                <td style="text-align: center">{{ entity.roomaddCapacity }}</td>
+                                <td style="text-align: center">{{ entity.hotelEntity }}</td>
+                                <td style="text-align: center">
+                                    <ul style="list-style-type: none">
+                                        <li>
+                                            <a class="badge badge-info"
+                                               href="{{ path('roomentity_edit', { 'id': entity.id,'hotel_id':hotel_id }) }}">ویرایش</a>
+                                            <a class="badge badge-important YesNoMessage" header="حذف"
+                                               message="آیا درخواست حذف تایید گردد"
+                                               href="{{ path('roomentity_delete', { 'id': entity.id,'hotel_id':hotel_id }) }}">حذف</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination-centered pagination">
+                        {{ knp_pagination_render(entities) }}
                     </div>
+
+                    <a class="btn btn-primary" href="{{ path('admin_hotel_index') }}">برگشت</a>
+                    <a class="btn btn-success" href="{{ path('roomentity_new',{'hotel_id':hotel_id}) }}">ایجاد اتاق جدید</a>
                 </div>
             </div>
         </div>

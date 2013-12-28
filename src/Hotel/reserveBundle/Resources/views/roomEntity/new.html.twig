@@ -8,19 +8,17 @@
 {% block content -%}
     <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
-            <div class="" style="border: 1px solid #74B749;display: block;">
-                <div class="" style="background: #74B749;height: 36px;display: block;">
-                    <span class=""
-                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
-                            <a href="" class=" icon-th-large"></a>
-                            <a href="" class="icon-chevron-left"></a> <strong>ایجاد اتاق هتل ها</strong>
+            <div style="border: 1px solid #74B749;display: block;">
+                <div style="background: #74B749;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px; padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                        <a class="icon-th-large"></a>
+                        <a class="icon-chevron-left"></a> <strong>ایجاد اتاق هتل ها</strong>
                     </span>
                 </div>
-                <div class="" style="display: block;padding: 25px 15px;">
-                    <div class="">
+                <div style="display: block;padding: 25px 15px;">
+                    <form method="post" {{ form_enctype(form) }}>
                         <table class="table table-condensed" style="width: 100%;">
-                            <form action="{{ path('roomentity_create',{'hotel_id':hotel_id}) }}" method="post" {{ form_enctype(form) }}>
-                                <tbody>
+                            <tbody>
                                 <tr class="success">
                                     <td>نوع اتاق :</td>
                                     <td>
@@ -51,18 +49,12 @@
       || (event.keyCode>34 && event.keyCode<40)
       || (event.keyCode==46) )'} }) }}</td>
                                 </tr>
-                                {{ form_widget(form._token) }}
-                                <table><button class="btn btn-primary" style="margin-right:475px" type="submit">ایجاد</button>
-                                    <li style="list-style-type: none">
-                                        <a class="btn btn-primary" href="javascript:history.back();">
-                                            برگشت
-                                        </a>
-                                    </li>
-                                </table>
                                 </tbody>
-                            </form>
                         </table>
-                    </div>
+                        {{ form_widget(form._token) }}
+                        <a class="btn btn-primary" href="{{ path("roomentity",{'hotel_id':hotel_id}) }}">برگشت</a>
+                        <button class="btn btn-success" type="submit">ایجاد</button>
+                    </form>
                 </div>
             </div>
         </div>
