@@ -73,10 +73,9 @@ class DefaultController extends Controller
             $qb = $em->createQueryBuilder()
                 ->select("room","blank")
                 ->from("HotelreserveBundle:roomEntity","room")
-                ->innerJoin("room.blankEntities","blank")
+                ->leftJoin("room.blankEntities","blank","WITH", "blank.dateIN >= :fromdate and blank.dateIN <= :todate")
+                ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
                 ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
-                ->andWhere("blank.dateIN >= :fromdate")->setParameter("fromdate",$fromdate)
-                ->andWhere("blank.dateIN <= :todate")->setParameter("todate",$todate)
                 ->orderBy("blank.dateIN","ASC")
             ;
             $rooms = $qb->getQuery()->getResult();
@@ -157,10 +156,9 @@ class DefaultController extends Controller
         $qb = $em->createQueryBuilder()
             ->select("room","blank")
             ->from("HotelreserveBundle:roomEntity","room")
-            ->innerJoin("room.blankEntities","blank")
+            ->leftJoin("room.blankEntities","blank","WITH", "blank.dateIN >= :fromdate and blank.dateIN <= :todate")
+            ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
             ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
-            ->andWhere("blank.dateIN >= :fromdate")->setParameter("fromdate",$fromdate)
-            ->andWhere("blank.dateIN <= :todate")->setParameter("todate",$todate)
             ->orderBy("blank.dateIN","ASC")
             ;
         $rooms = $qb->getQuery()->getResult();
