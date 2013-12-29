@@ -12,12 +12,7 @@
     <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            {% if rooms is not null %}
-            timeline_header(true, {{ weekDay }});
-            {% for room in rooms %}
-            {{ render(controller('HotelreserveBundle:Default:getStatusRoomInMonth', { 'roomid': room.id, 'year':year, 'month':month , 'editable':false })) }}
-            {% endfor %}
-            {% endif %}
+            {{ javaScripts|raw }}
         });
     </script>
 {% endblock %}
@@ -58,7 +53,7 @@
                             </tbody>
                         </table>
                     </form>
-                    {% if rooms is not null %}
+                    {% if javaScripts != "" %}
                         <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"
                            class="btn btn-primary">ویرایش اتاق ها</a>
                     {% endif %}

@@ -4,6 +4,7 @@ namespace Hotel\reserveBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use Hotel\reserveBundle\Entity\blankEntity;
+use Hotel\reserveBundle\Entity\roomEntity;
 use Hotel\reserveBundle\Form\ReportingReserveType;
 use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,7 @@ class DefaultController extends Controller
     {
         $date_convert = $this->get("my_date_convert");
         $now = explode("/",$date_convert->MiladiToShamsi(new \DateTime()));
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getEntityManager();
 
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form',array('hotel'=>'0','month'=>$now[1],'year'=>$now[0]), array('method' => 'GET','csrf_protection' => false))
             ->add("hotel","entity",array(
@@ -56,31 +57,44 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-        $rooms = null;
-        $weekDay = null;
         $hotelid = null;
+        $javaScripts = "";
         if($form->isValid())
         {
             $data = $form->getData();
             $hotel = $data['hotel'];
 
+            $fromdate = $date_convert->ShamsiToMiladi($data['year']."/".$data['month']."/0");
+
+            $lastdayMonth = $data['month']>6?30:31;
+            if($data['month'] == 12 && !$date_convert->isLeap($data['year'])) $lastdayMonth = 29;
+            $todate = $date_convert->ShamsiToMiladi($data['year']."/".$data['month']."/".$lastdayMonth);
+
             $qb = $em->createQueryBuilder()
-                ->select("room")
+                ->select("room","blank")
                 ->from("HotelreserveBundle:roomEntity","room")
+                ->innerJoin("room.blankEntities","blank")
                 ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
+                ->andWhere("blank.dateIN >= :fromdate")->setParameter("fromdate",$fromdate)
+                ->andWhere("blank.dateIN <= :todate")->setParameter("todate",$todate)
+                ->orderBy("blank.dateIN","ASC")
             ;
             $rooms = $qb->getQuery()->getResult();
             $hotelid = $hotel->getId();
             $weekDay = $date_convert->getWeekDayNumber($data['year']."/".$data['month']."/1");
+
+            $javaScripts .= "timeline_header(true, $weekDay);\n";
+            foreach($rooms as $room)
+                $javaScripts .= $this->getStatusRoomInMonth($room,false)."\n";
+
         }
 
         return $this->render('HotelreserveBundle:Default:index.html.twig',array(
             'form' => $form->createView(),
-            'rooms' => $rooms,
             'year' => $request->get('year'),
             'month' => $request->get('month'),
             'hotelid' => $hotelid,
-            'weekDay' => $weekDay
+            'javaScripts' => $javaScripts
         ));
     }
 
@@ -93,8 +107,6 @@ class DefaultController extends Controller
         $user = $this->getUser();
         if($hotel == null || ($user->hasRole("ROLE_HOTELDAR") && $hotel->getUserEntity()!=$user) || $user->hasRole("ROLE_AGENCY"))
             return $this->redirect($this->generateUrl("monitoring"));
-
-        $weekDay = $dateconvertor->getWeekDayNumber($year."/".$month."/1");
 
         if($request->isMethod("post"))
         {
@@ -136,26 +148,40 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl("monitoring")."?hotel=$hotelid&month=$month&year=$year");
         }
 
+        $fromdate = $dateconvertor->ShamsiToMiladi($year."/".$month."/0");
+
+        $lastdayMonth = $month>6?30:31;
+        if($month == 12 && !$dateconvertor->isLeap($year)) $lastdayMonth = 29;
+        $todate = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$lastdayMonth);
+
         $qb = $em->createQueryBuilder()
-            ->select("room")
+            ->select("room","blank")
             ->from("HotelreserveBundle:roomEntity","room")
+            ->innerJoin("room.blankEntities","blank")
             ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
+            ->andWhere("blank.dateIN >= :fromdate")->setParameter("fromdate",$fromdate)
+            ->andWhere("blank.dateIN <= :todate")->setParameter("todate",$todate)
+            ->orderBy("blank.dateIN","ASC")
             ;
         $rooms = $qb->getQuery()->getResult();
 
+        $weekDay = $dateconvertor->getWeekDayNumber($year."/".$month."/1");
+
+        $javaScripts = "timeline_header(true, $weekDay);\n";
+        foreach($rooms as $room)
+            $javaScripts .= $this->getStatusRoomInMonth($room,true)."\n";
+
         return $this->render('HotelreserveBundle:Default:edit.html.twig',array(
-            'rooms' => $rooms,
             'year' => $year,
             'month' => $month,
             'hotelid' => $hotelid,
-            'weekDay' => $weekDay
+            'javaScripts' => $javaScripts
         ));
     }
 
-    public function getStatusRoomInMonthAction($roomid,$year,$month,$editable)
+    public function getStatusRoomInMonth(roomEntity $room,$editable)
     {
-        $em = $this->getDoctrine()->getManager();
-        $room = $em->getRepository("HotelreserveBundle:roomEntity")->find($roomid);
+        $dateconvertor = $this->get("my_date_convert");
 
         $roomTypes = array(
             '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
@@ -165,30 +191,11 @@ class DefaultController extends Controller
         );
 
         if($editable == false)
-            $result = "timeline_add_row_notEdit(".$roomid.",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
+            $result = "timeline_add_row_notEdit(".$room->getId().",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
         else
-            $result = "timeline_add_row(".$roomid.",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
+            $result = "timeline_add_row(".$room->getId().",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";
 
-
-        $dateconvertor = $this->get("my_date_convert");
-        $fromdate = $dateconvertor->ShamsiToMiladi($year."/".$month."/0");
-
-        $lastdayMonth = 31;
-        if ($month>6) $lastdayMonth = 30;
-        if($month == 12 && !$dateconvertor->isLeap($year)) $lastdayMonth = 29;
-
-        $todate = $dateconvertor->ShamsiToMiladi($year."/".$month."/".$lastdayMonth);
-
-        $qb = $em->createQueryBuilder()
-            ->select("blank")
-            ->from("HotelreserveBundle:blankEntity","blank")
-            ->where("blank.roomEntity = :room")->setParameter("room",$room)
-            ->andWhere("blank.dateIN >= :fromdate")->setParameter("fromdate",$fromdate)
-            ->andWhere("blank.dateIN <= :todate")->setParameter("todate",$todate)
-            ->orderBy("blank.dateIN","ASC")
-            ;
-        $blanks = $qb->getQuery()->getResult();
-
+        $blanks = $room->getBlankEntities();
 
         $prev = null;
         foreach($blanks as $blank)
@@ -215,7 +222,8 @@ class DefaultController extends Controller
         }
         if($prev!=null)$result .= "',".$prev->getTariff()."]";
         $result.=  "]);";
-        return new Response($result);
+
+        return $result;
     }
 
     public function reportAction(Request $request)
