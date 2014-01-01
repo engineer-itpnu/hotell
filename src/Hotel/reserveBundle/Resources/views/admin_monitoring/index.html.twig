@@ -1,0 +1,68 @@
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/assets/css/TimeLine.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('bundles/assets/js/timeLine.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/assets/js/jquery.balloon.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            {{ javaScripts|raw }}
+        });
+    </script>
+{% endblock %}
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div class="" style="border: 1px solid #88288f;display: block;">
+                <div class="" style="background: #88288f;height: 36px;display: block;">
+                    <span class=""
+                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
+                            <a href="" class=" icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>مانیتورینگ وضعیت اتاق ها - ایجاد و ویرایش
+                            اتاق های خالی هتل </strong>
+                    </span>
+                </div>
+                <div class="" style="display: block;padding: 25px 15px;">
+                    <form method="GET">
+                        <table class="table tab-content">
+                            <tbody>
+                            <tr>
+                                <th>هتل :</th>
+                                <td>{{ form_widget(form.hotel) }}</td>
+                                <th>ماه :</th>
+                                <td>{{ form_widget(form.month) }}</td>
+                                <th>سال :</th>
+                                <td>{{ form_widget(form.year) }}</td>
+                                <td><input type="submit" class="btn btn-success" value="مشاهده"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ form_errors(form.month) }}</td>
+                                <td></td>
+                                <td>{{ form_errors(form.year) }}</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    {% if javaScripts != "" %}
+                        <a href="{{ path('admin_monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"
+                           class="btn btn-primary">ویرایش اتاق ها</a>
+                    {% endif %}
+                    <div class="timeLine" style="width:100%;overflow-x: visible;overflow-y: hidden;">
+                    </div>
+
+                    <div id="tl_cost_viewer">
+                        <div style="direction: rtl;text-align: right;">
+                            <div class="tl_cost_header">مشخصات</div>
+                        </div>
+                        <div id="tl_showCost" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

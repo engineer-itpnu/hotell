@@ -1,0 +1,7 @@
+admin_monitoring_index:
+    pattern:  /
+    defaults: { _controller: HotelreserveBundle:AdminMonitoring:index }
+
+admin_monitoring_edit:
+    pattern:  /{hotelid}/{month}/{year}/edit
+    defaults: { _controller: HotelreserveBundle:AdminMonitoring:edit }

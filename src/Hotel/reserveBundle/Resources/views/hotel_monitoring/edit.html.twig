@@ -1,10 +1,5 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_hotel.html.twig' %}
+
 {% block stylesheet %}
     {{ parent() }}
     <link href="{{ asset('bundles/assets/css/TimeLine.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -31,7 +26,7 @@
                 <div class="" style="display: block;padding: 25px 15px;">
                     <div class="">
                         <div>
-                            <a href="{{ path('monitoring',{'hotelid':hotelid, 'year':year, 'month':month}) }}" class="btn btn-primary">بازگشت</a>
+                            <a href="{{ path('hotel_monitoring_index',{'hotel':hotelid, 'month':month, 'year':year}) }}" class="btn btn-primary">بازگشت</a>
                         </div><br>
                         <div style="width:100%;overflow-x: visible;overflow-y: hidden;">
                             <div class="timeLine">

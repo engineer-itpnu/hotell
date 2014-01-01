@@ -1,10 +1,5 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% endif %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_hotel.html.twig' %}
+
 {% block stylesheet %}
     {{ parent() }}
     <link href="{{ asset('bundles/assets/css/TimeLine.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -54,7 +49,7 @@
                         </table>
                     </form>
                     {% if javaScripts != "" %}
-                        <a href="{{ path('monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"
+                        <a href="{{ path('hotel_monitoring_edit',{'hotelid':hotelid, 'year':year, 'month':month}) }}"
                            class="btn btn-primary">ویرایش اتاق ها</a>
                     {% endif %}
                     <div class="timeLine" style="width:100%;overflow-x: visible;overflow-y: hidden;">

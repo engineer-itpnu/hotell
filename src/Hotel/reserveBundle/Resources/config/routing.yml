@@ -42,14 +42,6 @@ Hotelregister_register:
     resource: "@HotelreserveBundle/Resources/config/routing/register.yml"
     prefix:   /admin/registering
 
-monitoring:
-    pattern:  /monitoring
-    defaults: { _controller: HotelreserveBundle:Default:index }
-
-monitoring_edit:
-    pattern:  /monitoring/{hotelid}/{year}/{month}/edit
-    defaults: { _controller: HotelreserveBundle:Default:edit }
-
 login_page:
     pattern:  /
     defaults: { _controller: FOSUserBundle:Security:login }

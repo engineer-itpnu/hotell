@@ -24,3 +24,7 @@ hotel_hotel:
 hotel_room:
     resource: "@HotelreserveBundle/Resources/config/hotel/roomentity.yml"
     prefix:   /hotel/{hotel_id}/room
+
+hotel_monitoring:
+    resource: "@HotelreserveBundle/Resources/config/hotel/monitoring.yml"
+    prefix:   /monitoring
