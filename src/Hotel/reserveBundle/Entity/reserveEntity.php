@@ -5,6 +5,9 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="reserveentity")
+ * @ORM\Table(indexes={@ORM\Index(name="Date_inp_idx", columns={"DateInp"})})
+ * @ORM\Table(indexes={@ORM\Index(name="CodePey_idx", columns={"CodePey"})})
+ * @ORM\Table(indexes={@ORM\Index(name="Voucher_idx", columns={"Voucher"})})
  */
 class reserveEntity
 {
@@ -31,7 +34,7 @@ class reserveEntity
     private $CountNight;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $Money;
 

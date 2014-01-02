@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="roomentity")
+ * @ORM\Table(indexes={@ORM\Index(name="room_type_idx", columns={"room_type"})})
  */
 class roomEntity
 {

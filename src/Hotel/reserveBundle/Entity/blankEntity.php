@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="blankentity")
+ * @ORM\Table(indexes={@ORM\Index(name="date_in_idx", columns={"dateIN"})})
+ * @ORM\Table(indexes={@ORM\Index(name="status_idx", columns={"status"})})
  */
 class blankEntity
 {
@@ -26,7 +28,7 @@ class blankEntity
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $Tariff;
 
@@ -38,7 +40,7 @@ class blankEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="roomEntity", inversedBy="blankEntities")
-     * @ORM\JoinColumn(name="rid", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="rid", referencedColumnName="id", nullable=false)
      */
     private $roomEntity;
 
@@ -124,10 +126,10 @@ class blankEntity
     /**
      * Set reserveEntity
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntity
+     * @param reserveEntity $reserveEntity
      * @return blankEntity
      */
-    public function setReserveEntity(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntity = null)
+    public function setReserveEntity(reserveEntity $reserveEntity = null)
     {
         $this->reserveEntity = $reserveEntity;
 
@@ -147,10 +149,10 @@ class blankEntity
     /**
      * Set roomEntity
      *
-     * @param \Hotel\reserveBundle\Entity\roomEntity $roomEntity
+     * @param roomEntity $roomEntity
      * @return blankEntity
      */
-    public function setRoomEntity(\Hotel\reserveBundle\Entity\roomEntity $roomEntity)
+    public function setRoomEntity(roomEntity $roomEntity)
     {
         $this->roomEntity = $roomEntity;
 
@@ -160,7 +162,7 @@ class blankEntity
     /**
      * Get roomEntity
      *
-     * @return \Hotel\reserveBundle\Entity\roomEntity
+     * @return roomEntity
      */
     public function getRoomEntity()
     {
@@ -168,6 +170,6 @@ class blankEntity
     }
     public function __tostring()
     {
-        return $this->roomEntity . ' ';
+        return $this->status.'';
     }
 }

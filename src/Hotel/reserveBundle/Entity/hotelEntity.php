@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="hotelentity")
+ * @ORM\Table(indexes={@ORM\Index(name="hotel_city_idx", columns={"hotel_city"})})
+ * @ORM\Table(indexes={@ORM\Index(name="hotel_active_idx", columns={"hotel_active"})})
  */
 class hotelEntity
 {
@@ -62,7 +64,7 @@ class hotelEntity
     private $hotel_addRoomTtariff;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */
     private $hotel_active;
 
