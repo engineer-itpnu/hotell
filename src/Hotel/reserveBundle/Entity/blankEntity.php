@@ -168,7 +168,8 @@ class blankEntity
     {
         return $this->roomEntity;
     }
-    public function __tostring()
+
+    public function __toString()
     {
         return $this->status.'';
     }

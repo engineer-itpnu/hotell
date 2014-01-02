@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping AS ORM;
 
@@ -17,27 +18,27 @@ class userEntity extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=400, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $user_firstname;
 
     /**
-     * @ORM\Column(type="string", length=400, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $user_family;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=false)
+     * @ORM\Column(type="string", length=15, nullable=false)
      */
     private $user_phone;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=false)
+     * @ORM\Column(type="string", length=15, nullable=false)
      */
     private $user_mobile;
 
     /**
-     * @ORM\Column(type="string", length=400, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $user_city;
 
@@ -52,7 +53,7 @@ class userEntity extends BaseUser
     private $user_cardNumber;
 
     /**
-     * @ORM\Column(type="string", length=400, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $user_nameBank;
 
@@ -80,9 +81,9 @@ class userEntity extends BaseUser
      */
     public function __construct()
     {
-        $this->bankEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->moneyEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->hotelEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bankEntities = new ArrayCollection();
+        $this->moneyEntities = new ArrayCollection();
+        $this->hotelEntities = new ArrayCollection();
         parent::__construct();
     }
 
@@ -283,10 +284,10 @@ class userEntity extends BaseUser
     /**
      * Set agencyEntity
      *
-     * @param \Hotel\reserveBundle\Entity\agencyEntity $agencyEntity
+     * @param agencyEntity $agencyEntity
      * @return userEntity
      */
-    public function setAgencyEntity(\Hotel\reserveBundle\Entity\agencyEntity $agencyEntity = null)
+    public function setAgencyEntity(agencyEntity $agencyEntity = null)
     {
         $this->agencyEntity = $agencyEntity;
 
@@ -296,7 +297,7 @@ class userEntity extends BaseUser
     /**
      * Get agencyEntity
      *
-     * @return \Hotel\reserveBundle\Entity\agencyEntity
+     * @return agencyEntity
      */
     public function getAgencyEntity()
     {
@@ -306,10 +307,10 @@ class userEntity extends BaseUser
     /**
      * Add bankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\bankEntity $bankEntities
+     * @param bankEntity $bankEntities
      * @return userEntity
      */
-    public function addBankEntitie(\Hotel\reserveBundle\Entity\bankEntity $bankEntities)
+    public function addBankEntitie(bankEntity $bankEntities)
     {
         $this->bankEntities[] = $bankEntities;
 
@@ -319,9 +320,9 @@ class userEntity extends BaseUser
     /**
      * Remove bankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\bankEntity $bankEntities
+     * @param bankEntity $bankEntities
      */
-    public function removeBankEntitie(\Hotel\reserveBundle\Entity\bankEntity $bankEntities)
+    public function removeBankEntitie(bankEntity $bankEntities)
     {
         $this->bankEntities->removeElement($bankEntities);
     }
@@ -339,10 +340,10 @@ class userEntity extends BaseUser
     /**
      * Add moneyEntities
      *
-     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @param moneyEntity $moneyEntities
      * @return userEntity
      */
-    public function addMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    public function addMoneyEntitie(moneyEntity $moneyEntities)
     {
         $this->moneyEntities[] = $moneyEntities;
 
@@ -352,9 +353,9 @@ class userEntity extends BaseUser
     /**
      * Remove moneyEntities
      *
-     * @param \Hotel\reserveBundle\Entity\moneyEntity $moneyEntities
+     * @param moneyEntity $moneyEntities
      */
-    public function removeMoneyEntitie(\Hotel\reserveBundle\Entity\moneyEntity $moneyEntities)
+    public function removeMoneyEntitie(moneyEntity $moneyEntities)
     {
         $this->moneyEntities->removeElement($moneyEntities);
     }
@@ -372,10 +373,10 @@ class userEntity extends BaseUser
     /**
      * Add hotelEntities
      *
-     * @param \Hotel\reserveBundle\Entity\hotelEntity $hotelEntities
+     * @param hotelEntity $hotelEntities
      * @return userEntity
      */
-    public function addHotelEntitie(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntities)
+    public function addHotelEntitie(hotelEntity $hotelEntities)
     {
         $this->hotelEntities[] = $hotelEntities;
 
@@ -385,9 +386,9 @@ class userEntity extends BaseUser
     /**
      * Remove hotelEntities
      *
-     * @param \Hotel\reserveBundle\Entity\hotelEntity $hotelEntities
+     * @param hotelEntity $hotelEntities
      */
-    public function removeHotelEntitie(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntities)
+    public function removeHotelEntitie(hotelEntity $hotelEntities)
     {
         $this->hotelEntities->removeElement($hotelEntities);
     }
@@ -401,8 +402,9 @@ class userEntity extends BaseUser
     {
         return $this->hotelEntities;
     }
-    public function __tostring()
+
+    public function __toString()
     {
-        return $this->username . '@' .$this->user_family. '';
+        return $this->user_firstname . ' ' .$this->user_family. ' ('. $this->username.')';
     }
 }

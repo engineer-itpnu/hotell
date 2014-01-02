@@ -2,16 +2,15 @@
 namespace Hotel\reserveBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends BaseType
+
+class UserEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         $builder
             ->add('user_firstname','text',array('label'=>'نام : ','constraints' => array(
                 new NotBlank(),
@@ -24,10 +23,6 @@ class RegistrationFormType extends BaseType
             ->add('user_phone','text',array('label'=>'شماره تلفن : ','constraints' => array(
                 new NotBlank(),
                 new Length(array('min' => 7,'max' => 15)))))
-
-            ->add('roles', 'collection', array('label'=>'نوع کاربر :','type'=>'choice','options'=> array(
-                'choices' => array('ROLE_ADMIN' => 'مدیر سایت', 'ROLE_HOTELDAR' => 'کاربر هتلدار', 'ROLE_AGENCY' => 'کاربر آژانس'),
-                'multiple'  => false,'expanded' => true )))
 
             ->add('user_mobile','text',array('label'=>'شماره موبایل : ','constraints' => array(
                 new NotBlank(),
@@ -47,12 +42,23 @@ class RegistrationFormType extends BaseType
 
             ->add('user_nameBank','text',array('label'=>'نام بانک عامل : ','constraints' => array(
                 new NotBlank(),
-                new Length(array('max' => 31)))));
+                new Length(array('max' => 31)))))
+
+            ->add('username', 'text', array('label' => 'نام کاربری :','constraints' => array(
+                new NotBlank(),
+                new Length(array('max' => 255)))))
+
+            ->add('email', 'email', array('label' => 'ایمیل :','constraints' => array(
+                new NotBlank(),
+                new Length(array('max' => 255)))))
+
+            ->add('enabled','checkbox',array('label'=>'فعال بودن کاربر : ','required'=>false))
+        ;
     }
 
     public function getName()
     {
-        return 'hotel_user_registration';
+        return 'hotel_user_profile_edit';
     }
 }
 

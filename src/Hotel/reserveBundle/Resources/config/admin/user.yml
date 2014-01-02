@@ -1,0 +1,11 @@
+admin_user_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:AdminUser:new" }
+
+admin_user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:AdminUser:edit" }
+
+admin_user_index:
+    pattern:  /{usertype}/
+    defaults: { _controller: "HotelreserveBundle:AdminUser:index" }

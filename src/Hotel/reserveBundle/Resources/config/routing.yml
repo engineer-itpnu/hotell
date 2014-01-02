@@ -32,12 +32,6 @@ HotelreserveBundle_moneyentity:
 HotelreserveBundle_reserveentity:
     resource: "@HotelreserveBundle/Resources/config/routing/reserveentity.yml"
     prefix:   /reserveentity
-HotelreserveBundle_userentity:
-    resource: "@HotelreserveBundle/Resources/config/routing/userentity.yml"
-    prefix:   /admin/userentity
-Hotelregister_register:
-    resource: "@HotelreserveBundle/Resources/config/routing/register.yml"
-    prefix:   /admin/registering
 
 login_page:
     pattern:  /

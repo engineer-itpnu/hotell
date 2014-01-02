@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -74,8 +75,8 @@ class reserveEntity
      */
     public function __construct()
     {
-        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->blankEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accountEntities = new ArrayCollection();
+        $this->blankEntities = new ArrayCollection();
     }
 
     /**
@@ -206,10 +207,10 @@ class reserveEntity
     /**
      * Add accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      * @return reserveEntity
      */
-    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function addAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities[] = $accountEntities;
 
@@ -219,9 +220,9 @@ class reserveEntity
     /**
      * Remove accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      */
-    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function removeAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities->removeElement($accountEntities);
     }
@@ -239,10 +240,10 @@ class reserveEntity
     /**
      * Add blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     * @param blankEntity $blankEntities
      * @return reserveEntity
      */
-    public function addBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    public function addBlankEntitie(blankEntity $blankEntities)
     {
         $this->blankEntities[] = $blankEntities;
 
@@ -252,9 +253,9 @@ class reserveEntity
     /**
      * Remove blankEntities
      *
-     * @param \Hotel\reserveBundle\Entity\blankEntity $blankEntities
+     * @param blankEntity $blankEntities
      */
-    public function removeBlankEntitie(\Hotel\reserveBundle\Entity\blankEntity $blankEntities)
+    public function removeBlankEntitie(blankEntity $blankEntities)
     {
         $this->blankEntities->removeElement($blankEntities);
     }
@@ -272,10 +273,10 @@ class reserveEntity
     /**
      * Set customerEntity
      *
-     * @param \Hotel\reserveBundle\Entity\customerEntity $customerEntity
+     * @param customerEntity $customerEntity
      * @return reserveEntity
      */
-    public function setCustomerEntity(\Hotel\reserveBundle\Entity\customerEntity $customerEntity)
+    public function setCustomerEntity(customerEntity $customerEntity)
     {
         $this->customerEntity = $customerEntity;
 
@@ -285,7 +286,7 @@ class reserveEntity
     /**
      * Get customerEntity
      *
-     * @return \Hotel\reserveBundle\Entity\customerEntity
+     * @return customerEntity
      */
     public function getCustomerEntity()
     {
@@ -295,10 +296,10 @@ class reserveEntity
     /**
      * Set agencyEntity
      *
-     * @param \Hotel\reserveBundle\Entity\agencyEntity $agencyEntity
+     * @param agencyEntity $agencyEntity
      * @return reserveEntity
      */
-    public function setAgencyEntity(\Hotel\reserveBundle\Entity\agencyEntity $agencyEntity)
+    public function setAgencyEntity(agencyEntity $agencyEntity)
     {
         $this->agencyEntity = $agencyEntity;
 
@@ -308,15 +309,11 @@ class reserveEntity
     /**
      * Get agencyEntity
      *
-     * @return \Hotel\reserveBundle\Entity\agencyEntity
+     * @return agencyEntity
      */
     public function getAgencyEntity()
     {
         return $this->agencyEntity;
-    }
-    public function __tostring()
-    {
-        return $this->CountNight . ' ';
     }
 
     /**
@@ -340,5 +337,10 @@ class reserveEntity
     public function getDateCreate()
     {
         return $this->DateCreate;
+    }
+
+    public function __toString()
+    {
+        return $this->CountNight . '';
     }
 }
