@@ -32,3 +32,7 @@ admin_monitoring:
 admin_user:
     resource: "@HotelreserveBundle/Resources/config/admin/user.yml"
     prefix:   /user
+
+admin_agency:
+    resource: "@HotelreserveBundle/Resources/config/admin/agency.yml"
+    prefix:   /agency

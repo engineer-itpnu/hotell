@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -16,12 +17,7 @@ class agencyEntity
     private $id;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $agency_active;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $agency_name;
 
@@ -45,8 +41,8 @@ class agencyEntity
      */
     public function __construct()
     {
-        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->reserveEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accountEntities = new ArrayCollection();
+        $this->reserveEntities = new ArrayCollection();
     }
 
     /**
@@ -57,29 +53,6 @@ class agencyEntity
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set agency_active
-     *
-     * @param boolean $agencyActive
-     * @return agencyEntity
-     */
-    public function setAgencyActive($agencyActive)
-    {
-        $this->agency_active = $agencyActive;
-
-        return $this;
-    }
-
-    /**
-     * Get agency_active
-     *
-     * @return boolean
-     */
-    public function getAgencyActive()
-    {
-        return $this->agency_active;
     }
 
     /**
@@ -108,10 +81,10 @@ class agencyEntity
     /**
      * Set userEntity
      *
-     * @param \Hotel\reserveBundle\Entity\userEntity $userEntity
+     * @param userEntity $userEntity
      * @return agencyEntity
      */
-    public function setUserEntity(\Hotel\reserveBundle\Entity\userEntity $userEntity)
+    public function setUserEntity(userEntity $userEntity)
     {
         $this->userEntity = $userEntity;
 
@@ -121,7 +94,7 @@ class agencyEntity
     /**
      * Get userEntity
      *
-     * @return \Hotel\reserveBundle\Entity\userEntity
+     * @return userEntity
      */
     public function getUserEntity()
     {
@@ -131,10 +104,10 @@ class agencyEntity
     /**
      * Add accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      * @return agencyEntity
      */
-    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function addAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities[] = $accountEntities;
 
@@ -144,9 +117,9 @@ class agencyEntity
     /**
      * Remove accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      */
-    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function removeAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities->removeElement($accountEntities);
     }
@@ -164,10 +137,10 @@ class agencyEntity
     /**
      * Add reserveEntities
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntities
+     * @param reserveEntity $reserveEntities
      * @return agencyEntity
      */
-    public function addReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
+    public function addReserveEntitie(reserveEntity $reserveEntities)
     {
         $this->reserveEntities[] = $reserveEntities;
 
@@ -177,9 +150,9 @@ class agencyEntity
     /**
      * Remove reserveEntities
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntities
+     * @param reserveEntity $reserveEntities
      */
-    public function removeReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
+    public function removeReserveEntitie(reserveEntity $reserveEntities)
     {
         $this->reserveEntities->removeElement($reserveEntities);
     }
@@ -193,7 +166,8 @@ class agencyEntity
     {
         return $this->reserveEntities;
     }
-    public function __tostring()
+
+    public function __toString()
     {
         return $this->agency_name;
     }

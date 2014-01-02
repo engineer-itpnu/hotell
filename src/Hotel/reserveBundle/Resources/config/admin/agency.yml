@@ -1,0 +1,11 @@
+admin_agency_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:AdminAgency:index" }
+
+admin_agency_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:AdminAgency:new" }
+
+admin_agency_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:AdminAgency:edit" }
