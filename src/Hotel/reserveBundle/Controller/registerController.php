@@ -1,5 +1,4 @@
 <?php
-
 namespace Hotel\reserveBundle\Controller;
 
 use Hotel\reserveBundle\Entity\userEntity;

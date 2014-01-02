@@ -26,6 +26,6 @@ registerentity_delete:
     requirements: { _method: post|delete }
 
 registerentity:
-    pattern:  /{usertype}
+    pattern:  /{usertype}/
     defaults: { _controller: "HotelreserveBundle:register:index" }
 
