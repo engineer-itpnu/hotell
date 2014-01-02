@@ -33,6 +33,17 @@ Hotel\reserveBundle\Entity\userEntity:
                 minMessage: 'حداقل کاراکتر رعایت نشده'
                 maxMessage: 'حداکثر کاراکتر رعایت نشده'
 
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: usernameCanonical
+            errorPath: username
+            message: 'این نام کاربری قبلا استفاده شده است'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: emailCanonical
+            errorPath: email
+            message: 'این ایمیل قبلا استفاده شده است'
+
+
 Hotel\reserveBundle\Entity\hotelEntity:
     properties:
         hotel_name:

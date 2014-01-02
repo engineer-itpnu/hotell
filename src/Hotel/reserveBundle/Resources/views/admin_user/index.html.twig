@@ -20,43 +20,42 @@
                             <th>نام</th>
                             <th>نام خانوادگی</th>
                             <th>نام کاربری</th>
-                            <th>متعلق به کاربر</th>
+                            <th>نوع کاربر</th>
                             <th>شماره تلفن</th>
                             <th>شماره موبایل</th>
                             <th>شهر</th>
-                            <th>شماره حساب</th>
-                            <th>شماره کارت اعتباری</th>
-                            <th>نام بانک عامل</th>
+                            <th>دسترسی</th>
                             <th>اقدامات</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for entity in entities %}
                             <tr>
-                                <td>
-                                    {{ entity.id }}
-                                </td>
+                                <td>{{ entity.id }}</td>
                                 <td>{{ entity.userfirstname }}</td>
                                 <td>{{ entity.userfamily }}</td>
                                 <td>{{ entity.username }}</td>
-                                <td>{% if entity.roles[0]== "ROLE_ADMIN" %}
+                                <td>
+                                    {% if entity.roles[0]== "ROLE_ADMIN" %}
                                         مدیر سایت
                                     {% elseif entity.roles[0]== "ROLE_HOTELDAR" %}
                                         هتل دار
                                     {% else %}
                                         آژانس
                                     {% endif %}
-
                                 </td>
                                 <td>{{ entity.userphone }}</td>
                                 <td>{{ entity.usermobile }}</td>
                                 <td>{{ entity.usercity }}</td>
-                                <td>{{ entity.useraccountNumber }}</td>
-                                <td>{{ entity.usercardNumber }}</td>
-                                <td>{{ entity.usernameBank }}</td>
                                 <td>
-                                        <a class="badge badge-info"
-                                           href="{{ path('admin_user_edit', { 'id': entity.id }) }}">edit</a>
+                                    {% if entity.enabled %}
+                                        فعال
+                                    {% else %}
+                                        غیر فعال
+                                    {% endif %}
+                                </td>
+                                <td>
+                                        <a class="badge badge-info" href="{{ path('admin_user_edit', { 'id': entity.id }) }}">edit</a>
                                 </td>
                             </tr>
                         {% endfor %}
