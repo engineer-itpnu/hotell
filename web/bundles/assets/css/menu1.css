@@ -2,12 +2,11 @@ ul.menu1
 {
 	z-index : 9;
 	position: relative;
-	margin-left : 0px;
-	margin-right : 0px;
+	margin-left : 0;
+	margin-right : 0;
 	height : 50px;
 	padding : 0;
-	padding-right : 0px;
-	font-family : 'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'; 
+	font-family : 'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
 	font-size : 14px;
     border-radius: 3px;
 }
@@ -17,8 +16,6 @@ ul.menu1>li
 	list-style : none;
 	color : white;
 	float : right;
-
-	/*width : 80px;*/
 	margin-left : 2px;
 	margin-right : 2px;
 	height : 46px;
@@ -33,7 +30,7 @@ ul.menu1>li a
 	line-height : 46px;
 	text-decoration : none;
 	display : block;
-	text-align : right;
+	text-align : center;
 }
 
 ul.menu1>li.dropdown>ul>li>a>span{
@@ -42,7 +39,7 @@ ul.menu1>li.dropdown>ul>li>a>span{
 
 ul.menu1>li input{
     color: black;
-    font-family:  'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'; 
+    font-family:  'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
     font-size: 15px;
     font-weight: bold;
     padding-bottom: 5px;
@@ -79,17 +76,14 @@ ul.menu1>li.login_form>img{
 
 ul.menu1>li.login_form form{
 	position : absolute;
-	padding : 0 20px;
-
 	width : 239px;
-	padding : 0;
-	padding-bottom : 20px;
+	padding : 20px 0;
 }
 
 ul.menu1>li.login_form>a, ul.menu1>li.login_form>a>img{
-	color : none;
+	color : inherit;
 	border : none;
-	padding : none;
+	padding : inherit;
 }
 
 ul.menu1>li.login_form button{
@@ -130,7 +124,7 @@ ul.menu1>li.login_form button{
 
 	float : left;
 	border : none;
-	font-family :  'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'; ;
+	font-family :  'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
 	font-size : 15px;
     margin-top: 7px;
 	padding : 2px 10px;
@@ -138,7 +132,7 @@ ul.menu1>li.login_form button{
 }
 
 ul.menu1>li.login_form ul{
-	margin : 0px;
+	margin : 0;
 }
 
 ul.menu1>li.dropdown>ul
@@ -149,8 +143,8 @@ ul.menu1>li.dropdown>ul
 	color : white;
 	position: absolute;
 	list-style : none;
-	padding-left : 0px;
-	padding-right : 0px;
+	padding-left : 0;
+	padding-right : 0;
 	
 }
 

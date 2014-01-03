@@ -60,7 +60,7 @@ $(window).load(function(){
 		jQuery(this).children("ul").children("li").children("a").each(function(){
 		
 			if(jQuery(this).children("img").length > 0){
-				jQuery(this).children("span").css("float", "right");
+				jQuery(this).children("span").css("text-float", "right");
 			}else{
 				if(jQuery(this).children("span").length == 0)
 				{
@@ -68,7 +68,7 @@ $(window).load(function(){
 					$(this).text("");
 					$(this).prepend("<span>" + T + "</span>")
 				}
-				jQuery(this).children("span").css("float", "left");
+				jQuery(this).children("span").css("float", "right");
 			}		
 		})
 	})
