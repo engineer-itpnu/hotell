@@ -12,7 +12,7 @@
         .psp {
             font-weight: bold;
             font-size: 18px;
-            font-family: "b koodak";
+            font-family: "b koodak", serif;
         }
     </style>
     <section class="container " style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
@@ -49,12 +49,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>شهر اقامت : </td>
+                            <td>شهر اقامت :</td>
                             <td>
                                 {{ form_errors(form.hotel_city) }}
                                 {{ form_widget(form.hotel_city,{'id':'citySelect'}) }}
                             </td>
-                            <td>هتل : </td>
+                            <td>هتل :</td>
                             <td>
                                 {{ form_errors(form.hotelEntity) }}
                                 {{ form_widget(form.hotelEntity,{'id':'hotelSelect'}) }}
@@ -80,91 +80,78 @@
         </div>
         <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12"
              style="margin-left: 30px; float: right">
-            <div class="" style="border: 1px solid #4a8bc2;display: block;">
-                <div class="" style="background: #4a8bc2;height: 36px;display: block;">
-                    <span class=""
-                          style="float: right;margin: 2px 0 0;padding: 6px 5px 6px 10px; margin-right: 5px; color: #fff; font-size: 14px;">
-                            <a href="" class=" icon-th-large"></a>
+            <div style="border: 1px solid #4a8bc2;display: block;">
+                <div style="background: #4a8bc2;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px; padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
                             <a href="" class="icon-chevron-left"></a> <strong>گزارش صورت حساب مالی</strong>
                     </span>
                 </div>
-                <div class="" style="display: block;padding: 25px 15px;">
-                    <div>
-                        <table class="table table-condensed" style="width: 100%;">
-                            <tbody>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>هتل</th>
-                                    <th>آژانس</th>
-                                    <th>مشتری</th>
-                                    <th>اتاق رزروشده</th>
-                                    <th>مبلغ(ریال)</th>
-                                    <th>نوع</th>
-                                    <th>موجودی هتل</th>
-                                    <th>موجودی آژانس</th>
-                                    <th>شماره پیگیری بانک</th>
-                                    <th>تاریخ</th>
-                                    <th>اقدامات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for entity in entities %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('accountentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                                        </td>
-                                        <td>{{ entity.hotelEntity }}</td>
-                                        <td>{{ entity.agencyEntity }}</td>
-                                        <td>{{ entity.customerEntity }}</td>
-                                        <td>{{ entity.reserveEntity }}</td>
-                                        <td>{{ entity.price }}</td>
-                                        <td>{% if entity.type== "1" %}
-                                                خرید
-                                            {% elseif entity.type== "2" %}
-                                                برداشت
-                                            {% elseif entity.type== "3" %}
-                                                واریز
-                                            {% endif %}</td>
-                                        <td>{{ entity.StockHotel }}</td>
-                                        <td>{{ entity.StockAgency }}</td>
-                                        <td>{{ entity.NumberPey }}</td>
-                                        <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime) }}{% endif %}</td>
-                                        <td>
-                                            <ul style="list-style-type: none">
-                                                <li>
-                                                    <a class="badge badge-success"
-                                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                            </tbody>
-                        </table>
-                    </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>هتل</th>
+                            <th>آژانس</th>
+                            <th>مشتری</th>
+                            <th>اتاق رزروشده</th>
+                            <th>مبلغ(ریال)</th>
+                            <th>نوع</th>
+                            <th>موجودی هتل</th>
+                            <th>موجودی آژانس</th>
+                            <th>شماره پیگیری بانک</th>
+                            <th>تاریخ</th>
+                            <th>اقدامات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('accountentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                </td>
+                                <td>{{ entity.hotelEntity }}</td>
+                                <td>{{ entity.agencyEntity }}</td>
+                                <td>{{ entity.customerEntity }}</td>
+                                <td>{{ entity.reserveEntity }}</td>
+                                <td>{{ entity.price }}</td>
+                                <td>{% if entity.type== "1" %}
+                                        خرید
+                                    {% elseif entity.type== "2" %}
+                                        برداشت
+                                    {% elseif entity.type== "3" %}
+                                        واریز
+                                    {% endif %}</td>
+                                <td>{{ entity.StockHotel }}</td>
+                                <td>{{ entity.StockAgency }}</td>
+                                <td>{{ entity.NumberPey }}</td>
+                                <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime) }}{% endif %}</td>
+                                <td>
+                                    <a class="badge badge-success"
+                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            var selCityVal =  $("#citySelect").val();
-            if(selCityVal.length != 0)
-            {
-                var selCity =  $("#citySelect option:selected").text();
+        $(document).ready(function () {
+            var selCityVal = $("#citySelect").val();
+            if (selCityVal.length != 0) {
+                var selCity = $("#citySelect option:selected").text();
                 $("#hotelSelect").prop('disabled', true);
                 $.ajax({
                     type: "Post",
                     url: "{{ path("a_searchCity") }}",
-                    data: {"city":selCity},
+                    data: {"city": selCity},
                     cache: false,
-                    success: function(result)
-                    {
+                    success: function (result) {
                         $("#hotelSelect").html(result).prop('disabled', false);
                     }
                 });
@@ -173,16 +160,15 @@
                 $("#hotelSelect").html('<option value="">همه هتل ها</option>');
         });
 
-        $("#citySelect").change(function() {
-            var selCity =  $(this).val()?$("#citySelect option:selected").text():"";
+        $("#citySelect").change(function () {
+            var selCity = $(this).val() ? $("#citySelect option:selected").text() : "";
             $("#hotelSelect").prop('disabled', true);
             $.ajax({
                 type: "Post",
                 url: "{{ path("a_searchCity") }}",
-                data: {"city":selCity},
+                data: {"city": selCity},
                 cache: false,
-                success: function(result)
-                {
+                success: function (result) {
                     $("#hotelSelect").html(result).prop('disabled', false);
                 }
             });
