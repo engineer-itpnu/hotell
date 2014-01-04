@@ -23,7 +23,9 @@ class ReportingReserveType extends AbstractType
             ->add('cust_mobile','text', array('required'=>false))
             ->add('CodePey','text', array('required'=>false))
             ->add('Voucher','text', array('required'=>false))
-            ->add('CountNight','text', array('required'=>false))
+            ->add('ReserveType','choice', array('choices' => array('1' => 'پیش رزرو', '2' => 'رزرو نهایی'),
+                'required'=>false,'empty_value' => 'همه انواع',
+            ))
             ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',

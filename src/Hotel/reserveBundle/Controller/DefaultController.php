@@ -4,6 +4,7 @@ namespace Hotel\reserveBundle\Controller;
 use Hotel\reserveBundle\Form\ReportingReserveType;
 use Hotel\reserveBundle\Form\reportingType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +18,7 @@ class DefaultController extends Controller
         $qb = $em->createQueryBuilder()
             ->select('account')
             ->from("HotelreserveBundle:accountEntity","account");
+
         if($request->isMethod("post"))
         {
             $form->handleRequest($request);
@@ -66,9 +68,14 @@ class DefaultController extends Controller
                 if($data['cust_family']!="") $qb = $qb->andWhere('reserve.cust_family LIKE :cust_family')->setParameter('cust_family',"%".$data['cust_family']."%");
                 if($data['cust_mobile']!="") $qb = $qb->andWhere('reserve.cust_mobile = :cust_mobile')->setParameter('cust_mobile',$data['cust_mobile']);
 
-                if($data['CodePey']!=null)    $qb = $qb->andWhere('reserve.CodePey = :CodePey')->setParameter('CodePey',$data['CodePey']);
-                if($data['Voucher']!=null)    $qb = $qb->andWhere('reserve.Voucher = :Voucher')->setParameter('Voucher',$data['Voucher']);
-                if($data['CountNight']!=null) $qb = $qb->andWhere('reserve.CountNight = :CountNight')->setParameter('CountNight',$data['CountNight']);
+                if($data['CodePey']!=null)   $qb = $qb->andWhere('reserve.CodePey = :CodePey')->setParameter('CodePey',$data['CodePey']);
+                if($data['Voucher']!=null && $data['ReserveType']==null)
+                                             $qb = $qb->andWhere('reserve.Voucher = :Voucher')->setParameter('Voucher',$data['Voucher']);
+                if($data['ReserveType']!=null)
+                {
+                    if($data['ReserveType']==1) $qb = $qb->andWhere('reserve.Voucher is null');
+                    else                        $qb = $qb->andWhere('reserve.Voucher is not null');
+                }
 
                 if($data['RagencyEntity']!=null) $qb = $qb->andWhere('reserve.hotelEntity = :hotelEntity')->setParameter('hotelEntity',$data['hotelEntity']);
 
