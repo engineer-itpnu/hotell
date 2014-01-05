@@ -14,9 +14,6 @@ reserve:
 HotelreserveBundle_bankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/bankentity.yml"
     prefix:   /agency/bankentity
-HotelreserveBundle_customerentity:
-    resource: "@HotelreserveBundle/Resources/config/routing/customerentity.yml"
-    prefix:   /customerentity
 HotelreserveBundle_moneyentity:
     resource: "@HotelreserveBundle/Resources/config/routing/moneyentity.yml"
     prefix:   /moneyentity

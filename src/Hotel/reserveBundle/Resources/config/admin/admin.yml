@@ -25,3 +25,7 @@ admin_agency:
 admin_reporting:
     resource: "@HotelreserveBundle/Resources/config/admin/reporting.yml"
     prefix:   /reporting
+
+admin_customer:
+    resource: "@HotelreserveBundle/Resources/config/admin/customer.yml"
+    prefix:   /customer

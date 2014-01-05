@@ -1,0 +1,7 @@
+admin_customer_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:AdminCustomer:index" }
+
+admin_customer_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "HotelreserveBundle:AdminCustomer:edit" }
