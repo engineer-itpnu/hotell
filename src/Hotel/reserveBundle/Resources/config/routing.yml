@@ -3,20 +3,16 @@ admin:
     prefix:   /admin
 
 hoteldar:
-    resource: "@HotelreserveBundle/Resources/config/hotel/hoteldar.yml"
+    resource: "@HotelreserveBundle/Resources/config/hotel/hotel.yml"
     prefix:   /hoteldar
 
 reserve:
     resource: "@HotelreserveBundle/Resources/config/agency/agency.yml"
     prefix:   /agency
 
-
 HotelreserveBundle_bankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/bankentity.yml"
     prefix:   /agency/bankentity
-HotelreserveBundle_moneyentity:
-    resource: "@HotelreserveBundle/Resources/config/routing/moneyentity.yml"
-    prefix:   /moneyentity
 
 login_page:
     pattern:  /

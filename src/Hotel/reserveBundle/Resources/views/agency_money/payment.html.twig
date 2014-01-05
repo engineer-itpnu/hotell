@@ -1,0 +1,47 @@
+{% extends 'HotelreserveBundle::layout_agency.html.twig' %}
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div style="border: 1px solid #d24827;display: block;">
+                <div style="background: #d24827;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px; padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>سامانه پرداخت آنلاین </strong>
+                    </span>
+                </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <form action="http://hotel.picolig.ir/web/hotelService?wsdl" method="post" id="TransactionForm">
+                        <table style="width: 100%;font-family:tahoma,serif; font-size:8pt" dir="rtl">
+                            <tr>
+                                <td><label for="Price">مبلغ مورد نظر:</label></td>
+                                <td><input type="text" id="Price" name="Price" dir="ltr"/> تومان</td>
+                            </tr>
+                            <tr>
+                                <td><label for="Paymenter">پرداخت کننده :</label></td>
+                                <td><input type="text" id="Paymenter" name="Paymenter"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Email">ايميل پرداخت کننده :</label></td>
+                                <td><input type="text" dir="ltr" id="Email" name="Email"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="Mobile">موبایل پرداخت کننده :</label></td>
+                                <td><input type="text" dir="ltr" id="Mobile" name="Mobile"/></td>
+                            </tr>
+                        </table>
+
+                        <input type="hidden" id="ResNumber" value="0" name="ResNumber"/>
+                        <input type="hidden" id="Description" value="خرید" name="Description"/>
+                        <input type="hidden" id="ReturnPath" value="http://www.yourweblogpath.com/" name="ReturnPath"/>
+                        <input type="hidden" id="MerchantID" value="shenaseye dargah" name="MerchantID"/>
+                        <input type="hidden" id="Password" value="kalameye oboore dargah" name="Password"/>
+
+                        <input class="btn btn-primary" type="submit" value="اتصال به درگاه پرداخت آنلاین بانک پارسیان"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

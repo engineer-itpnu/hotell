@@ -1,0 +1,11 @@
+admin_money_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:AdminMoney:index" }
+
+admin_money_accept:
+    pattern:  /accept/{id}/
+    defaults: { _controller: "HotelreserveBundle:AdminMoney:accept" }
+
+admin_money_reject:
+    pattern:  /reject/{id}/
+    defaults: { _controller: "HotelreserveBundle:AdminMoney:reject" }

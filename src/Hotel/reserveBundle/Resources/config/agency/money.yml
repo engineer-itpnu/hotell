@@ -1,0 +1,15 @@
+agency_money_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:AgencyMoney:index" }
+
+agency_money_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:AgencyMoney:new" }
+
+agency_money_delete:
+    pattern:  /delete/{id}/
+    defaults: { _controller: "HotelreserveBundle:AgencyMoney:delete" }
+
+agency_money_payment:
+    pattern:  /payment
+    defaults: { _controller: "HotelreserveBundle:AgencyMoney:payment" }

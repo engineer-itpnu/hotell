@@ -1,0 +1,11 @@
+hotel_money_index:
+    pattern:  /
+    defaults: { _controller: "HotelreserveBundle:HotelMoney:index" }
+
+hotel_money_new:
+    pattern:  /new
+    defaults: { _controller: "HotelreserveBundle:HotelMoney:new" }
+
+hotel_money_delete:
+    pattern:  /delete/{id}/
+    defaults: { _controller: "HotelreserveBundle:HotelMoney:delete" }

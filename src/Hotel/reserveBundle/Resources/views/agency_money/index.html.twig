@@ -1,0 +1,77 @@
+{% extends 'HotelreserveBundle::layout_agency.html.twig' %}
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div style="border: 1px solid #d24827;display: block;">
+                <div style="background: #d24827;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px; padding: 6px 5px 6px 10px;  color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>مدیریت صورت حساب کاربران
+                            هتلدار-آژانس</strong>
+                    </span>
+                </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <table class="table table-bordered table-condensed" style="width: 100%;" dir="rtl">
+                        <thead>
+                        <tr>
+                            <th>ردیف</th>
+                            <th>کاربر</th>
+                            <th>نوع درخواست</th>
+                            <th>مبلغ</th>
+                            <th>تاریخ درخواست</th>
+                            <th>تاریخ پاسخ</th>
+                            <th>وضعیت درخواست</th>
+                            <th>شماره فیش بانکی</th>
+                            <th>تاریخ فیش بانکی</th>
+                            <th>نام بانک</th>
+                            <th>نام-شماره شعبه</th>
+                            <th>اقدامات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.id }}</td>
+                                <td>{{ entity.userEntity }}</td>
+                                <td>{% if entity.moneytype==0 %}
+                                        برداشت مبلغ
+                                    {% else %}
+                                        واریز مبلغ
+                                    {% endif %}
+                                </td>
+                                <td>{{ entity.moneyprice }}</td>
+                                <td>{% if entity.moneyDateReq %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReq) }}{% endif %}</td>
+                                <td>{% if entity.moneyDateReply %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReply) }}{% endif %}</td>
+                                <td>
+                                    {% if entity.moneystatus == 1 %}
+                                        درحال پاسخ
+                                    {% elseif entity.moneystatus == 2 %}
+                                        تایید
+                                    {% elseif entity.moneystatus == 3 %}
+                                        لغو از طرف کاربر
+                                    {% elseif entity.moneystatus == 4 %}
+                                        رد از طرف مدیر سایت
+                                    {% endif %}
+                                </td>
+                                <td>{{ entity.moneyNumBill }}</td>
+                                <td>{% if entity.moneyDateBill %}{{ DateConvert.MiladiToShamsi(entity.moneyDateBill) }}{% endif %}</td>
+                                <td>{{ entity.moneyBankName }}</td>
+                                <td>{{ entity.moneybranch }}</td>
+                                <td>
+                                    {% if entity.moneystatus == 1 %}
+                                        <a class="badge badge-important YesNoMessage"
+                                           href="{{ path('agency_money_delete', { 'id': entity.id }) }}"
+                                           header="لغو درخواست" message="آیا درخواست لغو شود">لغو</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" href="{{ path('agency_money_new') }}">ثبت رسید واریز</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

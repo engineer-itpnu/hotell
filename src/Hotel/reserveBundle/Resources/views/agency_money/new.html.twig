@@ -1,0 +1,81 @@
+{% extends 'HotelreserveBundle::layout_agency.html.twig' %}
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div style="border: 1px solid #d24827;display: block;">
+                <div style="background: #d24827;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px;padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>ایجاد درخواست برداشت - واریز وجه </strong>
+                    </span>
+                </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <form method="post" {{ form_enctype(form) }}>
+                        <table class="table table-condensed" style="width: 100%;">
+                            <tbody>
+                            <tr class="success">
+                                <td>
+                                    {{ form_label(form.money_price,'مبلغ : ') }}
+                                </td>
+                                <td>
+                                    {{ form_errors(form.money_price) }}
+                                    {{ form_widget(form.money_price,{ 'attr' : {'class':'MoneyComma','onkeydown' : 'return ( event.ctrlKey || event.altKey
+      || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+      || (95<event.keyCode && event.keyCode<106)
+      || (event.keyCode==8) || (event.keyCode==9)
+      || (event.keyCode>34 && event.keyCode<40)
+      || (event.keyCode==46) )'} }) }}
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="info">
+                                <td>
+                                    {{ form_label(form.money_NumBill,'شماره فیش بانکی : ') }}
+                                </td>
+                                <td>
+                                    {{ form_errors(form.money_NumBill) }}
+                                    {{ form_widget(form.money_NumBill,{ 'attr' : {'onkeydown' : 'return ( event.ctrlKey || event.altKey
+  || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
+  || (95<event.keyCode && event.keyCode<106)
+  || (event.keyCode==8) || (event.keyCode==9)
+  || (event.keyCode>34 && event.keyCode<40)
+  || (event.keyCode==46) )'} }) }}
+                                </td>
+                                <td style="padding-left: 140px;">
+                                    {{ form_label(form.money_DateBill,'تاریخ فیش بانکی : ') }}
+                                </td>
+                                <td>
+                                    {{ form_errors(form.money_DateBill) }}
+                                    {{ form_widget(form.money_DateBill,{'id':'pcal1'}) }}
+                                </td>
+                            </tr>
+                            <tr class="success">
+                                <td style="padding-left: 140px;">
+                                    {{ form_label(form.money_BankName,'نام بانک : ') }}
+                                </td>
+                                <td>
+                                    {{ form_errors(form.money_BankName) }}
+                                    {{ form_widget(form.money_BankName,{ 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
+                                </td>
+                                <td style="padding-left: 140px;">
+                                    {{ form_label(form.money_branch,'نام-شماره شعبه : ') }}
+                                </td>
+                                <td>
+                                    {{ form_errors(form.money_branch) }}
+                                    {{ form_widget(form.money_branch, {'required':'' }) }}
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        {{ form_widget(form._token) }}
+                        <a class="btn btn-primary" href="{{ path('agency_money_index') }}">برگشت</a>
+                        <button class="btn btn-primary" type="submit">ایجاد</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

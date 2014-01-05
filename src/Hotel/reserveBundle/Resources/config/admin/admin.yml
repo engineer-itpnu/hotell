@@ -29,3 +29,7 @@ admin_reporting:
 admin_customer:
     resource: "@HotelreserveBundle/Resources/config/admin/customer.yml"
     prefix:   /customer
+
+admin_money:
+    resource: "@HotelreserveBundle/Resources/config/admin/money.yml"
+    prefix:   /money
