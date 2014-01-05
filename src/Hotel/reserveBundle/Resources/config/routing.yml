@@ -1,3 +1,7 @@
+login_page:
+    pattern:  /
+    defaults: { _controller: FOSUserBundle:Security:login }
+
 admin:
     resource: "@HotelreserveBundle/Resources/config/admin/admin.yml"
     prefix:   /admin
@@ -13,10 +17,6 @@ reserve:
 HotelreserveBundle_bankentity:
     resource: "@HotelreserveBundle/Resources/config/routing/bankentity.yml"
     prefix:   /agency/bankentity
-
-login_page:
-    pattern:  /
-    defaults: { _controller: FOSUserBundle:Security:login }
 
 Hotelreserve_service:
     pattern:  /hotelService
