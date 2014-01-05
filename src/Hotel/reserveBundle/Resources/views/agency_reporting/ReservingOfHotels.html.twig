@@ -1,0 +1,203 @@
+{% extends 'HotelreserveBundle::layout_agency.html.twig' %}
+
+{% block content -%}
+    <style type="text/css">
+        .psp {
+            font-weight: bold;
+            font-size: 18px;
+            font-family: "b koodak", serif;
+        }
+    </style>
+    <section class="container " style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <form method="post">
+            <div class="psp ">
+                <legend style="color: #4a8bc2;border-bottom-color: #4a8bc2 ">
+                    گزارش گیری رزرواسیون هتل ها
+                </legend>
+                <div class="group2">
+                    <table>
+                        <tr>
+                            <td>تاریخ ورود مسافر:</td>
+                        </tr>
+                        <tr>
+                            <td>از تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.RfromDateTime) }}
+                                {{ form_widget(form.RfromDateTime,{'id':'pcal1'}) }}
+                            </td>
+                            <td>تا تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.RtoDateTime) }}
+                                {{ form_widget(form.RtoDateTime,{'id':'pcal2'}) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><br/>مشخصات مسافر:</td>
+                        </tr>
+                        <tr>
+                            <td>نام :</td>
+                            <td>
+                                {{ form_errors(form.cust_name) }}
+                                {{ form_widget(form.cust_name) }}
+                            </td>
+                            <td> نام خانوادگی :</td>
+                            <td>
+                                {{ form_errors(form.cust_family) }}
+                                {{ form_widget(form.cust_family) }}
+                            </td>
+                            <td>شماره همراه :</td>
+                            <td>
+                                {{ form_errors(form.cust_mobile) }}
+                                {{ form_widget(form.cust_mobile) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>کد پیگیری :</td>
+                            <td>
+                                {{ form_errors(form.CodePey) }}
+                                {{ form_widget(form.CodePey) }}
+                            </td>
+                            <td>کد واچر :</td>
+                            <td>
+                                {{ form_errors(form.Voucher) }}
+                                {{ form_widget(form.Voucher,{'id':'VoucherInput'}) }}
+                            </td>
+                            <td>وضعیت رزرو :</td>
+                            <td>
+                                {{ form_errors(form.ReserveType) }}
+                                {{ form_widget(form.ReserveType,{'id':'ReserveTypeSelect'}) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>آژانس :</td>
+                            <td>
+                                {{ form_errors(form.RagencyEntity) }}
+                                {{ form_widget(form.RagencyEntity) }}
+                            </td>
+                            <td>شهر اقامت :</td>
+                            <td>
+                                {{ form_errors(form.hotel_city) }}
+                                {{ form_widget(form.hotel_city,{'id':'citySelect'}) }}
+                            </td>
+                            <td>هتل :</td>
+                            <td>
+                                {{ form_errors(form.RhotelEntity) }}
+                                {{ form_widget(form.RhotelEntity,{'id':'hotelSelect'}) }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br/>
+            <input class="btn btn-danger" type="submit" value="گزارش گیری">
+
+            <img width="32" height="32" src="{{ asset('bundles/assets/img/report.png') }}" class="img-circle">
+
+            <input class="btn btn-danger" type="button" value="پرینت اطلاعات" style="margin-right: 200px">
+
+            <img width="32" height="32" src="{{ asset('bundles/assets/img/Print-icon.png') }}" class="img-circle">
+            {{ form_widget(form._token) }}
+        </form>
+        <br/><br/>
+
+        <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%"></div>
+        </div>
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12"
+             style="margin-left: 30px; float: right">
+            <div style="border: 1px solid #4a8bc2;display: block;">
+                <div style="background: #4a8bc2;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px ;padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>گزارش رزرواسیون هتل</strong>
+                    </span>
+                </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">ردیف</th>
+                            <th style="text-align: center">هتل</th>
+                            <th style="text-align: center">آژانس</th>
+                            <th style="text-align: center">نام مسافر</th>
+                            <th style="text-align: center">تاریخ ورود مسافر</th>
+                            <th style="text-align: center">تعداد شب</th>
+                            <th style="text-align: center">شهر اقامت</th>
+                            <th style="text-align: center">کد پیگیری</th>
+                            <th style="text-align: center">واچر</th>
+                            <th style="text-align: center">اقدامات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td style="text-align: center">{{ entity.id }}</td>
+                                <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity }}</td>
+                                <td style="text-align: center">{{ entity.agencyEntity }}</td>
+                                <td style="text-align: center">{{ entity.customerEntity }}</td>
+                                <td style="text-align: center">{{ DateConvert.MiladiToShamsi(entity.DateInp) }}</td>
+                                <td style="text-align: center">{{ entity.CountNight }}</td>
+                                <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity.HotelCity }}</td>
+                                <td style="text-align: center">{{ entity.CodePey }}</td>
+                                <td style="text-align: center">{{ entity.Voucher }}</td>
+                                <td>
+                                    <a class="badge badge-success"
+                                       href="{{ path('agency_reporting_reserving_of_hotels_show', { 'id': entity.id }) }}">نمایش</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination-centered pagination">
+                        {{ knp_pagination_render(entities) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selCityVal = $("#citySelect").val();
+            if (selCityVal.length != 0) {
+                var selCity = $("#citySelect option:selected").text();
+                $("#hotelSelect").prop('disabled', true);
+                $.ajax({
+                    type: "Post",
+                    url: "{{ path("agency_reporting_list_hotel_by_city") }}",
+                    data: {"city": selCity},
+                    cache: false,
+                    success: function (result) {
+                        $("#hotelSelect").html(result).prop('disabled', false);
+                    }
+                });
+            }
+            else
+                $("#hotelSelect").html('<option value="">همه هتل ها</option>');
+
+            if ($("#ReserveTypeSelect").val() == 1)
+                $("#VoucherInput").prop('disabled', true);
+        });
+
+        $("#citySelect").change(function () {
+            var selCity = $(this).val() ? $("#citySelect option:selected").text() : "";
+            $("#hotelSelect").prop('disabled', true);
+            $.ajax({
+                type: "Post",
+                url: "{{ path("agency_reporting_list_hotel_by_city") }}",
+                data: {"city": selCity},
+                cache: false,
+                success: function (result) {
+                    $("#hotelSelect").html(result).prop('disabled', false);
+                }
+            });
+        });
+
+        $("#ReserveTypeSelect").change(function () {
+            if ($(this).val() == 1)
+                $("#VoucherInput").prop('disabled', true);
+            else
+                $("#VoucherInput").prop('disabled', false);
+        });
+    </script>
+{% endblock %}

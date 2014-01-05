@@ -1,0 +1,15 @@
+admin_reporting_financial_accounts:
+    pattern:  /financialAccounts
+    defaults: { _controller: HotelreserveBundle:AdminReporting:financialAccounts }
+
+admin_reporting_reserving_of_hotels:
+    pattern:  /reservingOfHotels
+    defaults: { _controller: HotelreserveBundle:AdminReporting:reservingOfHotels }
+
+admin_reporting_reserving_of_hotels_show:
+    pattern:  /reservingOfHotels/{id}/show
+    defaults: { _controller: HotelreserveBundle:AdminReporting:reservingOfHotelsShow }
+
+admin_reporting_list_hotel_by_city:
+    pattern:  /listHotelByCity
+    defaults: { _controller: HotelreserveBundle:AdminReporting:listHotelByCity }

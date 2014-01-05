@@ -1,12 +1,5 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% elseif is_granted("ROLE_AGENCY") %}
-    {% set parent= 'HotelreserveBundle::layout_agency.html.twig' %}
-{% endif %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+
 {% block content -%}
     <style type="text/css">
         .psp {
@@ -138,9 +131,7 @@
                         <tbody>
                         {% for entity in entities %}
                             <tr>
-                                <td style="text-align: center"><a
-                                            href="{{ path('reserveentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                                </td>
+                                <td style="text-align: center">{{ entity.id }}</td>
                                 <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity }}</td>
                                 <td style="text-align: center">{{ entity.agencyEntity }}</td>
                                 <td style="text-align: center">{{ entity.customerEntity }}</td>
@@ -151,12 +142,15 @@
                                 <td style="text-align: center">{{ entity.Voucher }}</td>
                                 <td>
                                     <a class="badge badge-success"
-                                       href="{{ path('reserveentity_show', { 'id': entity.id }) }}">نمایش</a>
+                                       href="{{ path('admin_reporting_reserving_of_hotels_show', { 'id': entity.id }) }}">نمایش</a>
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
+                    <div class="pagination-centered pagination">
+                        {{ knp_pagination_render(entities) }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,7 +164,7 @@
                 $("#hotelSelect").prop('disabled', true);
                 $.ajax({
                     type: "Post",
-                    url: "{{ path("a_searchCity") }}",
+                    url: "{{ path("admin_reporting_list_hotel_by_city") }}",
                     data: {"city": selCity},
                     cache: false,
                     success: function (result) {
@@ -190,7 +184,7 @@
             $("#hotelSelect").prop('disabled', true);
             $.ajax({
                 type: "Post",
-                url: "{{ path("a_searchCity") }}",
+                url: "{{ path("admin_reporting_list_hotel_by_city") }}",
                 data: {"city": selCity},
                 cache: false,
                 success: function (result) {

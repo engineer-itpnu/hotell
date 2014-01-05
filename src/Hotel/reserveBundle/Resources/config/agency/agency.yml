@@ -1,18 +1,13 @@
 g_main:
     pattern:  /
     defaults: { _controller: HotelreserveBundle:Agency:home }
-g_Rool_Account:
-    pattern:  /rollaccount
-    defaults: { _controller: HotelreserveBundle:accountEntity:AgencyIndex }
-g_reporting:
-    pattern:  /greporting
-    defaults: { _controller: HotelreserveBundle:Default:report }
-g_search:
-    pattern:  /gsearch
-    defaults: { _controller: HotelreserveBundle:Default:search }
 g_moneyentity:
     pattern:  /gmoney
     defaults: { _controller: "HotelreserveBundle:moneyEntity:index" }
 g_payment:
     pattern:  /gpayment
     defaults: { _controller: HotelreserveBundle:Default:payment }
+
+agency_reporting:
+    resource: "@HotelreserveBundle/Resources/config/agency/reporting.yml"
+    prefix:   /reporting

@@ -1,18 +1,9 @@
 h_main:
     pattern:  /
     defaults: { _controller: HotelreserveBundle:Hotel:home }
-h_request_money:
-    pattern:  /requestmoney
-    defaults: { _controller: HotelreserveBundle:Hotel:request }
 h_Rool_Account:
     pattern:  /rollaccount
     defaults: { _controller: HotelreserveBundle:accountEntity:HoteldarIndex }
-h_reporting:
-    pattern:  /hreporting
-    defaults: { _controller: HotelreserveBundle:Default:report }
-h_search:
-    pattern:  /hsearch
-    defaults: { _controller: HotelreserveBundle:Default:search }
 h_moneyentity:
     pattern:  /hmoney
     defaults: { _controller: "HotelreserveBundle:moneyEntity:index" }
@@ -28,3 +19,7 @@ hotel_room:
 hotel_monitoring:
     resource: "@HotelreserveBundle/Resources/config/hotel/monitoring.yml"
     prefix:   /monitoring
+
+hotel_reporting:
+    resource: "@HotelreserveBundle/Resources/config/hotel/reporting.yml"
+    prefix:   /reporting

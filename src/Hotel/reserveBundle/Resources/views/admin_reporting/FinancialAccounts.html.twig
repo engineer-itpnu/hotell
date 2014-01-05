@@ -1,12 +1,5 @@
-{% set parent="" %}
-{% if is_granted("ROLE_ADMIN") %}
-    {% set parent= 'HotelreserveBundle::layout_admin.html.twig' %}
-{% elseif is_granted("ROLE_HOTELDAR") %}
-    {% set parent= 'HotelreserveBundle::layout_hotel.html.twig' %}
-{% elseif is_granted("ROLE_AGENCY") %}
-    {% set parent= 'HotelreserveBundle::layout_agency.html.twig' %}
-{% endif %}
-{% extends parent %}
+{% extends 'HotelreserveBundle::layout_admin.html.twig' %}
+
 {% block content -%}
     <style type="text/css">
         .psp {
@@ -102,15 +95,12 @@
                             <th>موجودی آژانس</th>
                             <th>شماره پیگیری بانک</th>
                             <th>تاریخ</th>
-                            <th>اقدامات</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for entity in entities %}
                             <tr>
-                                <td>
-                                    <a href="{{ path('accountentity_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                                </td>
+                                <td>{{ entity.id }}</td>
                                 <td>{{ entity.hotelEntity }}</td>
                                 <td>{{ entity.agencyEntity }}</td>
                                 <td>{{ entity.customerEntity }}</td>
@@ -127,14 +117,13 @@
                                 <td>{{ entity.StockAgency }}</td>
                                 <td>{{ entity.NumberPey }}</td>
                                 <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime) }}{% endif %}</td>
-                                <td>
-                                    <a class="badge badge-success"
-                                       href="{{ path('accountentity_show', { 'id': entity.id }) }}">نمایش</a>
-                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
+                    <div class="pagination-centered pagination">
+                        {{ knp_pagination_render(entities) }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,7 +137,7 @@
                 $("#hotelSelect").prop('disabled', true);
                 $.ajax({
                     type: "Post",
-                    url: "{{ path("a_searchCity") }}",
+                    url: "{{ path("admin_reporting_list_hotel_by_city") }}",
                     data: {"city": selCity},
                     cache: false,
                     success: function (result) {
@@ -165,7 +154,7 @@
             $("#hotelSelect").prop('disabled', true);
             $.ajax({
                 type: "Post",
-                url: "{{ path("a_searchCity") }}",
+                url: "{{ path("admin_reporting_list_hotel_by_city") }}",
                 data: {"city": selCity},
                 cache: false,
                 success: function (result) {

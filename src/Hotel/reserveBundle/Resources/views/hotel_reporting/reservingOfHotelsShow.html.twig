@@ -1,0 +1,96 @@
+{% extends 'HotelreserveBundle::layout_hotel.html.twig' %}
+
+{% block content -%}
+    <section class="container" style="width: 95%; margin-top: 20px; margin-bottom: 40px;">
+        <div class="span12 responsive" data-tablet="span12 fix-margin" data-desktop="span12">
+            <div style="border: 1px solid #4d3d98;display: block;">
+                <div style="background: #4d3d98;height: 36px;display: block;">
+                    <span style="float: right;margin: 2px 0 0 5px;padding: 6px 5px 6px 10px; color: #fff; font-size: 14px;">
+                            <a href="" class="icon-th-large"></a>
+                            <a href="" class="icon-chevron-left"></a> <strong>نمایش اطلاعات پایه هتل</strong>
+                    </span>
+                </div>
+                <div style="display: block;padding: 25px 15px;">
+                    <table class="table table-condensed" style="width: 100%;">
+                        <tbody>
+                        <tr>
+                            <th>ردیف :</th>
+                            <td>{{ entity.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>تاریخ ثبت:</th>
+                            <td>{{ DateConvert.MiladiToShamsi(entity.DateCreate) }}</td>
+                        </tr>
+                        <tr>
+                            <th>نام هتل:</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.hotelEntity }}</td>
+                        </tr>
+                        <tr>
+                            <th>شهر اقامت:</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.hotelEntity.HotelCity }}</td>
+                        </tr>
+                        <tr>
+                            <th>نام آژانس:</th>
+                            <td>{{ entity.agencyEntity }}</td>
+                        </tr>
+                        <tr>
+                            <th>تاریخ ورود مسافر :</th>
+                            <td>{{ DateConvert.MiladiToShamsi(entity.DateInp) }}</td>
+                        </tr>
+                        <tr>
+                            <th>تعداد شب اقامت :</th>
+                            <td>{{ entity.CountNight }}</td>
+                        </tr>
+                        <tr>
+                            <th>جمع هزینه اقامت :</th>
+                            <td>{{ entity.Money }}</td>
+                        </tr>
+                        <tr>
+                            <th>کد پیگیری :</th>
+                            <td>{{ entity.CodePey }}</td>
+                        </tr>
+                        <tr>
+                            <th>واچر :</th>
+                            <td>{{ entity.Voucher }}</td>
+                        </tr>
+                        <tr>
+                            <th>نوع اتاق :</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.RoomType }}</td>
+                        </tr>
+                        <tr>
+                            <th>نام اتاق :</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.RoomName }}</td>
+                        </tr>
+                        <tr>
+                            <th>ظرفیت اتاق :</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.RoomCapacity }}</td>
+                        </tr>
+                        <tr>
+                            <th>ظرفیت اضافی اتاق :</th>
+                            <td>{{ entity.blankEntities[0].roomEntity.RoomAddCapacity }}</td>
+                        </tr>
+                        <tr>
+                            <th>نام مشتری :</th>
+                            <td>{{ entity.customerEntity }}</td>
+                        </tr>
+                        <tr>
+                            <th>ایمیل مشتری :</th>
+                            <td>{{ entity.customerEntity.CustEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>تلفن مشتری :</th>
+                            <td>{{ entity.customerEntity.CustPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>موبایل مشتری :</th>
+                            <td>{{ entity.customerEntity.CustMobile }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <a class="btn btn-primary" href="javascript:history.back()">برگشت</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

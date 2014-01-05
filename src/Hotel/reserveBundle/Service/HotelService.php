@@ -543,6 +543,7 @@ class HotelService {
             ->innerJoin("b.roomEntity","r")
             ->innerJoin("r.hotelEntity","h")
             ->where("b.status = :status")->setParameter("status","0")
+            ->andWhere("h.hotel_active = :true")->setParameter("true",true)
             ->andWhere("b.dateIN = :date")->setParameter("date",$date)
         ;
 

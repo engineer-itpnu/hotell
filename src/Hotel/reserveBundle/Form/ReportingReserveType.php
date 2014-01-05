@@ -3,12 +3,19 @@
 namespace Hotel\reserveBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Hotel\reserveBundle\Entity\userEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ReportingReserveType extends AbstractType
 {
+    private $user;
+
+    public function __construct(userEntity $_user = null)
+    {
+        $this->user = $_user;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -27,11 +34,19 @@ class ReportingReserveType extends AbstractType
                 'required'=>false,'empty_value' => 'همه انواع',
             ))
             ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
-                'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',))
+                'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',
+                'query_builder' => function (EntityRepository $er) {
+                        $er = $er->createQueryBuilder('u');
+                        if($this->user && $this->user->hasRole("ROLE_AGENCY")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
+                        return $er;
+                    }
+            ))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',
                 'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')->groupBy("u.hotel_city");
+                        $er = $er->createQueryBuilder('u');
+                        if($this->user && $this->user->hasRole("ROLE_HOTELDAR")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
+                        return $er->groupBy("u.hotel_city");
                     }))
             ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                     'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها'

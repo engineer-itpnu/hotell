@@ -1,21 +1,6 @@
 a_main:
     pattern:  /
     defaults: { _controller: HotelreserveBundle:Admin:admin }
-a_reporting:
-    pattern:  /areporting
-    defaults: { _controller: HotelreserveBundle:Default:report }
-a_manage_htl:
-    pattern:  /managehtl
-    defaults: { _controller: HotelreserveBundle:Default:managehtl }
-a_manage_age:
-    pattern:  /manageage
-    defaults: { _controller: HotelreserveBundle:Default:manageage }
-a_search:
-    pattern:  /asearch
-    defaults: { _controller: HotelreserveBundle:Default:search }
-a_searchCity:
-    pattern:  /asearchCity
-    defaults: { _controller: HotelreserveBundle:Default:listHotelByCity }
 
 admin_hotel:
     resource: "@HotelreserveBundle/Resources/config/admin/hotelentity.yml"
@@ -36,3 +21,7 @@ admin_user:
 admin_agency:
     resource: "@HotelreserveBundle/Resources/config/admin/agency.yml"
     prefix:   /agency
+
+admin_reporting:
+    resource: "@HotelreserveBundle/Resources/config/admin/reporting.yml"
+    prefix:   /reporting
