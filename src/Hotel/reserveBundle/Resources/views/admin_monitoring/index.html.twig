@@ -28,15 +28,19 @@
                         <table class="table tab-content">
                             <tbody>
                             <tr>
+                                <th>شهر :</th>
+                                <td>{{ form_widget(form.city,{ 'attr':{ 'style':'width: 150px !important;' } }) }}</td>
                                 <th>هتل :</th>
-                                <td>{{ form_widget(form.hotel) }}</td>
+                                <td>{{ form_widget(form.hotel,{ 'attr':{ 'style':'width: 150px !important;' } }) }}</td>
                                 <th>ماه :</th>
-                                <td>{{ form_widget(form.month) }}</td>
+                                <td>{{ form_widget(form.month,{ 'attr':{ 'style':'width: 100px !important;' } }) }}</td>
                                 <th>سال :</th>
-                                <td>{{ form_widget(form.year) }}</td>
+                                <td>{{ form_widget(form.year,{ 'attr':{ 'style':'width: 100px !important;' } }) }}</td>
                                 <td><input type="submit" class="btn btn-success" value="مشاهده"/></td>
                             </tr>
                             <tr>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -65,4 +69,39 @@
             </div>
         </div>
     </section>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selCityVal = $("#city").val();
+            if (selCityVal.length != 0) {
+                var selCity = $("#city option:selected").text();
+                $("#hotel").prop('disabled', true);
+                $.ajax({
+                    type: "Post",
+                    url: "{{ path("admin_reporting_list_hotel_by_city") }}",
+                    data: {"city": selCity,"hasEmpty":"false"},
+                    cache: false,
+                    success: function (result) {
+                        $("#hotel").html(result).prop('disabled', false);
+                    }
+                });
+            }
+            else
+                $("#hotel").html('<option value="">همه هتل ها</option>');
+        });
+
+        $("#city").change(function () {
+            var selCity = $(this).val() ? $("#city option:selected").text() : "";
+            $("#hotel").prop('disabled', true);
+            $.ajax({
+                type: "Post",
+                url: "{{ path("admin_reporting_list_hotel_by_city") }}",
+                data: {"city": selCity,"hasEmpty":"false"},
+                cache: false,
+                success: function (result) {
+                    $("#hotel").html(result).prop('disabled', false);
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -128,9 +128,10 @@ class AdminReportingController extends Controller
     public function listHotelByCityAction(Request $request)
     {
         $city = $request->get("city","");
+        $hasEmpty = $request->get("hasEmpty","true");
         $em = $this->getDoctrine()->getManager();
         $hotels = $em->getRepository("HotelreserveBundle:hotelEntity")->findBy(array("hotel_city"=>$city));
-        $res = '<option value="">همه هتل ها</option>';
+        $res = $hasEmpty=="true"?'<option value="">همه هتل ها</option>':'';
         foreach ($hotels as $hotel)
             $res .= '<option value="'.$hotel->getId().'">'.$hotel->getHotelName().'</option>';
         return new Response($res);
