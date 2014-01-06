@@ -15,7 +15,7 @@ class AdminMonitoringController extends Controller
     {
         $date_convert = $this->get("my_date_convert");
         $now = explode("/",$date_convert->MiladiToShamsi(new \DateTime()));
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form',array('hotel'=>'0','month'=>$now[1],'year'=>$now[0]), array('method' => 'GET','csrf_protection' => false))
             ->add('city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
