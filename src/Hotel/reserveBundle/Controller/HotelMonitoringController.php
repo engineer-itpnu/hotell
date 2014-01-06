@@ -17,14 +17,15 @@ class HotelMonitoringController extends Controller
         $now = explode("/",$date_convert->MiladiToShamsi(new \DateTime()));
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->getUser();
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form',array('hotel'=>'0','month'=>$now[1],'year'=>$now[0]), array('method' => 'GET','csrf_protection' => false))
             ->add("hotel","entity",array(
                 'class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_name',
-                'query_builder' => function(EntityRepository $er) {
+                'query_builder' => function(EntityRepository $er) use ($user) {
                         return $er->createQueryBuilder('u')
                             ->where("u.hotel_active = :true")->setParameter("true",true)
-                            ->andWhere("u.userEntity = :user")->setParameter("user",$this->getUser());
+                            ->andWhere("u.userEntity = :user")->setParameter("user",$user);
                     }))
             ->add("year","integer",array('constraints' => array(
                 new NotBlank(),
