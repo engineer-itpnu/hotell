@@ -174,12 +174,7 @@ class HotelMonitoringController extends Controller
     {
         $dateconvertor = $this->get("my_date_convert");
 
-        $roomTypes = array(
-            '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
-            '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
-            '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
-            '15' => 'آپارتمان', '16' => 'آپارتمان رويال', '17' => 'سوئيت'
-        );
+        $roomTypes = ServiceController::roomTypes();
 
         if($editable == false)
             $result = "timeline_add_row_notEdit(".$room->getId().",'".$room->getRoomName()."','".$roomTypes[$room->getRoomType()]."', [";

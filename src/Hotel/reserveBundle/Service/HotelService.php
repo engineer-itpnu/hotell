@@ -2,6 +2,7 @@
 namespace Hotel\reserveBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Hotel\reserveBundle\Controller\ServiceController;
 use Hotel\reserveBundle\Entity\accountEntity;
 use Hotel\reserveBundle\Entity\blankEntity;
 use Hotel\reserveBundle\Entity\customerEntity;
@@ -19,12 +20,7 @@ class HotelService {
     /**
      * @var array
      */
-    private $roomTypes = array(
-        '1' => 'سوئيت vip', '2' => 'سوئيت جونيور', '3' => 'سوئيت پرزيدنت', '4' => 'سوئيت رويال',
-        '5' => 'سوئيت امپريال', '6' => 'سوئيت لاکچري', '7' => 'سوئيت دوبلکس', '8' => 'سوئيت لوکس', '9' => 'پرنسس روم',
-        '10' => 'پرزيدنتال', '11' => 'تريپل', '12' => 'سينگل', '13' => 'دبل', '14' => 'کانکت روم',
-        '15' => 'آپارتمان', '16' => 'آپارتمان رويال','17' => 'سوئيت'
-    );
+    private $roomTypes;
 
     /**
      * @var DateConvertor
@@ -51,6 +47,7 @@ class HotelService {
         $this->dateconvertor = $dc;
         $this->em = $em;
         $this->encoderFactory = $ef;
+        $this->roomTypes = ServiceController::roomTypes();
     }
 
     //-----------------------------------------------------------------------------
