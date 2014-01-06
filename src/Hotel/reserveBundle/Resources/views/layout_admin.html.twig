@@ -1,15 +1,9 @@
 {% extends 'HotelreserveBundle::main.html.twig' %}
 
 {% block stylesheet %}
-    <link href="{{ asset('bundles/assets/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('bundles/assets/css/menu1.css') }}" media="all" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('bundles/assets/css/style.css') }}" media="all" rel="stylesheet" type="text/css"/>
-    <script src="{{ asset('bundles/assets/js/jquery-1.6.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/assets/js/menu1.js') }}" type="text/javascript"></script>
-    <style>
-        ul.menu1>li { min-width: 115px; }
-    </style>
+    ul.menu1>li { min-width: 115px; }
 {% endblock %}
+
 {% block body %}
     <div class="container">
     {% block header %}

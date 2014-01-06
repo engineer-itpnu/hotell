@@ -8,36 +8,34 @@
     {% block title %} <title>سیستم رزرواسیون هتل</title>{% endblock %}
     <script src="{{ asset('bundles/assets/js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{ asset('bundles/assets/js/html5shiv.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/assets/js/google-code-prettify/prettify.css')}}" type="text/javascript"></script>
-    <link rel="SHORTCUT ICON" href="{{ asset('bundles/assets/img/favicon.ico')}}" />
+    <link href="{{ asset('bundles/assets/img/favicon.ico')}}" rel="SHORTCUT ICON" />
     <link href="{{ asset('bundles/assets/css/font.css')}}" media="all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/assets/css/bootstrap.css')}}" media="all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/assets/css/bootstrap-responsive.css')}}" media="all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/assets/css/icons.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bundles/assets/css/js-persian-cal.css')}}" media="all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/assets/css/js-persian-cal.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bundles/assets/css/alert.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/assets/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/css/menu1.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/css/style.css') }}" media="all" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1.0, user-scalable=0">
     <style type="text/css">
         body {
             margin: 0;
-            font-family: parsfont,Tahoma;
+            font-family: parsfont,Tahoma,serif;
             -webkit-font-smoothing: antialiased;
-            background-repeat: repeat-x;
-            background-image: url('{{ asset('bundles/assets/img/BackBody.png')}}');
+            background: url('{{ asset('bundles/assets/img/BackBody.png')}}') repeat-x;
             display: block;
         }
         .HomeBaner {
             height: 100px;
-            background-position: center ;
             max-width: 100%;
-            background-image: url('{{ asset('bundles/assets/img/HoemBaner.png')}}');
-            background-repeat: no-repeat;
+            background: url('{{ asset('bundles/assets/img/HoemBaner.png')}}') no-repeat center;
         }
+        {% block stylesheet %}
+        {% endblock %}
     </style>
 
-    {% block stylesheet %}
-    {% endblock %}
 </head>
 <body dir="rtl">
 <div class="popupshow"></div>
@@ -46,24 +44,8 @@
 {% endblock %}
 {% block javascript %}
 {% endblock %}
+<script src="{{ asset('bundles/assets/js/menu1.js') }}" type="text/javascript"></script>
 <script src="{{ asset("bundles/assets/js/alert.js") }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/application.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-affix.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-alert.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-button.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-carousel.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-collapse.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-dropdown.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-modal.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-popover.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-scrollspy.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-tab.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-tooltip.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-transition.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/bootstrap-typeahead.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/google-code-prettify/prettify.js')}}" type="text/javascript"></script>
-<script src="{{ asset('bundles/assets/js/holder/holder.js')}}" type="text/javascript"></script>
 <script src="{{ asset("bundles/assets/js/js-persian-cal.min.js") }}" type="text/javascript"></script>
 
 <script type="text/javascript">
