@@ -116,7 +116,7 @@
                                 <td>{{ entity.StockHotel }}</td>
                                 <td>{{ entity.StockAgency }}</td>
                                 <td>{{ entity.NumberPey }}</td>
-                                <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime) }}{% endif %}</td>
+                                <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime,true) }}{% endif %}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
