@@ -21,6 +21,7 @@ class financialAccountsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->user;
         $builder
             ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
                 'required'=>false,'empty_value' => 'همه انواع ',
@@ -29,17 +30,17 @@ class financialAccountsType extends AbstractType
             ->add('toDateTime','shamsi_date',array('required'=>false))
             ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($user) {
                     $er = $er->createQueryBuilder('u');
-                    if($this->user && $this->user->hasRole("ROLE_AGENCY")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
+                    if($user && $user->hasRole("ROLE_AGENCY")) $er->where("u.userEntity = :user")->setParameter("user",$user);
                     return $er;
                 }
             ))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($user) {
                         $er = $er->createQueryBuilder('u');
-                        if($this->user && $this->user->hasRole("ROLE_HOTELDAR")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
+                        if($user && $user->hasRole("ROLE_HOTELDAR")) $er->where("u.userEntity = :user")->setParameter("user",$user);
                         return $er->groupBy("u.hotel_city");
                 }))
             ->add('hotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',

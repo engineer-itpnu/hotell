@@ -4,9 +4,10 @@ use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="blankentity")
- * @ORM\Table(indexes={@ORM\Index(name="date_in_idx", columns={"dateIN"})})
- * @ORM\Table(indexes={@ORM\Index(name="status_idx", columns={"status"})})
+ * @ORM\Table(name="blankentity", indexes={
+ *  @ORM\Index(name="date_in_idx", columns={"dateIN"}),
+ *  @ORM\Index(name="status_idx", columns={"status"})
+ * })
  */
 class blankEntity
 {

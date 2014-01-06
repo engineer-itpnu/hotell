@@ -1,14 +1,16 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="reserveentity")
- * @ORM\Table(indexes={@ORM\Index(name="Date_inp_idx", columns={"DateInp"})})
- * @ORM\Table(indexes={@ORM\Index(name="CodePey_idx", columns={"CodePey"})})
- * @ORM\Table(indexes={@ORM\Index(name="Voucher_idx", columns={"Voucher"})})
+ * @ORM\Table(name="reserveentity", indexes={
+ *  @ORM\Index(name="Date_inp_idx", columns={"DateInp"}),
+ *  @ORM\Index(name="CodePey_idx", columns={"CodePey"}),
+ *  @ORM\Index(name="Voucher_idx", columns={"Voucher"})
+ * })
  */
 class reserveEntity
 {
@@ -70,6 +72,7 @@ class reserveEntity
      * @ORM\JoinColumn(name="aid", referencedColumnName="id", nullable=true)
      */
     private $agencyEntity;
+
     /**
      * Constructor
      */
@@ -325,14 +328,14 @@ class reserveEntity
     public function setDateCreate($dateCreate)
     {
         $this->DateCreate = $dateCreate;
-    
+
         return $this;
     }
 
     /**
      * Get DateCreate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreate()
     {

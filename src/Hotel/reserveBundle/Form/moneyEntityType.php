@@ -17,6 +17,7 @@ class moneyEntityType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->user;
         $builder
             ->add('money_price',"text",array('constraints' => array(
                 new NotBlank(),
@@ -29,8 +30,8 @@ class moneyEntityType extends AbstractType
             ->add('money_branch',"text",array('required'=>true,'constraints' => array(
                 new Length(array('max' => 31)))))
             ->add('hotelEntity',null,array('required'=>true,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')->where("u.userEntity = :user")->setParameter('user', $this->user);
+                'query_builder' => function (EntityRepository $er) use ($user) {
+                    return $er->createQueryBuilder('u')->where("u.userEntity = :user")->setParameter('user', $user);
                 }))
         ;
     }

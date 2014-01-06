@@ -120,8 +120,8 @@ class HotelReportingController extends Controller
             throw $this->createNotFoundException('Unable to find reserveEntity entity.');
         }
 
-        $blank = $entity->getBlankEntities()[0];
-        if ($blank->getRoomEntity()->getHotelEntity()->getUserEntity() != $this->getUser()) {
+        $blank = $entity->getBlankEntities();
+        if ($blank[0]->getRoomEntity()->getHotelEntity()->getUserEntity() != $this->getUser()) {
             throw $this->createNotFoundException('Unable to find reserveEntity entity.');
         }
 
