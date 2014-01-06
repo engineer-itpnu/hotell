@@ -62,16 +62,18 @@ class DateConvertor
 
     /**
      * @param \DateTime $miladi
+     * @param bool $hasTime
      * @return string
      */
-    public function MiladiToShamsi(\DateTime $miladi = null)
+    public function MiladiToShamsi(\DateTime $miladi = null,$hasTime = false)
     {
         if ($miladi == null)
             return "";
 
-        $miladiarray = date_parse(date_format($miladi, "Y/m/d"));
+        $miladiarray = date_parse(date_format($miladi, "Y/m/d H:i"));
         $shamsiarray = $this->dateconvertor->gregorianToJalali($miladiarray['year'], $miladiarray['month'], $miladiarray['day']);
-        return $shamsiarray[0] . "/" . $shamsiarray[1] . "/" . $shamsiarray[2];
+        return $shamsiarray[0] . "/" . $this->addZeroBefore($shamsiarray[1]) . "/" . $this->addZeroBefore($shamsiarray[2])
+        .( $hasTime ? "  " . $this->addZeroBefore($miladiarray['hour']) . ":" .$this->addZeroBefore($miladiarray['minute']) : "" );
     }
 
     /**
@@ -92,5 +94,14 @@ class DateConvertor
         $miladiDate = $this->ShamsiToMiladi($shamsi);
 
         return (date_format($miladiDate, "w") + 1) % 7;
+    }
+
+    /**
+     * @param integer $number
+     * @return string
+     */
+    private function addZeroBefore($number)
+    {
+        return $number<10?"0".$number:$number;
     }
 }

@@ -26,12 +26,12 @@ class moneyEntity
     private $money_price;
 
     /** 
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false)
      */
     private $money_DateReq;
 
     /** 
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $money_DateReply;
 
