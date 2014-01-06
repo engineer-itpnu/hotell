@@ -68,6 +68,7 @@ class HotelMonitoringController extends Controller
                 ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
                 ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
                 ->orderBy("blank.dateIN","ASC")
+                ->orderBy("room.room_type","ASC")
             ;
             $rooms = $qb->getQuery()->getResult();
             $hotelid = $hotel->getId();
@@ -151,6 +152,7 @@ class HotelMonitoringController extends Controller
             ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
             ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
             ->orderBy("blank.dateIN","ASC")
+            ->orderBy("room.room_type","ASC")
         ;
         $rooms = $qb->getQuery()->getResult();
 

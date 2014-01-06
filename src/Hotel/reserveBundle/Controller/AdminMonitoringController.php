@@ -18,9 +18,14 @@ class AdminMonitoringController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form',array('hotel'=>'0','month'=>$now[1],'year'=>$now[0]), array('method' => 'GET','csrf_protection' => false))
+            ->add('city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
+                'property' => 'hotel_city','required'=>true,
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')->groupBy("u.hotel_city");
+                    }))
             ->add("hotel","entity",array(
                 'class' => 'HotelreserveBundle:hotelEntity',
-                'property' => 'hotel_name',
+                'property' => 'hotel_name','required'=>true,
                 'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('u')
                             ->where("u.hotel_active = :true")->setParameter("true",true);
@@ -67,6 +72,7 @@ class AdminMonitoringController extends Controller
                 ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
                 ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
                 ->orderBy("blank.dateIN","ASC")
+                ->orderBy("room.room_type","ASC")
             ;
             $rooms = $qb->getQuery()->getResult();
             $hotelid = $hotel->getId();
@@ -93,7 +99,7 @@ class AdminMonitoringController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $hotel = $em->getRepository("HotelreserveBundle:hotelEntity")->find($hotelid);
-        $user = $this->getUser();
+
         if($hotel == null)
             return $this->redirect($this->generateUrl("admin_monitoring_index"));
 
@@ -150,6 +156,7 @@ class AdminMonitoringController extends Controller
             ->setParameter("fromdate",$fromdate)->setParameter("todate",$todate)
             ->where("room.hotelEntity = :hotel")->setParameter("hotel",$hotel)
             ->orderBy("blank.dateIN","ASC")
+            ->orderBy("room.room_type","ASC")
         ;
         $rooms = $qb->getQuery()->getResult();
 
