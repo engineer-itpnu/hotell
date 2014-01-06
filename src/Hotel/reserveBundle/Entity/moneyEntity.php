@@ -21,7 +21,7 @@ class moneyEntity
     private $money_type;
 
     /** 
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $money_price;
 
@@ -41,7 +41,7 @@ class moneyEntity
     private $money_status;
 
     /** 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $money_NumBill;
 
@@ -51,12 +51,12 @@ class moneyEntity
     private $money_DateBill;
 
     /** 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=31, nullable=true)
      */
     private $money_BankName;
 
     /** 
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=31, nullable=true)
      */
     private $money_branch;
 
@@ -292,10 +292,10 @@ class moneyEntity
     /**
      * Set userEntity
      *
-     * @param \Hotel\reserveBundle\Entity\userEntity $userEntity
+     * @param userEntity $userEntity
      * @return moneyEntity
      */
-    public function setUserEntity(\Hotel\reserveBundle\Entity\userEntity $userEntity)
+    public function setUserEntity(userEntity $userEntity)
     {
         $this->userEntity = $userEntity;
     
@@ -305,7 +305,7 @@ class moneyEntity
     /**
      * Get userEntity
      *
-     * @return \Hotel\reserveBundle\Entity\userEntity 
+     * @return userEntity
      */
     public function getUserEntity()
     {
@@ -315,10 +315,10 @@ class moneyEntity
     /**
      * Set hotelEntity
      *
-     * @param \Hotel\reserveBundle\Entity\hotelEntity $hotelEntity
+     * @param hotelEntity $hotelEntity
      * @return moneyEntity
      */
-    public function setHotelEntity(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntity)
+    public function setHotelEntity(hotelEntity $hotelEntity)
     {
         $this->hotelEntity = $hotelEntity;
     
@@ -328,7 +328,7 @@ class moneyEntity
     /**
      * Get hotelEntity
      *
-     * @return \Hotel\reserveBundle\Entity\hotelEntity 
+     * @return hotelEntity
      */
     public function getHotelEntity()
     {

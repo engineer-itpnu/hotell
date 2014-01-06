@@ -1,11 +1,12 @@
 <?php
-
 namespace Hotel\reserveBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class moneyEntityType extends AbstractType
 {
@@ -16,17 +17,20 @@ class moneyEntityType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $this->user;
         $builder
-            ->add('money_price')
-            ->add('money_NumBill',null,array('required'=>true))
-            ->add('money_DateBill',"shamsi_date")
-            ->add('money_BankName',null,array('required'=>true))
-            ->add('money_branch',null,array('required'=>true))
-            ->add('hotelEntity',null,array(
-                'query_builder' => function (EntityRepository $er) use ($user) {
-
-                    return $er->createQueryBuilder('u')->where("u.userEntity = :user")->setParameter('user', $user);
+            ->add('money_price',"text",array('constraints' => array(
+                new NotBlank(),
+                new Length(array('min' => 2,'max' => 20)))))
+            ->add('money_NumBill',"text",array('required'=>true,'constraints' => array(
+                new Length(array('min' => 2,'max' => 20)))))
+            ->add('money_DateBill',"shamsi_date",array('required'=>true))
+            ->add('money_BankName',"text",array('required'=>true,'constraints' => array(
+                new Length(array('max' => 31)))))
+            ->add('money_branch',"text",array('required'=>true,'constraints' => array(
+                new Length(array('max' => 31)))))
+            ->add('hotelEntity',null,array('required'=>true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')->where("u.userEntity = :user")->setParameter('user', $this->user);
                 }))
         ;
     }

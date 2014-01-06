@@ -18,11 +18,6 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 class HotelService {
 
     /**
-     * @var array
-     */
-    private $roomTypes;
-
-    /**
      * @var DateConvertor
      */
     private $dateconvertor;
@@ -47,7 +42,6 @@ class HotelService {
         $this->dateconvertor = $dc;
         $this->em = $em;
         $this->encoderFactory = $ef;
-        $this->roomTypes = ServiceController::roomTypes();
     }
 
     //-----------------------------------------------------------------------------
@@ -362,7 +356,7 @@ class HotelService {
             //add room to hotel
             $selHotel->rooms [] = new Room(
                 $roomEntity->getRoomType(),
-                $this->roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomName(),
                 $roomEntity->getRoomCapacity(),
                 $roomEntity->getRoomAddCapacity(),
                 $sumPrices,
@@ -384,7 +378,7 @@ class HotelService {
 
             $newRoom = new Room(
                 $roomEntity->getRoomType(),
-                $this->roomTypes[$roomEntity->getRoomType()],
+                $roomEntity->getRoomName(),
                 $roomEntity->getRoomCapacity(),
                 $roomEntity->getRoomAddCapacity(),
                 $sumPrices,

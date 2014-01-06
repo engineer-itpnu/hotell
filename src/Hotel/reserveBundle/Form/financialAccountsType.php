@@ -1,5 +1,4 @@
 <?php
-
 namespace Hotel\reserveBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
@@ -7,7 +6,7 @@ use Hotel\reserveBundle\Entity\userEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ReportingReserveType extends AbstractType
+class financialAccountsType extends AbstractType
 {
     private $user;
 
@@ -23,23 +22,18 @@ class ReportingReserveType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('RfromDateTime','shamsi_date',array('required'=>false))
-            ->add('RtoDateTime','shamsi_date',array('required'=>false))
-            ->add('cust_name','text', array('required'=>false))
-            ->add('cust_family','text', array('required'=>false))
-            ->add('cust_mobile','text', array('required'=>false))
-            ->add('CodePey','text', array('required'=>false))
-            ->add('Voucher','text', array('required'=>false))
-            ->add('ReserveType','choice', array('choices' => array('1' => 'پیش رزرو', '2' => 'رزرو نهایی'),
-                'required'=>false,'empty_value' => 'همه انواع',
+            ->add('type','choice', array('choices' => array('1' => 'خرید', '2' => 'برداشت', '3' => 'واریز'),
+                'required'=>false,'empty_value' => 'همه انواع ',
             ))
-            ->add('RagencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
+            ->add('fromDateTime','shamsi_date',array('required'=>false))
+            ->add('toDateTime','shamsi_date',array('required'=>false))
+            ->add('agencyEntity','entity', array('class' => 'HotelreserveBundle:agencyEntity',
                 'property' => 'agency_name','required'=>false,'empty_value' => 'همه آژانس ها',
                 'query_builder' => function (EntityRepository $er) {
-                        $er = $er->createQueryBuilder('u');
-                        if($this->user && $this->user->hasRole("ROLE_AGENCY")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
-                        return $er;
-                    }
+                    $er = $er->createQueryBuilder('u');
+                    if($this->user && $this->user->hasRole("ROLE_AGENCY")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
+                    return $er;
+                }
             ))
             ->add('hotel_city','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                 'property' => 'hotel_city','required'=>false,'empty_value' => 'همه شهرها',
@@ -47,8 +41,8 @@ class ReportingReserveType extends AbstractType
                         $er = $er->createQueryBuilder('u');
                         if($this->user && $this->user->hasRole("ROLE_HOTELDAR")) $er->where("u.userEntity = :user")->setParameter("user",$this->user);
                         return $er->groupBy("u.hotel_city");
-                    }))
-            ->add('RhotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
+                }))
+            ->add('hotelEntity','entity', array('class' => 'HotelreserveBundle:hotelEntity',
                     'property' => 'hotel_name','required'=>false,'empty_value' => 'همه هتل ها'
                 ))
         ;

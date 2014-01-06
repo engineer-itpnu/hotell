@@ -28,7 +28,7 @@ class HotelMoneyController extends Controller
         if ($request->isMethod("post"))
         {
             $form->handleRequest($request);
-
+//            die(var_dump($form->getErrorsAsString()));
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $entity->setMoneyType(0);

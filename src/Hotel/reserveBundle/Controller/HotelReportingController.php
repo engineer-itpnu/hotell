@@ -1,8 +1,8 @@
 <?php
 namespace Hotel\reserveBundle\Controller;
 
-use Hotel\reserveBundle\Form\ReportingReserveType;
-use Hotel\reserveBundle\Form\reportingType;
+use Hotel\reserveBundle\Form\financialAccountsType;
+use Hotel\reserveBundle\Form\reservingOfHotelsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ class HotelReportingController extends Controller
     public function financialAccountsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this ->createForm(new reportingType($this->getUser()));
+        $form = $this ->createForm(new financialAccountsType($this->getUser()));
 
         $qb = $em->createQueryBuilder()
             ->select('account')
@@ -54,7 +54,7 @@ class HotelReportingController extends Controller
     public function reservingOfHotelsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $form = $this ->createForm(new ReportingReserveType($this->getUser()));
+        $form = $this ->createForm(new reservingOfHotelsType($this->getUser()));
 
         $qb = $em->createQueryBuilder()
             ->select('reserve')

@@ -1,5 +1,6 @@
 <?php
 namespace Hotel\reserveBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -16,27 +17,27 @@ class customerEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $cust_name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=31, nullable=false)
      */
     private $cust_family;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=63, nullable=false)
      */
     private $cust_email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=15, nullable=false)
      */
     private $cust_phone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=15, nullable=false)
      */
     private $cust_mobile;
 
@@ -54,8 +55,8 @@ class customerEntity
      */
     public function __construct()
     {
-        $this->accountEntities = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->reserveEntities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accountEntities = new ArrayCollection();
+        $this->reserveEntities = new ArrayCollection();
     }
 
     /**
@@ -186,10 +187,10 @@ class customerEntity
     /**
      * Add accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      * @return customerEntity
      */
-    public function addAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function addAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities[] = $accountEntities;
 
@@ -199,9 +200,9 @@ class customerEntity
     /**
      * Remove accountEntities
      *
-     * @param \Hotel\reserveBundle\Entity\accountEntity $accountEntities
+     * @param accountEntity $accountEntities
      */
-    public function removeAccountEntitie(\Hotel\reserveBundle\Entity\accountEntity $accountEntities)
+    public function removeAccountEntitie(accountEntity $accountEntities)
     {
         $this->accountEntities->removeElement($accountEntities);
     }
@@ -219,10 +220,10 @@ class customerEntity
     /**
      * Add reserveEntities
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntities
+     * @param reserveEntity $reserveEntities
      * @return customerEntity
      */
-    public function addReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
+    public function addReserveEntitie(reserveEntity $reserveEntities)
     {
         $this->reserveEntities[] = $reserveEntities;
 
@@ -232,9 +233,9 @@ class customerEntity
     /**
      * Remove reserveEntities
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntities
+     * @param reserveEntity $reserveEntities
      */
-    public function removeReserveEntitie(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntities)
+    public function removeReserveEntitie(reserveEntity $reserveEntities)
     {
         $this->reserveEntities->removeElement($reserveEntities);
     }
@@ -248,7 +249,8 @@ class customerEntity
     {
         return $this->reserveEntities;
     }
-    public function __tostring()
+
+    public function __toString()
     {
         return $this->cust_name . ' '. $this->cust_family;
     }

@@ -16,7 +16,7 @@ class accountEntity
     private $id;
 
     /** 
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     private $price;
 
@@ -26,17 +26,17 @@ class accountEntity
     private $type;
 
     /** 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $StockHotel;
 
     /** 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $StockAgency;
 
     /** 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $NumberPey;
 
@@ -220,10 +220,10 @@ class accountEntity
     /**
      * Set hotelEntity
      *
-     * @param \Hotel\reserveBundle\Entity\hotelEntity $hotelEntity
+     * @param hotelEntity $hotelEntity
      * @return accountEntity
      */
-    public function setHotelEntity(\Hotel\reserveBundle\Entity\hotelEntity $hotelEntity)
+    public function setHotelEntity(hotelEntity $hotelEntity)
     {
         $this->hotelEntity = $hotelEntity;
     
@@ -233,7 +233,7 @@ class accountEntity
     /**
      * Get hotelEntity
      *
-     * @return \Hotel\reserveBundle\Entity\hotelEntity
+     * @return hotelEntity
      */
     public function getHotelEntity()
     {
@@ -243,10 +243,10 @@ class accountEntity
     /**
      * Set agencyEntity
      *
-     * @param \Hotel\reserveBundle\Entity\agencyEntity $agencyEntity
+     * @param agencyEntity $agencyEntity
      * @return accountEntity
      */
-    public function setAgencyEntity(\Hotel\reserveBundle\Entity\agencyEntity $agencyEntity)
+    public function setAgencyEntity(agencyEntity $agencyEntity)
     {
         $this->agencyEntity = $agencyEntity;
     
@@ -256,7 +256,7 @@ class accountEntity
     /**
      * Get agencyEntity
      *
-     * @return \Hotel\reserveBundle\Entity\agencyEntity 
+     * @return agencyEntity
      */
     public function getAgencyEntity()
     {
@@ -266,10 +266,10 @@ class accountEntity
     /**
      * Set customerEntity
      *
-     * @param \Hotel\reserveBundle\Entity\customerEntity $customerEntity
+     * @param customerEntity $customerEntity
      * @return accountEntity
      */
-    public function setCustomerEntity(\Hotel\reserveBundle\Entity\customerEntity $customerEntity)
+    public function setCustomerEntity(customerEntity $customerEntity)
     {
         $this->customerEntity = $customerEntity;
     
@@ -279,7 +279,7 @@ class accountEntity
     /**
      * Get customerEntity
      *
-     * @return \Hotel\reserveBundle\Entity\customerEntity 
+     * @return customerEntity
      */
     public function getCustomerEntity()
     {
@@ -289,10 +289,10 @@ class accountEntity
     /**
      * Set reserveEntity
      *
-     * @param \Hotel\reserveBundle\Entity\reserveEntity $reserveEntity
+     * @param reserveEntity $reserveEntity
      * @return accountEntity
      */
-    public function setReserveEntity(\Hotel\reserveBundle\Entity\reserveEntity $reserveEntity)
+    public function setReserveEntity(reserveEntity $reserveEntity)
     {
         $this->reserveEntity = $reserveEntity;
     
@@ -302,7 +302,7 @@ class accountEntity
     /**
      * Get reserveEntity
      *
-     * @return \Hotel\reserveBundle\Entity\reserveEntity 
+     * @return reserveEntity
      */
     public function getReserveEntity()
     {

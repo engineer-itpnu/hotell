@@ -45,7 +45,7 @@ class DateConvertor
         try {
             $shamsiarray = explode("/", $shamsi);
 
-            if(strlen($shamsiarray[0]) == 0 || strlen($shamsiarray[1]) == 0 || strlen($shamsiarray[2]) == 0) throw new \Exception("");
+            if(strlen($shamsiarray[0]) != 4 || strlen($shamsiarray[1]) < 1 || strlen($shamsiarray[1]) > 2 || strlen($shamsiarray[2]) < 1 || strlen($shamsiarray[2]) > 2) throw new \Exception("");
 
             if ($shamsiarray[1] > 12 || $shamsiarray[2] > 31) throw new \Exception();
             if ($shamsiarray[1] > 6 && $shamsiarray[2] > 30) throw new \Exception();

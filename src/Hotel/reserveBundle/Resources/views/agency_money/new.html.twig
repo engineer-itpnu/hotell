@@ -36,7 +36,7 @@
                                 </td>
                                 <td>
                                     {{ form_errors(form.money_NumBill) }}
-                                    {{ form_widget(form.money_NumBill,{ 'attr' : {'onkeydown' : 'return ( event.ctrlKey || event.altKey
+                                    {{ form_widget(form.money_NumBill,{'required':true, 'attr' : {'onkeydown' : 'return ( event.ctrlKey || event.altKey
   || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
   || (95<event.keyCode && event.keyCode<106)
   || (event.keyCode==8) || (event.keyCode==9)
@@ -57,14 +57,14 @@
                                 </td>
                                 <td>
                                     {{ form_errors(form.money_BankName) }}
-                                    {{ form_widget(form.money_BankName,{ 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
+                                    {{ form_widget(form.money_BankName,{'required':true, 'attr' : {'onkeydown' : 'return !(48<=event.keyCode && event.keyCode<=57)&& !(95<event.keyCode && event.keyCode<111)'} }) }}
                                 </td>
                                 <td style="padding-left: 140px;">
                                     {{ form_label(form.money_branch,'نام-شماره شعبه : ') }}
                                 </td>
                                 <td>
                                     {{ form_errors(form.money_branch) }}
-                                    {{ form_widget(form.money_branch, {'required':'' }) }}
+                                    {{ form_widget(form.money_branch, {'required':true }) }}
                                 </td>
                             </tr>
 
