@@ -30,7 +30,7 @@ class AdminMonitoringController extends Controller
                         return $er->createQueryBuilder('u')
                             ->where("u.hotel_active = :true")->setParameter("true",true);
                     }))
-            ->add("year","integer",array('constraints' => array(
+            ->add("year","number",array('constraints' => array(
                 new NotBlank(),
                 new Range(array('min' => 1380,'max' => 1500))
             )))
