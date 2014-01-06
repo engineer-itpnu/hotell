@@ -105,7 +105,7 @@
                                 <td>{{ entity.agencyEntity }}</td>
                                 <td>{{ entity.customerEntity }}</td>
                                 <td>{{ entity.reserveEntity }}</td>
-                                <td>{{ entity.price }}</td>
+                                <td class="MoneyComma">{{ entity.price }}</td>
                                 <td>{% if entity.type== "1" %}
                                         خرید
                                     {% elseif entity.type== "2" %}
@@ -113,8 +113,8 @@
                                     {% elseif entity.type== "3" %}
                                         واریز
                                     {% endif %}</td>
-                                <td>{{ entity.StockHotel }}</td>
-                                <td>{{ entity.StockAgency }}</td>
+                                <td class="MoneyComma">{{ entity.StockHotel }}</td>
+                                <td class="MoneyComma">{{ entity.StockAgency }}</td>
                                 <td>{{ entity.NumberPey }}</td>
                                 <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime,true) }}{% endif %}</td>
                             </tr>

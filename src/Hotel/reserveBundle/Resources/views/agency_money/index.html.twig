@@ -41,7 +41,7 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ entity.moneyprice }}</td>
-                                <td>{% if entity.moneyDateReq %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReq,true) }}{% endif %}</td>
+                                <td class="MoneyComma">{% if entity.moneyDateReq %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReq,true) }}{% endif %}</td>
                                 <td>{% if entity.moneyDateReply %}{{ DateConvert.MiladiToShamsi(entity.moneyDateReply,true) }}{% endif %}</td>
                                 <td>
                                     {% if entity.moneystatus == 1 %}
