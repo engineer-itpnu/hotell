@@ -32,7 +32,7 @@ class Room
      * The days
      * Meta informations extracted from the WSDL
      * - maxOccurs : unbounded
-     * @var Room
+     * @var Day
      */
     public $days;
     /**
@@ -55,6 +55,7 @@ class Room
      * @param int $_price_main_capacity
      * @param array $_days
      * @param array $_freeDaysBeside
+     * @param int $_id
      * @return Room
      */
 	public function __construct($_code = NULL,$_type = NULL,$_main_capacity = NULL,$_extra_capacity = NULL,$_price_main_capacity = NULL,$_days = NULL,$_freeDaysBeside = NULL,$_id = NULL)

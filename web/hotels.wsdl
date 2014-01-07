@@ -105,6 +105,29 @@
 					<xsd:element name="days" type="tns:day" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:complexType>
+			<xsd:element name="reserve_info_request">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="code" type="xsd:string"/>
+						<xsd:element name="agency_info" type="tns:agency_info"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="reserve_info_response">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="status" type="xsd:string"/>
+						<xsd:element name="reserve_status" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="insert_date" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="in_date" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="days_count" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="final_price" type="xsd:long" minOccurs="0"/>
+						<xsd:element name="city" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="customer" type="tns:customer_info" minOccurs="0"/>
+						<xsd:element name="hotel" type="tns:hotel" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:schema>
 	</types>
 	<message name="ListRoomsIn">
@@ -125,6 +148,12 @@
 	<message name="ReserveOut">
 		<part name="reserve_response" element="tns:reserve_response"/>
 	</message>
+	<message name="ReserveInfoIn">
+		<part name="reserve_info_request" element="tns:reserve_info_request"/>
+	</message>
+	<message name="ReserveInfoOut">
+		<part name="reserve_info_response" element="tns:reserve_info_response"/>
+	</message>
 	<portType name="myPort">
 		<operation name="ListRooms">
 			<input message="tns:ListRoomsIn"/>
@@ -138,11 +167,15 @@
 			<input message="tns:ReserveIn"/>
 			<output message="tns:ReserveOut"/>
 		</operation>
+		<operation name="ReserveInfo">
+			<input message="tns:ReserveInfoIn"/>
+			<output message="tns:ReserveInfoOut"/>
+		</operation>
 	</portType>
 	<binding name="MyBinding" type="tns:myPort">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ListRooms">
-			<soap:operation soapAction="urn:#NewOperation" style="document"/>
+			<soap:operation style="document"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>
@@ -151,7 +184,7 @@
 			</output>
 		</operation>
 		<operation name="PreReserve">
-			<soap:operation soapAction="urn:#NewOperation" style="document"/>
+			<soap:operation style="document"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>
@@ -160,7 +193,16 @@
 			</output>
 		</operation>
 		<operation name="Reserve">
-			<soap:operation soapAction="urn:#NewOperation" style="document"/>
+			<soap:operation style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ReserveInfo">
+			<soap:operation style="document"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>

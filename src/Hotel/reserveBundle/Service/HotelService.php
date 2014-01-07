@@ -2,7 +2,6 @@
 namespace Hotel\reserveBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Hotel\reserveBundle\Controller\ServiceController;
 use Hotel\reserveBundle\Entity\accountEntity;
 use Hotel\reserveBundle\Entity\blankEntity;
 use Hotel\reserveBundle\Entity\customerEntity;
@@ -289,6 +288,89 @@ class HotelService {
         $this->em->flush();
 
         return new ReserveResponse($voucher,$accountEntity->getStockAgency(),"Success");
+    }
+
+    //-----------------------------------------------------------------------------
+    /**
+     * @param $input
+     * @return ReserveInfoResponse
+     */
+    public function ReserveInfo($input)
+    {
+        $ReserveInfoRequest = new ReserveInfoRequest();
+        HotelService::CopyObject($input,$ReserveInfoRequest);
+
+        //get user Agency
+        $userAgency = $this->getUserAgency($ReserveInfoRequest->agency_info);
+        if(!$userAgency)
+            return new ReserveInfoResponse("User Not Verified");
+
+        if(!$userAgency->hasRole("ROLE_AGENCY") || !$userAgency->getAgencyEntity())
+            return new ReserveInfoResponse("User is not Agency");
+
+        //get reserve code
+        if($ReserveInfoRequest->code == null || $ReserveInfoRequest->code == "")
+            return new ReserveInfoResponse("Code not Valid");
+
+        $reserveEntity = null;
+        if(strlen($ReserveInfoRequest->code)==12)
+            $reserveEntity = $this->em->getRepository("HotelreserveBundle:reserveEntity")->findOneBy(array("CodePey"=>$ReserveInfoRequest->code));
+        else if(strlen($ReserveInfoRequest->code)==14)
+            $reserveEntity = $this->em->getRepository("HotelreserveBundle:reserveEntity")->findOneBy(array("Voucher"=>$ReserveInfoRequest->code));
+
+        if(!$reserveEntity || $reserveEntity->getAgencyEntity()->getUserEntity() != $userAgency)
+            return new ReserveInfoResponse("Code is not Reserve Code or Voucher Code.");
+
+        $customer = new CustomerInfo(
+            $reserveEntity->getCustomerEntity()->getCustName(),
+            $reserveEntity->getCustomerEntity()->getCustFamily(),
+            $reserveEntity->getCustomerEntity()->getCustEmail(),
+            $reserveEntity->getCustomerEntity()->getCustPhone(),
+            $reserveEntity->getCustomerEntity()->getCustMobile()
+        );
+
+        $blanks = $reserveEntity->getBlankEntities();
+
+        $days = array();
+        $sumPrices = 0;
+        foreach ($blanks as $blank)
+        {
+            $days [] = new Day($this->dateconvertor->MiladiToShamsi($blank->getDateIN()),$blank->getTariff());
+            $sumPrices += $blank->getTariff();
+        }
+
+        $roomEntity = $blanks[0]->getRoomEntity();
+
+        $room = new Room(
+            $roomEntity->getRoomType(),
+            $roomEntity->getRoomName(),
+            $roomEntity->getRoomCapacity(),
+            $roomEntity->getRoomAddCapacity(),
+            $sumPrices,
+            $days,
+            null,
+            $roomEntity->getId()
+        );
+
+        $hotel = new Hotel(
+            $roomEntity->getHotelEntity()->getId(),
+            $roomEntity->getHotelEntity()->getHotelName(),
+            $roomEntity->getHotelEntity()->getHotelGrade(),
+            $roomEntity->getHotelEntity()->getHotelPhone(),
+            $roomEntity->getHotelEntity()->getHotelAddRoomTtariff(),
+            array($room)
+        );
+
+        return new ReserveInfoResponse("Success",
+            $reserveEntity->getVoucher()?"Reserve Finished":"Pre Reserve",
+            $this->dateconvertor->MiladiToShamsi($reserveEntity->getDateCreate(),true),
+            $this->dateconvertor->MiladiToShamsi($reserveEntity->getDateInp()),
+            $reserveEntity->getCountNight(),
+            $reserveEntity->getMoney(),
+            $roomEntity->getHotelEntity()->getHotelCity(),
+            $customer,
+            $hotel
+        );
     }
 
     //-----------------------------------------------------------------------------
