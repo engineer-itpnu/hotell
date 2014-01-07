@@ -72,7 +72,7 @@ class DateConvertor
 
         $miladiarray = date_parse(date_format($miladi, "Y/m/d H:i"));
         $shamsiarray = $this->dateconvertor->gregorianToJalali($miladiarray['year'], $miladiarray['month'], $miladiarray['day']);
-        return $shamsiarray[0] . "/" . $this->addZeroBefore($shamsiarray[1]) . "/" . $this->addZeroBefore($shamsiarray[2])
+        return $shamsiarray[0] . "/" . $shamsiarray[1] . "/" . $shamsiarray[2]
         .( $hasTime ? "  " . $this->addZeroBefore($miladiarray['hour']) . ":" .$this->addZeroBefore($miladiarray['minute']) : "" );
     }
 
