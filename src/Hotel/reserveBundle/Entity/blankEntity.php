@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="blankentity", indexes={
  *  @ORM\Index(name="date_in_idx", columns={"dateIN"}),
  *  @ORM\Index(name="status_idx", columns={"status"})
- * })
+ * }, uniqueConstraints={@ORM\UniqueConstraint(columns={"dateIN", "rid"})})
  */
 class blankEntity
 {
