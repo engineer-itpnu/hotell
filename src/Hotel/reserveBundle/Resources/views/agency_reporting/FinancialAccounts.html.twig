@@ -88,10 +88,9 @@
                             <th>هتل</th>
                             <th>آژانس</th>
                             <th>مشتری</th>
-                            <th>اتاق رزروشده</th>
+                            <th>تاریخ ورود مسافر</th>
                             <th>مبلغ(ریال)</th>
                             <th>نوع</th>
-                            <th>موجودی هتل</th>
                             <th>موجودی آژانس</th>
                             <th>شماره پیگیری بانک</th>
                             <th>تاریخ</th>
@@ -101,10 +100,34 @@
                         {% for entity in entities %}
                             <tr>
                                 <td>{{ entity.id }}</td>
-                                <td>{{ entity.hotelEntity }}</td>
-                                <td>{{ entity.agencyEntity }}</td>
-                                <td>{{ entity.customerEntity }}</td>
-                                <td>{{ entity.reserveEntity }}</td>
+                                <td>
+                                    {% if entity.hotelEntity %}
+                                        {{ entity.hotelEntity }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.agencyEntity %}
+                                        {{ entity.agencyEntity }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.customerEntity %}
+                                        {{ entity.customerEntity }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.reserveEntity %}
+                                        {{ DateConvert.MiladiToShamsi(entity.reserveEntity.DateInp) }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
                                 <td class="MoneyComma">{{ entity.price }}</td>
                                 <td>{% if entity.type== "1" %}
                                         خرید
@@ -113,9 +136,14 @@
                                     {% elseif entity.type== "3" %}
                                         واریز
                                     {% endif %}</td>
-                                <td class="MoneyComma">{{ entity.StockHotel }}</td>
                                 <td class="MoneyComma">{{ entity.StockAgency }}</td>
-                                <td>{{ entity.NumberPey }}</td>
+                                <td>
+                                    {% if entity.NumberPey %}
+                                        {{ entity.NumberPey }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
                                 <td>{% if entity.DateTime %}{{ DateConvert.MiladiToShamsi(entity.DateTime,true) }}{% endif %}</td>
                             </tr>
                         {% endfor %}

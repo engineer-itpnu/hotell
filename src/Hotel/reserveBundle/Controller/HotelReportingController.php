@@ -75,6 +75,9 @@ class HotelReportingController extends Controller
                 if($data['RfromDateTime']!=null) $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
                 if($data['RtoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['toDateTime']);
 
+                if($data['CreatefromDateTime']!=null) $qb = $qb->andWhere('reserve.DateCreate >= :cfromdate')->setParameter('cfromdate',$data['CreatefromDateTime']);
+                if($data['CreatetoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateCreate <= :ctodate')->setParameter('ctodate',$data['CreatetoDateTime']);
+
                 if($data['cust_name']!="")   $qb = $qb->andWhere('reserve.cust_name LIKE :cust_name')->setParameter('cust_name',"%".$data['cust_name']."%");
                 if($data['cust_family']!="") $qb = $qb->andWhere('reserve.cust_family LIKE :cust_family')->setParameter('cust_family',"%".$data['cust_family']."%");
                 if($data['cust_mobile']!="") $qb = $qb->andWhere('reserve.cust_mobile = :cust_mobile')->setParameter('cust_mobile',$data['cust_mobile']);

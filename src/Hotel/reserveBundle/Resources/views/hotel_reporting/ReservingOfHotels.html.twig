@@ -32,6 +32,21 @@
                             </td>
                         </tr>
                         <tr>
+                            <td>تاریخ ثبت:</td>
+                        </tr>
+                        <tr>
+                            <td>از تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.CreatefromDateTime) }}
+                                {{ form_widget(form.CreatefromDateTime,{'id':'pcal3'}) }}
+                            </td>
+                            <td>تا تاریخ :</td>
+                            <td>
+                                {{ form_errors(form.CreatetoDateTime) }}
+                                {{ form_widget(form.CreatetoDateTime,{'id':'pcal4'}) }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td><br/>مشخصات مسافر:</td>
                         </tr>
                         <tr>
@@ -125,6 +140,7 @@
                             <th style="text-align: center">شهر اقامت</th>
                             <th style="text-align: center">کد پیگیری</th>
                             <th style="text-align: center">واچر</th>
+                            <th style="text-align: center">تاریخ ثبت</th>
                             <th style="text-align: center">اقدامات</th>
                         </tr>
                         </thead>
@@ -140,6 +156,7 @@
                                 <td style="text-align: center">{{ entity.blankEntities[0].roomEntity.hotelEntity.HotelCity }}</td>
                                 <td style="text-align: center">{{ entity.CodePey }}</td>
                                 <td style="text-align: center">{{ entity.Voucher }}</td>
+                                <td style="text-align: center">{{ DateConvert.MiladiToShamsi(entity.DateCreate,true) }}</td>
                                 <td>
                                     <a class="badge badge-success"
                                        href="{{ path('hotel_reporting_reserving_of_hotels_show', { 'id': entity.id }) }}">نمایش</a>
