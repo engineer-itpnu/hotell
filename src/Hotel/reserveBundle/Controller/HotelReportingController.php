@@ -72,8 +72,8 @@ class HotelReportingController extends Controller
             if($form->isValid())
             {
                 $data = $form->getData();
-                if($data['RfromDateTime']!=null) $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['fromDateTime']);
-                if($data['RtoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['toDateTime']);
+                if($data['RfromDateTime']!=null) $qb = $qb->andWhere('reserve.DateInp >= :fromdate')->setParameter('fromdate',$data['RfromDateTime']);
+                if($data['RtoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateInp <= :todate')->setParameter('todate',$data['RtoDateTime']);
 
                 if($data['CreatefromDateTime']!=null) $qb = $qb->andWhere('reserve.DateCreate >= :cfromdate')->setParameter('cfromdate',$data['CreatefromDateTime']);
                 if($data['CreatetoDateTime']!=null)   $qb = $qb->andWhere('reserve.DateCreate <= :ctodate')->setParameter('ctodate',$data['CreatetoDateTime']);

@@ -11,6 +11,7 @@ var editedRoomsString = "{";
 var deletedRoomsString = "{";
 var startDblEmpty = false;
 var weekDays = ["ش","ی","د","س","چ","پ","ج"];
+
 function timeline_header(monthType,startWeek){
     month_type = monthType;
     var dayWeek = startWeek;
@@ -44,6 +45,7 @@ function timeline_header(monthType,startWeek){
     }
 
 }
+
 function timeline_add_row_notEdit(roomId,roomType,roomName,tl_events){
 
     edited_rooms[roomId] = [];
@@ -65,7 +67,7 @@ function timeline_add_row_notEdit(roomId,roomType,roomName,tl_events){
         }
     }
 
-    var types = new Array();
+    var types = [];
     types[0]="#74b749";
     types[2]="rgb(255,0,0)";
     types[1]="#ffaa00";
@@ -134,6 +136,7 @@ function timeline_add_row_notEdit(roomId,roomType,roomName,tl_events){
     empty_this_room.sort(function(a,b){return a-b});
     empty_rooms[roomId]=empty_this_room;
 }
+
 function timeline_add_row(roomId,roomType,roomName,tl_events){
     edited_rooms[roomId] = [];
     deleted_rooms[roomId] = [];
@@ -224,12 +227,14 @@ function timeline_add_row(roomId,roomType,roomName,tl_events){
     empty_rooms[roomId]=empty_this_room;
 
 }
+
 function show_balloon(position,message){
     $('#tl-balloon-'+position).balloon({
         position: "bottom",
         contents: '<span style="text-align: right;direction: rtl;">'+message+'</span>'
     });
 }
+
 function setDblStartOrStopEmpty(roomId,day){
     var new_cost = parseInt($("#tl_cost_for_day").val());
     if (startDblEmpty === false && $('#tle-'+roomId+'-'+day).attr("style") == undefined){
@@ -288,6 +293,7 @@ function setDblStartOrStopEmpty(roomId,day){
         }
     }
 }
+
 function tl_emptyOrNot(roomId,day){
     var new_cost = parseInt($("#tl_cost_for_day").val());
     //remove point
@@ -355,6 +361,7 @@ function show_cost(cost,id){
     $(".tl-data").css("backgroundColor",'transparent');
     $('#tl-'+id).css("backgroundColor",'#ddddff');
 }
+
 function show_detail_full(detail,room,day,width_balloon){
     //alert(detail);
     $("#tl_showCost").html(detail);

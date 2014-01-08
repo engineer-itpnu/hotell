@@ -50,6 +50,7 @@
      text-align: right;
      direction: rtl;
      padding: 2px 5px 0;
+     overflow: hidden;
  }
 .timeLine .tl-row .tl-data .tl-event{
     width: 33px;

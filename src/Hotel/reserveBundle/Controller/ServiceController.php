@@ -2,6 +2,7 @@
 namespace Hotel\reserveBundle\Controller;
 
 use Hotel\reserveBundle\Service\AgencyInfo;
+use Hotel\reserveBundle\Service\CustomerInfo;
 use Hotel\reserveBundle\Service\HotelService;
 use Hotel\reserveBundle\Service\PreReserveRequest;
 use Hotel\reserveBundle\Service\PreReserveResponse;
@@ -40,31 +41,22 @@ class ServiceController extends Controller
 
     public function getAction()
     {
-        $client = new \SoapClient("http://hotel.picolig.ir/web/app_dev.php/hotelService?wsdl");
+        $client = new \SoapClient("http://localhost/hotellre/web/app_dev.php/hotelService?wsdl");
 
-        $result = $client->ListRooms(new RoomListRequest("1392/9/9","3","تهران",new AgencyInfo("mostafa","1234")));
+        $result = $client->ListRooms(new RoomListRequest("1390/10/10","2","مشهد",new AgencyInfo("agency","1234")));
         $response = new RoomListResponse();
         HotelService::CopyObject($result,$response);
-        $Status = $response->status;
-        $hotels = print_r($response->hotels,true);
-        return new Response("Status = ($Status) hotels = ($hotels)");
+        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
 
-//        $result = $client->PreReserve(new PreReserveRequest(2,2,"1392/9/12",3,2,null,new AgencyInfo("mostafa","1234"),10));
+//        $result = $client->PreReserve(new PreReserveRequest(1,3,"1390/10/10",2,2,new CustomerInfo("a","s","a@s.com","1234","1234"),new AgencyInfo("agency","1234"),null));
 //        $response = new PreReserveResponse();
 //        HotelService::CopyObject($result,$response);
-//        $customer_code = $response->customer_code;
-//        $final_price = $response->final_price;
-//        $reserve_code = $response->reserve_code;
-//        $Status = $response->status;
-//        return new Response("customer_code= $customer_code final_price= $final_price reserve_code= $reserve_code Status= $Status");
+//        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
 
 //        $result = $client->Reserve(new ReserveRequest("3",new AgencyInfo("mostafa","1234")));
 //        $response = new ReserveResponse();
 //        HotelService::CopyObject($result,$response);
-//        $balance = $response->balance;
-//        $Reserve_accept_code = $response->reserve_accept_code;
-//        $Status = $response->status;
-//        return new Response("balance= $balance Reserve_accept_code= $Reserve_accept_code Status= $Status");
+//        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
 
     }
 

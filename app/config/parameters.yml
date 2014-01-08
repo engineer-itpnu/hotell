@@ -11,4 +11,4 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: fa
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: rehqrh8Ryn8rbf9
