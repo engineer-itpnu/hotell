@@ -46,17 +46,17 @@ class ServiceController extends Controller
         $result = $client->ListRooms(new RoomListRequest("1390/10/10","2","مشهد",new AgencyInfo("agency","1234")));
         $response = new RoomListResponse();
         HotelService::CopyObject($result,$response);
-        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
+        return new Response(str_replace(array("\n"," "),array("<br/>","&nbsp;"),print_r($response,true)));
 
 //        $result = $client->PreReserve(new PreReserveRequest(1,3,"1390/10/10",2,2,new CustomerInfo("a","s","a@s.com","1234","1234"),new AgencyInfo("agency","1234"),null));
 //        $response = new PreReserveResponse();
 //        HotelService::CopyObject($result,$response);
-//        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
+//        return new Response(str_replace(array("\n"," "),array("<br/>","&nbsp;"),print_r($response,true)));
 
 //        $result = $client->Reserve(new ReserveRequest("3",new AgencyInfo("mostafa","1234")));
 //        $response = new ReserveResponse();
 //        HotelService::CopyObject($result,$response);
-//        return new Response(str_replace(["\n"," "],["<br/>","&nbsp;"],print_r($response,true)));
+//        return new Response(str_replace(array("\n"," "),array("<br/>","&nbsp;"),print_r($response,true)));
 
     }
 

@@ -128,6 +128,33 @@ class AdminReportingController extends Controller
         ));
     }
 
+    public function removePreReserveAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $reserve = $em->getRepository('HotelreserveBundle:reserveEntity')->find($id);
+
+        if (!$reserve) {
+            throw $this->createNotFoundException('Unable to find reserveEntity entity.');
+        }
+
+        if ($reserve->getVoucher()) {
+            throw $this->createNotFoundException('Reserve already Done.');
+        }
+
+        foreach($reserve->getBlankEntities() as $blank)
+        {
+            if($blank->getStatus()!=1) throw $this->createNotFoundException('Unable Delete Reserve.');
+            $blank->setStatus(0);
+            $blank->setReserveEntity(null);
+        }
+        $em->remove($reserve);
+        $em->flush();
+
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
     public function listHotelByCityAction(Request $request)
     {
         $city = $request->get("city","");

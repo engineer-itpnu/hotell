@@ -160,6 +160,11 @@
                                 <td>
                                     <a class="badge badge-success"
                                        href="{{ path('agency_reporting_reserving_of_hotels_show', { 'id': entity.id }) }}">نمایش</a>
+                                    {% if entity.Voucher is null %}
+                                        <br/>
+                                        <a class="badge badge-important YesNoMessage" header="لغو رزرو" message="آیا رزرو لغو شود"
+                                           href="{{ path('agency_reporting_reserving_of_hotels_delete', { 'id': entity.id }) }}">لغو رزرو</a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

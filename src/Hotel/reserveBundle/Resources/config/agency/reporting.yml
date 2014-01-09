@@ -10,6 +10,10 @@ agency_reporting_reserving_of_hotels_show:
     pattern:  /reservingOfHotels/{id}/show
     defaults: { _controller: HotelreserveBundle:AgencyReporting:reservingOfHotelsShow }
 
+agency_reporting_reserving_of_hotels_delete:
+    pattern:  /reservingOfHotels/{id}/delete
+    defaults: { _controller: HotelreserveBundle:AgencyReporting:removePreReserve }
+
 agency_reporting_list_hotel_by_city:
     pattern:  /listHotelByCity
     defaults: { _controller: HotelreserveBundle:AgencyReporting:listHotelByCity }

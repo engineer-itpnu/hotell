@@ -146,13 +146,13 @@ function timeline_add_row(roomId,roomType,roomName,tl_events){
     if(month_type){
         for(var i=1;i<=31;i++){
             $('.tl-row-'+roomId).append('<div class="tl-data" id="tl-'+roomId+'-'+i+'"></div>');
-            $('#tl-'+roomId+'-'+i).append('<div class="tl-click" onclick="tl_emptyOrNot('+roomId+','+i+');" ondblclick="setDblStartOrStopEmpty('+roomId+','+i+')"></div>');
+            $('#tl-'+roomId+'-'+i).append('<div class="tl-click" onclick="tl_emptyOrNot('+roomId+','+i+');" ondblclick="setDblStartOrStopEmpty('+roomId+','+i+',event)"></div>');
             $('#tl-'+roomId+'-'+i).attr("onmouseover",'show_cost("","'+roomId+'-'+i+'");');
         }
     }else{
         for(var i=1;i<=30;i++){
             $('.tl-row-'+roomId).append('<div class="tl-data" id="tl-'+roomId+'-'+i+'"></div>');
-            $('#tl-'+roomId+'-'+i).append('<div class="tl-click" onclick="tl_emptyOrNot('+roomId+','+i+');" ondblclick="setDblStartOrStopEmpty('+roomId+','+i+')"></div>');
+            $('#tl-'+roomId+'-'+i).append('<div class="tl-click" onclick="tl_emptyOrNot('+roomId+','+i+');" ondblclick="setDblStartOrStopEmpty('+roomId+','+i+',event)"></div>');
             $('#tl-'+roomId+'-'+i).attr("onmouseover",'show_cost("","'+roomId+'-'+i+'");');
         }
     }
@@ -235,61 +235,135 @@ function show_balloon(position,message){
     });
 }
 
-function setDblStartOrStopEmpty(roomId,day){
+function setDblStartOrStopEmpty(roomId,day,event){
     var new_cost = parseInt($("#tl_cost_for_day").val());
-    if (startDblEmpty === false && $('#tle-'+roomId+'-'+day).attr("style") == undefined){
-        startDblEmpty = [roomId,day];
-        $('#tl-'+roomId+'-'+day).append('<div id="tl-startDbl" onDblclick="startDblEmpty = false;$(\'#tl-startDbl\').remove();tl_emptyOrNot('+roomId+','+day+');"></div>');
+    if (startDblEmpty === false && !$('#tle-'+roomId+'-'+day).hasClass("tl-type-1")){
+        if (event.ctrlKey==1){
+            startDblEmpty = [roomId,day,true];
+            if($('#tle-'+roomId+'-'+day).hasClass("tl-type-0")){
+                $('#tl-'+roomId+'-'+day).append('<div id="tl-startDbl_null" style="top:-36px" onDblclick="startDblEmpty = false;$(\'#tl-startDbl_null\').remove();tl_emptyOrNot('+roomId+','+day+');"></div>');
+            }else{
+                $('#tl-'+roomId+'-'+day).append('<div id="tl-startDbl_null" onDblclick="startDblEmpty = false;$(\'#tl-startDbl_null\').remove();tl_emptyOrNot('+roomId+','+day+');"></div>');
+            }
+
+        }else{
+            if($('#tle-'+roomId+'-'+day).attr("style") == undefined){
+                startDblEmpty = [roomId,day,false];
+                $('#tl-'+roomId+'-'+day).append('<div id="tl-startDbl" onDblclick="startDblEmpty = false;$(\'#tl-startDbl\').remove();tl_emptyOrNot('+roomId+','+day+');"></div>');
+            }
+        }
+
 //        $('#tl-'+roomId+'-'+day).css("backgroundColor",'#aaaaff');
 
-    }else if(startDblEmpty !== false && $('#tle-'+roomId+'-'+day).attr("style") == undefined){
-        var tempStart = startDblEmpty;
-        var isNotNull = "";
-        startDblEmpty = false;
-        $("#tl-startDbl").remove();
-        if(day == tempStart[1]){
-            if(!$('#tle-'+tempStart[0]+'-'+day).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+day).hasClass("tl-type-1")){
-                $('#tl-'+tempStart[0]+'-'+day).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+day+'" style="top:-18px;background-color: #74b749;"></div>');
-                edited_rooms[tempStart[0]].push(day);
-                edited_rooms[tempStart[0]].push('cost-'+new_cost);
-                $('#tl-'+tempStart[0]+'-'+day).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+day+'");');
-                show_cost(new_cost,day);
-            }
-        }else if(day > tempStart[1]){
-            $('#tl-'+tempStart[0]+'-'+tempStart[1]).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+tempStart[1]+'" style="top:-18px;background-color: #74b749;"></div>');
-            edited_rooms[tempStart[0]].push(tempStart[1]);
-            edited_rooms[tempStart[0]].push('cost-'+new_cost);
-            $('#tl-'+tempStart[0]+'-'+tempStart[1]).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+tempStart[1]+'");');
-            for(var i=tempStart[1]+1;i<=day;i++){
-                if(!$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
-                    $('#tl-'+tempStart[0]+'-'+i).append('<div class="tl-event'+isNotNull+' tl-type-0" id="tle-'+tempStart[0]+'-'+i+'" style="top:-18px;background-color: #74b749;"></div>');
-                    edited_rooms[tempStart[0]].push(i);
+    }else if(startDblEmpty !== false){
+        if(!startDblEmpty[2]){
+            if($('#tle-'+roomId+'-'+day).attr("style") == undefined){
+                var tempStart = startDblEmpty;
+                var isNotNull = "";
+                startDblEmpty = false;
+                $("#tl-startDbl").remove();
+                if(day == tempStart[1]){
+                    if(!$('#tle-'+tempStart[0]+'-'+day).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+day).hasClass("tl-type-1")){
+                        $('#tl-'+tempStart[0]+'-'+day).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+day+'" style="top:-18px;background-color: #74b749;"></div>');
+                        edited_rooms[tempStart[0]].push(day);
+                        edited_rooms[tempStart[0]].push('cost-'+new_cost);
+                        $('#tl-'+tempStart[0]+'-'+day).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+day+'");');
+                        show_cost(new_cost,day);
+                    }
+                }else if(day > tempStart[1]){
+                    $('#tl-'+tempStart[0]+'-'+tempStart[1]).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+tempStart[1]+'" style="top:-18px;background-color: #74b749;"></div>');
+                    edited_rooms[tempStart[0]].push(tempStart[1]);
                     edited_rooms[tempStart[0]].push('cost-'+new_cost);
-                    $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+i+'");');
-                    isNotNull = "";
+                    $('#tl-'+tempStart[0]+'-'+tempStart[1]).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+tempStart[1]+'");');
+                    for(var i=tempStart[1]+1;i<=day;i++){
+                        if(!$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
+                            $('#tl-'+tempStart[0]+'-'+i).append('<div class="tl-event'+isNotNull+' tl-type-0" id="tle-'+tempStart[0]+'-'+i+'" style="top:-18px;background-color: #74b749;"></div>');
+                            edited_rooms[tempStart[0]].push(i);
+                            edited_rooms[tempStart[0]].push('cost-'+new_cost);
+                            $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+i+'");');
+                            isNotNull = "";
+                        }else{
+                            isNotNull = "-first";
+                        }
+                    }
+                    show_cost(new_cost,day);
                 }else{
-                    isNotNull = "-first";
+                    $('#tl-'+tempStart[0]+'-'+day).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+day+'" style="top:-18px;background-color: #74b749;"></div>');
+                    edited_rooms[tempStart[0]].push(day);
+                    edited_rooms[tempStart[0]].push('cost-'+new_cost);
+                    $('#tl-'+tempStart[0]+'-'+day).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+day+'");');
+                    for(var i=day+1;i<=tempStart[1];i++){
+                        if(!$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
+                            $('#tl-'+tempStart[0]+'-'+i).append('<div class="tl-event'+isNotNull+' tl-type-0" id="tle-'+tempStart[0]+'-'+i+'" style="top:-18px;background-color: #74b749;"></div>');
+                            edited_rooms[tempStart[0]].push(i);
+                            edited_rooms[tempStart[0]].push('cost-'+new_cost);
+                            $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+i+'");');
+                            isNotNull = "";
+                        }else{
+                            isNotNull = "-first";
+                        }
+                        //alert("2-"+i);
+                    }
+                    show_cost(new_cost,tempStart[1]);
                 }
             }
-            show_cost(new_cost,day);
         }else{
-            $('#tl-'+tempStart[0]+'-'+day).append('<div class="tl-event-first tl-type-0" id="tle-'+tempStart[0]+'-'+day+'" style="top:-18px;background-color: #74b749;"></div>');
-            edited_rooms[tempStart[0]].push(day);
-            edited_rooms[tempStart[0]].push('cost-'+new_cost);
-            $('#tl-'+tempStart[0]+'-'+day).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+day+'");');
-            for(var i=day+1;i<=tempStart[1];i++){
-                if(!$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
-                    $('#tl-'+tempStart[0]+'-'+i).append('<div class="tl-event'+isNotNull+' tl-type-0" id="tle-'+tempStart[0]+'-'+i+'" style="top:-18px;background-color: #74b749;"></div>');
-                    edited_rooms[tempStart[0]].push(i);
-                    edited_rooms[tempStart[0]].push('cost-'+new_cost);
-                    $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("'+new_cost+'","'+tempStart[0]+'-'+i+'");');
-                    isNotNull = "";
+            if(!$('#tle-'+roomId+'-'+day).hasClass("tl-type-1")){
+                var tempStart = startDblEmpty;
+                startDblEmpty = false;
+                $("#tl-startDbl_null").remove();
+
+                if(day >= tempStart[1]){
+                    for(var i=tempStart[1];i<=day;i++){
+                        if($('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
+                            $('#tle-'+tempStart[0]+'-'+i).remove();
+                            $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("","'+tempStart[0]+'-'+i+'");');
+                            var temp_empty_rooms = empty_rooms[tempStart[0]];
+                            var indexRoomDayEdited = temp_empty_rooms.indexOf(i.toString());
+                            if(indexRoomDayEdited >= 0){
+                                temp_empty_rooms.splice(indexRoomDayEdited,1);
+                                deleted_rooms[tempStart[0]].push(i);
+                                deleted_rooms[tempStart[0]].sort(function(a,b){return a-b});
+                            }
+                            empty_rooms[tempStart[0]] = temp_empty_rooms;
+
+                            var temp_edited_rooms = edited_rooms[tempStart[0]];
+                            indexRoomDayEditedNew = temp_edited_rooms.indexOf(i);
+                            if(indexRoomDayEditedNew >= 0){
+                                temp_edited_rooms.splice(indexRoomDayEditedNew,2);
+                            }
+                            edited_rooms[tempStart[0]] = temp_edited_rooms;
+                        }
+                    }
+                    if($('#tle-'+roomId+'-'+(day+1)).hasClass("tl-type-0")){
+                        $('#tle-'+roomId+'-'+(day+1)).removeClass("tl-event");
+                        $('#tle-'+roomId+'-'+(day+1)).addClass("tl-event-first");
+                    }
+
                 }else{
-                    isNotNull = "-first";
+                    for(var i=day;i<=tempStart[1];i++){
+                        if($('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-0") && !$('#tle-'+tempStart[0]+'-'+i).hasClass("tl-type-1")){
+                            $('#tle-'+tempStart[0]+'-'+i).remove();
+                            $('#tl-'+tempStart[0]+'-'+i).attr("onmouseover",'show_cost("","'+tempStart[0]+'-'+i+'");');
+                            var temp_empty_rooms = empty_rooms[tempStart[0]];
+                            var indexRoomDayEdited = temp_empty_rooms.indexOf(i.toString());
+                            if(indexRoomDayEdited >= 0){
+                                temp_empty_rooms.splice(indexRoomDayEdited,1);
+                                deleted_rooms[tempStart[0]].push(i);
+                                deleted_rooms[tempStart[0]].sort(function(a,b){return a-b});
+                            }
+                            empty_rooms[tempStart[0]] = temp_empty_rooms;
+
+                            var temp_edited_rooms = edited_rooms[tempStart[0]];
+                            indexRoomDayEditedNew = temp_edited_rooms.indexOf(i);
+                            if(indexRoomDayEditedNew >= 0){
+                                temp_edited_rooms.splice(indexRoomDayEditedNew,2);
+                            }
+                            edited_rooms[tempStart[0]] = temp_edited_rooms;
+                        }
+                    }
                 }
-                //alert("2-"+i);
             }
-            show_cost(new_cost,tempStart[1]);
         }
     }
 }
