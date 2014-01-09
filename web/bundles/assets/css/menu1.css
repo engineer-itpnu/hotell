@@ -76,8 +76,9 @@ ul.menu1>li.login_form>img{
 
 ul.menu1>li.login_form form{
 	position : absolute;
-	width : 239px;
-	padding : 20px 0;
+	width : 160px;
+	padding : 20px 20px;
+    line-height: 30px !important;
 }
 
 ul.menu1>li.login_form>a, ul.menu1>li.login_form>a>img{
@@ -121,7 +122,6 @@ ul.menu1>li.login_form input{
 ul.menu1>li.login_form button{
 	background-color : white;
     height: 28px;
-
 	float : left;
 	border : none;
 	font-family :  'Segoe UI Semibold', 'Segoe UI', 'Helvetica', 'Arial', sans-serif;

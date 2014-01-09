@@ -1,6 +1,6 @@
 login_page:
     pattern:  /
-    defaults: { _controller: FOSUserBundle:Security:login }
+    defaults: { _controller: HotelreserveBundle:Security:login }
 
 admin:
     resource: "@HotelreserveBundle/Resources/config/admin/admin.yml"

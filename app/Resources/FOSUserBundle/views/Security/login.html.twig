@@ -24,14 +24,17 @@
                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
             </a>
         {% endif %}
-        {% if error %}
-            <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-        {% endif %}
     </div>
     <div class="form" style="background-color: #a9302a; width: 480px;height: 280px;text-align: right;">
         <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
             <img src="{{ asset('bundles/assets/img/Login.png') }}" class="img-circle" style="margin: 10px;">
+
+            {% if error %}
+            <span style="color: #fff">
+                {{ error|trans({}, 'FOSUserBundle') }}
+            </span>
+            {% endif %}
             <table>
                 <tr>
                     <td>

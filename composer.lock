@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "91ee2fe3e6c9b8235d904b0ccca1604a",
+    "hash": "f7692d482948d94a0ad5f2c0e42ca83f",
     "packages": [
         {
             "name": "ce/jalali-date-bundle",

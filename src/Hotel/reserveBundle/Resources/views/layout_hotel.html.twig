@@ -36,16 +36,17 @@
                                     <li><a href="{{ path('hotel_reporting_reserving_of_hotels') }}">رزرواسیون هتل ها</a></li>
                                 </ul>
                             </li>
-                            <li class="login_form"><a href="#"><img
-                                            src="{{ asset('bundles/assets/img/login_icon.png') }}"></a>
-
-                                <form action="{{ path('fos_user_security_logout') }}">
-                                    <ul>
-                                        <li><input disabled type="text"
-                                                   placeholder="{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}">
-                                        </li>
-                                    </ul>
-                                    <button class="btn-danger btn-mini" style="margin-left: 22px">خروج</button>
+                            <li class="login_form"><a href="#"><img src="{{ asset('bundles/assets/img/login_icon.png') }}"></a>
+                                <form>
+                                    نام کاربری:
+                                    <b>{{ app.user.username }}</b><br/>
+                                    نام:
+                                    <b>{{ app.user.UserFirstname }} {{ app.user.UserFamily }}</b><br/>
+                                    نوع کاربر:
+                                    <b>
+                                            هتل دار
+                                    </b><br/>
+                                    <a class="btn btn-danger" style="line-height: 20px" href="{{ path('fos_user_security_logout') }}">خروج</a>
                                 </form>
                             </li>
                         </ul>

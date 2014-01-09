@@ -22,17 +22,12 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface
     function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         if ($this->security->isGranted('ROLE_ADMIN'))
-        {
-            $response = new RedirectResponse($this->router->generate('a_main'));
-        }
-        elseif ($this->security->isGranted('ROLE_HOTELDAR'))
-        {
-            $response = new RedirectResponse($this->router->generate('h_main'));
-        }
-        elseif ($this->security->isGranted('ROLE_AGENCY'))
-        {
-            $response = new RedirectResponse($this->router->generate('g_main'));
-        }
-        return $response;
+            return new RedirectResponse($this->router->generate('a_main'));
+        if ($this->security->isGranted('ROLE_HOTELDAR'))
+            return new RedirectResponse($this->router->generate('h_main'));
+        if ($this->security->isGranted('ROLE_AGENCY'))
+            return new RedirectResponse($this->router->generate('g_main'));
+
+        return new RedirectResponse($this->router->generate('login_page'));
     }
 }
