@@ -6,8 +6,10 @@ use Hotel\reserveBundle\Entity\blankEntity;
 use Hotel\reserveBundle\Entity\roomEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
 
 class HotelMonitoringController extends Controller
 {
@@ -27,8 +29,10 @@ class HotelMonitoringController extends Controller
                             ->where("u.hotel_active = :true")->setParameter("true",true)
                             ->andWhere("u.userEntity = :user")->setParameter("user",$user);
                     }))
-            ->add("year","integer",array('constraints' => array(
+            ->add("year","text",array('constraints' => array(
                 new NotBlank(),
+                new Length(array('min' => 4,'max' => 4)),
+                new Type(array('type'=> 'numeric')),
                 new Range(array('min' => 1380,'max' => 1500))
             )))
             ->add("month","choice",array("choices"=>array(
