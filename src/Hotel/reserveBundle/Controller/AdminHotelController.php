@@ -10,6 +10,9 @@ class AdminHotelController extends Controller
 {
     public function indexAction()
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("hotel_page",1));
+        $this->getRequest()->getSession()->set("hotel_page",$page);
+
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder()
@@ -19,7 +22,7 @@ class AdminHotelController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb->getQuery(),
-            $this->get('request')->query->get('page', 1),
+            $page,
             10
         );
 

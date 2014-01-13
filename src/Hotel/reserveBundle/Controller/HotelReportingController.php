@@ -11,6 +11,9 @@ class HotelReportingController extends Controller
 {
     public function financialAccountsAction(Request $request)
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("account_page",1));
+        $this->getRequest()->getSession()->set("account_page",$page);
+
         $em = $this->getDoctrine()->getManager();
         $form = $this ->createForm(new financialAccountsType($this->getUser()));
 
@@ -41,7 +44,7 @@ class HotelReportingController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb->getQuery(),
-            $this->get('request')->query->get('page', 1),
+            $page,
             10
         );
 
@@ -53,6 +56,9 @@ class HotelReportingController extends Controller
 
     public function reservingOfHotelsAction(Request $request)
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("reserve_page",1));
+        $this->getRequest()->getSession()->set("reserve_page",$page);
+
         $em = $this->getDoctrine()->getManager();
         $form = $this ->createForm(new reservingOfHotelsType($this->getUser()));
 
@@ -103,7 +109,7 @@ class HotelReportingController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb->getQuery(),
-            $this->get('request')->query->get('page', 1),
+            $this->get('request')->query->get('page', $page),
             10
         );
 

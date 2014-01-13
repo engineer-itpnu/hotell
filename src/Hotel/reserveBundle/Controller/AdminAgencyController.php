@@ -10,6 +10,9 @@ class AdminAgencyController extends Controller
 {
     public function indexAction()
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("agency_page",1));
+        $this->getRequest()->getSession()->set("agency_page",$page);
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('HotelreserveBundle:agencyEntity')->findAll();
@@ -17,7 +20,7 @@ class AdminAgencyController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $entities,
-            $this->get('request')->query->get('page', 1),
+            $page,
             10
         );
 

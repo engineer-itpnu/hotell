@@ -9,6 +9,9 @@ class AdminCustomerController extends Controller
 {
     public function indexAction()
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("customer_page",1));
+        $this->getRequest()->getSession()->set("customer_page",$page);
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('HotelreserveBundle:customerEntity')->findAll();
@@ -16,7 +19,7 @@ class AdminCustomerController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $entities,
-            $this->get('request')->query->get('page', 1),
+            $page,
             10
         );
 

@@ -11,6 +11,9 @@ class AdminUserController extends Controller
 {
     public function indexAction($usertype)
     {
+        $page = $this->getRequest()->get("page", $this->getRequest()->getSession()->get("user_page",1));
+        $this->getRequest()->getSession()->set("user_page",$page);
+
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder()
@@ -21,7 +24,7 @@ class AdminUserController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb->getQuery(),
-            $this->get('request')->query->get('page', 1),
+            $page,
             10
         );
         return $this->render('HotelreserveBundle:admin_user:index.html.twig', array(
