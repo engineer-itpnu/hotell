@@ -10,11 +10,5 @@ vendor/*
 .idea/workspace.xml
 
 *.php~
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
-path/to/emptydir/*
-!path/to/emptydir/README.emptydir
-path/to/otheremptydir/*
-!path/to/otheremptydir/README.emptydir
+# Ignore all emacs backup files
+*~
