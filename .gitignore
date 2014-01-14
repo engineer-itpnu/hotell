@@ -5,7 +5,7 @@ app/bootstrap*
 vendor/*
 */logs/*
 */cache/*
-
+README.md
 # phpstorm
 .idea/workspace.xml
 
