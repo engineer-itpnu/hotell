@@ -14,3 +14,7 @@ vendor/*
 *
 # Except this file
 !.gitignore
+path/to/emptydir/*
+!path/to/emptydir/README.emptydir
+path/to/otheremptydir/*
+!path/to/otheremptydir/README.emptydir
