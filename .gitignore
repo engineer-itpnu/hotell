@@ -11,4 +11,4 @@ vendor/*
 
 *.php~
 # Ignore all emacs backup files
-*~
+*.md
