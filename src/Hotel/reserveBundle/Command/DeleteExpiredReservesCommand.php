@@ -10,40 +10,5 @@ class DeleteExpiredReservesCommand extends ContainerAwareCommand
 {
     private $expireDays = 1;
 
-    protected function configure()
-    {
-        $this
-            ->setName('reserves:expired:delete')
-            ->setDescription('Delete '.$this->expireDays.' day(s) old Reserves.')
-        ;
-    }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $dateExpire = new \DateTime();
-        $dateExpire->sub(new \DateInterval("P".$this->expireDays."D"));
-
-        $em = $this->getContainer()->get("doctrine.orm.entity_manager");
-        $qb = $em->createQueryBuilder()
-            ->select("r")
-            ->from("HotelreserveBundle:reserveEntity","r")
-            ->innerJoin("r.blankEntities","b")
-            ->where("b.status = :status")->setParameter("status","1")
-            ->andWhere("r.DateCreate < :dateExpire")->setParameter("dateExpire",$dateExpire)
-            ;
-        $reserves = $qb->getQuery()->getResult();
-
-        foreach($reserves as $reserve)
-        {
-            foreach($reserve->getBlankEntities() as $blank)
-            {
-                $blank->setStatus(0);
-                $blank->setReserveEntity(null);
-            }
-            $em->remove($reserve);
-        }
-        $em->flush();
-
-        $output->writeln("count: ".count($reserves));
-    }
 }
