@@ -5,8 +5,12 @@ app/bootstrap*
 vendor/*
 */logs/*
 */cache/*
+test/*
 
 # phpstorm
 .idea/workspace.xml
 
 *.php~
+# Ignore all emacs backup files
+*.md~
+git rm README.md~
